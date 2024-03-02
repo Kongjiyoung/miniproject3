@@ -1,0 +1,53 @@
+{{> layout/header}}
+<div class="d-flex justify-content-center"><a href="../index.html"><img src="/images/logo.png" alt=""></a></div>
+<div style="margin-top: 100px; margin-bottom: 100px;">
+    <div class="d-flex justify-content-center">
+        <h2>기업 회원</h2>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="border rounded p-3 m-3 shadow" style="width: 300px;">
+            <form action="/company/join" method="post">
+                <div class="form-group form-floating m-3 mx-auto">
+                    <!-- id="" label for="" 안의 값이 같아야 연동됨 -->
+                    <!-- TODO: placeholder를 넣지 않는 방식 -->
+                    <input type="text" name="" class="form-control" id="" required>
+                    <!-- <input type="text" name="" class="form-control" id="" placeholder="회사명" required> -->
+                    <label for="">회사명</label>
+                </div>
+                <!-- <div class="form-group form-floating m-3 mx-auto">
+                    <input type="text" name="" class="form-control" id="" required>
+                    <label for="">회사 주소</label>
+                </div> -->
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="text" name="" maxlength="10" class="form-control" id="" required>
+                    <label for="">사업자 번호</label>
+                </div>
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="text" name="managerName" class="form-control" id="" required>
+                    <label for="">담당자 이름</label>
+                </div>
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="email" name="email" class="form-control" id="" required>
+                    <label for="">담당자 이메일</label>
+                </div>
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="password" name="password" class="form-control" id="" required>
+                    <label for="">비밀번호</label>
+                </div>
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="password" class="form-control" id="" required>
+                    <label for="">비밀번호 확인</label>
+                </div>
+                <!-- 비밀번호 체크 확인 알림창 -->
+                <div id="passwordCheckAlert"> </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" href="#" class="btn btn-outline-primary mb-3 mt-4" style="width: 100%">가입하기</button>
+                </div>
+            </form>
+            <div class="text-center sj_login_join">
+                <p><a href="#">이미 회원이신가요?</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{{> layout/footer}}

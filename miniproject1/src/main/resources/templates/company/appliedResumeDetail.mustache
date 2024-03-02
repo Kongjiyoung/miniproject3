@@ -1,0 +1,157 @@
+{{> layout/header}}
+
+<div class="container d-flex">
+    <div class=" mx-2 pb-4 w-100">
+        <div class="border border-tertiary p-5 rounded shadow">
+            <h1>저는 코딩을 잘 합니다.</h1>
+            <hr>
+            <div class="d-flex justify-content-center">
+                <div style="width: 85%;">
+                    <div class="jh_resume_flexbox mt-3">
+                        <div style="width: 188px; height: 226px;">
+                            <img src="/images/person02.jpg" alt="이력서 사진" style="width: 100%; height: 100%;">
+                        </div>
+                        <table class="jh_resume_table">
+                            <tr>
+                                <td>이름</td>
+                                <td>이서현</td>
+                            </tr>
+                            <tr>
+                                <td>생년월일</td>
+                                <td>2000-08-09</td>
+                            </tr>
+                            <tr>
+                                <td>연락처</td>
+                                <td>010-1234-5678</td>
+                            </tr>
+                            <tr>
+                                <td>주소</td>
+                                <td>부산시 부산진구 모처</td>
+                            </tr>
+                            <tr>
+                                <td>이메일</td>
+                                <td><a href="mailto:ssar@nate.com"
+                                       style=" color: black; font-weight: bold;">ssar@nate.com</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mt-5">
+                        <h4>포트폴리오 주소</h4>
+                        <a href="#"
+                           style=" color: black; font-weight: bold;">https://github.com/codingspecialist</a>
+                    </div>
+                    <div class="mt-5 jh_resume_skill">
+                        <h4>기술스택</h4>
+                        <div>
+                            <ul>
+                                <!-- 반복문 -->
+                                <li>JAVA</li>
+                                <li>Flutter</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <h4>자기소개</h4>
+                        <textarea name="resume_content" class="w-100 opacity-50" rows="10" readOnly>저는 성격도 좋고 코딩도 잘 합니다.
+                           </textarea>
+                    </div>
+                    <div class="d-flex mt-4 justify-content-center">
+                        <table>
+                            <tr>
+                                <td><b>네이버</b>에 지원한 이력서</td>
+                                <!-- 합격 시작 -->
+                                <td>
+                                    <!-- 합격 버튼 시작 -->
+                                    <div class="px-2">
+                                        <button type="button" class="btn btn-outline-success" id="btnPass"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal">합격</button>
+                                    </div>
+                                    <!-- 합격 버튼 끝 -->
+                                    <!-- 합격 버튼 누르면 나오는 모달 시작 -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">합격 메시지를 보내주세요
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <label for="message-text"
+                                                                   class="col-form-label">Message:</label>
+                                                            <textarea class="form-control"
+                                                                      id="message-text"></textarea>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-dark"
+                                                            data-bs-dismiss="modal">취소하기</button>
+                                                    <button type="button" class="btn init_color"
+                                                            onclick="confirmSendMessage()">메시지 보내기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 합격 버튼 누르면 나오는 모달 끝 -->
+                                    <script>
+                                        function confirmSendMessage() {
+                                            if (confirm("정말로 메세지를 보내시겠습니까?")) {
+                                                alert("메세지를 보냈습니다!");
+                                            }
+                                        }
+                                    </script>
+                                </td>
+                                <!-- 합격 끝 -->
+                                <!-- 불합격 시작 -->
+                                <td>
+                                    <div class="px-2">
+                                        <button type="button" id="btnFail" class="btn btn-outline-danger"
+                                                onclick="doublecheckMessage()">불합격</button>
+                                    </div>
+                                </td>
+                                <script>
+                                    function doublecheckMessage() {
+                                        if (confirm("정말로 불합격 처리를 하시겠습니까?")) {
+                                            alert("불합격 처리가 되었습니다.");
+                                        }
+                                    }
+                                </script>
+                                <!-- 불합격 끝 -->
+                                <!-- 합격/불합격 버튼 누르면 버튼 사라지고 아래가 선택적으로 생기게 -->
+                                <td id="statusPass" style="color: rgb(1, 1, 167); display: none;"><b>
+                                    &nbsp&nbsp&nbsp 합격 처리
+                                </b>
+                                </td>
+                                <td id="statusFail" style="color: rgb(172, 1, 1); display: none;"><b>
+                                    &nbsp&nbsp&nbsp 불합격
+                                    처리</b>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- 제안하기 버튼 잘못 들어간 듯. 있을 이유가 없어보임. 모를 일이지-->
+                        <!--
+                        <div class="px-2">
+                            <button type="button" class="btn btn-light">제안하기</button>
+                        </div>
+                    -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 시작 -->
+    <div class="list-group mx-2">
+        <a href="/view/company/info.html" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
+        <a href="/view/company/posts.html" class="list-group-item shadow">공고 관리</a>
+        <a href="/view/company/getResume.html" class="list-group-item hs_list_effect shadow">받은 이력서</a>
+        <a href="/view/company/scrap.html" class="list-group-item shadow">스크랩한 이력서</a>
+        <a href="/view/company/offers.html" class="list-group-item shadow">제안한 이력서</a>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 끝 -->
+</div>
+{{> layout/footer}}

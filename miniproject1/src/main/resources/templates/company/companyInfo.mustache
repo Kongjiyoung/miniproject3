@@ -1,0 +1,79 @@
+{{> layout/header}}
+<div class="container d-flex">
+    <div class=" mx-2 pb-4 w-100">
+        <div class="border p-5 rounded shadow">
+            <div class="d-flex justify-content-between">
+                <h1 class="d-inline-flex">네이버</h1>
+                <!-- 수정하기 버튼 아래로 옮기기 -->
+                <!-- <button type="button" class="btn btn-dark" style="width:100px; height:40px;">수정하기</button> -->
+            </div>
+            <hr>
+            <img src="/images/naver.png" class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25" alt="회사 로고">
+            <div>
+                <div class="container w-50 mt-5 text ">
+                    <form action="/company/info/update" method="post">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text justify-content-center hs_span_size init_color hs_span">회사명</span>
+                            <input type="text" class="form-control" value="네이버(주)" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text justify-content-center hs_span_size init_color hs_span">회사주소</span>
+                            <input type="text" class="form-control" value="경기도 성남시 분당구 정자일로 95 (우)13561" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text justify-content-center hs_span_size init_color hs_span">대표자</span>
+                            <input type=" text" class="form-control" value="최수연" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업자
+                  번호</span>
+                            <input type="text" class="form-control" value="220-81-62517" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">설립
+                  연도</span>
+                            <input type="text" class="form-control" value="1999. 06. 02." readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text justify-content-center hs_span_size init_color hs_span">사원수</span>
+                            <input type="text" class="form-control" value="4,189명" readonly>
+                        </div>
+                        <div class="mt-5">
+                            <h4 class="border-bottom pb-4">담당자 정보</h4>
+                        </div>
+                        <br>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">이름</span>
+                            <input type="text" class="form-control" value="성시경" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">연락처</span>
+                            <input type="text" class="form-control" value="010-1234-5678" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이메일</span>
+                            <input type="text" class="form-control" value="moda@naver.com" readonly>
+                        </div>
+                        <!-- 수정완료 버튼 하단으로 수정 -->
+                        <div id="checkAlertBox"></div>
+                        <!-- <div class="d-inline-flex align-self-center justify-content-center mt-5 w-100"> -->
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" href="" class="btn btn-outline-success mb-3 mt-4" style="width: 100%">수정하기</button>
+                        </div>
+                        <!-- </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 시작 -->
+    <div class="list-group mx-2">
+        <a href="#" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
+        <a href="#" class="list-group-item shadow">공고 관리</a>
+        <a href="#" class="list-group-item hs_list_effect shadow">받은 이력서</a>
+        <a href="#" class="list-group-item shadow">스크랩한 이력서</a>
+        <a href="#" class="list-group-item shadow">제안한 이력서</a>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 끝 -->
+</div>
+{{> layout/footer}}

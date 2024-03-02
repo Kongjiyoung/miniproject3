@@ -1,0 +1,30 @@
+{{> layout/header}}
+<div style="margin-top: 100px; margin-bottom: 100px;">
+    <div class="d-flex justify-content-center mb-4">
+        <h2>개인 회원</h2>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="border rounded p-3 m-3 shadow" style="width: 300px;">
+            <form action="/person/login" method="post">
+                <!-- 양자택일해야함 여기부터 -->
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="text" name="" class="form-control" id="" required>
+                    <label for="">사용자 이메일</label>
+                </div>
+
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="password" name="" class="form-control" id="" required>
+                    <label for="">password</label>
+                </div>
+                <!-- 여기까지 -->
+                <div style="width: 100%;">
+                    <button type="submit" class="btn btn-outline-success mb-3" style="width: 100%">로그인</button>
+                </div>
+            </form>
+            <div class="text-center sj_login_join">
+                <p><a href="#" style="color: #699b22;">아직 회원이 아니신가요?</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{{> layout/footer}}

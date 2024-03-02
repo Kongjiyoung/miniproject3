@@ -1,0 +1,69 @@
+{{> /layout/header}}
+
+<div class="container d-flex">
+    <div class="justify-content-center mx-2 pb-4 w-100">
+        <div class="border border-tertiary p-5 rounded shadow">
+            <h1 class="d-inline-flex">구직 제안 메일 입력하기</h1>
+            <hr>
+            <form action="#" method="post">
+                <div class="px-5 mt-5">
+                    <h5><b>구직 제안 메일 제목</b></h5>
+                    <input class="form-control" type="text" name="title" required>
+                    <div class="pt-4">
+                        <hr class="d-inline-flexw-100">
+                    </div>
+                    <div class="pt-2 mt-4">
+                        <div class="mt-4">
+                            <h5><b>메일 내용</b></h5>
+                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                                <input class="form-control border-0" type="text" name="cIntro" required>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h5><b>채용공고 선택</b></h5>
+                            <select name="occupation" class="selectpicker" data-style="btn-info"
+                                    style=" height: 35px;">
+                                <option value="1" selected>백엔드 개발자</option>
+                                <option value="2">프론트엔드 개발자</option>
+                                <option value="3">엔지니어</option>
+                                <option value="4">퍼블리셔</option>
+                            </select>
+                        </div>
+                        <div class="mt-4 mb-4">
+                            <h5><b>기업 정보</b></h5>
+                            <div class="border border-tertiary ps-5 pe-2 pt-3 d-inline-flex mb-3 w-100">
+                                <table class="table table-borderless pt-5 ms-5">
+                                    <tr class="pb-5">
+                                        <th>사원수</th>
+                                        <td>25명</td>
+                                        <th>대표자</th>
+                                        <td>최주호</td>
+                                    </tr>
+                                    <tr>
+                                        <th>설립년도</th>
+                                        <td>2020-03-05</td>
+                                        <th>전화번호</th>
+                                        <td>010-1234-5678</td>
+                                    </tr>
+                                    <tr>
+                                        <th>주소</th>
+                                        <td>부산시 해운대구 모처</td>
+                                        <th>이메일</th>
+                                        <td>ssar@nate.com</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="/view/company/offers.html" class="btn btn-outline-primary mb-3"
+                               style="width: 100%">메일보내기</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{{> /layout/footer}}

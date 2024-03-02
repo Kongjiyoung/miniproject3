@@ -1,0 +1,148 @@
+{{> layout/header}}
+<div class="container d-flex">
+    <div class="justify-content-center mx-2 pb-4 w-100">
+        <div class="border border-tertiary p-5 rounded shadow">
+            <div class="d-flex  mb-4 justify-content-center">
+                <h1 class="hs_line">공고 수정하기</h1>
+            </div>
+            <hr>
+            <div class="upload"><img src="/images/naver.png" id="companyLogo"
+                                     class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></div>
+            <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>
+            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required
+                   multiple>
+            <form>
+                <div class="px-5 mt-5">
+                    <h5><b>공고명</b></h5>
+                    <input class="form-control" type="text" name="" id="" value="" required>
+                    <div class="pt-4">
+                        <hr class="d-inline-flexw-100">
+                    </div>
+                    <div class="pt-2 mt-4">
+                        <div class="border border-tertiary pt-3 d-inline-flex me-3 mb-3 w-100">
+                            <table class="table table-borderless pt-5 ms-3">
+                                <tr class="pb-5">
+                                    <th>지원 자격</th>
+                                    <td>
+                                        <select name="" id="" class="jm_select selectpicker" data-style="btn-info"
+                                                style=" height: 35px;">
+                                            <option value="" selected>
+                                                <!-- 기입되었던 경력이 0이면 -->
+                                                신입
+                                                <!-- 기업되었던 경력이 0이 아니면 -->
+                                                00년차 이상
+                                            </option>
+                                            <option value="0">신입</option>
+                                            <option value="1">1년차 이상</option>
+                                            <option value="3">3년차 이상</option>
+                                            <option value="5">5년차 이상</option>
+                                        </select>
+                                    </td>
+                                    <th>연봉</th>
+                                    <td>
+                                        <select name="" id="" class="jm_select selectpicker" style=" height: 35px;">
+                                            <option value="" selected></option>
+                                            <option value="">면접 후 결정</option>
+                                            <option value="">2000만원</option>
+                                            <option value="">3000만원</option>
+                                            <option value="">4000만원</option>
+                                            <option value="">5000만원 이상</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>근무 조건</th>
+                                    <td>
+                                        <select name="" id="" class="jm_select selectpicker" style=" height: 35px;">
+                                            <option value="" selected></option>
+                                            <option value="">계약직</option>
+                                            <option value="">정규직</option>
+                                        </select>
+                                    </td>
+                                    <th>근무 시간</th>
+                                    <td class="d-flex"><input class="form-control" type="time" style="width: 38%;"
+                                                              name="" id="" value="" required>~
+                                        <input class="form-control" type="time" style="width: 38%;" name="" id=""
+                                               value="" required>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="mt-4">
+                            <h5><b>마감 일자</b></h5>
+                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                                <input class="form-control" type="date" id="" name="" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5><b>기업 소개</b></h5>
+                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                                <input class="form-control border-0" type="text" name="" id="" value="" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5><b>업무 소개</b></h5>
+                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                                <input class="form-control border-0" type="text" name="" id="" value="" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5><b>기술/자격 조건</b></h5>
+                            <div class="p-3 d-inline-flex mb-3 w-100">
+                                <div class="row row-cols-auto gap-3 justify-content-center my-3">
+                                    <input type="checkbox" name="" class="btn-check" id="" value="">
+                                    <label class="btn btn-outline-primary" for="">JAVA</label>
+                                    <input type="checkbox" name="" class="btn-check" id="" value="">
+                                    <label class="btn btn-outline-primary" for="">Flutter</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 mb-4">
+                            <h5><b>기업 정보</b></h5>
+                            <div class="border border-tertiary ps-5 pe-2 pt-3 d-inline-flex mb-3 w-100">
+                                <table class="table table-borderless pt-5 ms-5">
+                                    <tr class="pb-5">
+                                        <th>사원수</th>
+                                        <td>size</td>
+                                        <th>대표자</th>
+                                        <td>boss name</td>
+                                    </tr>
+                                    <tr>
+                                        <th>설립년도</th>
+                                        <td>founded year</td>
+                                        <th>전화번호</th>
+                                        <td>phone number</td>
+                                    </tr>
+                                    <tr>
+                                        <th>주소</th>
+                                        <td>address</td>
+                                        <th>이메일</th>
+                                        <td>email</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="width: 100%;">
+                            <a href="/view/company/posts.html" class="btn btn-outline-success mb-3"
+                               style="width: 100%">수정완료</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 시작 -->
+    <div class="list-group mx-2">
+        <a href="/view/company/info.html" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
+        <a href="/view/company/posts.html" class="list-group-item shadow">공고 관리</a>
+        <a href="/view/company/getResume.html" class="list-group-item hs_list_effect shadow">받은 이력서</a>
+        <a href="/view/company/scrap.html" class="list-group-item shadow">스크랩한 이력서</a>
+        <a href="/view/company/offers.html" class="list-group-item shadow">제안한 이력서</a>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 끝 -->
+</div>
+<!-- 목적을 알아내자 -->
+{{> layout/footer}}

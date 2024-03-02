@@ -1,0 +1,97 @@
+{{> layout/header}}
+<div class="container d-flex">
+    <div class=" mx-2 pb-4 w-100">
+        <div class="border border-tertiary p-5 rounded shadow">
+            <div class="d-flex justify-content-between">
+                <h1>개인정보수정</h1>
+                <!-- 저장 버튼 아래로 위치 변경 -->
+                <!-- <button type="button" class="btn btn-dark" style="width:80px; height: 40px;">저장</button> -->
+            </div>
+            <hr />
+            <div>
+                <div class="container w-50 mt-5 text ">
+                    <form>
+                        <div class="input-group mb-3">
+                                <span
+                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">이름</span>
+                            <input type="text" class="form-control" value="장현정" id="">
+                        </div>
+                        <div class="input-group mb-3">
+                                <span
+                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">생년월일</span>
+                            <input type="date" class="form-control" id=""value="1989-03-02">
+                            <input type="hidden" class="form-control" value="" id="">
+                        </div>
+                        <div class="input-group mb-3">
+                                <span
+                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">연락처</span>
+                            <input type="tel" class="form-control" maxlength="11" value="010-1234-5678" id="">
+                        </div>
+                        <div class="input-group mb-3">
+                                <span
+                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">주소</span>
+                            <input type="text" class="form-control" value="부산시 해운대구" id="">
+                        </div>
+                        <div class="input-group mb-3">
+                                <span
+                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">이메일</span>
+                            <input type="email" class="form-control" value="ssar@nate.com" id="" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                                <span
+                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">비밀번호</span>
+                            <input type="password" class="form-control" id="">
+                        </div>
+                        <div class="input-group mb-3">
+                                <span
+                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">비밀번호
+                                    확인</span>
+                            <input type="password" class="form-control" id="">
+                        </div>
+                        <div id="checkAlertBox"></div>
+                        <div id="checkAlertBox"></div>
+                        <div class="d-flex justify-content-center" style="width: 100%;">
+                            <a href="#" class="btn btn-outline-success mb-3 mt-3" style="width: 100%">수정하기</a>
+                            <a href="#" class="btn btn-outline-danger mb-3 mt-3" style="width: 100%">취소</a>
+                        </div>
+                        <div class="modal fade" id="">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="">비밀번호 확인</h1>
+                                        <button type="button" class="btn-close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="recipient-Password"
+                                                       class="col-form-label">Password</label>
+                                                <input type="password" class="form-control" id="">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-dark"
+                                                data-bs-dismiss="modal">닫기</button>
+                                        <button type="button" class="btn init_color proposalBtn"
+                                                style="background-color: #47D4D4;">저장</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 시작 -->
+    <div class="list-group mx-2">
+        <a href="#" class="list-group-item shadow " style="width: 150px;">회원정보관리</a>
+        <a href="#" class="list-group-item shadow">이력서관리</a>
+        <a href="#" class="list-group-item hs_list_effect shadow">스크랩한 공고</a>
+        <a href="#" class="list-group-item shadow">받은 제안</a>
+        <a href="#" class="list-group-item shadow">지원 현황</a>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 끝 -->
+</div>
+{{> layout/footer}}

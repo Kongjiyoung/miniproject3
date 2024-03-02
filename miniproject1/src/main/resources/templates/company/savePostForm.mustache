@@ -1,0 +1,194 @@
+{{> layout/header}}
+<div class="container d-flex">
+    <div class="justify-content-center mx-2 pb-4 w-100">
+        <div class="border border-tertiary p-5 rounded shadow">
+            <h1 class="d-inline-flex">공고 등록하기</h1>
+            <hr>
+
+
+            <div class="upload"><img src="/images/naver.png" id="companyLogo" s
+                                     class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></div>
+            <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>
+            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required
+                   multiple>
+            <script>
+                function getImageFiles(e) {
+                    const files = e.currentTarget.files;
+                    const imagePreview = document.querySelector('.image-preview');
+                    imagePreview.innerHTML = '';
+                    if (files.length >= 2) {
+                        alert('이미지는 1개만 업로드 가능합니다.');
+                        return;
+                    }
+
+                    const file = files[0];
+
+                    if (!file) {
+                        return;
+                    }
+
+                    if (!file.type.match("image/.*")) {
+                        alert('이미지 파일만 업로드 가능합니다.');
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const preview = createElement(e, file);
+                        imagePreview.appendChild(preview);
+                    };
+                    reader.readAsDataURL(file);
+                }
+
+                function createElement(e, file) {
+                    const li = document.createElement('li');
+                    const img = document.createElement('img');
+                    img.setAttribute('src', e.target.result);
+                    img.setAttribute('data-file', file.name);
+                    li.appendChild(img);
+
+                    return li;
+                }
+
+                const realUpload = document.querySelector('.real-upload');
+                const upload = document.querySelector('.upload');
+
+                upload.addEventListener('click', () => realUpload.click());
+
+                realUpload.addEventListener('change', getImageFiles);
+            </script>
+
+            <form action="#" method="post">
+                <div class="px-5 mt-5">
+                    <h5><b>공고명</b></h5>
+                    <input class="form-control" type="text" name="title" required>
+                    <div class="pt-4">
+                        <hr class="d-inline-flexw-100">
+                    </div>
+
+                    <div class="pt-2 mt-4">
+                        <div class="border border-tertiary pt-3 d-inline-flex me-3 mb-3 w-100">
+                            <table class="table table-borderless pt-5 ms-3">
+                                <tr class="pb-5">
+                                    <th>지원 자격</th>
+                                    <td>
+                                        <select name="career" class="jm_select selectpicker" data-style="btn-info"
+                                                style=" height: 35px;">
+                                            <option value="0" selected>신입</option>
+                                            <option value="1">1년차 이상</option>
+                                            <option value="3">3년차 이상</option>
+                                            <option value="5">5년차 이상</option>
+                                        </select>
+                                    </td>
+                                    <th>연봉</th>
+                                    <td>
+                                        <select name="pay" class="jm_select selectpicker" data-style="btn-info"
+                                                style=" height: 35px;">
+                                            <option value="면접 후 결정" selected>면접 후 결정</option>
+                                            <option value="2000만원">2000만원</option>
+                                            <option value="3000만원">3000만원</option>
+                                            <option value="4000만원">4000만원</option>
+                                            <option value="5000만원 이상">5000만원 이상</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>근무 조건</th>
+                                    <td>
+                                        <select name="condition" class="jm_select selectpicker"
+                                                data-style="btn-info" style=" height: 35px;">
+                                            <option value="계약직" selected>계약직</option>
+                                            <option value="정규직">정규직</option>
+                                        </select>
+                                    </td>
+                                    <th>근무 시간</th>
+                                    <td class="d-flex"><input class="form-control" type="time" style="width: 38%;"
+                                                              name="startHour" id="startHour" value="09:00" required>~
+                                        <input class="form-control" type="time" style="width: 38%;" name="endHour"
+                                               id="endHour" value="18:00" required>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="mt-4">
+                            <h5><b>마감 일자</b></h5>
+                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                                <input class="form-control" type="date" id="deadline" name="deadline" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5><b>기업 소개</b></h5>
+                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                                <input class="form-control border-0" type="text" name="cIntro" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5><b>업무 소개</b></h5>
+                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                                <input class="form-control border-0" type="text" name="tasks" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5><b>기술/자격 조건</b></h5>
+                            <div class="p-3 d-inline-flex mb-3 w-100">
+                                <div class="row row-cols-auto gap-3 justify-content-center my-3">
+                                    <!-- 반복문 돌리기 -->
+                                    <!-- 스킬1 -->
+                                    <input type="checkbox" name="skills" class="btn-check" id="java" value="java"
+                                           autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="java">JAVA</label>
+                                    <!-- 스킬2 -->
+                                    <input type="checkbox" name="skills" class="btn-check" id="flutter"
+                                           value="flutter" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="flutter">Flutter</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 mb-4">
+                            <h5><b>기업 정보</b></h5>
+                            <div class="border border-tertiary ps-5 pe-2 pt-3 d-inline-flex mb-3 w-100">
+                                <table class="table table-borderless pt-5 ms-5">
+                                    <tr class="pb-5">
+                                        <th>사원수</th>
+                                        <td>25명</td>
+                                        <th>대표자</th>
+                                        <td>최주호</td>
+                                    </tr>
+                                    <tr>
+                                        <th>설립년도</th>
+                                        <td>2020-03-05</td>
+                                        <th>전화번호</th>
+                                        <td>010-1234-5678</td>
+                                    </tr>
+                                    <tr>
+                                        <th>주소</th>
+                                        <td>부산시 해운대구 모처</td>
+                                        <th>이메일</th>
+                                        <td>ssar@nate.com</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="/view/company/posts.html" class="btn btn-outline-danger mb-3"
+                               style="width: 100%">등록하기</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 시작 -->
+    <div class="list-group mx-2">
+        <a href="/view/company/info.html" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
+        <a href="/view/company/posts.html" class="list-group-item shadow">공고 관리</a>
+        <a href="/view/company/getResume.html" class="list-group-item hs_list_effect shadow">받은 이력서</a>
+        <a href="/view/company/scrap.html" class="list-group-item shadow">스크랩한 이력서</a>
+        <a href="/view/company/offers.html" class="list-group-item shadow">제안한 이력서</a>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 끝 -->
+</div>
+{{> layout/footer}}
