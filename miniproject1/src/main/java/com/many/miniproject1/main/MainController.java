@@ -1,18 +1,30 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostRepository;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
+    private final ResumeRepository resumeRepository;
+    private final PostRepository postRepository;
     //메인 구직 공고
     @GetMapping("/company/main")
-    public String resumeForm() {
+    public String resumeForm(HttpServletRequest request) {
+        List<Resume> resumeList=resumeRepository.findAll();
+        System.out.println(resumeList.size());
+        request.setAttribute("resumeList", resumeList);
         return "company/main";
     }
 
@@ -33,8 +45,11 @@ public class MainController {
 
     //메인 채용 공고
     @GetMapping("/person/main")
-    public String postForm() {
-        return "company/resumes";
+    public String postForm(HttpServletRequest request) {
+        List<Post> postList=postRepository.findAll();
+        System.out.println(postList.size());
+        request.setAttribute("postList", postList);
+        return "person/main";
     }
 
     @GetMapping("/person/main/detail/{id}")
