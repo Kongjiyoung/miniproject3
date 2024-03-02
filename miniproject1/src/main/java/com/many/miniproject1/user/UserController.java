@@ -1,13 +1,17 @@
 package com.many.miniproject1.user;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
+    private final UserRepository userRepository;
+    private final HttpSession session;
 
     // 회사 회원가입
     @GetMapping("/company/joinForm")
@@ -16,7 +20,9 @@ public class UserController {
     }
 
     @PostMapping("/company/join")
-    public String companyJoin() {
+    public String companyJoin(@PathVariable int id, UserRequest.JoinDTO requestDTO) {
+        System.out.println(requestDTO);
+        userRepository.save(requestDTO, id);
         return "redirect:/company/loginForm";
     }
 
@@ -27,7 +33,19 @@ public class UserController {
     }
 
     @PostMapping("/company/login")
-    public String companyLogin() {
+    public String companyLogin(UserRequest.LoginDTO requestDTO) {
+        System.out.println(requestDTO);
+//        if (requestDTO.getEmail().length() < 3) {
+//            return "error/400";
+//        }
+
+        User user = userRepository.findByEmailAndPassword(requestDTO);
+
+        if (user == null) {
+            return "error/401";
+        } else { // 조회 됐음 (인증됨)
+            session.setAttribute("sessionUser", user);
+        }
         return "redirect:/";
     }
 

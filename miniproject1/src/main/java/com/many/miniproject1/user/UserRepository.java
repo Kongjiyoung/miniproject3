@@ -29,8 +29,8 @@ public class UserRepository {
     }
 
     @Transactional
-    public void save(UserRequest.SaveDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("insert into user_tb() values()");
+    public void save(UserRequest.JoinDTO requestDTO, int id) {
+        Query query = em.createNativeQuery("insert into user_tb(username, password, email, created_at) values(?,?,?, now()))");
         query.setParameter(1, id);
 
         query.executeUpdate();
@@ -50,5 +50,18 @@ public class UserRepository {
         query.setParameter(1, id);
 
         query.executeUpdate();
+    }
+
+    public User findByEmailAndPassword(UserRequest.LoginDTO requestDTO) {
+        Query query = em.createNativeQuery("select * from user_tb where email=? and password=?", User.class);
+        query.setParameter(1, requestDTO.getEmail());
+        query.setParameter(2, requestDTO.getPassword());
+
+        try {
+           User user = (User) query.getSingleResult();
+           return user;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
