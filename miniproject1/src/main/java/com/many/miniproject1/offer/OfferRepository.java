@@ -14,13 +14,13 @@ public class OfferRepository {
     private final EntityManager em;
 
     public List<Offer> findAll() {
-        Query query = em.createNativeQuery("select * from offer_tb", Offer.class);
+        Query query = em.createNativeQuery("SELECT * FROM offer_tb", Offer.class);
 
         return query.getResultList();
     }
 
     public Offer findById(int id) {
-        Query query = em.createNativeQuery("select * from offer_tb where id=?");
+        Query query = em.createNativeQuery("SELECT * FROM offer_tb WHERE id=?");
         query.setParameter(1, id);
 
         Offer offer = (Offer) query.getSingleResult();
@@ -30,7 +30,7 @@ public class OfferRepository {
 
     @Transactional
     public void save(OfferRequest.SaveDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("insert into offer_tb() values()");
+        Query query = em.createNativeQuery("INSERT INTO offer_tb() VALUES ()");
         query.setParameter(1, id);
 
         query.executeUpdate();
@@ -38,7 +38,7 @@ public class OfferRepository {
 
     @Transactional
     public void update(OfferRequest.UpdateDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("update offer_tb set where id = ?");
+        Query query = em.createNativeQuery("UPDATE offer_tb SET where id = ?");
         query.setParameter(1, id);
 
         query.executeUpdate();
@@ -46,7 +46,7 @@ public class OfferRepository {
 
     @Transactional
     public void delete(int id) {
-        Query query = em.createNativeQuery("delete from offer_tb where id = ?");
+        Query query = em.createNativeQuery("DELETE FROM offer_tb WHERE id = ?");
         query.setParameter(1, id);
 
         query.executeUpdate();
