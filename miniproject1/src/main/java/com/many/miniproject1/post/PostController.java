@@ -16,50 +16,33 @@ public class PostController {
     }
 
     @GetMapping("/company/post/detail/{id}")
-    public String companyPostDetailForm() {
+    public String companyPostDetailForm(@PathVariable int id) {
         return "company/postDetail";
     }
 
-    @GetMapping("/company/post/detail/{id}/saveForm")
+    @GetMapping("/company/post/saveForm")
     public String companySavePostForm() {
         return "company/savePostForm";
     }
 
+    // 이거 패스 다시 설정
     @PostMapping("/company/post/detail/{id}/save")
-    public String companySavePostResume() {
+    public String companySavePostResume(@PathVariable int id) {
         return "redirect:/company/post/detail/{id}";
     }
 
     @GetMapping("/company/post/detail/{id}/updateForm")
-    public String companyUpdatePostForm() {
+    public String companyUpdatePostForm(@PathVariable int id) {
         return "company/updatePostForm";
     }
 
     @PostMapping("/company/post/detail/{id}/update")
-    public String companyUpdatePost() {
+    public String companyUpdatePost(@PathVariable int id) {
         return "redirect:/company/post/detail/{id}";
     }
 
     @PostMapping("/company/post/detail/{id}/delete")
-    public String companyDeletePost() {
+    public String companyDeletePost(@PathVariable int id) {
         return "redirect:/company/post";
     }
-
-//    //메인 채용 공고
-//    @GetMapping("/post")
-//    public String postForm() {return "company/main";}
-//
-//    @GetMapping("/post/detail/{id}")
-//    public String postDetailForm(@PathVariable int id) {
-//        return "company/postDetail";
-//    }
-
-//    //맞춤 공고 - 개인용
-//    @GetMapping("/matching/post")
-//    public String matchingPostForm() {return "company/matching";}
-//
-//    @GetMapping("/matching/post/detail/{id}")
-//    public String matchingPostDetailForm(@PathVariable int id) {
-//        return "company/postDetail";
-//    }
 }
