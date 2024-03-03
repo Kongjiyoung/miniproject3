@@ -36,7 +36,7 @@ public class MainController {
 
         ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
         for(int i =0 ; i<resumeList.size(); i++){
-            List<String> skills=skillRepository.findBySkillId(resumeList.get(i).getId());
+            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
             System.out.println(skills);
             Resume resume=(Resume)resumeList.get(i);
             System.out.println(resume);
@@ -47,21 +47,18 @@ public class MainController {
         return "company/main";
     }
 
-    @GetMapping("/company/main/detail/{id}")
-    public String resumeDetailForm(@PathVariable int id) {
+    @GetMapping("/resume/detail/{id}")
+    public String resumeDetailForm() {
         return "person/resumeDetail";
     }
-
-    @PostMapping("/company/main/detail/{id}/apply")
-    public String companyResumeOffer(@PathVariable int id) {
-        return "redirect:/person/resume";
+    @PostMapping("/resume/detail/{id}/offer")
+    public String companyResumeOffer() {
+        return "redirect:/resume/detail/{id}";
     }
-
-    @PostMapping("/company/main/detail/{id}/scrap")
-    public String companyResumeScrap(@PathVariable int id) {
-        return "redirect:/person/resume";
+    @PostMapping("/resume/detail/{id}/scrap")
+    public String companyResumeScrap() {
+        return "redirect:/resume/detail/{id}";
     }
-
     //메인 채용 공고
     @GetMapping("/person/main")
     public String postForm(HttpServletRequest request) {
@@ -71,60 +68,52 @@ public class MainController {
         return "person/main";
     }
 
-    @GetMapping("/person/main/detail/{id}")
-    public String postDetailForm(@PathVariable int id) {
-        return "person/resumeDetail";
+    @GetMapping("/post/detail/{id}")
+    public String postDetailForm() {
+        return "company/postDetail";
     }
-
-    @PostMapping("/person/main/detail/{id}/apply")
-    public String personPostApply(@PathVariable int id) {
-        return "redirect:/person/resume";
+    @PostMapping("/post/detail/{id}/apply")
+    public String personPostApply() {
+        return "redirect:/post/detail/{id}";
     }
-
-    @PostMapping("/person/main/detail/{id}/scrap")
-    public String personPostScrap(@PathVariable int id) {
-        return "redirect:/person/resume";
+    @PostMapping("/post/detail/{id}/scrap")
+    public String personPostScrap() {
+        return "redirect:/post/detail/{id}";
     }
-
-    //맞춤 공고 - 기업용
+    //맞춤 공고 - 기업이 보는 매칭 이력서
     @GetMapping("/company/matching")
     public String matchingResumeForm() {
-        return "person/resumes";
+        return "person/matching";
     }
 
-    @GetMapping("/company/matching/detail/{id}")
-    public String matchingResumeDetailForm(@PathVariable int id) {
+    @GetMapping("/matching/resume/detail/{id}")
+    public String matchingResumeDetailForm() {
         return "person/resumeDetail";
     }
-
-    @PostMapping("/company/matching/detail/{id}/apply")
-    public String matchingCompanyResumeOffer(@PathVariable int id) {
-        return "redirect:/person/resume";
+    @PostMapping("/matching/resume/detail/{id}/offer")
+    public String matchingCompanyResumeOffer() {
+        return "redirect:/matching/resume/detail/{id}";
     }
-
-    @PostMapping("/company/matching/detail/{id}/scrap")
-    public String matchingCompanyResumeScrap(@PathVariable int id) {
-        return "redirect:/person/resume";
+    @PostMapping("/matching/resume/detail/{id}/scrap")
+    public String matchingCompanyResumeScrap() {
+        return "redirect:/matching/resume/detail/{id}";
     }
-
-    //맞춤 공고 - 개인용
+    //맞춤 공고 - 개인이 보는 매칭 공고
     @GetMapping("/person/matching")
     public String matchingPostForm() {
-        return "company/resumes";
+        return "company/matching";
     }
 
-    @GetMapping("/person/matching/detail/{id}")
-    public String matchingPostDetailForm(@PathVariable int id) {
-        return "person/resumeDetail";
+    @GetMapping("/matching/post/detail/{id}")
+    public String matchingPostDetailForm() {
+        return "company/postDetail";
     }
-
-    @PostMapping("/person/matching/detail/{id}/apply")
-    public String matchingPersonPostApply(@PathVariable int id) {
-        return "redirect:/person/resume";
+    @PostMapping("/matching/post/detail/{id}/apply")
+    public String matchingPersonPostapply() {
+        return "/matching/post/detail/{id}";
     }
-
-    @PostMapping("/person/matching/detail/{id}/scrap")
-    public String matchingPersonPostScrap(@PathVariable int id) {
-        return "redirect:/person/resume";
+    @PostMapping("/matching/post/detail/{id}/scrap")
+    public String matchingPersonPostScrap() {
+        return "redirect:/matching/post/detail/{id}";
     }
 }

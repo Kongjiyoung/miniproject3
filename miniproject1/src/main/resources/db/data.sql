@@ -91,19 +91,20 @@ values (1, '[인턴] 프론트엔드 개발자 (JavaScript)', '
 -- entity수정 career데이터 varchar로 고치기
 --스킬
 --이력서에서
-insert into skill_tb(skill_id, resume_id, role)
+insert into skill_tb(skill, resume_id, role)
 values('JAVA', 1, 1);
-insert into skill_tb(skill_id, resume_id, role)
+insert into skill_tb(skill, resume_id, role)
 values('JAVA', 2, 1);
-insert into skill_tb(skill_id, resume_id, role)
+insert into skill_tb(skill, resume_id, role)
 values('C', 1, 1);
-insert into skill_tb(skill_id, resume_id, role)
+insert into skill_tb(skill, resume_id, role)
 values('C', 2, 1);
 
 
 --공고에서
 insert into skill_tb(skill, post_id, role)
-values ('JAVA', 1, 1);
+values('JAVA', 1, 1);
+
 
 
 --지원
