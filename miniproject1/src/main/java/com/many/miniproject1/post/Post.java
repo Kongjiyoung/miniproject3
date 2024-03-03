@@ -25,4 +25,7 @@ public class Post {
     private String profile;
     private Timestamp createdAt;
 
+    // 스킬
+    // 회사 인포
+
 }
