@@ -27,5 +27,4 @@ public class Post {
 
     // 스킬
     // 회사 인포
-
 }
