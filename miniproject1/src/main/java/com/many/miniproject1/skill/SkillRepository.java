@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 
 @Repository
@@ -28,5 +29,19 @@ public class SkillRepository {
         Skill skill = (Skill) query.getSingleResult();
 
         return skill;
+    }
+    private final EntityManager em;
+    public  List<String> findBySkill(int id) {
+        Query query = em.createNativeQuery("select skill_id from skill_tb where resume_id=?");
+        query.setParameter(1, id);
+
+        List<String> rows = query.getResultList();
+        List<String> skillIds = new ArrayList<>();
+
+        for (String row : rows) {
+            skillIds.add(row);
+        }
+
+        return skillIds;
     }
 }

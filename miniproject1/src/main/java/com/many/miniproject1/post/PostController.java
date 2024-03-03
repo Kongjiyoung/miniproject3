@@ -38,7 +38,6 @@ public class PostController {
     @GetMapping("/company/post/detail/{id}/updateForm")
     public String companyUpdatePostForm(@PathVariable int id) {
         // 목적1: 공고 업데이트 폼을 불러온다.(0)
-
         return "company/updatePostForm";
     }
 

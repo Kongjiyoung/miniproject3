@@ -1,95 +1,124 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostRepository;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeRepository;
+import com.many.miniproject1.skill.SkillRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
+    private final ResumeRepository resumeRepository;
+    private final PostRepository postRepository;
+    private final SkillRepository skillRepository;
     //메인 구직 공고
-    @GetMapping("/resume")
-    public String resumeForm() {
-        return "person/resumes";
+    @GetMapping("/company/main")
+    public String resumeForm(HttpServletRequest request) {
+        List<Resume> resumeList=resumeRepository.findAll();
+        System.out.println(resumeList.size());
+
+        ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
+        for(int i =0 ; i<resumeList.size(); i++){
+            List<String> skills=skillRepository.findBySkill(resumeList.get(i).getId());
+            System.out.println(skills);
+            Resume resume=(Resume)resumeList.get(i);
+            System.out.println(resume);
+            //resumeSkillList.add(MainResponse.resumeDTO(resume,skills);
+
+        }
+
+        request.setAttribute("resumeList", resumeList);
+        return "company/main";
     }
 
-    @GetMapping("/resume/detail/{id}")
+    @GetMapping("/company/main/detail/{id}")
     public String resumeDetailForm(@PathVariable int id) {
         return "person/resumeDetail";
     }
 
-    @PostMapping("/resume/detail/{id}/apply")
+    @PostMapping("/company/main/detail/{id}/apply")
     public String companyResumeOffer(@PathVariable int id) {
         return "redirect:/person/resume";
     }
 
-    @PostMapping("/resume/detail/{id}/scrap")
+    @PostMapping("/company/main/detail/{id}/scrap")
     public String companyResumeScrap(@PathVariable int id) {
         return "redirect:/person/resume";
     }
 
     //메인 채용 공고
-    @GetMapping("/post")
-    public String postForm() {
-        return "company/resumes";
+    @GetMapping("/person/main")
+    public String postForm(HttpServletRequest request) {
+        List<Post> postList=postRepository.findAll();
+        System.out.println(postList.size());
+        request.setAttribute("postList", postList);
+        return "person/main";
     }
 
-    @GetMapping("/post/detail/{id}")
+    @GetMapping("/person/main/detail/{id}")
     public String postDetailForm(@PathVariable int id) {
         return "person/resumeDetail";
     }
 
-    @PostMapping("/post/detail/{id}/apply")
+    @PostMapping("/person/main/detail/{id}/apply")
     public String personPostApply(@PathVariable int id) {
         return "redirect:/person/resume";
     }
 
-    @PostMapping("/post/detail/{id}/scrap")
+    @PostMapping("/person/main/detail/{id}/scrap")
     public String personPostScrap(@PathVariable int id) {
         return "redirect:/person/resume";
     }
 
     //맞춤 공고 - 기업용
-    @GetMapping("/matching/resume")
+    @GetMapping("/company/matching")
     public String matchingResumeForm() {
         return "person/resumes";
     }
 
-    @GetMapping("/matching/resume/detail/{id}")
+    @GetMapping("/company/matching/detail/{id}")
     public String matchingResumeDetailForm(@PathVariable int id) {
         return "person/resumeDetail";
     }
 
-    @PostMapping("/matching/resume/detail/{id}/apply")
+    @PostMapping("/company/matching/detail/{id}/apply")
     public String matchingCompanyResumeOffer(@PathVariable int id) {
         return "redirect:/person/resume";
     }
 
-    @PostMapping("/matching/resume/detail/{id}/scrap")
+    @PostMapping("/company/matching/detail/{id}/scrap")
     public String matchingCompanyResumeScrap(@PathVariable int id) {
         return "redirect:/person/resume";
     }
 
     //맞춤 공고 - 개인용
-    @GetMapping("/matching/post")
+    @GetMapping("/person/matching")
     public String matchingPostForm() {
         return "company/resumes";
     }
 
-    @GetMapping("/matching/post/detail/{id}")
+    @GetMapping("/person/matching/detail/{id}")
     public String matchingPostDetailForm(@PathVariable int id) {
         return "person/resumeDetail";
     }
 
-    @PostMapping("/matching/post/detail/{id}/apply")
+    @PostMapping("/person/matching/detail/{id}/apply")
     public String matchingPersonPostApply(@PathVariable int id) {
         return "redirect:/person/resume";
     }
 
-    @PostMapping("/matching/post/detail/{id}/scrap")
+    @PostMapping("/person/matching/detail/{id}/scrap")
     public String matchingPersonPostScrap(@PathVariable int id) {
         return "redirect:/person/resume";
     }
