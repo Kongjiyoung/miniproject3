@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -31,17 +32,17 @@ public class SkillRepository {
 
         return skill;
     }
-    public  List<String> findBySkillId(int id) {
-        Query query = em.createNativeQuery("select skill_id from skill_tb where resume_id=?");
+    public  List<String> findByResumeId(int id) {
+        Query query = em.createNativeQuery("select skill from skill_tb where resume_id=?");
         query.setParameter(1, id);
 
         List<String> rows = query.getResultList();
-        List<String> skillIds = new ArrayList<>();
+        List<String> skills = new ArrayList<>();
 
         for (String row : rows) {
-            skillIds.add(row);
+            skills.add(row);
         }
 
-        return skillIds;
+        return skills;
     }
 }
