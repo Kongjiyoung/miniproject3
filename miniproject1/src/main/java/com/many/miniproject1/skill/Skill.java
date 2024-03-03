@@ -15,3 +15,4 @@ public class Skill {
     private Integer postId;
     private Integer role;
 }
+

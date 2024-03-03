@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SkillRepository {
     private final EntityManager em;
+    
 
     public List<Skill> findAll() {
         Query query = em.createNativeQuery("select * from skill_tb", Skill.class);
@@ -31,17 +32,18 @@ public class SkillRepository {
 
         return skill;
     }
-    public  List<String> findBySkill(int id) {
-        Query query = em.createNativeQuery("select skill_id from skill_tb where resume_id=?");
+
+    public  List<String> findBySkillId(int id){
+        Query query = em.createNativeQuery("select skill from skill_tb where resume_id=?");
         query.setParameter(1, id);
 
         List<String> rows = query.getResultList();
-        List<String> skillIds = new ArrayList<>();
+        List<String> skills = new ArrayList<>();
 
         for (String row : rows) {
-            skillIds.add(row);
+            skills.add(row);
         }
 
-        return skillIds;
+        return skills;
     }
 }

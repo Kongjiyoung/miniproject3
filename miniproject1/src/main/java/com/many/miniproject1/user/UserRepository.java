@@ -29,10 +29,21 @@ public class UserRepository {
     }
 
     @Transactional
-    public void save(UserRequest.JoinDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("insert into user_tb(username, password, email, created_at) values(?,?,?, now()))");
-        query.setParameter(1, id);
-
+    public void companySave(UserRequest.JoinDTO requestDTO) {
+        Query query = em.createNativeQuery("insert into user_tb(role, company_name, company_num, username, email, password, created_at) values(2,?,?,?,?,?, now())");
+        query.setParameter(1, requestDTO.getCompanyName());
+        query.setParameter(2, requestDTO.getCompanyNum());
+        query.setParameter(3, requestDTO.getUsername());
+        query.setParameter(4, requestDTO.getEmail());
+        query.setParameter(5, requestDTO.getPassword());
+        query.executeUpdate();
+    }
+    @Transactional
+    public void personSave(UserRequest.JoinDTO requestDTO) {
+        Query query = em.createNativeQuery("insert into user_tb(role, username, email, password, created_at) values(1,?,?,?, now())");
+        query.setParameter(1, requestDTO.getUsername());
+        query.setParameter(2, requestDTO.getEmail());
+        query.setParameter(3, requestDTO.getPassword());
         query.executeUpdate();
     }
 
@@ -56,7 +67,6 @@ public class UserRepository {
         Query query = em.createNativeQuery("select * from user_tb where email=? and password=?", User.class);
         query.setParameter(1, requestDTO.getEmail());
         query.setParameter(2, requestDTO.getPassword());
-
         try {
            User user = (User) query.getSingleResult();
            return user;
