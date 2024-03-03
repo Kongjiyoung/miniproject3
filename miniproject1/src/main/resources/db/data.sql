@@ -10,10 +10,10 @@ values(2, 'ssar@nate.com', '1234', 'ssar ', '010-1234-5678 ', '메타코딩','�
 
 
 --이력서정보 입력
-insert into resume_tb(employee_id, title, profile, username, birth, tel, address, email, portfolio, introduce,created_at)
-values(1,'돈많이벌거에요','2123232131','ssar','19991012','010-1234-5678','진해구','ssar@nate.com','http://qmfmqfqmf','돈많이줘요', now());
-insert into resume_tb(employee_id, title, profile, username, birth, tel, address, email, portfolio, introduce,created_at)
-values(1,'휴가갈꺼에요','333333331q1','love','19500524','010-1222-2222','부산진구','love@nate.com','http://dffdfddf','휴가많이줘요', now());
+insert into resume_tb(employee_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simple_introduce,created_at)
+values(1,'돈많이벌거에요','2123232131','ssar','19991012','010-1234-5678','진해구','ssar@nate.com','http://qmfmqfqmf','돈많이줘요', '1개월근무','돈많이 벌거에요',now());
+insert into resume_tb(employee_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simple_introduce,created_at)
+values(1,'휴가갈꺼에요','333333331q1','love','19500524','010-1222-2222','부산진구','love@nate.com','http://dffdfddf','휴가많이줘요', '5일근무', '돈많이 줘요', now());
 
 
 --채용공고 입력
@@ -27,7 +27,8 @@ values(2,'돈아주적게줄거야',22222,'3000만','구림','8:00', '20:00', '2
 --이력서에서
 insert into skill_tb(skill_id, resume_id, role)
 values('JAVA', 1, 1);
-
+insert into skill_tb(skill_id, resume_id, role)
+values('JAVA', 2, 1);
 
 --공고에서
 insert into skill_tb(skill_id, post_id, role)

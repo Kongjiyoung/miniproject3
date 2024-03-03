@@ -4,6 +4,7 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostRepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeRepository;
+import com.many.miniproject1.skill.SkillRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,11 +21,23 @@ import java.util.List;
 public class MainController {
     private final ResumeRepository resumeRepository;
     private final PostRepository postRepository;
+    private final SkillRepository skillRepository;
     //메인 구직 공고
     @GetMapping("/company/main")
     public String resumeForm(HttpServletRequest request) {
         List<Resume> resumeList=resumeRepository.findAll();
         System.out.println(resumeList.size());
+
+        ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
+        for(int i =0 ; i<resumeList.size(); i++){
+            List<String> skills=skillRepository.findBySkill(resumeList.get(i).getId());
+            System.out.println(skills);
+            Resume resume=(Resume)resumeList.get(i);
+            System.out.println(resume);
+            //resumeSkillList.add(MainResponse.resumeDTO(resume,skills);
+
+        }
+
         request.setAttribute("resumeList", resumeList);
         return "company/main";
     }
