@@ -9,22 +9,32 @@
             {{#postList}}
                 <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
                     <a href="/company/post/detail/{{id}}" style="text-decoration: none; color: black">
-                        <div style="width: 100%; height: 11rem; overflow: hidden">
+                        <div style="width: 100%; overflow: hidden">
                             <!--                        이미지 에스알씨를 디비에서 받아오게 해야 한다. -->
-                            <img src="/images/company1.png" class="card-img-top" alt="이력서 사진"/>
+                            <img src="{{profile}}" class="card-img-top" alt="이력서 사진"/>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><b>
-                                인프랩 (인프런)</b></h5>
-                            <p class="card-text" style="
+                            <h5 class="card-text" style="
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                          ">{{title}}</p>
-                            <h6><span>{{skill}}</span>|<span>{{skill}}</span></h6>
-                            <h6><span>{{career}}</span>|<span>{{workingArea}}</span></h6>
+                          ">{{title}}</h5>
+                            <p style=" margin: 5px;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            "><span>{{skill}}</span> | <span>{{skill}}</span></p>
+                            <p style="  margin: 5px;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "><span>{{career}}</span> | <span>{{workingArea}}</span></p>
                         </div>
                     </a>
                     <div class="d-flex justify-content-center">

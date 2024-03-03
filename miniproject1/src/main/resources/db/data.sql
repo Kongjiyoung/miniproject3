@@ -80,12 +80,17 @@ values (1, '휴가갈꺼에요', '333333331q1', 'love', '19500524', '010-1222-22
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, skill, working_area, created_at)
 values (1, '데이터 분석가', '
-미들 (4~8년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감', '데이터 관리, 분석, 시각화, 모델링을 통해 데이터로부터 정보를 추출하고 인사이트를 도출합니다.', '회사프로필사진', 'SQL', '경기 성남시 분당구', now());
+미들 (4~8년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감', '데이터 관리, 분석, 시각화, 모델링을 통해 데이터로부터 정보를 추출하고 인사이트를 도출합니다.', '/images/company4.png', 'SQL', '경기 성남시 분당구', now());
 
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, skill, working_area, created_at)
 values (1, 'React Native 개발자 (경력 1년 이상)', '
-주니어 (1~3년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감', 'TypeScript, React Native 를 기반으로 Android / iOS 애플리케이션을 개발하고 배포합니다.', '회사프로필사진', 'React Native', '경기 성남시 분당구', now());
+주니어 (1~3년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감', 'TypeScript, React Native 를 기반으로 Android / iOS 애플리케이션을 개발하고 배포합니다.', '/images/company4.png', 'React Native', '경기 성남시 분당구', now());
+insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
+                    profile, skill, working_area, created_at)
+values (1, '[인턴] 프론트엔드 개발자 (JavaScript)', '
+인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감', 'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', 'JavaScript', '경기 성남시 분당구', now());
+
 
 -- entity수정 career데이터 varchar로 고치기
 --스킬
