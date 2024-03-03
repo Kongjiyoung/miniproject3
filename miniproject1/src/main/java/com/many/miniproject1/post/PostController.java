@@ -15,8 +15,8 @@ public class PostController {
         return "company/posts";
     }
 
-    @GetMapping("/company/post/detail/{id}")
-    public String companyPostDetailForm(@PathVariable int id) {
+    @GetMapping("/company/post/detail")
+    public String companyPostDetailForm() {
         
 //      리턴 return "company/postDetail/"+id;로 나중에 변경
         return "company/postDetail";

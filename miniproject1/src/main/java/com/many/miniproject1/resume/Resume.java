@@ -12,7 +12,7 @@ public class Resume {
     @Id // PK 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
-    private Integer employeeId;
+    private Integer personId;
     private String title;
     private String profile;
     private String username;
@@ -22,5 +22,7 @@ public class Resume {
     private String email;
     private String portfolio;
     private String introduce;
+    private String career;
+    private String simpleIntroduce;
     private Timestamp created_at;
 }
