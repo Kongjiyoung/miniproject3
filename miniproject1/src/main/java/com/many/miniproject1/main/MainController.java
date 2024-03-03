@@ -23,6 +23,11 @@ public class MainController {
     private final PostRepository postRepository;
     private final SkillRepository skillRepository;
     //메인 구직 공고
+
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
     @GetMapping("/company/main")
     public String resumeForm(HttpServletRequest request) {
         List<Resume> resumeList=resumeRepository.findAll();

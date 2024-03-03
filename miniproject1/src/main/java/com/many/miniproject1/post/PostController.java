@@ -6,7 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -39,8 +43,19 @@ public class PostController {
 
     // 이거 패스 다시 설정
     @PostMapping("/company/post/save")
-    public String companySavePost() {
+    public String companySavePost(PostRequest.SaveDTO requestDTO) {
         // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
+//        MultipartFile profile = requestDTO.getProfile();
+//
+//        String profileName = profile.getOriginalFilename();
+//
+//        Path imgPath = Paths.get("./src/main/resources/static/upload/"+profileName);
+//        try {
+//            Files.write(imgPath, profile.getBytes());
+//        } catch (Exception e){
+//            throw new RuntimeException(e);
+//        }
+
         return "redirect:/company/post";
     }
 
