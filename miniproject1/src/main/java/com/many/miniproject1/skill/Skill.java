@@ -9,9 +9,9 @@ import lombok.Data;
 public class Skill {
     @Id // PK 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
-    private int id;
+    private Integer id;
     private String skillId;
-    private int resumeId;
-    private int postId;
-    private int role;
+    private Integer resumeId;
+    private Integer postId;
+    private Integer role;
 }
