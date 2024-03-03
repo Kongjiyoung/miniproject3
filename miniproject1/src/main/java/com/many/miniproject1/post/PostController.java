@@ -1,24 +1,37 @@
 package com.many.miniproject1.post;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class PostController {
+    private final PostRepository postRepository;
+
     //회사 공고 관리
     @GetMapping("/company/post")
-    public String companyPosts() { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
+    public String companyPosts(HttpServletRequest request) { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
         // 목적: 우리 회사에서 쓴 포스트들이 화면에 나와야 한다.(0)
+        List<Post> postList = postRepository.findAll();
+        request.setAttribute("postList", postList);
         return "company/posts";
     }
 
     @GetMapping("/company/post/detail/{id}")
-    public String companyPostDetailForm(@PathVariable int id) {
+    public String companyPostDetailForm(@PathVariable int id, HttpServletRequest request) {
         // 목적1: 포스트 디테일 페이지를 불러온다.(0)
+        PostResponse.DetailDTO responseDTO = postRepository.findById(id);
+        request.setAttribute("post", responseDTO);
         return "company/postDetail";
     }
 
@@ -30,8 +43,19 @@ public class PostController {
 
     // 이거 패스 다시 설정
     @PostMapping("/company/post/save")
-    public String companySavePost() {
+    public String companySavePost(PostRequest.SaveDTO requestDTO) {
         // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
+//        MultipartFile profile = requestDTO.getProfile();
+//
+//        String profileName = profile.getOriginalFilename();
+//
+//        Path imgPath = Paths.get("./src/main/resources/static/upload/"+profileName);
+//        try {
+//            Files.write(imgPath, profile.getBytes());
+//        } catch (Exception e){
+//            throw new RuntimeException(e);
+//        }
+
         return "redirect:/company/post";
     }
 
@@ -44,7 +68,7 @@ public class PostController {
     @PostMapping("/company/post/detail/{id}/update")
     public String companyUpdatePost(@PathVariable int id) {
         // 목적1: 업데이트폼에서 수정하기 누르면 그 디테일의 수정된 모습을 디테일페이지에서 볼 수 있게 바뀌기.(안즉)
-        return "redirect:/company/post/detail/"+id;
+        return "redirect:/company/post/detail/" + id;
     }
 
     @PostMapping("/company/post/detail/{id}/delete")

@@ -20,9 +20,9 @@ public class UserController {
     }
 
     @PostMapping("/company/join")
-    public String companyJoin(@PathVariable int id, UserRequest.JoinDTO requestDTO) {
+    public String companyJoin(UserRequest.JoinDTO requestDTO) {
         System.out.println(requestDTO);
-        userRepository.save(requestDTO, id);
+        userRepository.companySave(requestDTO);
         return "redirect:/company/loginForm";
     }
 
@@ -41,11 +41,11 @@ public class UserController {
 
         User user = userRepository.findByEmailAndPassword(requestDTO);
 
-        if (user == null) {
-            return "error/401";
-        } else { // 조회 됐음 (인증됨)
-            session.setAttribute("sessionUser", user);
-        }
+//        if (user == null) {
+//            return "error/401";
+//        } else { // 조회 됐음 (인증됨)
+//            session.setAttribute("sessionUser", user);
+//        }
         return "redirect:/";
     }
 
@@ -57,7 +57,9 @@ public class UserController {
     }
 
     @PostMapping("/person/join")
-    public String personJoin() {
+    public String personJoin(UserRequest.JoinDTO requestDTO) {
+        System.out.println(requestDTO);
+        userRepository.personSave(requestDTO);
         return "redirect:/person/loginForm";
     }
 
@@ -68,7 +70,19 @@ public class UserController {
     }
 
     @PostMapping("/person/login")
-    public String personLogin() {
+    public String personLogin(UserRequest.LoginDTO requestDTO) {
+        System.out.println(requestDTO);
+//        if (requestDTO.getEmail().length() < 3) {
+//            return "error/400";
+//        }
+
+        User user = userRepository.findByEmailAndPassword(requestDTO);
+
+//        if (user == null) {
+//            return "error/401";
+//        } else { // 조회 됐음 (인증됨)
+//            session.setAttribute("sessionUser", user);
+//        }
         return "redirect:/";
     }
 

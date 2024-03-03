@@ -1,18 +1,25 @@
 package com.many.miniproject1.resume;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ResumeController {
+    private final ResumeRepository resumeRepository;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
-    public String personResumeForm() {
+    public String personResumeForm(HttpServletRequest request) {
+        List<Resume> resumeList= resumeRepository.findAll();
+
+        request.setAttribute("resumeList", resumeList);
         return "person/resumes";
     }
 

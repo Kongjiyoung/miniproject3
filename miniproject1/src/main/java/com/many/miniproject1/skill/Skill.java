@@ -11,7 +11,8 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
     private String skill;
-    private String resumeId;
-    private String postId;
+    private Integer resumeId;
+    private Integer postId;
     private Integer role;
 }
+

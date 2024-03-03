@@ -33,6 +33,7 @@ public class SkillRepository {
         return skill;
     }
     public  List<String> findByResumeId(int id) {
+
         Query query = em.createNativeQuery("select skill from skill_tb where resume_id=?");
         query.setParameter(1, id);
 
