@@ -24,4 +24,5 @@ public class Post {
     private String task;
     private String profile;
     private Timestamp createdAt;
+
 }
