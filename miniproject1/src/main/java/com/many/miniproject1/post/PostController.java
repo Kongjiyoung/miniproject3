@@ -1,18 +1,24 @@
 package com.many.miniproject1.post;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class PostController {
+    private final PostRepository postRepository;
     //회사 공고 관리
     @GetMapping("/company/post")
-    public String companyPosts() { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
+    public String companyPosts(HttpServletRequest request) { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
         // 목적: 우리 회사에서 쓴 포스트들이 화면에 나와야 한다.(0)
+        List<Post> postList =postRepository.findAll();
+        request.setAttribute("postList", postList);
         return "company/posts";
     }
 

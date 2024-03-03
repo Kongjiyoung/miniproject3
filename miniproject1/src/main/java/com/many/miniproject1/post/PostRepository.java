@@ -14,8 +14,7 @@ public class PostRepository {
     private final EntityManager em;
 
     public List<Post> findAll() {
-        Query query = em.createNativeQuery("select * from post_tb", Post.class);
-
+        Query query = em.createNativeQuery("select * from post_tb order by id desc", Post.class);
         return query.getResultList();
     }
 
