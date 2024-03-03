@@ -12,5 +12,6 @@ public class Skill {
     private Integer id;
     private String skillId;
     private String resumeId;
-    private String postId
+    private String postId;
+    private Integer role;
 }
