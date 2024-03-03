@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MainResponse {
     @Data
-    public class resumeDTO {
+    public static class resumeDTO {
         private Integer id;
         private Integer personId;
         private String title;

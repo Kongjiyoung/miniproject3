@@ -13,7 +13,7 @@ import java.util.List;
 public class SkillRepository {
 
     private final EntityManager em;
-    public  List<String> findBySkill(int id) {
+    public  List<String> findBySkillId(int id) {
         Query query = em.createNativeQuery("select skill_id from skill_tb where resume_id=?");
         query.setParameter(1, id);
 
