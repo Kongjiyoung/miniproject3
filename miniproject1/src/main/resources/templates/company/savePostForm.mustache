@@ -4,75 +4,24 @@
         <div class="border border-tertiary p-5 rounded shadow">
             <h1 class="d-inline-flex">공고 등록하기</h1>
             <hr>
-
-
-            <div class="upload"><img src="/images/naver.png" id="companyLogo" s
-                                     class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></div>
+            <div class="upload"><img src="/images/naver.png" id="companyLogo" class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"/></div>
             <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>
-            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required
-                   multiple>
-            <script>
-                function getImageFiles(e) {
-                    const files = e.currentTarget.files;
-                    const imagePreview = document.querySelector('.image-preview');
-                    imagePreview.innerHTML = '';
-                    if (files.length >= 2) {
-                        alert('이미지는 1개만 업로드 가능합니다.');
-                        return;
-                    }
-
-                    const file = files[0];
-
-                    if (!file) {
-                        return;
-                    }
-
-                    if (!file.type.match("image/.*")) {
-                        alert('이미지 파일만 업로드 가능합니다.');
-                        return;
-                    }
-
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const preview = createElement(e, file);
-                        imagePreview.appendChild(preview);
-                    };
-                    reader.readAsDataURL(file);
-                }
-
-                function createElement(e, file) {
-                    const li = document.createElement('li');
-                    const img = document.createElement('img');
-                    img.setAttribute('src', e.target.result);
-                    img.setAttribute('data-file', file.name);
-                    li.appendChild(img);
-
-                    return li;
-                }
-
-                const realUpload = document.querySelector('.real-upload');
-                const upload = document.querySelector('.upload');
-
-                upload.addEventListener('click', () => realUpload.click());
-
-                realUpload.addEventListener('change', getImageFiles);
-            </script>
-
-            <form action="#" method="post">
+            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required multiple>
+            <form action="/company/post/save" method="post">
                 <div class="px-5 mt-5">
-                    <h5><b>공고명</b></h5>
-                    <input class="form-control" type="text" name="title" required>
+                    <label for="companyName"><b>공고명</b></label>
+                    <input class="form-control" type="text" name="title" id="companyName" required>
                     <div class="pt-4">
-                        <hr class="d-inline-flexw-100">
+                        <hr class="d-inline-flex w-100">
                     </div>
 
                     <div class="pt-2 mt-4">
                         <div class="border border-tertiary pt-3 d-inline-flex me-3 mb-3 w-100">
                             <table class="table table-borderless pt-5 ms-3">
                                 <tr class="pb-5">
-                                    <th>지원 자격</th>
+                                    <th><label for="career">경력</label></th>
                                     <td>
-                                        <select name="career" class="jm_select selectpicker" data-style="btn-info"
+                                        <select id="career" name="career" class="jm_select selectpicker" data-style="btn-info"
                                                 style=" height: 35px;">
                                             <option value="0" selected>신입</option>
                                             <option value="1">1년차 이상</option>
@@ -80,9 +29,9 @@
                                             <option value="5">5년차 이상</option>
                                         </select>
                                     </td>
-                                    <th>연봉</th>
+                                    <th><label for="pay">연봉</label></th>
                                     <td>
-                                        <select name="pay" class="jm_select selectpicker" data-style="btn-info"
+                                        <select id="pay" name="pay" class="jm_select selectpicker" data-style="btn-info"
                                                 style=" height: 35px;">
                                             <option value="면접 후 결정" selected>면접 후 결정</option>
                                             <option value="2000만원">2000만원</option>
@@ -93,25 +42,26 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>근무 조건</th>
+                                    <th><label for="condition">근무 조건</label></th>
                                     <td>
-                                        <select name="condition" class="jm_select selectpicker"
+                                        <select id="condition"  name="condition" class="jm_select selectpicker"
                                                 data-style="btn-info" style=" height: 35px;">
                                             <option value="계약직" selected>계약직</option>
                                             <option value="정규직">정규직</option>
                                         </select>
                                     </td>
-                                    <th>근무 시간</th>
-                                    <td class="d-flex"><input class="form-control" type="time" style="width: 38%;"
-                                                              name="startHour" id="startHour" value="09:00" required>~
-                                        <input class="form-control" type="time" style="width: 38%;" name="endHour"
-                                               id="endHour" value="18:00" required>
+                                    <th><label>근무 시간</label></th>
+                                    <th style="display: none"><label for="startHour">근무 시작 시간</label></th>
+                                    <th style="display: none"><label for="endHour">근무 종료 시간</label></th>
+                                    <td class="d-flex">
+                                        <input class="form-control" type="time" style="width: 38%;" name="startHour" id="startHour" value="09:00" required>
+                                        <input class="form-control" type="time" style="width: 38%;" name="endHour" id="endHour" value="18:00" required>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="mt-4">
-                            <h5><b>마감 일자</b></h5>
+                            <label for="deadline"><b>마감 일자</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
                                 <input class="form-control" type="date" id="deadline" name="deadline" required>
                             </div>
@@ -125,25 +75,21 @@
                         </div>
 
                         <div class="mt-4">
-                            <h5><b>업무 소개</b></h5>
+                            <label for="tasks"><b>업무</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" type="text" name="tasks" required>
+                                <input class="form-control border-0"  id="tasks" type="text" name="tasks" required>
                             </div>
                         </div>
 
                         <div class="mt-4">
-                            <h5><b>기술/자격 조건</b></h5>
+                            <label for="skills"><b>기술/자격 조건</b></label>
                             <div class="p-3 d-inline-flex mb-3 w-100">
                                 <div class="row row-cols-auto gap-3 justify-content-center my-3">
-                                    <!-- 반복문 돌리기 -->
+<!--                                    이거 스킬 테이블에서 가져와서 포문 돌려야 함-->
                                     <!-- 스킬1 -->
                                     <input type="checkbox" name="skills" class="btn-check" id="java" value="java"
                                            autocomplete="off">
                                     <label class="btn btn-outline-primary" for="java">JAVA</label>
-                                    <!-- 스킬2 -->
-                                    <input type="checkbox" name="skills" class="btn-check" id="flutter"
-                                           value="flutter" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="flutter">Flutter</label>
                                 </div>
                             </div>
                         </div>
@@ -173,8 +119,8 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <a href="/view/company/posts.html" class="btn btn-outline-danger mb-3"
-                               style="width: 100%">등록하기</a>
+                            <button type="submit" class="btn btn-outline-danger mb-3"
+                               style="width: 100%">등록하기</button>
                         </div>
                     </div>
                 </div>
