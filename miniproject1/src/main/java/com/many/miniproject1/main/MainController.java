@@ -28,17 +28,17 @@ public class MainController {
         List<Resume> resumeList=resumeRepository.findAll();
         System.out.println(resumeList.size());
 
+
         ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
         for(int i =0 ; i<resumeList.size(); i++){
-            List<String> skills=skillRepository.findBySkill(resumeList.get(i).getId());
+            List<String> skills=skillRepository.findBySkillId(resumeList.get(i).getId());
             System.out.println(skills);
             Resume resume=(Resume)resumeList.get(i);
             System.out.println(resume);
-            //resumeSkillList.add(MainResponse.resumeDTO(resume,skills);
-
+            resumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
+            System.out.println(resumeSkillList.get(i));
         }
-
-        request.setAttribute("resumeList", resumeList);
+        request.setAttribute("resumeSkillList", resumeSkillList);
         return "company/main";
     }
 

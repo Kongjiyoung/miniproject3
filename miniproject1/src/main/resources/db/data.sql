@@ -48,9 +48,9 @@ values(2, 'wadiz@wadiz.com', '1234', 'wadiz_HR', '010-1234-5678 ', '와디즈','
 
 
 --이력서정보 입력
-insert into resume_tb(employee_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simple_introduce,created_at)
+insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simple_introduce,created_at)
 values(1,'돈많이벌거에요','2123232131','ssar','19991012','010-1234-5678','진해구','ssar@nate.com','http://qmfmqfqmf','돈많이줘요', '1개월근무','돈많이 벌거에요',now());
-insert into resume_tb(employee_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simple_introduce,created_at)
+insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simple_introduce,created_at)
 values(1,'휴가갈꺼에요','333333331q1','love','19500524','010-1222-2222','부산진구','love@nate.com','http://dffdfddf','휴가많이줘요', '5일근무', '돈많이 줘요', now());
 
 
@@ -67,6 +67,10 @@ insert into skill_tb(skill_id, resume_id, role)
 values('JAVA', 1, 1);
 insert into skill_tb(skill_id, resume_id, role)
 values('JAVA', 2, 1);
+insert into skill_tb(skill_id, resume_id, role)
+values('C', 1, 1);
+insert into skill_tb(skill_id, resume_id, role)
+values('C', 2, 1);
 
 --공고에서
 insert into skill_tb(skill_id, post_id, role)
