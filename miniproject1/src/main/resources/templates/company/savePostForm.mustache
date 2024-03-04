@@ -17,20 +17,18 @@
             </div>
             <!--            <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>-->
             <!--            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required multiple>-->
-            <form action="/company/post/save" method="post">
+            <form action="/company/post/save" method="post" enctype="multipart/form-data">
                 <label type="hidden" for="companyId"></label>
                 <input type="hidden" id="companyId">
                 <div class="px-5 mt-5">
                     <!-- 이미지 업로드 시작 -->
                     <div>
-
-
                         <div class="d-flex justify-content-center mb-5">
                             <div class=" d-flex d-flex justify-content-center align-items-center"
-                                 style="width: 200px; height: 150px; border: 1px solid #e6e6e6;" id="profilePreview"><b>회사
-                                로고</b></div>
+                                 style="width: 200px; height: 150px; border: 1px solid #e6e6e6; color: #e6e6e6;"
+                                 id="profilePreview"><b>사진을 등록해 주세요.</b></div>
                         </div>
-                        <input class="mb-4" type="file" id="profile" accept="image/*">
+                        <input class="mb-4" type="file" id="profile" name="profile" accept="image/*">
 
                         <script>
                             $('#profile').change(function () {
@@ -40,9 +38,17 @@
 
                                     reader.onload = function (e) {
                                         $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
+                                        // let fileName = input.files[0].name;
+                                        // $('#profile').val(fileName);
+                                        // console.log(fileName);
                                     };
 
                                     reader.readAsDataURL(input.files[0]);
+
+                                    // 파일명 출력
+                                    let fileName = input.files[0].name;
+                                    $('#profile').val(fileName);
+                                    console.log(fileName);
                                 }
                             });
                         </script>

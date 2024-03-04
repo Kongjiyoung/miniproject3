@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,27 +40,39 @@ public class PostController {
     }
 
     @GetMapping("/company/post/saveForm")
-    public String companyPostForm() {
+    public String companyPostForm(PostRequest.SaveDTO requestDTO, HttpServletRequest request) {
         // 목적: 공고를 등록하는 페이지를 불러온다.(0)
+//        request.setAttribute("post", requestDTO);
         return "company/savePostForm";
     }
 
-    // 이거 패스 다시 설정
     @PostMapping("/company/post/save")
     public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request) {
         // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        postRepository.save(requestDTO, sessionUser.getId());
-//        MultipartFile profile = requestDTO.getProfile();
-//
-//        String profileName = profile.getOriginalFilename();
-//
-//        Path imgPath = Paths.get("./src/main/resources/static/upload/"+profileName);
-//        try {
-//            Files.write(imgPath, profile.getBytes());
-//        } catch (Exception e){
-//            throw new RuntimeException(e);
+        //        파일 업로드 시도 중
+        MultipartFile profileFile = requestDTO.getProfile();
+        System.out.println(profileFile.getContentType());
+        System.out.println(profileFile.getOriginalFilename());
+        String profileFilename = profileFile.getOriginalFilename();
+
+        Path profilePath = Paths.get(profileFilename);
+        try {
+            Files.write(profilePath, profileFile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        request.setAttribute("post", requestDTO);
+        postRepository.save(requestDTO);
+
+
+//        유저 생기면 하기
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//        if (sessionUser == null) {
+//            return "redirect:/company/loginForm";
 //        }
+//        postRepository.save(requestDTO, sessionUser.getId());
+
 
         return "redirect:/company/post";
     }

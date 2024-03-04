@@ -54,8 +54,9 @@ public class PostRepository {
     }
 
     @Transactional
-    public void save(PostRequest.SaveDTO requestDTO, int companyId) {
-        Query query = em.createNativeQuery("insert into post_tb(title, career, pay, work_condition, work_start_time, work_end_time, deadline, task, profile, working_area, created_at) values(?,?,?,?,?,?,?,?,?,?,?,now())");
+//    public void save(PostRequest.SaveDTO requestDTO, int companyId) {
+    public void save(PostRequest.SaveDTO requestDTO) {
+        Query query = em.createNativeQuery("insert into post_tb(title, career, pay, work_condition, work_start_time, work_end_time, deadline, task, profile, working_area, created_at) values(?,?,?,?,?,?,?,?,?,?,now())");
         query.setParameter(1, requestDTO.getTitle());
         query.setParameter(2, requestDTO.getCareer());
         query.setParameter(3, requestDTO.getPay());
@@ -66,7 +67,7 @@ public class PostRepository {
         query.setParameter(8, requestDTO.getTask());
         query.setParameter(9, requestDTO.getProfile());
         query.setParameter(10, requestDTO.getWorkingArea());
-        query.setParameter(11, companyId);
+//        query.setParameter(11, companyId);
 
         query.executeUpdate();
     }
