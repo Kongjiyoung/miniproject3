@@ -14,7 +14,7 @@ public class OfferRepository {
     private final EntityManager em;
 
     public List<Offer> findAll() {
-        Query query = em.createNativeQuery("SELECT * FROM offer_tb ORDER BY id DESC", Offer.class);
+        Query query = em.createNativeQuery("SELECT * FROM offer_tb ORDER BY id ASC", Offer.class);
 
         return query.getResultList();
     }
