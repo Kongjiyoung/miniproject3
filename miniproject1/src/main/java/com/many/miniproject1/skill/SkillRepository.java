@@ -46,4 +46,19 @@ public class SkillRepository {
 
         return skills;
     }
+
+    public  List<String> findByPostId(int id) {
+
+        Query query = em.createNativeQuery("select skill from skill_tb where post_id=?");
+        query.setParameter(1, id);
+
+        List<String> rows = query.getResultList();
+        List<String> skills = new ArrayList<>();
+
+        for (String row : rows) {
+            skills.add(row);
+        }
+
+        return skills;
+    }
 }

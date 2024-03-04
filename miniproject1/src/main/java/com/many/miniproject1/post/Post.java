@@ -23,7 +23,6 @@ public class Post {
     //private String introduce;
     private String task;
     private String profile;
-    private String skill;
     private String workingArea;
     private Timestamp createdAt;
 }

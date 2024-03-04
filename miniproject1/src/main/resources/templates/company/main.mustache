@@ -4,13 +4,13 @@
 <div class="container grid-gap: 50px;">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/view/index.html">채용공고</a>
+            <a class="nav-link" aria-current="page" href="/person/main">채용공고</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="/view/company/companyMain.html">구인공고</a>
+            <a class="nav-link active" href="/company/main">구인공고</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/view/company/companyMatching.html">맞춤공고</a>
+            <a class="nav-link" href="/person/matching">맞춤공고</a>
         </li>
     </ul>
 </div>
@@ -91,14 +91,13 @@
         <!-- 이력서 시작 -->
         {{#resumeSkillList}}
             <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                <a href="#" style="text-decoration: none; color: black">
+                <a href="/resume/detail/{{id}}" style="text-decoration: none; color: black">
                     <div style="width: 100%; height: 15rem; overflow: hidden">
                         <img src="{{profile}}" class="card-img-top" alt="이력서 사진"/>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><b>{{username}}</b></h5>
                         <h6><span>커리어</span>|<span>{{career}}</span></h6>
-                        <h6><span>스택</span>|<span>{{#skill}}{{.}}{{/skill}}</span></h6>
 
                         <p class="card-text" style="
                   display: -webkit-box;
@@ -116,22 +115,10 @@
                   overflow: hidden;
                   text-overflow: ellipsis;
                 ">
-                            <button class="btn btn-outline-info btn-sm disabled"
-                                    style="padding: 0px 5px; margin-bottom: 0px !important">
-                                DEV
-                            </button>
-                            <button class="btn btn-outline-warning btn-sm disabled">
-                                JAVA
-                            </button>
-                            <button class="btn btn-outline-warning btn-sm disabled">
-                                Flutter
-                            </button>
-                            <button class="btn btn-outline-warning btn-sm disabled">
-                                JavaScript
-                            </button>
-                            <button class="btn btn-outline-warning btn-sm disabled">
-                                React
-                            </button>
+                            <h6><span>{{#skill}}
+                                <button class="btn btn-outline-warning btn-sm disabled">
+                                    {{.}}
+                            </button>{{/skill}}</span></h6>
                         </div>
                     </div>
                 </a>
