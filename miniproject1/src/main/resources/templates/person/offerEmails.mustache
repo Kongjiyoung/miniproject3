@@ -11,10 +11,9 @@
             <div class="container mb-5 mt-5 w-100 h-100">
                 <table class="table table-hover">
                     <tr class="table-dark">
-                        <th class="col-4 px-2">제목</th>
-                        <th class="col-1">회사명</th>
-                        <th class="col-5">채용공고</th>
-                        <th class="col-3">날짜</th>
+                        <th class="col-2">회사명</th>
+                        <th class="col-7">채용 공고</th>
+                        <th class="col-2">날짜</th>
                     </tr>
                     <!-- 조건문 사용 시작 -->
                     <!-- 지원 이력서 없을 때 -->
@@ -26,12 +25,18 @@
                             </tr> -->
                     <!-- 지원 이력서 하나일 때  -->
                     <tr class="table-info">
-                        <td>title</td>
-                        <td>name</td>
-                        <td><a href="#" class="text-decoration-none">title</a></td>
+                        <td>Space X</td>
+                        <td><a href="#" class="text-decoration-none">채용공고</td>
                         <td>2024-03-05</td>
                     </tr>
                     <!-- 그 외 -->
+                    {{#offerList}}
+                        <tr class="table-info">
+                            <td>{{id}}</td>
+                            <td><a href="#" class="text-decoration-none">{{title}}</td>
+                            <td>{{created_at}}</td>
+                        </tr>
+                    {{/offerList}}
                     <!-- <tr class="table-secondary">
                                 <td>title</td>
                                 <td>name</td>

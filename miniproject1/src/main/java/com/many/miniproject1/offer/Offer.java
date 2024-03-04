@@ -3,7 +3,10 @@ package com.many.miniproject1.offer;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Table(name = "offer_tb")
 @Data
@@ -17,6 +20,7 @@ public class Offer {
     private Integer postWriterId;
     private Integer resumeWriterId;
     private String title;
-    private String content;
-    private Timestamp created_at;
+    private String companyName;
+//    private String content;
+    private Date created_at;
 }
