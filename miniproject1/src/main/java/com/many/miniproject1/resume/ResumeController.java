@@ -1,5 +1,6 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.skill.SkillRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -7,17 +8,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ResumeController {
     private final ResumeRepository resumeRepository;
+    private final SkillRepository skillRepository;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
         List<Resume> resumeList= resumeRepository.findAll();
+        System.out.println(resumeList.size());
+
+        ArrayList<ResumeResponse.resumeDTO> resumeSkillList=new ArrayList<>();
+        for (int i = 0; i < resumeList.size(); i++) {
+            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
+            System.out.println(skills);
+            Resume resume=(Resume)resumeList.get(i);
+        }
 
         request.setAttribute("resumeList", resumeList);
         return "person/resumes";
