@@ -49,18 +49,19 @@ public class PostController {
     @PostMapping("/company/post/save")
     public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request) {
         // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
-        //        파일 업로드 시도 중
-        MultipartFile profileFile = requestDTO.getProfile();
-        System.out.println(profileFile.getContentType());
-        System.out.println(profileFile.getOriginalFilename());
-        String profileFilename = profileFile.getOriginalFilename();
+//        //        파일 업로드 시도 중
+//        MultipartFile profileFile = requestDTO.getProfile();
+//        System.out.println(profileFile.getContentType());
+//        System.out.println(profileFile.getOriginalFilename());
+//        String profileFilename = profileFile.getOriginalFilename();
+//
+//        Path profilePath = Paths.get(profileFilename);
+//        try {
+//            Files.write(profilePath, profileFile.getBytes());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
-        Path profilePath = Paths.get(profileFilename);
-        try {
-            Files.write(profilePath, profileFile.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         request.setAttribute("post", requestDTO);
         postRepository.save(requestDTO);
