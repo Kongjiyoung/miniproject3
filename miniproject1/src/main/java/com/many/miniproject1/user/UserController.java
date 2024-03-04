@@ -110,7 +110,7 @@ public class UserController {
     }
 
     // 수정완료/취소 버튼 누르면 자원을 찾을 수 없음이라 나옴. 그것 수정하고 주석 지워주세요.
-    @GetMapping("/company/info/{id}/updateForm")
+    @GetMapping("/company/info/updateForm/{id}")
     public String companyInfoUpdateForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
@@ -118,17 +118,25 @@ public class UserController {
             return "redirect:/company/loginForm";
         }
         User user = userRepository.findById(id);
-        if (user.getId() != sessionUser.getId()){
-            return "error/403";
-        }
+//        if (user.getId() != sessionUser.getId()){
+//            return "error/403";
+//        }
         request.setAttribute("user",user);
-        return "company/updateInfoForm";
+        return "/company/updateInfoForm";
     }
 
 //   여기에도 머스치에도 post를 적었는데 get이 나오는 이유가 무엇일까요.
-    @PostMapping("/company/info/{id}/update")
+    @PostMapping("/company/info/update/{id}")
     public String companyInfoUpdate(@PathVariable int id, UserRequest.UpdateDTO requestDTO) {
-        userRepository.update(requestDTO,id);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/loginForm";
+        }
+        User user = userRepository.findById(id);
+        if (user.getId() != sessionUser.getId()) {
+            return "error/403";
+        }
+        userRepository.companyUpdate(requestDTO,id);
 
 
         return "redirect:/company/info"+id;

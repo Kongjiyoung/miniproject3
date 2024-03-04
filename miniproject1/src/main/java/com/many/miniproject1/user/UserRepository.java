@@ -20,7 +20,7 @@ public class UserRepository {
     }
 
     public User findById(int id) {
-        Query query = em.createNativeQuery("select * from user_tb where id=?");
+        Query query = em.createNativeQuery("select * from user_tb where id=?", User.class);
         query.setParameter(1, id);
 
         try {
@@ -51,7 +51,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void update(UserRequest.UpdateDTO requestDTO, int id) {
+    public void companyUpdate(UserRequest.UpdateDTO requestDTO, int id) {
         Query query = em.createNativeQuery("update user_tb set where id = ?");
         query.setParameter(1, id);
 
