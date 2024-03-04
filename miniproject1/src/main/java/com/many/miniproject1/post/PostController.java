@@ -1,6 +1,5 @@
 package com.many.miniproject1.post;
 
-import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -8,12 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -49,22 +43,9 @@ public class PostController {
     @PostMapping("/company/post/save")
     public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request) {
         // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
-        //        파일 업로드 시도 중
-        MultipartFile profileFile = requestDTO.getProfile();
-        System.out.println(profileFile.getContentType());
-        System.out.println(profileFile.getOriginalFilename());
-        String profileFilename = profileFile.getOriginalFilename();
-
-        Path profilePath = Paths.get(profileFilename);
-        try {
-            Files.write(profilePath, profileFile.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        request.setAttribute("post", requestDTO);
+        System.out.println(requestDTO);
         postRepository.save(requestDTO);
-
+        request.setAttribute("post", requestDTO);
 
 //        유저 생기면 하기
 //        User sessionUser = (User) session.getAttribute("sessionUser");
@@ -90,8 +71,9 @@ public class PostController {
     }
 
     @PostMapping("/company/post/detail/{id}/delete")
-    public String companyDeletePost(@PathVariable int id) {
+    public String companyDeletePost(@PathVariable int id, HttpServletRequest request) {
         // 목적1: 삭제하기를 누르면 포스트가 삭제된 /company/posts로 이동하게 하기. 그런데 그것은 redirect:/company/post이다.
+        postRepository.delete(id);
         return "redirect:/company/post";
     }
 }
