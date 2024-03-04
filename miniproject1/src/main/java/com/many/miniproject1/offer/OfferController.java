@@ -36,9 +36,9 @@ public class OfferController {
 //    public String personPostDetail(@PathVariable int id) {
 //        return "company/offerEmailDetail";
 //    }
-    @GetMapping("/FINDOFFER")
+    @GetMapping("/company/updateInfoForm")
     public String FINDOFFER() {
-        return "company/postDetail";
+        return "company/updateInfoForm";
     }
 
     @GetMapping("/person/offerEmailForm/")
