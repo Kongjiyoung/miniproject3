@@ -3,6 +3,7 @@ package com.many.miniproject1.post;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class PostResponse {
     @Data
@@ -18,7 +19,7 @@ public class PostResponse {
         private String deadline;
         private String task;
         private String profile;
-        private String skill;
+        private List<String> skill;
         private String workingArea;
     }
 }

@@ -47,10 +47,13 @@ public class UserController {
         } else if (!user.getRole().equals("company")) {
             return "error/404";
         } else { // 조회 됐음 (인증됨)
+            Boolean isCompany;
+            isCompany = true;
             session.setAttribute("sessionUser", user);
+            session.setAttribute("isCompany", isCompany);
         }
 
-        return "redirect:/";
+        return "redirect:/company/main";
     }
 
 
@@ -87,9 +90,12 @@ public class UserController {
         } else if (!user.getRole().equals("person")) {
             return "error/404";
         } else { // 조회 됐음 (인증됨)
+            Boolean isPerson;
+            isPerson = true;
             session.setAttribute("sessionUser", user);
+            session.setAttribute("isPerson", isPerson);
         }
-        return "redirect:/";
+        return "redirect:/person/main";
     }
 
 

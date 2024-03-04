@@ -14,7 +14,7 @@ public class OfferRequest {
         private Integer post_writer_id;
         private Integer resume_writer_id;
         private String title;
-        private Date created_at;
+        private Date createdAt;
     }
 
     @Data

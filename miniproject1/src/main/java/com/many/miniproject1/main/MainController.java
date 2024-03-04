@@ -2,8 +2,10 @@ package com.many.miniproject1.main;
 
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostRepository;
+import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeRepository;
+import com.many.miniproject1.resume.ResumeResponse;
 import com.many.miniproject1.skill.SkillRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +64,7 @@ public class MainController {
         request.setAttribute("resumeSkillList", resumeSkillList);
         return "indexresume";
     }
+
     //메인 구직 공고
     @GetMapping("/company/main")
     public String resumeForm(HttpServletRequest request) {
@@ -84,8 +87,14 @@ public class MainController {
 
     @GetMapping("/resume/detail/{id}")
     public String resumeDetailForm(@PathVariable int id, HttpServletRequest request) {
-        //MainResponse.resumeDTO resumeDTO = boardRepository.findByIdWithUser(id);
+        System.out.println("id: "+id);
 
+        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
+        List<String> skills = skillRepository.findByResumeId(id);
+
+        detailDTO.setSkill(skills);
+
+        request.setAttribute("resume", detailDTO);
         return "company/resumeDetail";
     }
 
@@ -120,7 +129,16 @@ public class MainController {
 
 
     @GetMapping("/post/detail/{id}")
-    public String postDetailForm(@PathVariable int id) {
+    public String postDetailForm(@PathVariable int id, HttpServletRequest request) {
+        System.out.println("id: "+id);
+
+
+        PostResponse.DetailDTO detailDTO = postRepository.findById(id);
+        List<String> skills = skillRepository.findByResumeId(id);
+
+        detailDTO.setSkill(skills);
+
+        request.setAttribute("post", detailDTO);
         return "person/postDetail";
     }
     @PostMapping("/post/detail/{id}/apply")
@@ -152,7 +170,15 @@ public class MainController {
     }
 
     @GetMapping("/matching/resume/detail/{id}")
-    public String matchingResumeDetailForm() {
+    public String matchingResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
+        System.out.println("id: "+id);
+
+        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
+        List<String> skills = skillRepository.findByResumeId(id);
+
+        detailDTO.setSkill(skills);
+
+        request.setAttribute("resume", detailDTO);
         return "person/resumeDetail";
     }
     @PostMapping("/matching/resume/detail/{id}/offer")
@@ -185,7 +211,14 @@ public class MainController {
     }
 
     @GetMapping("/matching/post/detail/{id}")
-    public String matchingPostDetailForm() {
+    public String matchingPostDetailForm(@PathVariable int id, HttpServletRequest request) {
+
+        PostResponse.DetailDTO detailDTO = postRepository.findById(id);
+        List<String> skills = skillRepository.findByResumeId(id);
+
+        detailDTO.setSkill(skills);
+
+        request.setAttribute("post", detailDTO);
         return "company/postDetail";
     }
     @PostMapping("/matching/post/detail/{id}/apply")
