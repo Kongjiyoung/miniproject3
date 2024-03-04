@@ -56,10 +56,12 @@ public class ResumeController {
         return "person/saveResumeForm";
     }
 
-    @PostMapping("/person/resume/detail/{id}/save")
-    public String personSaveResume(@PathVariable int id) {
-        return "redirect:/person/resume/detail/{id}";
-    }
+//    @PostMapping("/person/resume/detail/{id}/save")
+//    public String personSaveResume(@PathVariable int id, ResumeRequest.SaveDTO requestDTO, HttpServletRequest request) {
+//        insert into resume_tb();
+//        resumeRepository.save(requestDTO, sessionUser.getId());
+//        return "redirect:/person/resume/detail/{id}";
+//    }
 
     @GetMapping("/person/resume/detail/{id}/updateForm")
     public String personUpdateResumeForm(@PathVariable int id) {
