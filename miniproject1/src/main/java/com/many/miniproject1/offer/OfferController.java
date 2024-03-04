@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 @RequiredArgsConstructor
 public class OfferController {
-    //개인 제안 관리
-    @GetMapping("/person/offer")
+    // company의 offers 관리
+    @GetMapping("/company/offers")
     public String personPost() {
+        return "company/offers";
+    }
+    // person의 offers 관리
+    @GetMapping("/person/offerEmails")
+    public String personPostE() {
         return "person/offerEmails";
     }
 

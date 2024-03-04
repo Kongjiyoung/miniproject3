@@ -113,6 +113,7 @@ values (1, 1, 2, 1, '합격');
 
 
 --제안
+--offer_tb title 삭제, 더미 추가
 INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, content, created_at)
 VALUES (1, 1, 2, 1, '양승호씨?', now());
 INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, content, created_at)
