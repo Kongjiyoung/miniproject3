@@ -66,9 +66,17 @@
                 <!--                <a href="/company/post/detail/{id}/updateForm" class="btn btn-outline-success mb-3"-->
                 <!--                        style="width: 100%">수정하기-->
                 <!--                </a> -->
-                <a href="/company/post/detail/{{id}}/updateForm" class="btn btn-outline-success mb-3"
-                   style="width: 100%">수정하기
-                </a>
+                <div>
+                    <a href="/company/post/detail/{{id}}/updateForm" class="btn btn-outline-success mb-3"
+                       style="width: 100%">수정하기
+                    </a>
+                </div>
+                <form action="/company/post/detail/{{id}}/delete" method="post">
+                    <button class="btn btn-outline-danger mb-3"
+                            style="width: 100%">삭제하기
+                    </button>
+                </form>
+
             </div>
         </div>
     </div>
