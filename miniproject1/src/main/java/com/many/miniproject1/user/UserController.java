@@ -40,12 +40,14 @@ public class UserController {
 //        }
 
         User user = userRepository.findByEmailAndPassword(requestDTO);
+        if (user == null){
+            return "/company/loginForm";
+        } else if (user.getRole() != 2) {
+            return "error/404";
+        } else { // 조회 됐음 (인증됨)
+            session.setAttribute("sessionUser", user);
+        }
 
-//        if (user == null) {
-//            return "error/401";
-//        } else { // 조회 됐음 (인증됨)
-//            session.setAttribute("sessionUser", user);
-//        }
         return "redirect:/";
     }
 
@@ -78,11 +80,13 @@ public class UserController {
 
         User user = userRepository.findByEmailAndPassword(requestDTO);
 
-//        if (user == null) {
-//            return "error/401";
-//        } else { // 조회 됐음 (인증됨)
-//            session.setAttribute("sessionUser", user);
-//        }
+        if (user == null){
+            return "/person/loginForm";
+        } else if (user.getRole() != 1) {
+            return "error/404";
+        } else { // 조회 됐음 (인증됨)
+            session.setAttribute("sessionUser", user);
+        }
         return "redirect:/";
     }
 
@@ -91,6 +95,7 @@ public class UserController {
     //기업 개인 로그아웃
     @GetMapping("/logout")
     public String logout() {
+        session.invalidate();
         return "redirect:/";
     }
 
