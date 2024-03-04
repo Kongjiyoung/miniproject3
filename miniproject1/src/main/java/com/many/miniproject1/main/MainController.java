@@ -7,7 +7,9 @@ import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeRepository;
 import com.many.miniproject1.resume.ResumeResponse;
 import com.many.miniproject1.skill.SkillRepository;
+import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,7 @@ public class MainController {
     private final ResumeRepository resumeRepository;
     private final PostRepository postRepository;
     private final SkillRepository skillRepository;
+    private final HttpSession session;
 
 
     @GetMapping("/")
@@ -152,20 +155,24 @@ public class MainController {
     //맞춤 공고 - 기업이 보는 매칭 이력서
     @GetMapping("/company/matching")
     public String matchingResumeForm(HttpServletRequest request) {
-        List<Resume> resumeList=resumeRepository.findAll();
-        System.out.println(resumeList.size());
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Post> postList=postRepository.findAll();
+        System.out.println(postList.size());
 
 
-        ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
-        for(int i =0 ; i<resumeList.size(); i++){
-            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
+        ArrayList<MainResponse.postDTO> postSkillList=new ArrayList<>();
+        for(int i =0 ; i<postList.size(); i++){
+            List<String> skills=skillRepository.findByPostId(postList.get(i).getId());
             System.out.println(skills);
-            Resume resume=(Resume)resumeList.get(i);
-            System.out.println(resume);
-            resumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
-            System.out.println(resumeSkillList.get(i));
+            Post post=(postList.get(i));
+            System.out.println(post);
+            postSkillList.add(new MainResponse.postDTO(post,skills));
+            System.out.println(postSkillList.get(i));
         }
-        request.setAttribute("resumeSkillList", resumeSkillList);
+        System.out.println(postList);
+        request.setAttribute("resumeSkillList", postSkillList);
+        String role=sessionUser.getRole();
+        //Boolean isCompany
         return "person/matching";
     }
 
@@ -192,21 +199,20 @@ public class MainController {
     //맞춤 공고 - 개인이 보는 매칭 공고
     @GetMapping("/person/matching")
     public String matchingPostForm(HttpServletRequest request) {
-        List<Post> postList=postRepository.findAll();
-        System.out.println(postList.size());
+        List<Resume> resumeList=resumeRepository.findAll();
+        System.out.println(resumeList.size());
 
 
-        ArrayList<MainResponse.postDTO> postSkillList=new ArrayList<>();
-        for(int i =0 ; i<postList.size(); i++){
-            List<String> skills=skillRepository.findByPostId(postList.get(i).getId());
+        ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
+        for(int i =0 ; i<resumeList.size(); i++){
+            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
             System.out.println(skills);
-            Post post=(postList.get(i));
-            System.out.println(post);
-            postSkillList.add(new MainResponse.postDTO(post,skills));
-            System.out.println(postSkillList.get(i));
+            Resume resume=(Resume)resumeList.get(i);
+            System.out.println(resume);
+            resumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
+            System.out.println(resumeSkillList.get(i));
         }
-        System.out.println(postList);
-        request.setAttribute("postSkillList", postSkillList);
+        request.setAttribute("postSkillList", resumeSkillList);
         return "company/matching";
     }
 
