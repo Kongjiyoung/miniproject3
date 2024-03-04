@@ -20,10 +20,8 @@ public class Post {
     private String workStartTime;
     private String workEndTime;
     private String deadline;
-    //private String introduce;
     private String task;
     private String profile;
-    private String skill;
     private String workingArea;
     private Timestamp createdAt;
 }
