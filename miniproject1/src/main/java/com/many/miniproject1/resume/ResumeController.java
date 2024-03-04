@@ -1,5 +1,6 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.skill.SkillRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -7,24 +8,46 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ResumeController {
     private final ResumeRepository resumeRepository;
+    private final SkillRepository skillRepository;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
         List<Resume> resumeList= resumeRepository.findAll();
+        System.out.println(resumeList.size());
+
+        ArrayList<ResumeResponse.resumeDTO> resumeSkillList=new ArrayList<>();
+        for (int i = 0; i < resumeList.size(); i++) {
+            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
+            System.out.println(skills);
+            Resume resume=(Resume)resumeList.get(i);
+            System.out.println(resume);
+
+            resumeSkillList.add(new ResumeResponse.resumeDTO(resume,skills));
+            System.out.println(resumeSkillList.get(i));
+        }
 
         request.setAttribute("resumeList", resumeList);
         return "person/resumes";
     }
 
     @GetMapping("/person/resume/detail/{id}")
-    public String personResumeDetailForm(@PathVariable int id) {
+    public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
+        System.out.println("id: "+id);
+
+        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
+        List<String> skills = skillRepository.findByResumeId(id);
+
+        detailDTO.setSkill(skills);
+
+        request.setAttribute("resume", detailDTO);
         return "person/resumeDetail";
     }
 
@@ -33,10 +56,12 @@ public class ResumeController {
         return "person/saveResumeForm";
     }
 
-    @PostMapping("/person/resume/detail/{id}/save")
-    public String personSaveResume(@PathVariable int id) {
-        return "redirect:/person/resume/detail/{id}";
-    }
+//    @PostMapping("/person/resume/detail/{id}/save")
+//    public String personSaveResume(@PathVariable int id, ResumeRequest.SaveDTO requestDTO, HttpServletRequest request) {
+//        insert into resume_tb();
+//        resumeRepository.save(requestDTO, sessionUser.getId());
+//        return "redirect:/person/resume/detail/{id}";
+//    }
 
     @GetMapping("/person/resume/detail/{id}/updateForm")
     public String personUpdateResumeForm(@PathVariable int id) {
