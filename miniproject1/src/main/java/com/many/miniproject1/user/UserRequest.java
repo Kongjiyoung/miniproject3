@@ -5,7 +5,7 @@ import lombok.Data;
 public class UserRequest {
     @Data
     public static class JoinDTO{
-        private Integer role;
+        private String role;
         private String companyName;
         private String companyNum;
         private String username;
@@ -20,12 +20,20 @@ public class UserRequest {
 
     @Data
     public static class UpdateDTO {
-        private Integer id;
+        private String email;
+        private String password;
+        private String username;
+        private String tel;
+        private String companyName;
+        private String companyAddress;
+        private String companyNum;
+        private String companyYear;
+        private String companyMemberNum;
     }
 
     @Data
     public static class LoginDTO {
-        private Integer role;
+        private String role;
         private String email;
         private String password;
     }
