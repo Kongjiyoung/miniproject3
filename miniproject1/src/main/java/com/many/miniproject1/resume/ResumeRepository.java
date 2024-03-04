@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -19,13 +20,16 @@ public class ResumeRepository {
         return query.getResultList();
     }
 
-    public Resume findById(int id) {
-        Query query = em.createNativeQuery("select * from resume_tb where id=?");
+    public ResumeResponse.DetailDTO findById(int id) {
+        Query query = em.createNativeQuery("select * from resume_tb where id=?", Resume.class);
         query.setParameter(1, id);
 
         Resume resume = (Resume) query.getSingleResult();
 
-        return resume;
+        List<String> skill = new ArrayList<>();
+        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO(resume,skill);
+
+        return responseDTO;
     }
 
     @Transactional

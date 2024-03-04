@@ -28,51 +28,50 @@
                         <table class="resume_table">
                             <tr>
                                 <td>이름</td>
-                                <td>양승호</td>
+                                <td>{{resume.username}}</td>
                             </tr>
                             <tr>
                                 <td>생년월일</td>
-                                <td>1996-02-01</td>
+                                <td>{{resume.birth}}</td>
                             </tr>
                             <tr>
                                 <td>연락처</td>
-                                <td>010-1234-5678</td>
+                                <td>{{resume.tel}}</td>
                             </tr>
                             <tr>
                                 <td>주소</td>
-                                <td>부산시 부산진구 모처</td>
+                                <td>{{resume.address}}</td>
                             </tr>
                             <tr>
                                 <td>이메일</td>
-                                <td>ssar@nate.com</td>
+                                <td>{{resume.email}}</td>
                             </tr>
                         </table>
                     </div>
                     <div class="mt-5">
                         <h4>커리어</h4>
-                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>2년차, 1개 회사 근무
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.career}}
                          </textarea>
                         <h4>간단 소개</h4>
-                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>배움에 두려움이 없고 성장을 갈망하는 소프트웨어 엔지니어입니다. SI/SM 그리고 서비스 기업의 엔지니어로 활동했습니다.
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.simpleIntroduce}}
                          </textarea>
                         <h4>포트폴리오 주소</h4>
                         <input type="url" class="form-control mt-2" id="" style="display: block;"
-                               value="github.com/sdsdfsdf" readOnly>
+                               value="{{resume.portfolio}}" readOnly>
                     </div>
                     <div class="mt-5 jh_resume_skill">
                         <h4>기술스택</h4>
                         <div>
                             <ul>
-                                <li>JAVA</li>
-                                <li>Flutter</li>
+                                {{#resume.skill}}
+                                <li>{{.}}</li>
+                                {{/resume.skill}}
                             </ul>
                         </div>
                     </div>
                     <div class="mt-5 w-100">
                         <h4>자기소개</h4>
-                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>백엔드 개발자로서 2년간의 다양한 경험을 통해 성장했습니다. 대기업과 서비스 기업에서의 근무 경험을 통해 다양한 프로젝트에 참여하고 소중한 배움을 얻었습니다.
-                                                                                                          대기업에선 개발에 그치지 않고, 타 부서와의 프로젝트 회의에 자주 참여하면서 요구사항 파악과 타 팀과의 원활한 커뮤니케이션의 중요성을 간접 경험하게 되었습니다. 서비스 기업에서는 MSA, DDD, K8s와 같은 최신 기술 트렌드에 대한 이해를 높이고, RFC(Requests for Comments), ERD(Engineering Requirements Document)와 같은 문서 작성에 대한 중요성을 학습했습니다. 그리고 프로젝트에 참여하면서 테스트 코드 작성, 코드 리뷰, 로깅 설정, 모니터링과 같은 다양한 작업을 경험하며 실무 역량을 향상시켰습니다. 또한, 메모리 최적화와 리팩토링을 통해 끊임없이 개발자로서 성장하고 발전해왔습니다.
-                                                                                                          저는 앞으로도 새로운 도전과 학습에 열려있으며, 지속적인 발전을 통해 더 나은 개발자가 되기 위해 노력하겠습니다.
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.introduce}}
                          </textarea>
                     </div>
                     <div class="d-flex justify-content-center ">

@@ -28,6 +28,10 @@ public class ResumeController {
             List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
             System.out.println(skills);
             Resume resume=(Resume)resumeList.get(i);
+            System.out.println(resume);
+
+            resumeSkillList.add(new ResumeResponse.resumeDTO(resume,skills));
+            System.out.println(resumeSkillList.get(i));
         }
 
         request.setAttribute("resumeList", resumeList);
@@ -35,7 +39,15 @@ public class ResumeController {
     }
 
     @GetMapping("/person/resume/detail/{id}")
-    public String personResumeDetailForm(@PathVariable int id) {
+    public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
+        System.out.println("id: "+id);
+
+        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
+        List<String> skills = skillRepository.findByResumeId(id);
+
+        detailDTO.setSkill(skills);
+
+        request.setAttribute("resume", detailDTO);
         return "person/resumeDetail";
     }
 
