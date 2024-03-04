@@ -83,6 +83,7 @@ values (1, '데이터 분석가', '
 미들 (4~8년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         '데이터 관리, 분석, 시각화, 모델링을 통해 데이터로부터 정보를 추출하고 인사이트를 도출합니다.', '/images/company4.png', '경기 성남시 분당구', now());
 
+
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
 values (1, 'React Native 개발자 (경력 1년 이상)', '
@@ -94,6 +95,7 @@ insert into post_tb(company_id, title, career, pay, work_condition, work_start_t
 values (1, '[인턴] 프론트엔드 개발자 (JavaScript)', '
 인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+
 
 
 -- entity수정 career데이터 varchar로 고치기
@@ -111,7 +113,12 @@ values ('C', 2, 1);
 
 --공고에서
 insert into skill_tb(skill, post_id, role)
-values ('JAVA', 1, 1);
+values('JAVA', 1, 1);
+insert into skill_tb(skill, post_id, role)
+values('JAVA', 2, 1);
+insert into skill_tb(skill, post_id, role)
+values('JAVA', 3, 1);
+
 
 
 --지원
@@ -120,8 +127,15 @@ values (1, 1, 2, 1, '합격');
 
 
 --제안
-insert into offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, content, created_at)
-values (1, 1, 2, 1, '우리회사와', '돈많이줄게', now());
+--offer_tb content 삭제, 더미 추가
+INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, created_at)
+VALUES (1, 1, 2, 1, '양승호씨?', now());
+INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, created_at)
+VALUES (1, 1, 2, 2, '우리회사와', now());
+INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, created_at)
+VALUES (1, 1, 2, 3, '돈 많이줄게', now());
+
+
 
 
 --ispass varchar타입에서 int로 바꾸기

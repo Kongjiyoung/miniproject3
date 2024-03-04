@@ -14,19 +14,28 @@ public class OfferRepository {
     private final EntityManager em;
 
     public List<Offer> findAll() {
-        Query query = em.createNativeQuery("SELECT * FROM offer_tb", Offer.class);
+        Query query = em.createNativeQuery("SELECT * FROM offer_tb ORDER BY id ASC", Offer.class);
 
         return query.getResultList();
     }
 
     public Offer findById(int id) {
-        Query query = em.createNativeQuery("SELECT * FROM offer_tb WHERE id=?");
+        Query query = em.createNativeQuery("SELECT * FROM offer_tb WHERE id=?", Offer.class);
         query.setParameter(1, id);
 
         Offer offer = (Offer) query.getSingleResult();
 
         return offer;
     }
+
+//    public Offer List<Offer> fintAllSelect(int id) {
+//        Query query = em.createNativeQuery("SELECT * FROM offer_tb WHERE id=?", Of);
+//        query.setParameter(1, id);
+//
+//        Offer offer = (Offer) query.getSingleResult();
+//
+//        return offer;
+//    }
 
     @Transactional
     public void save(OfferRequest.SaveDTO requestDTO, int id) {
