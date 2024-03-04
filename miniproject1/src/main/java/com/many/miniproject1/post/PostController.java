@@ -1,6 +1,8 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
     private final PostRepository postRepository;
+    private final HttpSession session;
 
     //회사 공고 관리
     @GetMapping("/company/post")
@@ -43,8 +46,10 @@ public class PostController {
 
     // 이거 패스 다시 설정
     @PostMapping("/company/post/save")
-    public String companySavePost(PostRequest.SaveDTO requestDTO) {
+    public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request) {
         // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        postRepository.save(requestDTO, sessionUser.getId());
 //        MultipartFile profile = requestDTO.getProfile();
 //
 //        String profileName = profile.getOriginalFilename();
