@@ -12,7 +12,7 @@ values (1, 'hana@nate.com', '1234', 'hana', '010-1234-5678 ', '사진URL', now()
 insert into user_tb(role, email, password, username, tel, profile, created_at)
 values (1, 'zusim@nate.com', '1234', 'zusim', '010-1234-5678 ', '사진URL', now());
 insert into user_tb(role, email, password, username, tel, profile, created_at)
-values (1, 'ssar@nate.com', '1234', 'ssar', '010-1234-5678 ', '사진URL', now());
+values ('person', 'ssar@nate.com', '1234', 'ssar', '010-1234-5678 ', '사진URL', now());
 insert into user_tb(role, email, password, username, tel, profile, created_at)
 values (1, 'ryu@nate.com', '1234', 'ryu', '010-1234-5678 ', '사진URL', now());
 insert into user_tb(role, email, password, username, tel, profile, created_at)
@@ -49,7 +49,7 @@ values (2, 'humanscape@nate.com', '1234', 'humanscape_HR', '010-1234-5678', '휴
         '123-456-78910', '사진URL', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
-values (2, 'soomgo@soomgo.com', '1234', 'soomgo_HR', '010-1234-5678', '브레이브모바일 (숨고)', '서울 강남구 테헤란로 415 L7 강남타워 5층',
+values ('company', 'soomgo@soomgo.com', '1234', 'soomgo_HR', '010-1234-5678', '브레이브모바일 (숨고)', '서울 강남구 테헤란로 415 L7 강남타워 5층',
         '123-456-78910', '사진URL', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)

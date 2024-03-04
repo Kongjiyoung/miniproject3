@@ -1,8 +1,10 @@
 package com.many.miniproject1.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,12 +42,14 @@ public class UserController {
 //        }
 
         User user = userRepository.findByEmailAndPassword(requestDTO);
+        if (user == null){
+            return "/company/loginForm";
+        } else if (!user.getRole().equals("company")) {
+            return "error/404";
+        } else { // 조회 됐음 (인증됨)
+            session.setAttribute("sessionUser", user);
+        }
 
-//        if (user == null) {
-//            return "error/401";
-//        } else { // 조회 됐음 (인증됨)
-//            session.setAttribute("sessionUser", user);
-//        }
         return "redirect:/";
     }
 
@@ -78,11 +82,13 @@ public class UserController {
 
         User user = userRepository.findByEmailAndPassword(requestDTO);
 
-//        if (user == null) {
-//            return "error/401";
-//        } else { // 조회 됐음 (인증됨)
-//            session.setAttribute("sessionUser", user);
-//        }
+        if (user == null){
+            return "/person/loginForm";
+        } else if (!user.getRole().equals("person")) {
+            return "error/404";
+        } else { // 조회 됐음 (인증됨)
+            session.setAttribute("sessionUser", user);
+        }
         return "redirect:/";
     }
 
@@ -91,6 +97,7 @@ public class UserController {
     //기업 개인 로그아웃
     @GetMapping("/logout")
     public String logout() {
+        session.invalidate();
         return "redirect:/";
     }
 
@@ -101,18 +108,30 @@ public class UserController {
     public String companyInfo() {
         return "company/companyInfo";
     }
-    //    수정하기 버튼 누르면 수정하기 되게 해주세요. 하고 주석 지워주세요.
 
     // 수정완료/취소 버튼 누르면 자원을 찾을 수 없음이라 나옴. 그것 수정하고 주석 지워주세요.
-    @GetMapping("/company/info/updateForm")
-    public String companyInfoUpdateForm() {
+    @GetMapping("/company/info/{id}/updateForm")
+    public String companyInfoUpdateForm(@PathVariable int id, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
+            return "redirect:/company/loginForm";
+        }
+        User user = userRepository.findById(id);
+        if (user.getId() != sessionUser.getId()){
+            return "error/403";
+        }
+        request.setAttribute("user",user);
         return "company/updateInfoForm";
     }
 
 //   여기에도 머스치에도 post를 적었는데 get이 나오는 이유가 무엇일까요.
-    @PostMapping("/company/info/update")
-    public String companyInfoUpdate() {
-        return "redirect:/company/companyInfo";
+    @PostMapping("/company/info/{id}/update")
+    public String companyInfoUpdate(@PathVariable int id, UserRequest.UpdateDTO requestDTO) {
+        userRepository.update(requestDTO,id);
+
+
+        return "redirect:/company/info"+id;
     }
 
     //개인 프로필 정보 및 수정
