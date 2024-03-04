@@ -1,6 +1,7 @@
 {{> layout/header}}
-<div class="container justify-content-center mt-4 mb-5">
-    <div class="border hs_content_box w-100 mx-2 mt-4 pb-5 rounded shadow">
+<!--<div class="container justify-content-center mt-4 mb-5">-->
+<div class="container d-flex">
+    <div class="border hs_content_box w-100 mx-2 b-5 rounded shadow">
         <div class="px-5 pt-5 pb-2">
         </div>
         <div class="px-5">
@@ -56,12 +57,31 @@
                     <h4>필요 스킬</h4>
                     <div class="d-flex justify-content-start">
                         <div class="row row-cols-auto gap-3 justify-content-start my-3" style="width: 70%;">
-                            <div class="btn btn-outline-primary mx-3 disabled">{{post.skill}}</div>
+                            <div class="btn btn-outline-primary mx-3 disabled">Java</div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="d-flex justify-content-center mt-3">
+                <!--                <a href="/company/post/detail/{id}/updateForm" class="btn btn-outline-success mb-3"-->
+                <!--                        style="width: 100%">수정하기-->
+                <!--                </a> -->
+                <a href="/company/post/detail/{{id}}/updateForm" class="btn btn-outline-success mb-3"
+                   style="width: 100%">수정하기
+                </a>
+            </div>
         </div>
     </div>
+    <!-- list-group( 오른쪽 바로가기) 시작 -->
+    <div class="list-group mx-2">
+        <a href="/view/company/info.html" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
+        <a href="/view/company/posts.html" class="list-group-item shadow">공고 관리</a>
+        <a href="/view/company/getResume.html" class="list-group-item hs_list_effect shadow">받은 이력서</a>
+        <a href="/view/company/scrap.html" class="list-group-item shadow">스크랩한 이력서</a>
+        <a href="/view/company/offers.html" class="list-group-item shadow">제안한 이력서</a>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 끝 -->
 </div>
+
+
 {{> layout/footer}}

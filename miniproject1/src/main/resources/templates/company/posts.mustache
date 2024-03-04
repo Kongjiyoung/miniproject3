@@ -1,8 +1,13 @@
 {{> layout/header}}
-<div class="container d-flex" style="height: 100vh;">
+<div class="container d-flex">
 
     <section class="container grid-gap: 50px; mt-5">
-        <h1>등록한 공고</h1>
+        <div class="d-flex justify-content-start align-items-center">
+            <h1 class="m-3">등록한 공고</h1>
+            <div class="d-flex justify-content-center ">
+                <a href="/company/post/saveForm" class="btn btn-outline-primary" style="width: 100%;">새 공고 만들기</a>
+            </div>
+        </div>
         <br>
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
@@ -27,7 +32,7 @@
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            "><span>{{skill}}</span> | <span>{{skill}}</span></p>
+                            "><span>Java</span> | <span>Spring</span></p>
                             <p style="  margin: 5px;
                             display: -webkit-box;
                             -webkit-line-clamp: 1;

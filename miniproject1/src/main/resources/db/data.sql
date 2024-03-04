@@ -66,39 +66,49 @@ values (2, 'wadiz@wadiz.com', '1234', 'wadiz_HR', '010-1234-5678 ', '와디즈',
 
 
 --이력서정보 입력
-insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simple_introduce,created_at)
-values(1,'돈많이벌거에요','2123232131','ssar','19991012','010-1234-5678','진해구','ssar@nate.com','http://qmfmqfqmf','돈많이줘요', '1개월근무','돈많이 벌거에요',now());
-insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simple_introduce,created_at)
-values(1,'휴가갈꺼에요','333333331q1','love','19500524','010-1222-2222','부산진구','love@nate.com','http://dffdfddf','휴가많이줘요', '5일근무', '돈많이 줘요', now());
+insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
+                      simple_introduce, created_at)
+values (1, '돈많이벌거에요', '2123232131', 'ssar', '19991012', '010-1234-5678', '진해구', 'ssar@nate.com', 'http://qmfmqfqmf',
+        '돈많이줘요', '1개월근무', '돈많이 벌거에요', now());
+insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
+                      simple_introduce, created_at)
+values (1, '휴가갈꺼에요', '333333331q1', 'love', '19500524', '010-1222-2222', '부산진구', 'love@nate.com', 'http://dffdfddf',
+        '휴가많이줘요', '5일근무', '돈많이 줘요', now());
 
 
 --채용공고 입력
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
 values (1, '데이터 분석가', '
-미들 (4~8년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감', '데이터 관리, 분석, 시각화, 모델링을 통해 데이터로부터 정보를 추출하고 인사이트를 도출합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+미들 (4~8년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+        '데이터 관리, 분석, 시각화, 모델링을 통해 데이터로부터 정보를 추출하고 인사이트를 도출합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+
 
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
 values (1, 'React Native 개발자 (경력 1년 이상)', '
-주니어 (1~3년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감', 'TypeScript, React Native 를 기반으로 Android / iOS 애플리케이션을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+주니어 (1~3년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+        'TypeScript, React Native 를 기반으로 Android / iOS 애플리케이션을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구',
+        now());
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
 values (1, '[인턴] 프론트엔드 개발자 (JavaScript)', '
-인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감', 'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+        'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+
 
 
 -- entity수정 career데이터 varchar로 고치기
 --스킬
 --이력서에서
 insert into skill_tb(skill, resume_id, role)
-values('JAVA', 1, 1);
+values ('JAVA', 1, 1);
 insert into skill_tb(skill, resume_id, role)
-values('JAVA', 2, 1);
+values ('JAVA', 2, 1);
 insert into skill_tb(skill, resume_id, role)
-values('C', 1, 1);
+values ('C', 1, 1);
 insert into skill_tb(skill, resume_id, role)
-values('C', 2, 1);
+values ('C', 2, 1);
 
 
 --공고에서

@@ -1,6 +1,7 @@
 package com.many.miniproject1.post;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 public class PostRequest {
 
@@ -16,8 +17,8 @@ public class PostRequest {
         private String workEndTime;
         private String deadline;
         private String task;
-        private String profile;
-        private String skill;
+        private MultipartFile profile;
+        // private String skill;
         private String workingArea;
     }
 
@@ -34,8 +35,7 @@ public class PostRequest {
         private String workEndTime;
         private String deadline;
         private String task;
-        private String profile;
-        private String skill;
+        private MultipartFile profile;
         private String workingArea;
     }
 }
