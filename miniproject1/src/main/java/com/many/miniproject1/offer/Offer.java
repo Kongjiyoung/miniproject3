@@ -16,7 +16,7 @@ public class Offer {
     private Integer postId;
     private Integer postWriterId;
     private Integer resumeWriterId;
-    private String title;
+//    private String title;
     private String content;
     private Timestamp created_at;
 }

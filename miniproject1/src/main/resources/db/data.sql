@@ -113,12 +113,13 @@ values (1, 1, 2, 1, '합격');
 
 
 --제안
-insert into offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, content, created_at)
-values (1, 1, 2, 1, '우리회사와', '돈많이줄게', now());
-insert into offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, content, created_at)
-values (1, 1, 2, 1, '우리회사와', '돈많이줄게', now());
-insert into offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, content, created_at)
-values (1, 1, 2, 1, '우리회사와', '돈많이줄게', now());
+INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, content, created_at)
+VALUES (1, 1, 2, 1, '양승호씨?', now());
+INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, content, created_at)
+VALUES (1, 1, 2, 2, '우리회사와', now());
+INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, content, created_at)
+VALUES (1, 1, 2, 3, '돈 많이줄게', now());
+
 
 
 

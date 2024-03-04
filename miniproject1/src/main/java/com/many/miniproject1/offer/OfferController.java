@@ -19,9 +19,34 @@ public class OfferController {
     public String personPostDetail(@PathVariable int id) {
         return "company/offerEmailDetail";
     }
+    @GetMapping("/FINDOFFER")
+    public String FINDOFFER() {
+        return "company/postDetail";
+    }
 
     @GetMapping("/person/offerEmailForm/")
     public String pers() {
         return "company/offerEmailForm";
+    }
+
+    @GetMapping("/z1")
+    public String z1() {
+        return "company/appliedResumeDetail";
+    }
+    @GetMapping("/z2")
+    public String z2() {
+        return "company/companyInfo";
+    }
+    @GetMapping("/z3")
+    public String z3() {
+        return "company/companyResumes";
+    }
+    @GetMapping("/z4")
+    public String z4() {
+        return "company/joinForm";
+    }
+    @GetMapping("/z5")
+    public String z5() {
+        return "company/loginForm";
     }
 }
