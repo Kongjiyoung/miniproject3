@@ -115,6 +115,11 @@ values (1, 1, 2, 1, '합격');
 --제안
 insert into offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, content, created_at)
 values (1, 1, 2, 1, '우리회사와', '돈많이줄게', now());
+insert into offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, content, created_at)
+values (1, 1, 2, 1, '우리회사와', '돈많이줄게', now());
+insert into offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, content, created_at)
+values (1, 1, 2, 1, '우리회사와', '돈많이줄게', now());
+
 
 
 --ispass varchar타입에서 int로 바꾸기
