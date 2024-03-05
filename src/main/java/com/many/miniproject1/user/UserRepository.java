@@ -66,13 +66,13 @@ public class UserRepository {
         query.executeUpdate();
     }
 
-    @Transactional
-    public void delete(int id) {
-        Query query = em.createNativeQuery("delete from user_tb where id = ?");
-        query.setParameter(1, id);
-
-        query.executeUpdate();
-    }
+//    @Transactional
+//    public void delete(int id) {
+//        Query query = em.createNativeQuery("delete from user_tb where id = ?");
+//        query.setParameter(1, id);
+//
+//        query.executeUpdate();
+//    }
 
     public User findByEmailAndPassword(UserRequest.LoginDTO requestDTO) {
         Query query = em.createNativeQuery("select * from user_tb where email=? and password=?", User.class);
@@ -107,5 +107,17 @@ public class UserRepository {
         responseDTO.setTel(tel);
         responseDTO.setProfile(profile);
         return responseDTO;
+    }
+
+    @Transactional
+    public void personUpdate(UserRequest.UpdateDTO requestDTO, int id) {
+        Query query = em.createNativeQuery("update user_tb set username=?, tel=?, email=?, password =? where id = ?");
+        query.setParameter(1, requestDTO.getUsername());
+        query.setParameter(2, requestDTO.getTel());
+        query.setParameter(3, requestDTO.getEmail());
+        query.setParameter(4, requestDTO.getPassword());
+        query.setParameter(5, id);
+
+        query.executeUpdate();
     }
 }

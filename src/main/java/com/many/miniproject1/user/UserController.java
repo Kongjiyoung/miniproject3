@@ -154,19 +154,42 @@ public class UserController {
     }
 
     //개인 프로필 정보 및 수정
-    @GetMapping("/person/info")
-    public String personal() {
+    @GetMapping("/person/info/{id}")
+    public String personal(@PathVariable int id, HttpServletRequest request) {
+        System.out.println("id: "+id);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
+            return "/person/loginForm";
+        }
+        User user = userRepository.findById(id);
+        request.setAttribute("user",sessionUser);
+
         return "person/personalInfo";
     }
 
-    @GetMapping("/person/info/updateForm")
-    public String personInfoInfoUpdateForm() {
+    @GetMapping("/person/info/{id}/updateForm")
+    public String personInfoInfoUpdateForm(@PathVariable int id, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
+            return "person/loginForm";
+        }
+        User user = userRepository.findById(id);
+
+        request.setAttribute("user",user);
         return "person/updatePersonalForm";
     }
 
-    @PostMapping("/person/info/update")
-    public String personInfoUpdate() {
-        return "redirect:/person/Info";
+    @PostMapping("/person/info/{id}/update")
+    public String personInfoUpdate(@PathVariable int id, UserRequest.UpdateDTO requestDTO, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/loginForm";
+        }
+        userRepository.personUpdate(requestDTO,id);
+        request.setAttribute("user", requestDTO);
+        return "redirect:/person/info/"+id;
     }
 
 
