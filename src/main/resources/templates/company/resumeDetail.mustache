@@ -7,8 +7,8 @@
         <div class="px-5">
             <div class="d-flex justify-content-start align-items-center">
                 <h3 class="">{{resume.title}}</h3>
-                <form>
-                    <select class="form-select" aria-label="Default select example" id="postChoice" name="postChoice">
+                <form  action="/resume/detail/{{resume.id}}/offer" method="post">
+                    <select class="form-select" aria-label="Default select example" id="postId" name="postId">
                         <option selected>채용 공고 선택</option>
                         {{#postList}}
                             <option value="{{id}}">{{title}}</option>
