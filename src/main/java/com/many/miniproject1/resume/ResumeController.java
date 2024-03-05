@@ -82,7 +82,7 @@ public class ResumeController {
 
     @GetMapping("/person/resume/detail/{id}/updateForm")
     public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
-        Resume resume = resumeRepository.findById(id);
+//        Resume resume = resumeRepository.findById(id);
         ResumeResponse.DetailDTO  detailDTO= new ResumeResponse.DetailDTO(new Resume());
         request.setAttribute("resume", detailDTO);
         return "person/updateResumeForm";
