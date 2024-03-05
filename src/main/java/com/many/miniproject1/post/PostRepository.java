@@ -19,7 +19,7 @@ public class PostRepository {
     }
 
     public PostResponse.DetailDTO findById(int p_id) {
-        Query query = em.createNativeQuery("select p.id, p.title, p.career, p.pay, p.work_condition, p.work_start_time, p.work_end_time, p.deadline, task, p.profile, p.working_area from post_tb p inner join user_tb u on p.company_id = u.id where p.id=?; ");
+        Query query = em.createNativeQuery("select p.id, p.title, p.career, p.pay, p.work_condition, p.work_start_time, p.work_end_time, p.deadline, p.task, p.profile, p.working_area from post_tb p inner join user_tb u on p.company_id = u.id where p.id=?");
         query.setParameter(1, p_id);
 
         Object[] row = (Object[]) query.getSingleResult();
@@ -54,17 +54,17 @@ public class PostRepository {
     }
 
     @Transactional
-    public void save(PostRequest.SaveDTO requestDTO,  int companyId) {
-        Query query = em.createNativeQuery("insert into post_tb(title, career, pay, work_condition, work_start_time, work_end_time, deadline, task, profile, working_area, created_at) values(?,?,?,?,?,?,?,?,?,?,now())");
-        query.setParameter(1, requestDTO.getTitle());
-        query.setParameter(2, requestDTO.getCareer());
-        query.setParameter(3, requestDTO.getPay());
-        query.setParameter(4, requestDTO.getWorkCondition());
-        query.setParameter(5, requestDTO.getWorkStartTime());
-        query.setParameter(6, requestDTO.getWorkEndTime());
-        query.setParameter(7, requestDTO.getDeadline());
-        query.setParameter(8, requestDTO.getTask());
-        query.setParameter(9, requestDTO.getProfile());
+    public void save(PostRequest.SaveDTO requestDTO) {
+        Query query = em.createNativeQuery("insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task, profile, working_area, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, '/images/company4.png', ?, now())");
+        query.setParameter(1, requestDTO.getCompanyId());
+        query.setParameter(2, requestDTO.getTitle());
+        query.setParameter(3, requestDTO.getCareer());
+        query.setParameter(4, requestDTO.getPay());
+        query.setParameter(5, requestDTO.getWorkCondition());
+        query.setParameter(6, requestDTO.getWorkStartTime());
+        query.setParameter(7, requestDTO.getWorkEndTime());
+        query.setParameter(8, requestDTO.getDeadline());
+        query.setParameter(9, requestDTO.getTask());
         query.setParameter(10, requestDTO.getWorkingArea());
 
         query.executeUpdate();
