@@ -26,14 +26,15 @@ public class ResumeRepository {
 
         Resume resume = (Resume) query.getSingleResult();
 
-        List<String> skill = new ArrayList<>();
-        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO(resume,skill);
+        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO(resume);
 
         return responseDTO;
     }
 
+    // 이력서 insert 한번 하고 -> max id 값 받아서 -> 이력서ID
+    // 스킬을 스킬테이블에 체크박스에 체크된만큼 insert(이력서ID) 하기
     @Transactional
-    public void save(ResumeRequest.SaveDTO requestDTO, int id) {
+    public int save(ResumeRequest.SaveDTO requestDTO, int id) {
         Query query = em.createNativeQuery("insert into resume_tb(id, person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career, simpleIntroduce, skill) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())");
         query.setParameter(1, id);
         query.setParameter(2, requestDTO.getPersonId());
@@ -51,6 +52,9 @@ public class ResumeRepository {
         query.setParameter(14, requestDTO.getSkill());
 
         query.executeUpdate();
+        
+        // max pk 받아서 리턴!!
+        return 1; // 이력서 pk값
     }
 
     @Transactional

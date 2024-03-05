@@ -2,6 +2,7 @@ package com.many.miniproject1.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.sql.Timestamp;
 
@@ -12,7 +13,7 @@ public class User {
     @Id // PK 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
-    private String role;
+    private String role; // person, company
     private String email;
     private String password;
     private String username;

@@ -14,7 +14,7 @@ public class ApplyRepository {
     private final EntityManager em;
 
     public List<Apply> findAll() {
-        Query query = em.createNativeQuery("select * from apply_tb()", Apply.class);
+        Query query = em.createNativeQuery("select * from apply_tb() order by id desc", Apply.class);
 
         return query.getResultList();
     }

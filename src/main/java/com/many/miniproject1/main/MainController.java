@@ -51,25 +51,6 @@ public class MainController {
         return "indexpost";
     }
 
-    @GetMapping("/resume")
-    public String indexResume(HttpServletRequest request){
-        List<Resume> resumeList=resumeRepository.findAll();
-        System.out.println(resumeList.size());
-
-
-        ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
-        for(int i =0 ; i<resumeList.size(); i++){
-            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
-            System.out.println(skills);
-            Resume resume=(Resume)resumeList.get(i);
-            System.out.println(resume);
-            resumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
-            System.out.println(resumeSkillList.get(i));
-        }
-        request.setAttribute("resumeSkillList", resumeSkillList);
-        return "indexresume";
-    }
-
     //메인 구직 공고
     @GetMapping("/company/main")
     public String resumeForm(HttpServletRequest request) {
@@ -100,10 +81,32 @@ public class MainController {
         return "company/main";
     }
 
+    @GetMapping("/resume")
+    public String indexResume(HttpServletRequest request){
+        List<Resume> resumeList=resumeRepository.findAll();
+        System.out.println(resumeList.size());
+
+
+        ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
+        for(int i =0 ; i<resumeList.size(); i++){
+            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
+            System.out.println(skills);
+            Resume resume=(Resume)resumeList.get(i);
+            System.out.println(resume);
+            resumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
+            System.out.println(resumeSkillList.get(i));
+        }
+        request.setAttribute("resumeSkillList", resumeSkillList);
+        return "indexresume";
+    }
+
+
+
     @GetMapping("/resume/detail/{id}")
     public String resumeDetailForm(@PathVariable int id, HttpServletRequest request) {
         System.out.println("id: "+id);
 
+        // DTO에 ArrayList는 초기화 해두어도 된다.
         ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
         List<String> skills = skillRepository.findByResumeId(id);
 

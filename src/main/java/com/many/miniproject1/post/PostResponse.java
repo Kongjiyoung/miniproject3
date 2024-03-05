@@ -36,7 +36,7 @@ public class PostResponse {
         private String deadline;
         private String task;
         private String profile;
-        private String skill;
+        private List<String> skills; // 기존 스킬을 삭제하고, 인서트하기
         private String workingArea;
     }
 }

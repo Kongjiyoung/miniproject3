@@ -3,6 +3,8 @@ package com.many.miniproject1.skill;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Table(name = "skill_tb")
 @Data
 @Entity // 테이블 생성하기 위해 필요한 어노테이션
@@ -12,7 +14,7 @@ public class Skill {
     private Integer id;
     private String skill;
     private Integer resumeId;
-    private Integer postId;
-    private Integer role;
+    private Integer postId; // null 허용 되어야 한다
+    private Timestamp createdAt;
 }
 

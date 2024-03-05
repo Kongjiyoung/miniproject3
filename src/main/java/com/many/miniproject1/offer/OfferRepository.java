@@ -23,9 +23,13 @@ public class OfferRepository {
         Query query = em.createNativeQuery("SELECT * FROM offer_tb WHERE id=?", Offer.class);
         query.setParameter(1, id);
 
-        Offer offer = (Offer) query.getSingleResult();
+        try {
+            Offer offer = (Offer) query.getSingleResult();
+            return offer;
+        }catch (Exception e){
+            return null;
+        }
 
-        return offer;
     }
 
 //    public Offer List<Offer> fintAllSelect(int id) {

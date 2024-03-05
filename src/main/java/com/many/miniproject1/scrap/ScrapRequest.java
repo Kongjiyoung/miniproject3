@@ -4,7 +4,7 @@ import lombok.Data;
 
 public class ScrapRequest {
     @Data
-    public class SaveDTO {
+    public static class SaveDTO {
         private Integer id;
     }
 

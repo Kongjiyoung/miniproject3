@@ -7,14 +7,13 @@ import java.sql.Timestamp;
 
 public class OfferRequest {
     @Data
-    public class SaveDTO {
+    public static class SaveDTO {
         private Integer id;
-        private Integer resume_id;
-        private Integer post_id;
-        private Integer post_writer_id;
-        private Integer resume_writer_id;
-        private String title;
-        private Date createdAt;
+        private Integer resumeId;
+        private Integer postId;
+        private Integer postWriterId;
+        private Integer resumeWriterId;
+        // DTO에서 날짜를 받을 필요가 없다.
     }
 
     @Data
