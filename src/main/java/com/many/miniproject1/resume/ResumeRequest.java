@@ -23,11 +23,25 @@ public class ResumeRequest {
         private String career;
         private String simpleIntroduce;
         private List<String> skill;
-        private Timestamp created_at;
+        private Timestamp createdAt;
     }
 
     @Data
     public static class UpdateDTO {
         private Integer id;
+        private Integer personId;
+        private String title;
+        private String profile;
+        private String username;
+        private String birth;
+        private String tel;
+        private String address;
+        private String email;
+        private String portfolio;
+        private String introduce;
+        private String career;
+        private String simpleIntroduce;
+        private List<String> skill;
+        private Timestamp createdAt;
     }
 }

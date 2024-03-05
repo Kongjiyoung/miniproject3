@@ -41,12 +41,13 @@ public class ResumeController {
         return "person/resumes";
     }
 
-    @GetMapping("/person/resume/detail/{id}")
+    @GetMapping("/person/resume/{id}/detail")
     public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
         System.out.println("id: "+id);
 
-        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
+//        Resume resume = resumeRepository.findById(id);
         List<String> skills = skillRepository.findByResumeId(id);
+        ResumeResponse.DetailDTO  detailDTO = new ResumeResponse.DetailDTO(new Resume());
 
         detailDTO.setSkill(skills);
 
@@ -54,46 +55,49 @@ public class ResumeController {
         return "person/resumeDetail";
     }
 
-    @GetMapping("/person/resume/detail/{id}/saveForm")
-    public String personSaveResumeForm(@PathVariable int id, HttpServletRequest request) {
-        System.out.println("id: "+id);
+    @GetMapping("/person/resume/saveForm")
+    public String personSaveResumeForm(HttpServletRequest request) {
 
-        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
-        List<String> skills = skillRepository.findByResumeId(id);
-
-        detailDTO.setSkill(skills);
-
-        request.setAttribute("resume", detailDTO);
+//
+//        Resume resume = resumeRepository.findById(id);
+//        List<String> skills = skillRepository.findByResumeId(id);
+//        ResumeResponse.DetailDTO  detailDTO= new ResumeResponse.DetailDTO(new Resume());
+//        detailDTO.setSkill(skills);
+//
+//        System.out.println(resume);
+//        request.setAttribute("resume", resume);
         return "person/saveResumeForm";
     }
 
-    @PostMapping("/person/resume/detail/{id}/save")
-    public String personSaveResume(ResumeRequest.SaveDTO requestDTO, HttpServletRequest request) {
+    @PostMapping("/person/resume/{id}/save")
+    public String personSaveResume(@PathVariable int id, ResumeRequest.SaveDTO requestDTO, HttpServletRequest request) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/person/loginForm";
         }
-        resumeRepository.save(requestDTO, sessionUser.getId());
-        return "redirect:/person/resume/detail/{id}";
+        resumeRepository.save(requestDTO, id);
+        return "redirect:/person/resume/detail/"+id;
     }
 
     @GetMapping("/person/resume/detail/{id}/updateForm")
     public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
-        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
+//        Resume resume = resumeRepository.findById(id);
+        ResumeResponse.DetailDTO  detailDTO= new ResumeResponse.DetailDTO(new Resume());
         request.setAttribute("resume", detailDTO);
         return "person/updateResumeForm";
     }
 
     @PostMapping("/person/resume/detail/{id}/update")
     public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request) {
-        resumeRepository.update(requestDTO, id);
+        resumeRepository.update(id, requestDTO);
         request.setAttribute("resume", requestDTO);
-        return "redirect:/person/resume/detail/{id}";
+        return "redirect:/person/resume/detail/"+id;
     }
 
     @PostMapping("/person/resume/detail/{id}/delete")
-    public String personDeletePost(@PathVariable int id) {
+    public String personDeletePost(@PathVariable int id, HttpServletRequest request) {
+        resumeRepository.delete(id);
         return "redirect:/person/resume";
     }
 
