@@ -155,8 +155,16 @@ public class UserController {
     }
 
     //개인 프로필 정보 및 수정
-    @GetMapping("/person/info")
-    public String personal() {
+    @GetMapping("/person/info/{id}")
+    public String personal(@PathVariable int id, HttpServletRequest request) {
+        System.out.println("id: "+id);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
+            return "redirect:/company/loginForm";
+        }
+        UserResponse.DetailDTO detailDTO = userRepository.findById(id);
+        request.setAttribute("user",detailDTO);
         return "person/personalInfo";
     }
 
