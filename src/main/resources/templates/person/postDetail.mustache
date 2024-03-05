@@ -7,12 +7,12 @@
         <div class="px-5">
             <div class="d-flex justify-content-start align-items-center">
                 <h3 class="">{{post.title}}</h3>
-                <form>
-                    <select class="form-select" aria-label="Default select example" id="resumeChoice" name="resumeChoice">
-                        <option selected>채용 공고 선택</option>
-                        {{#postList}}
+                <form action="/post/detail/{{post.id}}/apply" method="post">
+                    <select class="form-select" aria-label="Default select example" id="resumeId" name="resumeId">
+                        <option selected>이력서 선택</option>
+                        {{#resumeList}}
                             <option value="{{id}}">{{title}}</option>
-                        {{/postList}}
+                        {{/resumeList}}
                     </select>
                     <div class="d-flex justify-content-center mx-4">
                         <button class="btn btn-outline-success" type="submit">지원하기</button>

@@ -2,6 +2,7 @@ package com.many.miniproject1.post;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -51,6 +52,13 @@ public class PostRepository {
         responseDTO.setWorkingArea(workingArea);
 
         return responseDTO;
+    }
+
+    public Integer findCompanyId(Integer idx) {
+        Query query = em.createNativeQuery("select company_id from post_tb where id=?");
+        query.setParameter(1, idx);
+        Integer companyId=(Integer) query.getSingleResult();
+        return companyId;
     }
 
     @Transactional

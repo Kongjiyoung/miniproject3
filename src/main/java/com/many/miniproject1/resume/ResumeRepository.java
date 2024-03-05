@@ -31,6 +31,8 @@ public class ResumeRepository {
         return responseDTO;
     }
 
+
+
     // 이력서 insert 한번 하고 -> max id 값 받아서 -> 이력서ID
     // 스킬을 스킬테이블에 체크박스에 체크된만큼 insert(이력서ID) 하기
     @Transactional
