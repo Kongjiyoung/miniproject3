@@ -49,6 +49,8 @@ public class PostController {
         if (sessionUser == null) {
             return "redirect:/company/loginForm";
         }
+
+        System.out.println(requestDTO);
         postRepository.save(requestDTO, sessionUser.getId());
 //        System.out.println(requestDTO);
 //        postRepository.save(requestDTO);
