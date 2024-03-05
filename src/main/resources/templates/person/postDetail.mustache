@@ -7,9 +7,17 @@
         <div class="px-5">
             <div class="d-flex justify-content-start align-items-center">
                 <h3 class="">{{post.title}}</h3>
-                <div class="d-flex justify-content-center mx-4">
-                    <a href="#" class="btn btn-outline-primary mb-3" style="width: 100%">지원하기</a>
-                </div>
+                <form action="/post/detail/{{post.id}}/apply" method="post">
+                    <select class="form-select" aria-label="Default select example" id="resumeId" name="resumeId">
+                        <option selected>이력서 선택</option>
+                        {{#resumeList}}
+                            <option value="{{id}}">{{title}}</option>
+                        {{/resumeList}}
+                    </select>
+                    <div class="d-flex justify-content-center mx-4">
+                        <button class="btn btn-outline-success" type="submit">지원하기</button>
+                    </div>
+                </form>
             </div>
             <hr class="d-inline-flex w-100">
             <div class="pt-2 mt-3">
@@ -64,9 +72,9 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- 모달 -->

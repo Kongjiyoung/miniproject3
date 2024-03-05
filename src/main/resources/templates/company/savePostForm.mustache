@@ -1,4 +1,6 @@
 {{> layout/header}}
+
+<!-- TODO: value 설정해 놓음. 나중에 빼야함 -->
 <div class="container d-flex">
     <div class="justify-content-center mx-2 pb-4 w-100">
         <div class="border border-tertiary p-5 rounded shadow">
@@ -19,7 +21,7 @@
             <!--            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required multiple>-->
             <form action="/company/post/save" method="post">
                 <!-- enctype="multipart/form-data" -->
-                <input type="hidden" id="companyId">
+                <input type="hidden" id="companyId" name="companyId" value="3">
                 <div class="px-5 mt-5">
                     <!-- 이미지 업로드 시작 -->
                     <div>
@@ -30,32 +32,32 @@
                         </div>
                         <input class="mb-4" type="file" id="profile" name="profile" accept="image/*">
 
-                        <!--                        <script>-->
-                        <!--                            $('#profile').change(function () {-->
-                        <!--                                let input = this;-->
-                        <!--                                if (input.files && input.files[0]) {-->
-                        <!--                                    let reader = new FileReader();-->
+                        <script>
+                            $('#profile').change(function () {
+                                let input = this;
+                                if (input.files && input.files[0]) {
+                                    let reader = new FileReader();
 
-                        <!--                                    reader.onload = function (e) {-->
-                        <!--                                        $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');-->
-                        <!--                                        // let fileName = input.files[0].name;-->
-                        <!--                                        // $('#profile').val(fileName);-->
-                        <!--                                        // console.log(fileName);-->
-                        <!--                                    };-->
+                                    reader.onload = function (e) {
+                                        $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
+                                        // let fileName = input.files[0].name;
+                                        // $('#profile').val(fileName);
+                                        // console.log(fileName);
+                                    };
 
-                        <!--                                    reader.readAsDataURL(input.files[0]);-->
+                                    reader.readAsDataURL(input.files[0]);
 
-                        <!--                                    // 파일명 출력-->
-                        <!--                                    let fileName = input.files[0].name;-->
-                        <!--                                    $('#profile').val(fileName);-->
-                        <!--                                    console.log(fileName);-->
-                        <!--                                }-->
-                        <!--                            });-->
-                        <!--                        </script>-->
+                                    // 파일명 출력
+                                    let fileName = input.files[0].name;
+                                    $('#profile').val(fileName);
+                                    console.log(fileName);
+                                }
+                            });
+                        </script>
                         <!-- 이미지 업로드 끝 -->
                     </div>
                     <label for="companyName"><b>공고명</b></label>
-                    <input class="form-control" type="text" name="title" id="companyName" required>
+                    <input class="form-control" type="text" name="title" id="companyName" value="[인턴] 프론트엔드 개발자 (JavaScript)" required>
                     <div class="pt-4">
                         <hr class="d-inline-flex w-100">
                     </div>
@@ -115,21 +117,21 @@
                         <div class="mt-4">
                             <label for="deadline"><b>마감 일자</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control" type="date" id="deadline" name="deadline" required>
+                                <input class="form-control" type="date" id="deadline" name="deadline"  value="2024-04-17" required>
                             </div>
                         </div>
 
                         <div class="mt-4">
-                            <label for="tasks"><b>주요 업무</b></label>
+                            <label for="task"><b>주요 업무</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="tasks" type="text" name="tasks" required>
+                                <input class="form-control border-0" id="task" type="text" name="task"  value="VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다." required>
                             </div>
                         </div>
 
                         <div class="mt-4">
                             <label for="workingArea"><b>근무 지역</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="workingArea" type="text" name="workingArea"
+                                <input class="form-control border-0" id="workingArea" type="text" name="workingArea"value="경기 성남시 분당구"
                                        required>
                             </div>
                         </div>
@@ -137,7 +139,7 @@
                         <div class="mt-4">
                             <label for="workCondition"><b>혜택 및 복지</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="workCondition" type="text" name="workCondition"
+                                <input class="form-control border-0" id="workCondition" type="text" name="workCondition" value="처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정"
                                        required>
                             </div>
                         </div>

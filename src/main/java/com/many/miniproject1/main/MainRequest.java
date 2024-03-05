@@ -6,8 +6,7 @@ public class MainRequest {
 
     @Data
     public static class postIdDTO {
-        private Integer id;
+        private Integer postId;
     }
-
 
 }

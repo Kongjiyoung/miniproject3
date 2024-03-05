@@ -101,7 +101,7 @@
 
                         <p class="card-text" style="
                   display: -webkit-box;
-                  -webkit-line-clamp: 2;
+                  -webkit-line-clamp: 1;
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   text-overflow: ellipsis;
@@ -122,9 +122,11 @@
                         </div>
                     </div>
                 </a>
+                {{#isMatchingCompany}}
                 <div class="d-flex justify-content-center">
                     <a href="/view/company/resumeDetail.html" class="btn btn-outline-primary mb-3" style="width: 100%">스크랩하기</a>
                 </div>
+                {{/isMatchingCompany}}
             </li>
         {{/resumeSkillList}}
 

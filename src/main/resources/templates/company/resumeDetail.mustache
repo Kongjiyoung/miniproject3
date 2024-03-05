@@ -7,81 +7,21 @@
         <div class="px-5">
             <div class="d-flex justify-content-start align-items-center">
                 <h3 class="">{{resume.title}}</h3>
-                <div class="d-flex justify-content-center mx-4">
-                    <a href="#" class="btn btn-outline-primary mb-3" style="width: 100%">지원하기</a>
-                </div>
+                <form  action="/resume/detail/{{resume.id}}/offer" method="post">
+                    <select class="form-select" aria-label="Default select example" id="postId" name="postId">
+                        <option selected>채용 공고 선택</option>
+                        {{#postList}}
+                            <option value="{{id}}">{{title}}</option>
+                        {{/postList}}
+                    </select>
+                    <div class="d-flex justify-content-center mx-4">
+                        <button class="btn btn-outline-success" type="submit">제안하기</button>
+                    </div>
+                </form>
             </div>
             <hr class="d-inline-flex w-100">
             <div class="pt-2 mt-3">
-<!--                <div class="border border-tertiary px-3 py-3 pt-3 d-inline-flex ms-2 me-3 mb-3 w-100">-->
-<!--                    <div>-->
-<!--                        <img src="/images/company1.png" alt="이력서 사진" style="width: 100%; height: 226px;">-->
-<!--                    </div>-->
-<!--                    <table class="mx-4">-->
-<!--                        <tr>-->
-<!--                            <td>-->
-<!--                                <h4>제2금융권(보험,증권) 서버 운영 업무 수행 구성원 영입</h4>-->
-<!--                            </td>-->
-<!--                            &lt;!&ndash; <td>SK C&C 주식회사</td> &ndash;&gt;-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>경력</td>-->
-<!--                            <td>미들 (4~8년)</td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>최소 연봉</td>-->
-<!--                            <td>회사 내규에 따름</td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>마감일</td>-->
-<!--                            <td>채용 시 마감</td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>회사명</td>-->
-<!--                            <td><a href="#" style=" color: black; font-weight: bold;">SK(주) C&C</a></td>-->
-<!--                            &lt;!&ndash; TODO: 가능하다면 이 회사의 진행 중인 채용 공고 모음을 만들어보자 &ndash;&gt;-->
-<!--                        </tr>-->
-<!--                    </table>-->
-<!--                </div>-->
-<!--                <div class="mt-5">-->
-<!--                    <h4><b>SK(주) C&C, 어떤 곳인가요?</b></h4>-->
-<!--                    <p>-->
-<!--                        SK(주) C&C, 어떤 곳인가요?<br>-->
-<!--                        2025년 사업가치 50조의 Global Top 10 ICT Company<br>-->
-<!--                        Vison Slogan<br>-->
-<!--                        Creative ICT Factory<br>-->
-<!--                        <br>-->
-<!--                        Vison Statement<br>-->
-<!--                        -SK주식회사 C&C는 IT/ICT 전 영역에서의 다양한 융합을 통한 "Creative Bussiness Model" 로 시장을 선도합니다.<br>-->
-<!--                        -"산업에 대한 Insight와 ICT 기술"을 토대로 고객의 Value를 지속적으로 창출합니다.<br>-->
-<!--                        -구성원 모두의 창의성이 자유롭게 발현될 수 있도록 "ICT를 통한 꿈의 실현 공간"을 지향합니다.<br>-->
-<!--                        <br>-->
-<!--                        SK주식회사 C&C의 새로운 비전은 IT/ICT에 대한 전문 기술력과 다양한 산업에 대한 통찰력을 기반으로, 고객의 가치와 산업 전반의 혁신을 선도하는 Global-->
-<!--                        ICT 회사로 도약하고자 한다는 의미를 담고 있습니다.<br>-->
-<!--                        <br>-->
-<!--                        ICT 중심으로 변화할 미래 세상을 이끌어가기 위해 SK주식회사 C&C의 구성원 모두는 끊임없이 노력해 나가겠습니다.<br>-->
-<!--                        <br>-->
-<!--                        제2금융권(보험,증권) 서버 운영 업무 수행 구성원 영입, 어떤 일을 하나요?<br>-->
-<!--                        제2금융권(보험,증권) 서버 운영 업무 수행 구성원 영입<br>-->
-<!--                    </p>-->
-<!--                </div>-->
-<!--                <div class="mt-5 task">-->
-<!--                    <h4>주요업무</h4>-->
-<!--                    <ul>-->
-<!--                        <li>시스템 운영(IBM AIX, Windows서버, VMware등), 장애 및 오류, 시스템 자원, 서버 설치 및 구성, EOL/EOS 관리</li>-->
-<!--                        <li>서비스 수준, 자산, 작업/변경, 보안 취약점, 패치, 모니터링, 산출물, 백업/복구/재해복구 관리</li>-->
-<!--                        <li>프로젝트 설치 계획 및 구성, 성능 및 가용성 검토 등</li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--                <div class="mt-5 qualification">-->
-<!--                    <h4>자격요건</h4>-->
-<!--                    <ul>-->
-<!--                        <li>금융권 프로젝트를 경험하신 분</li>-->
-<!--                        <li>인프라 설계/구축 경험을 보유하신 분</li>-->
-<!--                        <li>고객 커뮤니케이션 및 프레젠테이션 스킬을 보유하신 분</li>-->
-<!--                        <li>대규모 SI 프로젝트를 경험하신 분</li>-->
-<!--                    </ul>-->
-<!--                </div>-->
+
                 <div class="d-flex justify-content-center">
                     <div style="width: 85%;">
                         <div class="jh_resume_flexbox mt-3">

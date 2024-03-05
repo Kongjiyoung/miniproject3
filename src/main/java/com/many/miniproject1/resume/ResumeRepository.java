@@ -31,6 +31,8 @@ public class ResumeRepository {
         return responseDTO;
     }
 
+
+
     // 이력서 insert 한번 하고 -> max id 값 받아서 -> 이력서ID
     // 스킬을 스킬테이블에 체크박스에 체크된만큼 insert(이력서ID) 하기
     @Transactional
@@ -59,7 +61,7 @@ public class ResumeRepository {
 
     @Transactional
     public void update(ResumeRequest.UpdateDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("update resume_tb set where id = ?");
+        Query query = em.createNativeQuery("update resume_tb set person_id=?, title=?, profile=?, username=?, birth=?, tel=?, address=?, email=?, portfolio=?, introduce=?, career=?, simple_introducewhere=? where id = ?");
         query.setParameter(1, id);
 
         query.executeUpdate();

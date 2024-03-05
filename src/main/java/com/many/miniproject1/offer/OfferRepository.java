@@ -42,10 +42,12 @@ public class OfferRepository {
 //    }
 
     @Transactional
-    public void save(OfferRequest.SaveDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("INSERT INTO offer_tb() VALUES ()");
-        query.setParameter(1, id);
-
+    public void save(OfferRequest.SaveDTO requestDTO) {
+        Query query = em.createNativeQuery("INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at) VALUES (?,?,?,?,now())");
+        query.setParameter(1, requestDTO.getResumeId());
+        query.setParameter(2, requestDTO.getPostId());
+        query.setParameter(3, requestDTO.getCompanyId());
+        query.setParameter(4, requestDTO.getPersonId());
         query.executeUpdate();
     }
 

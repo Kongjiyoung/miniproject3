@@ -5,11 +5,11 @@ import lombok.Data;
 public class OfferResponse {
 
     @Data
-    public static class OfferDTO{
+    public static class SaveDTO{
         private Integer id;
         private Integer resumeId;
         private Integer postId;
-        private Integer postWriterId;
-        private Integer resumeWriterId;
+        private Integer companyId;
+        private Integer personId;
     }
 }
