@@ -26,9 +26,8 @@ public class ResumeRepository {
         query.setParameter(1, id);
 
         try {
-            ResumeResponse.DetailDTO responseDTO = (ResumeResponse.DetailDTO) query.getSingleResult();
-            return responseDTO;
-
+            ResumeResponse.DetailDTO resume = (ResumeResponse.DetailDTO) query.getSingleResult();
+            return resume;
         } catch (Exception e) {
             return null;
         }
