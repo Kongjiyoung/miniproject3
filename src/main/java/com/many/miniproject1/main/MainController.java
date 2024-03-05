@@ -206,7 +206,7 @@ public class MainController {
         return "redirect:/matching/resume/detail/{id}";
     }
     //맞춤 공고 - 개인이 보는 매칭 공고
-    @PostMapping ("/person/matching")
+    @GetMapping ("/person/matching")
     public String matchingPostForm(HttpServletRequest request, MainRequest.postIdDTO postIdDTO) {
         User sessionUser=(User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
