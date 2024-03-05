@@ -21,6 +21,27 @@ public class PostResponse {
         private String profile;
         private List<String> skill;
         private String workingArea;
+
+        public DetailDTO(Post post, List<String> skill) {
+            this.id = post.getId();
+            this.companyId = post.getId();
+            this.title = post.getTitle();
+            this.career = post.getCareer();
+            this.pay = post.getPay();
+            this.workCondition = post.getWorkCondition();
+            this.workStartTime = post.getWorkStartTime();
+            this.workEndTime = post.getWorkEndTime();
+            this.deadline = post.getDeadline();
+            this.task = post.getTask();
+            this.profile = post.getProfile();
+            this.skill = skill;
+            this.workingArea = post.getWorkingArea();
+        }
+
+        // 이거 문제생기면 생성자 안에 뭐 넣으면 됨
+        public DetailDTO() {
+            
+        }
     }
 
     @Data

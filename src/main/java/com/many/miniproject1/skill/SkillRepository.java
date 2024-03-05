@@ -61,4 +61,10 @@ public class SkillRepository {
 
         return skills;
     }
+
+//    public List<String> saveSkillFromPost(PostRequest.SaveDTO requestDTO){
+//        Query query = em.createNativeQuery("insert into skill_tb(skill, post_id, created_at) values ('?', ?, now())");
+//                // 저장할 게시물의 아이디를 받아서 포문을 돌려서 스킬을 저장한다. 일단 저장 하나를 하게 쿼리를 짜고 그걸 컨트롤러에서 스킬길이만큼 그거한다.
+//        query.setParameter(1, requestDTO.)
+//    }
 }
