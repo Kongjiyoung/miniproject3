@@ -1,5 +1,7 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.apply.ApplyRepository;
+import com.many.miniproject1.apply.ApplyRequest;
 import com.many.miniproject1.offer.OfferRepository;
 import com.many.miniproject1.offer.OfferRequest;
 import com.many.miniproject1.offer.OfferResponse;
@@ -34,6 +36,7 @@ public class MainController {
     private final SkillRepository skillRepository;
     private final HttpSession session;
     private final OfferRepository offerRepository;
+    private final ApplyRepository applyRepository;
 
     @GetMapping("/")
     public String indexPost(HttpServletRequest request){
@@ -109,12 +112,13 @@ public class MainController {
     @GetMapping("/resume/detail/{id}")
     public String resumeDetailForm(@PathVariable int id, HttpServletRequest request) {
         System.out.println("id: "+id);
-
+        //내용작성
         // DTO에 ArrayList는 초기화 해두어도 된다.
         ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
         List<String> skills = skillRepository.findByResumeId(id);
         detailDTO.setSkill(skills);
 
+        //이력서 선택
         User sessionUser=(User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
         Integer companyId=sessionUser.getId();
@@ -140,7 +144,7 @@ public class MainController {
         saveDTO.setResumeId(id);
         saveDTO.setPostId(postId);
         saveDTO.setCompanyId(companyId);
-        saveDTO.setPersonId(mainRepository.findByPersonId(id));
+        saveDTO.setPersonId(mainRepository.findPersonId(id));
 
 
         System.out.println(saveDTO);
@@ -188,17 +192,44 @@ public class MainController {
     public String postDetailForm(@PathVariable int id, HttpServletRequest request) {
         System.out.println("id: "+id);
 
-
+        //내용작성
         PostResponse.DetailDTO detailDTO = postRepository.findById(id);
         List<String> skills = skillRepository.findByResumeId(id);
 
         detailDTO.setSkill(skills);
 
+        //이력서 선택
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        System.out.println(sessionUser);
+        Integer personId=sessionUser.getId();
+        System.out.println(personId);
+        List<Resume> resumeList=mainRepository.findResume(personId);
+        System.out.println(resumeList);
+
+
+        request.setAttribute("resumeList", resumeList);
         request.setAttribute("post", detailDTO);
         return "person/postDetail";
     }
     @PostMapping("/post/detail/{id}/apply")
-    public String personPostApply() {
+    public String personPostApply(@PathVariable int id, @RequestParam("resumeId") Integer resumeId) {
+        System.out.println("======================"+resumeId);
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        System.out.println(sessionUser);
+        Integer personId=sessionUser.getId();
+        System.out.println(personId);
+
+        ApplyRequest.SaveDTO saveDTO=new ApplyRequest.SaveDTO();
+        saveDTO.setResumeId(resumeId);
+        saveDTO.setPostId(id);
+        saveDTO.setCompanyId(postRepository.findCompanyId(id));
+        saveDTO.setPersonId(personId);
+        saveDTO.setIsPass("검토중");
+
+
+        System.out.println("save : "+saveDTO);
+        applyRepository.save(saveDTO);
+
         return "redirect:/post/detail/{id}";
     }
     @PostMapping("/post/detail/{id}/scrap")

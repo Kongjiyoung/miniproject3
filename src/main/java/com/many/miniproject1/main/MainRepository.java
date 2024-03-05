@@ -35,12 +35,19 @@ public class MainRepository {
         return query.getResultList();
     }
 
-    public Integer findByPersonId(int resumeId) {
+    public Integer findPersonId(int resumeId) {
         Query query = em.createNativeQuery("select person_id from resume_tb where  id=?");
         query.setParameter(1, resumeId);
 
         Integer personId = (Integer) query.getSingleResult();
         return personId;
+    }
+    public Integer findCompanyId(int id) {
+        Query query = em.createNativeQuery("select company_id from post_tb where id=?");
+        query.setParameter(1, id);
+
+        Integer companyId = (Integer) query.getSingleResult();
+        return companyId;
     }
 
 }
