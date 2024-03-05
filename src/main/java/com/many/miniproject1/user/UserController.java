@@ -114,9 +114,14 @@ public class UserController {
     //회사 정보 수정
     @GetMapping("/company/info/{id}")
     public String companyInfo(@PathVariable int id, HttpServletRequest request) {
-        UserResponse.DetailDTO userDTO = userRepository.findByIdWithUser(id);
-        System.out.println(userRepository);
+        System.out.println("id: "+id);
         User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
+            return "redirect:/company/loginForm";
+        }
+        UserResponse.DetailDTO detailDTO = userRepository.findById(id);
+        request.setAttribute("user",detailDTO);
 
         return "company/companyInfo";
     }
@@ -129,11 +134,9 @@ public class UserController {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "redirect:/company/loginForm";
         }
-        User user = userRepository.findById(id);
-        if (user.getId() != sessionUser.getId()){
-            return "error/403";
-        }
-        request.setAttribute("user",user);
+        UserResponse.DetailDTO detailDTO = userRepository.findById(id);
+
+        request.setAttribute("user",detailDTO);
         return "company/updateInfoForm";
     }
 
@@ -144,10 +147,7 @@ public class UserController {
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
-        User user = userRepository.findById(id);
-        if (user.getId() != sessionUser.getId()) {
-            return "error/403";
-        }
+
         userRepository.companyUpdate(requestDTO,id);
 
 

@@ -19,12 +19,12 @@ public class UserRepository {
         return query.getResultList();
     }
 
-    public User findById(int id) {
+    public UserResponse.DetailDTO findById(int id) {
         Query query = em.createNativeQuery("select * from user_tb where id=?", User.class);
         query.setParameter(1, id);
 
         try {
-            User user = (User) query.getSingleResult();
+            UserResponse.DetailDTO user = (UserResponse.DetailDTO) query.getSingleResult();
             return user;
         } catch (Exception e) {
             return null;
