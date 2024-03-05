@@ -14,7 +14,32 @@
     </ul>
     <!-- 유형별 공고 탭 끝 -->
 </div>
-
+<!-- 검색 -->
+<div class="container align-items-center mt-3 border p-3" style="border-radius: 10px;">
+    <form action="/person/matching" method="post">
+        <div class="d-flex justify-content-start align-items-center ">
+            <h5 class="pb-2">공고별 인재 찾기</h5>
+            <div class="search-top mx-3 mb-3 d-flex justify-content-between">
+                <button class="btn btn-outline-success" type="submit">
+                    <!-- 검색 -->
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+        <div class="search-mid">
+            <div class="d-flex justify-content-between">
+                <div style="width: 100%;">
+                    <select class="form-select" aria-label="Default select example" id="postChoice" name="postChoice">
+                        <option selected>채용 공고 선택</option>
+                        {{#postList}}
+                            <option value="{{id}}">{{title}}</option>
+                        {{/postList}}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <section class="container grid-gap: 50px; mt-5">
     <h1>인재추천</h1>
     <br>
