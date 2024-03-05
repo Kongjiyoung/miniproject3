@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Controller
 @RequiredArgsConstructor
 public class ResumeController {
@@ -24,6 +26,7 @@ public class ResumeController {
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
         List<Resume> resumeList= resumeRepository.findAll();
+        request.setAttribute("resumeList", resumeList);
         System.out.println(resumeList.size());
 
         ArrayList<ResumeResponse.resumeDTO> resumeSkillList=new ArrayList<>();
@@ -35,9 +38,9 @@ public class ResumeController {
 
             resumeSkillList.add(new ResumeResponse.resumeDTO(resume,skills));
             System.out.println(resumeSkillList.get(i));
+            request.setAttribute("resumeSkillList", resumeSkillList);
         }
 
-        request.setAttribute("resumeList", resumeList);
         return "person/resumes";
     }
 
@@ -45,20 +48,30 @@ public class ResumeController {
     public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
         System.out.println("id: "+id);
 
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/person/loginForm";
+        }
+
 //        Resume resume = resumeRepository.findById(id);
-        List<String> skills = skillRepository.findByResumeId(id);
-        ResumeResponse.DetailDTO  detailDTO = new ResumeResponse.DetailDTO(new Resume());
+//        List<String> skills = skillRepository.findByResumeId(id);
+//        ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(new Resume());
 
-        detailDTO.setSkill(skills);
+//        detailDTO.setSkill(skills);
 
-        request.setAttribute("resume", detailDTO);
+        ResumeResponse.DetailDTO responseDTO = resumeRepository.findById(id);
+        request.setAttribute("resume", responseDTO);
         return "person/resumeDetail";
     }
 
     @GetMapping("/person/resume/saveForm")
-    public String personSaveResumeForm(HttpServletRequest request) {
+    public String personSaveResumeForm() {
 
-//
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/person/loginForm";
+        }
+
 //        Resume resume = resumeRepository.findById(id);
 //        List<String> skills = skillRepository.findByResumeId(id);
 //        ResumeResponse.DetailDTO  detailDTO= new ResumeResponse.DetailDTO(new Resume());
@@ -70,13 +83,15 @@ public class ResumeController {
     }
 
     @PostMapping("/person/resume/{id}/save")
-    public String personSaveResume(@PathVariable int id, ResumeRequest.SaveDTO requestDTO, HttpServletRequest request) {
+    public String personSaveResume(ResumeRequest.SaveDTO requestDTO, HttpServletRequest request) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/person/loginForm";
         }
-        resumeRepository.save(requestDTO, id);
+
+        System.out.println(requestDTO);
+        resumeRepository.save(requestDTO, sessionUser.getId());
         return "redirect:/person/resume/detail/"+id;
     }
 

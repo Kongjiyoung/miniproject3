@@ -16,25 +16,56 @@ public class ResumeRepository {
     private final EntityManager em;
 
     public List<Resume> findAll() {
-        Query query = em.createNativeQuery("select * from resume_tb", Resume.class);
+        Query query = em.createNativeQuery("select * from resume_tb order by desc ", Resume.class);
 
         return query.getResultList();
     }
 
-    public ResumeResponse.DetailDTO findById(int id) {
-        Query query = em.createNativeQuery("select * from resume_tb where id=?", Resume.class);
-        query.setParameter(1, id);
+    public ResumeResponse.DetailDTO findById(int P_id) {
+        Query query = em.createNativeQuery("select p.id, p.title, p.profile, p.username, p.birth, p.tel, p.address, p.email, p.portfolio, p.introduce, p.career, p.simple_introduce from resume_tb p inner join user_tb u on p.person_id = u.id where p.id = ?");
+        query.setParameter(1, P_id);
 
-        try {
-            ResumeResponse.DetailDTO resume = (ResumeResponse.DetailDTO) query.getSingleResult();
-            return resume;
-        } catch (Exception e) {
-            return null;
-        }
+        Object[] row = (Object[]) query.getSingleResult();
 
+        Integer id = (Integer) row[0];
+        String title = (String) row[1];
+        String profile = (String) row[2];
+        String username = (String) row[3];
+        String birth = (String) row[4];
+        String tel = (String) row[5];
+        String address = (String) row[6];
+        String email = (String) row[7];
+        String portfolio = (String) row[8];
+        String introduce = (String) row[9];
+        String career = (String) row[10];
+        String simpleIntroduce = (String) row[11];
+
+//        try {
+//            ResumeResponse.DetailDTO resume = (ResumeResponse.DetailDTO) query.getSingleResult();
+//            return resume;
+//        } catch (Exception e) {
+//            return null;
+//        }
+
+        Resume resume = new Resume();
+        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO(
+                id,
+                title,
+                profile,
+                username,
+                birth,
+                tel,
+                address,
+                email,
+                portfolio,
+                introduce,
+                career,
+                simpleIntroduce
+        );
+
+        return responseDTO;
 //        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO(resume);
     }
-
 
 
     // 이력서 insert 한번 하고 -> max id 값 받아서 -> 이력서ID
@@ -58,7 +89,7 @@ public class ResumeRepository {
         query.setParameter(14, requestDTO.getSkill());
 
         query.executeUpdate();
-        
+
         // max pk 받아서 리턴!!
         return 1; // 이력서 pk값
     }
