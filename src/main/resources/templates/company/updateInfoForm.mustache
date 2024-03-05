@@ -41,37 +41,26 @@
                 <div>
                     <!-- MIME 타입: multipart/form-data 파일이나 이미지 업로드 시 사용
                      -->
-                    <form action="/company/info/update" method="post" id="companyUpdate" enctype="multipart/form-data">
+                    <form action="/company/info/{{id}}/update" method="post" enctype="multipart/form-data">
                         <div class="container w-50 mt-5 text ">
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" value="" id="" name="">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">회사명</span>
-                                <input type="text" class="form-control" value="네이버(주)" name="companyName" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text justify-content-center hs_span_size init_color hs_span">대표자</span>
-                                <input type="text" class="form-control" value="최수연" id="" name="">
+                                <input type="text" class="form-control" value="{{user.companyName}}" name="companyName" readonly>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업자번호</span>
-                                <input type="text" class="form-control" value="220-81-62517" name="" maxlength="10" readonly>
+                                <input type="text" class="form-control" value="{{user.companyNum}}" name="companyNum" maxlength="10" readonly>
                             </div>
 
-                            <div class="input-group mb-3">
-                                <span class="input-group-text justify-content-center hs_span_size init_color hs_span">설립년도</span>
-                                <input type="date" class="form-control" id="1999. 06. 02." name="cyear">
-                            </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text justify-content-center hs_span_size init_color hs_span">주소</span>
-                                <input type="text" class="form-control" value="경기도 성남시 분당구 정자일로 95 (우)13561" id="" name="">
+                                <input type="text" class="form-control" value="{{user.companyAddress}}" id="" name="companyAddress">
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text justify-content-center hs_span_size init_color hs_span">사원수</span>
-                                <input type="text" class="form-control" value="4,189명" id="" name="">
-                            </div>
+
 
                             <div class="mt-5">
                                 <h4 class="border-bottom pb-4">담당자 정보</h4>
@@ -80,20 +69,20 @@
                             <br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">이름</span>
-                                <input type="text" class="form-control" value="성시경" id="" name="">
+                                <input type="text" class="form-control" value="{{user.username}}" id="" name="username">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">연락처</span>
-                                <input type="text" class="form-control" value="010-1234-5678" id="" name="">
+                                <input type="text" class="form-control" value="{{user.tel}}" id="" name="tel">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color">이메일</span>
-                                <input type="text" class="form-control" value="moda@naver.com" name="">
+                                <input type="text" class="form-control" value="{{user.email}}" name="email">
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color">비밀번호</span>
-                                <input type="password" class="form-control" value="1234" id="" name="">
+                                <input type="password" class="form-control" value="{{user.password}}" id="" name="password">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color">비밀번호
@@ -110,7 +99,7 @@
                                     </button>
                                 </div>
                                 <div class="d-flex justify-content-center" style="width: 100%">
-                                    <a href="/company/info" class="btn btn-outline-danger mb-3"
+                                    <a href="/company/info/{{id}}" class="btn btn-outline-danger mb-3"
                                        style="width: 100%">취소</a>
                                 </div>
                             </div>
@@ -123,7 +112,7 @@
     <!--    리스트 마진 다른 페이지랑 다르면 다른 페이지 참고해서 고쳐주고 주석 지워주세요. -->
     <!-- list-group( 오른쪽 바로가기) 시작 -->
     <div class="list-group mx-2">
-        <a href="/company/info" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
+        <a href="/company/info/{{user.id}}" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
         <a href="/company/post" class="list-group-item shadow">공고 관리</a>
         <a href="/company/resume" class="list-group-item hs_list_effect shadow">받은 이력서</a>
         <a href="/company/scrap" class="list-group-item shadow">스크랩한 이력서</a>

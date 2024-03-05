@@ -20,6 +20,7 @@ public class UserRequest {
 
     @Data
     public static class UpdateDTO {
+        private Integer id;
         private String email;
         private String password;
         private String username;
