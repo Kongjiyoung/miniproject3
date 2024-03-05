@@ -59,7 +59,7 @@ public class ResumeRepository {
 
     @Transactional
     public void update(ResumeRequest.UpdateDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("update resume_tb set where id = ?");
+        Query query = em.createNativeQuery("update resume_tb set person_id=?, title=?, profile=?, username=?, birth=?, tel=?, address=?, email=?, portfolio=?, introduce=?, career=?, simple_introducewhere=? where id = ?");
         query.setParameter(1, id);
 
         query.executeUpdate();
