@@ -15,8 +15,8 @@ public class Apply { // 지원 테이블
     private Integer id;
     private Integer resumeId;
     private Integer postId; // 채용공고 아이디
-    private Integer postWriterId; // 채용공고 작성자 아이디
-    private Integer resumeWriterId; // 이력서 작성자 아이디
+    private Integer companyId; // 채용공고 작성자 아이디
+    private Integer personId; // 이력서 작성자 아이디
     private String isPass; // 불합격, 합격, 검토중
     private Timestamp createdAt;
 }

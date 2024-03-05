@@ -17,8 +17,8 @@ public class Offer {
     private Integer id;
     private Integer resumeId;
     private Integer postId;
-    private Integer postWriterId; // 회사Id
-    private Integer resumeWriterId; // 구직자ID
+    private Integer companyId; // 회사Id
+    private Integer personId; // 구직자ID
 //    private String content;
     private Date createdAt;
 }

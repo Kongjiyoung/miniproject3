@@ -14,7 +14,7 @@ public class Scrap {
     private Integer id;
     private Integer resumeId;
     private Integer postId;
-    private Integer postWriterId;
-    private Integer resumeWriterId;
+    private Integer companyId;
+    private Integer personId;
     private Timestamp createdAt;
 }

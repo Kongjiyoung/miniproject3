@@ -108,50 +108,50 @@ values (14, '[인턴] 프론트엔드 개발자 (JavaScript)', '
 -- entity수정 career데이터 varchar로 고치기
 --스킬
 --이력서에서
-insert into skill_tb(skill, resume_id, role)
-values ('JAVA', 1, 1);
-insert into skill_tb(skill, resume_id, role)
-values ('JAVA', 2, 1);
-insert into skill_tb(skill, resume_id, role)
-values ('C', 1, 1);
-insert into skill_tb(skill, resume_id, role)
-values ('C', 2, 1);
+insert into skill_tb(skill, resume_id, created_at)
+values ('JAVA', 1, now());
+insert into skill_tb(skill, resume_id, created_at)
+values ('JAVA', 2, now());
+insert into skill_tb(skill, resume_id, created_at)
+values ('C', 1, now());
+insert into skill_tb(skill, resume_id, created_at)
+values ('C', 2, now());
 
 
 --공고에서
-insert into skill_tb(skill, post_id, role)
-values ('JAVA', 1, 1);
-insert into skill_tb(skill, post_id, role)
-values ('JAVA', 2, 1);
-insert into skill_tb(skill, post_id, role)
-values ('JAVA', 3, 1);
+insert into skill_tb(skill, post_id, created_at)
+values ('JAVA', 1, now());
+insert into skill_tb(skill, post_id, created_at)
+values ('JAVA', 2, now());
+insert into skill_tb(skill, post_id, created_at)
+values ('JAVA', 3, now());
 
 
 --지원
-insert into apply_tb(resume_id, post_id, post_writer_id, resume_writer_id, is_pass)
+insert into apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 values (1, 1, 2, 1, '합격');
 
 
 --제안
 --offer_tb content 삭제, 더미 추가
-INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, created_at)
-VALUES (1, 1, 13, 1, '콩지씨?', now());
-INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, created_at)
-VALUES (1, 2, 13, 1, '우리회사와', now());
-INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, created_at)
-VALUES (1, 3, 14, 1, '잘해줄게', now());
-INSERT INTO offer_tb(resume_id, post_id, post_writer_id, resume_writer_id, title, created_at)
-VALUES (2, 3, 15, 1, '싫음 말고~', now());
+INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
+VALUES (1, 1, 13, 1, now());
+INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
+VALUES (1, 2, 13, 1, now());
+INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
+VALUES (1, 3, 14, 1,  now());
+INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
+VALUES (2, 3, 15, 1, now());
 
 
 
 --ispass varchar타입에서 int로 바꾸기
 --스크랩
 --회사 이력서스크랩
-insert into scrap_tb(resume_id, post_writer_id, created_at)
+insert into scrap_tb(resume_id, company_id, created_at)
 values (1, 2, now());
 
 
 --개인 채용공고스크랩
-insert into scrap_tb(post_id, resume_writer_id, created_at)
+insert into scrap_tb(post_id, person_id, created_at)
 values (1, 1, now());
