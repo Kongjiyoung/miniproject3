@@ -79,12 +79,16 @@ public class ResumeController {
     }
 
     @GetMapping("/person/resume/detail/{id}/updateForm")
-    public String personUpdateResumeForm(@PathVariable int id) {
+    public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
+        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
+        request.setAttribute("resume", detailDTO);
         return "person/updateResumeForm";
     }
 
     @PostMapping("/person/resume/detail/{id}/update")
-    public String personUpdateResume(@PathVariable int id) {
+    public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request) {
+        resumeRepository.update(requestDTO, id);
+        request.setAttribute("resume", requestDTO);
         return "redirect:/person/resume/detail/{id}";
     }
 
