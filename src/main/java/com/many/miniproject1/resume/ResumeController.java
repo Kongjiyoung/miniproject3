@@ -87,9 +87,9 @@ public class ResumeController {
 
     @PostMapping("/person/resume/detail/{id}/update")
     public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request) {
-        resumeRepository.update(requestDTO, id);
+        resumeRepository.update(id, requestDTO);
         request.setAttribute("resume", requestDTO);
-        return "redirect:/person/resume/detail/{id}";
+        return "redirect:/person/resume/detail/"+id;
     }
 
     @PostMapping("/person/resume/detail/{id}/delete")

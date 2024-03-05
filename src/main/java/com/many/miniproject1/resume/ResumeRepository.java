@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +25,15 @@ public class ResumeRepository {
         Query query = em.createNativeQuery("select * from resume_tb where id=?", Resume.class);
         query.setParameter(1, id);
 
-        Resume resume = (Resume) query.getSingleResult();
+        try {
+            ResumeResponse.DetailDTO responseDTO = (ResumeResponse.DetailDTO) query.getSingleResult();
+            return responseDTO;
 
-        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO(resume);
+        } catch (Exception e) {
+            return null;
+        }
 
-        return responseDTO;
+//        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO(resume);
     }
 
     // 이력서 insert 한번 하고 -> max id 값 받아서 -> 이력서ID
@@ -58,9 +63,22 @@ public class ResumeRepository {
     }
 
     @Transactional
-    public void update(ResumeRequest.UpdateDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("update resume_tb set person_id=?, title=?, profile=?, username=?, birth=?, tel=?, address=?, email=?, portfolio=?, introduce=?, career=?, simple_introducewhere=? where id = ?");
-        query.setParameter(1, id);
+    public void update(int id, ResumeRequest.UpdateDTO requestDTO) {
+        Query query = em.createNativeQuery("update resume_tb set person_id=?, title=?, profile=?, username=?, birth=?, tel=?, address=?, email=?, portfolio=?, introduce=?, career=?, simple_introduce=?, skill=? where id = ?");
+        query.setParameter(1, requestDTO.getPersonId());
+        query.setParameter(2, requestDTO.getTitle());
+        query.setParameter(3, requestDTO.getProfile());
+        query.setParameter(4, requestDTO.getUsername());
+        query.setParameter(5, requestDTO.getBirth());
+        query.setParameter(6, requestDTO.getTel());
+        query.setParameter(7, requestDTO.getAddress());
+        query.setParameter(8, requestDTO.getEmail());
+        query.setParameter(9, requestDTO.getPortfolio());
+        query.setParameter(10, requestDTO.getIntroduce());
+        query.setParameter(11, requestDTO.getCareer());
+        query.setParameter(12, requestDTO.getSimpleIntroduce());
+        query.setParameter(13, requestDTO.getSkill());
+        query.setParameter(14, id);
 
         query.executeUpdate();
     }
