@@ -10,11 +10,14 @@
             <hr />
             <div>
                 <div class="container w-50 mt-5 text ">
-                    <form>
+                    <form action="/person/info/{{id}}/update" method="post" enctype="multipart/form-data">
                         <div class="input-group mb-3">
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" value="" id="" name="">
+                            </div>
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">이름</span>
-                            <input type="text" class="form-control" value="장현정" id="">
+                            <input type="text" class="form-control" value="{{user.username}}" name="username" id="">
                         </div>
                         <div class="input-group mb-3">
                                 <span
@@ -25,7 +28,7 @@
                         <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">연락처</span>
-                            <input type="tel" class="form-control" maxlength="11" value="010-1234-5678" id="">
+                            <input type="tel" class="form-control" maxlength="11" value="{{user.tel}}" name="tel" id="">
                         </div>
                         <div class="input-group mb-3">
                                 <span
@@ -35,12 +38,12 @@
                         <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">이메일</span>
-                            <input type="email" class="form-control" value="ssar@nate.com" id="" readonly>
+                            <input type="email" class="form-control" value="{{user.email}}" name="email" id="" readonly>
                         </div>
                         <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">비밀번호</span>
-                            <input type="password" class="form-control" id="">
+                            <input type="password" class="form-control" value="{{user.password}}" name="password" id="">
                         </div>
                         <div class="input-group mb-3">
                                 <span
@@ -50,35 +53,44 @@
                         </div>
                         <div id="checkAlertBox"></div>
                         <div id="checkAlertBox"></div>
-                        <div class="d-flex justify-content-center" style="width: 100%;">
-                            <a href="#" class="btn btn-outline-success mb-3 mt-3" style="width: 100%">수정하기</a>
-                            <a href="#" class="btn btn-outline-danger mb-3 mt-3" style="width: 100%">취소</a>
-                        </div>
-                        <div class="modal fade" id="">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="">비밀번호 확인</h1>
-                                        <button type="button" class="btn-close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="recipient-Password"
-                                                       class="col-form-label">Password</label>
-                                                <input type="password" class="form-control" id="">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-dark"
-                                                data-bs-dismiss="modal">취소</button>
-                                        <button type="button" class="btn init_color proposalBtn"
-                                                style="background-color: #47D4D4;">수정완료</button>
-                                    </div>
-                                </div>
+                        <div class="d-flex justify-content-center mt-5" style="width: 100%;">
+                            <div style="width: 100%;">
+                                <button type="submit" class="btn btn-outline-success mb-3"
+                                        style="width: 100%">수정완료
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-center" style="width: 100%">
+                                <a href="/person/info/{{id}}" class="btn btn-outline-danger mb-3"
+                                   style="width: 100%">취소</a>
                             </div>
                         </div>
+
+<!--                        <div class="modal fade" id="">-->
+<!--                            <div class="modal-dialog">-->
+<!--                                <div class="modal-content">-->
+<!--                                    <div class="modal-header">-->
+<!--                                        <h1 class="modal-title fs-5" id="">비밀번호 확인</h1>-->
+<!--                                        <button type="button" class="btn-close"></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">-->
+<!--                                        <form>-->
+<!--                                            <div class="mb-3">-->
+<!--                                                <label for="recipient-Password"-->
+<!--                                                       class="col-form-label">Password</label>-->
+<!--                                                <input type="password" class="form-control" id="">-->
+<!--                                            </div>-->
+<!--                                        </form>-->
+<!--                                    </div>-->
+<!--                                    -->
+<!--                                    <div class="modal-footer">-->
+<!--                                        <button type="button" class="btn btn-dark"-->
+<!--                                                data-bs-dismiss="modal">취소</button>-->
+<!--                                        <button type="button" class="btn init_color proposalBtn"-->
+<!--                                                style="background-color: #47D4D4;">수정완료</button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </form>
                 </div>
             </div>

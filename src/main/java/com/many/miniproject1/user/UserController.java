@@ -118,10 +118,10 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
-            return "redirect:/company/loginForm";
+            return "/company/loginForm";
         }
-        UserResponse.DetailDTO detailDTO = userRepository.findById(id);
-        request.setAttribute("user",detailDTO);
+        User user = userRepository.findById(id);
+        request.setAttribute("user",sessionUser);
 
         return "company/companyInfo";
     }
@@ -134,23 +134,22 @@ public class UserController {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "redirect:/company/loginForm";
         }
-        UserResponse.DetailDTO detailDTO = userRepository.findById(id);
+        User user = userRepository.findById(id);
 
-        request.setAttribute("user",detailDTO);
+        request.setAttribute("user",user);
         return "company/updateInfoForm";
     }
 
 //   여기에도 머스치에도 post를 적었는데 get이 나오는 이유가 무엇일까요.
     @PostMapping("/company/info/{id}/update")
-    public String companyInfoUpdate(@PathVariable int id, UserRequest.UpdateDTO requestDTO) {
+    public String companyInfoUpdate(@PathVariable int id, UserRequest.UpdateDTO requestDTO, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
 
         userRepository.companyUpdate(requestDTO,id);
-
-
+        request.setAttribute("user", requestDTO);
         return "redirect:/company/info/"+id;
     }
 
@@ -161,21 +160,36 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
-            return "redirect:/company/loginForm";
+            return "/person/loginForm";
         }
-        UserResponse.DetailDTO detailDTO = userRepository.findById(id);
-        request.setAttribute("user",detailDTO);
+        User user = userRepository.findById(id);
+        request.setAttribute("user",sessionUser);
+
         return "person/personalInfo";
     }
 
-    @GetMapping("/person/info/updateForm")
-    public String personInfoInfoUpdateForm() {
+    @GetMapping("/person/info/{id}/updateForm")
+    public String personInfoInfoUpdateForm(@PathVariable int id, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
+            return "person/loginForm";
+        }
+        User user = userRepository.findById(id);
+
+        request.setAttribute("user",user);
         return "person/updatePersonalForm";
     }
 
-    @PostMapping("/person/info/update")
-    public String personInfoUpdate() {
-        return "redirect:/person/Info";
+    @PostMapping("/person/info/{id}/update")
+    public String personInfoUpdate(@PathVariable int id, UserRequest.UpdateDTO requestDTO, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/loginForm";
+        }
+        userRepository.personUpdate(requestDTO,id);
+        request.setAttribute("user", requestDTO);
+        return "redirect:/person/info/"+id;
     }
 
 
