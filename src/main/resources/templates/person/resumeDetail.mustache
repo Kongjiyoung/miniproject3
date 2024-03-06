@@ -1,7 +1,5 @@
 {{> layout/header}}
 <div class="container d-flex">
-    <form action="/person/resume/{{id}}/detail" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="personId" name="personId" value="{{sessionUser.id}}">
         <div class=" mx-2 pb-4 w-100">
             <div class="border border-tertiary p-5 rounded shadow">
                 <h1>{{resume.title}}</h1>
@@ -30,35 +28,35 @@
                             <table class="resume_table">
                                 <tr>
                                     <td>이름</td>
-                                    <td>{{user.username}}</td>
+                                    <td>{{resume.username}}</td>
                                 </tr>
                                 <tr>
                                     <td>생년월일</td>
-                                    <td>{{user.birth}}</td>
+                                    <td>{{resume.birth}}</td>
                                 </tr>
                                 <tr>
                                     <td>연락처</td>
-                                    <td>{{user.tel}}</td>
+                                    <td>{{resume.tel}}</td>
                                 </tr>
                                 <tr>
                                     <td>주소</td>
-                                    <td>{{user.address}}</td>
+                                    <td>{{resume.address}}</td>
                                 </tr>
                                 <tr>
                                     <td>이메일</td>
-                                    <td>{{user.email}}</td>
+                                    <td>{{resume.email}}</td>
                                 </tr>
                             </table>
                         </div>
                         <div class="mt-5">
                             <h4>커리어</h4>
-                            <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.career}}
+                            <textarea name="career" class="w-100 opacity-50" rows="10" readOnly>{{resume.career}}
                             </textarea>
                             <h4>간단 소개</h4>
-                            <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.simpleIntroduce}}
+                            <textarea name="simpleIntroduce" class="w-100 opacity-50" rows="10" readOnly>{{resume.simpleIntroduce}}
                             </textarea>
                             <h4>포트폴리오 주소</h4>
-                            <input type="url" class="form-control mt-2" id="" style="display: block;"
+                            <input type="url" class="form-control mt-2" id="" name="portfolio" style="display: block;"
                                    value="{{resume.portfolio}}" readOnly>
                         </div>
                         <div class="mt-5 jh_resume_skill">
@@ -72,7 +70,7 @@
                         </div>
                         <div class="mt-5 w-100">
                             <h4>자기소개</h4>
-                            <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.introduce}}
+                            <textarea name="introduce" class="w-100 opacity-50" rows="10" readOnly>{{resume.introduce}}
                             </textarea>
                         </div>
                         <div class="d-flex justify-content-center ">
