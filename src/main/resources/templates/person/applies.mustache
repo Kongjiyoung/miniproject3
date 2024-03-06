@@ -5,87 +5,55 @@
         <br>
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
-            <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                <a href="#" style="text-decoration: none; color: black">
-                    <div style="width: 100%; height: 11rem; overflow: hidden">
-                        <img src="/images/company1.png" class="card-img-top" alt="이력서 사진" />
+            {{#postSkillList}}
+                <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
+                    <a href="/post/detail/{{id}}" style="text-decoration: none; color: black">
+                        <div style="width: 100%; height: 15rem; overflow: hidden">
+                            <img src="{{profile}}" class="card-img-top" alt="이력서 사진"/>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"><b style="
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          ">{{title}}</b></h5>
+                            <p class="card-text" style="
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom:5px!important;
+    ">
+                                {{task}}
+                            </p>
+                            <h6><span>{{career}}</span></h6>
+                            <h6><span>{{workingArea}}</span></h6>
+                            <div class="d-flex justify-content-start" style="
+                  display: -webkit-box;
+                  -webkit-line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                ">
+                                <h6><span>{{#skill}}
+                                    <button class="btn btn-outline-warning btn-sm disabled">
+                                        {{.}}
+                                    </button>{{/skill}}</span></h6>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="d-flex justify-content-center">
+                        <a href="#" class="btn btn-outline-success mb-3" style="width: 100%">합격</a>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><b>SK(주) C&C</b></h5>
-                        <p class="card-text" style="
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                  ">
-                            DBMS(Oracle) 구축 담당 구성원 영입 (촉탁직)
-                        </p>
-                        <h6><span>Oracle</span>|<span>DBMS/RDBMS</span></h6>
-                        <h6><span>경력무관</span>|<span>판교/분당</span></h6>
 
-                    </div>
-                </a>
-                <div class="d-flex justify-content-center">
-                    <a href="#" class="btn btn-outline-success mb-3" style="width: 100%">합격</a>
-                </div>
-            </li>
+                </li>
+            {{/postSkillList}}
+
             <!-- 구인공고 끝 -->
 
-            <!-- 구인공고 시작 -->
-            <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                <a href="#" style="text-decoration: none; color: black">
-                    <div style="width: 100%; height: 11rem; overflow: hidden">
-                        <img src="/images/company2.jpg" class="card-img-top" alt="이력서 사진" />
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><b>SK(주) C&C</b></h5>
-                        <p class="card-text" style="
-              display: -webkit-box;
-              -webkit-line-clamp: 2;
-              -webkit-box-orient: vertical;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            ">
-                            DBMS(Oracle) 구축 담당 구성원 영입 (촉탁직)
-                        </p>
-                        <h6><span>Oracle</span>|<span>DBMS/RDBMS</span></h6>
-                        <h6><span>경력무관</span>|<span>판교/분당</span></h6>
-
-                    </div>
-                </a>
-                <div class="d-flex justify-content-center">
-                    <a href="#" class="btn btn-outline-danger mb-3" style="width: 100%">불합격</a>
-                </div>
-            </li>
-            <!-- 구인공고 끝 -->
-            <!-- 구인공고 시작 -->
-            <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                <a href="#" style="text-decoration: none; color: black">
-                    <div style="width: 100%; height: 11rem; overflow: hidden">
-                        <img src="/images/company3.JPG" class="card-img-top" alt="이력서 사진" />
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><b>SK(주) C&C</b></h5>
-                        <p class="card-text" style="
-              display: -webkit-box;
-              -webkit-line-clamp: 2;
-              -webkit-box-orient: vertical;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            ">
-                            DBMS(Oracle) 구축 담당 구성원 영입 (촉탁직)
-                        </p>
-                        <h6><span>Oracle</span>|<span>DBMS/RDBMS</span></h6>
-                        <h6><span>경력무관</span>|<span>판교/분당</span></h6>
-
-                    </div>
-                </a>
-                <div class="d-flex justify-content-center">
-                    <a href="#" class="btn btn-outline-warning mb-3" style="width: 100%">진행중</a>
-                </div>
-            </li>
-            <!-- 구인공고 끝 -->
         </ul>
     </section>
     <!-- list-group( 오른쪽 바로가기) 시작 -->

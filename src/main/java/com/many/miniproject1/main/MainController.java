@@ -190,7 +190,7 @@ public class MainController {
         for(int i =0 ; i<postList.size(); i++){
             List<String> skills=skillRepository.findByPostId(postList.get(i).getId());
             System.out.println(skills);
-            Post post=(postList.get(i));
+            Post post=(Post)postList.get(i);
             System.out.println(post);
             postSkillList.add(new MainResponse.postDTO(post,skills));
             System.out.println(postSkillList.get(i));
