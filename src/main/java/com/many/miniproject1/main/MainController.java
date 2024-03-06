@@ -40,24 +40,35 @@ public class MainController {
     private final ScrapRepository scrapRepository;
 
 
-
     //메인 구직 공고
     @GetMapping("/company/main")
     public String resumeForm(HttpServletRequest request) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
-
-        List<Resume> resumeList=resumeRepository.findAll();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<ResumeResponse.DetailDTO> resumeList = mainRepository.findAllResume();
+        request.setAttribute("resumeList", resumeList);
         System.out.println(resumeList.size());
 
-        ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
-        for(int i =0 ; i<resumeList.size(); i++){
-            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
+        ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
+        for (int i = 0; i < resumeList.size(); i++) {
+            List<String> skills = skillRepository.findByResumeId(resumeList.get(i).getId());
             System.out.println(skills);
-            Resume resume=(Resume)resumeList.get(i);
+            ResumeResponse.DetailDTO resume = resumeList.get(i);
             System.out.println(resume);
-            resumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
+
+            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume, skills));
             System.out.println(resumeSkillList.get(i));
         }
+        Boolean isCompany = false;
+        //기업인지 개인인지 구분
+        if (sessionUser != null) {
+            String role = sessionUser.getRole();
+            System.out.println(role);
+
+            if (role.equals("company")) {
+                isCompany = true;
+            }
+        }
+        request.setAttribute("isMatchingCompany", isCompany);
         request.setAttribute("resumeSkillList", resumeSkillList);
         request.setAttribute("sessionuser", sessionUser);
 
@@ -66,11 +77,9 @@ public class MainController {
     }
 
 
-
-
     @GetMapping("/resume/detail/{id}")
     public String resumeDetailForm(@PathVariable int id, HttpServletRequest request) {
-        System.out.println("id: "+id);
+        System.out.println("id: " + id);
         //내용작성
         // DTO에 ArrayList는 초기화 해두어도 된다.
         ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
@@ -78,21 +87,21 @@ public class MainController {
         //detailDTO.setSkill(skills);
 
 
-        User sessionUser=(User) session.getAttribute("sessionUser");
-        if(sessionUser!=null) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser != null) {
             //이력서 선택
             System.out.println(sessionUser);
-            Integer companyId=sessionUser.getId();
+            Integer companyId = sessionUser.getId();
             System.out.println(companyId);
-            List<Post> postList=mainRepository.findPost(companyId);
+            List<Post> postList = mainRepository.findPost(companyId);
             System.out.println(postList);
 
             //기업인지 개인인지 구분
-            String role=sessionUser.getRole();
+            String role = sessionUser.getRole();
             System.out.println(role);
-            Boolean isCompany=false;
-            if (role.equals("company")){
-                isCompany=true;
+            Boolean isCompany = false;
+            if (role.equals("company")) {
+                isCompany = true;
             }
             System.out.println(isCompany);
             request.setAttribute("isMatchingCompany", isCompany);
@@ -106,13 +115,13 @@ public class MainController {
 
     @PostMapping("/resume/detail/{id}/offer")
     public String companyResumeOffer(@PathVariable int id, @RequestParam("postId") Integer postId) {
-        System.out.println("======================"+postId);
-        User sessionUser=(User) session.getAttribute("sessionUser");
+        System.out.println("======================" + postId);
+        User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
-        Integer companyId=sessionUser.getId();
+        Integer companyId = sessionUser.getId();
         System.out.println(companyId);
 
-        OfferRequest.SaveDTO saveDTO=new OfferRequest.SaveDTO();
+        OfferRequest.SaveDTO saveDTO = new OfferRequest.SaveDTO();
         saveDTO.setResumeId(id);
         saveDTO.setPostId(postId);
         saveDTO.setCompanyId(companyId);
@@ -124,14 +133,15 @@ public class MainController {
 
         return "redirect:/resume/detail/{id}";
     }
+
     @PostMapping("/resume/detail/{id}/scrap")
-    public String companyResumeScrap(@PathVariable int id){
-        User sessionUser=(User) session.getAttribute("sessionUser");
+    public String companyResumeScrap(@PathVariable int id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
-        Integer companyId=sessionUser.getId();
+        Integer companyId = sessionUser.getId();
         System.out.println(companyId);
 
-        ScrapRequest.SaveResumeDTO saveDTO=new ScrapRequest.SaveResumeDTO();
+        ScrapRequest.SaveResumeDTO saveDTO = new ScrapRequest.SaveResumeDTO();
         saveDTO.setResumeId(id);
         saveDTO.setCompanyId(companyId);
 
@@ -140,23 +150,36 @@ public class MainController {
 
         return "redirect:/resume/detail/{id}";
     }
+
     //메인 채용 공고
     @GetMapping({"/person/main", "/", "/index"})
     public String postForm(HttpServletRequest request) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
-        List<Post> postList=postRepository.findAll();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Post> postList = postRepository.findAll();
         System.out.println(postList.size());
 
 
-        ArrayList<MainResponse.postDTO> postSkillList=new ArrayList<>();
-        for(int i =0 ; i<postList.size(); i++){
-            List<String> skills=skillRepository.findByPostId(postList.get(i).getId());
+        ArrayList<MainResponse.postDTO> postSkillList = new ArrayList<>();
+        for (int i = 0; i < postList.size(); i++) {
+            List<String> skills = skillRepository.findByPostId(postList.get(i).getId());
             System.out.println(skills);
-            Post post=(Post)postList.get(i);
+            Post post = (Post) postList.get(i);
             System.out.println(post);
-            postSkillList.add(new MainResponse.postDTO(post,skills));
+            postSkillList.add(new MainResponse.postDTO(post, skills));
             System.out.println(postSkillList.get(i));
         }
+
+        Boolean isCompany = false;
+        //기업인지 개인인지 구분
+        if (sessionUser != null) {
+            String role = sessionUser.getRole();
+            System.out.println(role);
+
+            if (role.equals("company")) {
+                isCompany = true;
+            }
+        }
+        request.setAttribute("isMatchingCompany", isCompany);
         request.setAttribute("sessionuser", sessionUser);
         request.setAttribute("postSkillList", postSkillList);
 
@@ -164,10 +187,9 @@ public class MainController {
     }
 
 
-
     @GetMapping("/post/detail/{id}")
     public String postDetailForm(@PathVariable int id, HttpServletRequest request) {
-        System.out.println("id: "+id);
+        System.out.println("id: " + id);
 
         //내용작성
         PostResponse.DetailDTO detailDTO = postRepository.findById(id);
@@ -176,20 +198,20 @@ public class MainController {
         detailDTO.setSkill(skills);
 
 
-        User sessionUser=(User) session.getAttribute("sessionUser");
-        if(sessionUser!=null) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser != null) {
             //이력서 선택
             System.out.println(sessionUser);
-            Integer personId=sessionUser.getId();
+            Integer personId = sessionUser.getId();
             System.out.println(personId);
-            List<Resume> resumeList=mainRepository.findResume(personId);
+            List<Resume> resumeList = mainRepository.findResume(personId);
             System.out.println(resumeList);
             //기업인지 개인인지 구분
-            String role=sessionUser.getRole();
+            String role = sessionUser.getRole();
             System.out.println(role);
-            Boolean isCompany=false;
-            if (role.equals("company")){
-                isCompany=true;
+            Boolean isCompany = false;
+            if (role.equals("company")) {
+                isCompany = true;
             }
             request.setAttribute("isMatchingCompany", isCompany);
             request.setAttribute("resumeList", resumeList);
@@ -199,15 +221,16 @@ public class MainController {
         request.setAttribute("post", detailDTO);
         return "person/postDetail";
     }
+
     @PostMapping("/post/detail/{id}/apply")
     public String personPostApply(@PathVariable int id, @RequestParam("resumeId") Integer resumeId) {
-        System.out.println("======================"+resumeId);
-        User sessionUser=(User) session.getAttribute("sessionUser");
+        System.out.println("======================" + resumeId);
+        User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
-        Integer personId=sessionUser.getId();
+        Integer personId = sessionUser.getId();
         System.out.println(personId);
 
-        ApplyRequest.SaveDTO saveDTO=new ApplyRequest.SaveDTO();
+        ApplyRequest.SaveDTO saveDTO = new ApplyRequest.SaveDTO();
         saveDTO.setResumeId(resumeId);
         saveDTO.setPostId(id);
         saveDTO.setCompanyId(mainRepository.findCompanyId(id));
@@ -216,19 +239,20 @@ public class MainController {
         saveDTO.setIsPass("검토중");
 
 
-        System.out.println("save : "+saveDTO);
+        System.out.println("save : " + saveDTO);
         applyRepository.save(saveDTO);
 
         return "redirect:/post/detail/{id}";
     }
+
     @PostMapping("/post/detail/{id}/scrap")
     public String personPostScrap(@PathVariable int id) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
+        User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
-        Integer personId=sessionUser.getId();
+        Integer personId = sessionUser.getId();
         System.out.println(personId);
 
-        ScrapRequest.SavePostDTO saveDTO=new ScrapRequest.SavePostDTO();
+        ScrapRequest.SavePostDTO saveDTO = new ScrapRequest.SavePostDTO();
         saveDTO.setPostId(id);
         saveDTO.setPersonId(personId);
 
@@ -236,8 +260,6 @@ public class MainController {
         scrapRepository.savePost(saveDTO);
         return "redirect:/post/detail/{id}";
     }
-
-
 
 
     //맞춤 공고 - 기업이 보는 매칭 이력서
@@ -251,7 +273,7 @@ public class MainController {
 
     @GetMapping("/matching/resume/detail/{id}")
     public String matchingResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
-        System.out.println("id: "+id);
+        System.out.println("id: " + id);
 
         ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
         List<String> skills = skillRepository.findByResumeId(id);
@@ -261,21 +283,24 @@ public class MainController {
         request.setAttribute("resume", detailDTO);
         return "person/resumeDetail";
     }
+
     @PostMapping("/matching/resume/detail/{id}/offer")
     public String matchingCompanyResumeOffer() {
         return "redirect:/matching/resume/detail/{id}";
     }
+
     @PostMapping("/matching/resume/detail/{id}/scrap")
     public String matchingCompanyResumeScrap() {
         return "redirect:/matching/resume/detail/{id}";
     }
+
     //맞춤 공고 - 개인이 보는 매칭 공고
-    @GetMapping ("/person/matching")
+    @GetMapping("/person/matching")
     public String matchingPostForm(HttpServletRequest request) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
+        User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
-        Integer userId=sessionUser.getId();
-        List<Post> postList=mainRepository.findPost(userId);
+        Integer userId = sessionUser.getId();
+        List<Post> postList = mainRepository.findPost(userId);
         request.setAttribute("postList", postList);
 
 

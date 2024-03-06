@@ -76,33 +76,6 @@ values (1, '백엔드 개발자', '/images/person01.png', 'http://qmfmqfqmf',
 꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.
 어려운 지식을 저만의 언어로 쉽게 풀어내는 것을 좋아합니다. 많은 사람에게 지식을 전파할 수 있는 사람이 되기를 원합니다.', '1년 근무', '꾸준히 공부하는 개발자입니다', now());
 
-insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
-                      simple_introduce, created_at)
-values (2, '백엔드 개발자','/images/person05.jpg', '장현정', '19900524', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
-        'http://dffdfddf',
-        '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
-프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
-
--- 더미 추가 0306
-INSERT INTO resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
-                      simple_introduce, created_at)
-VALUES (3, '백엔드 개발자', '/images/person08.jpg', '뤼튼재성', '19YY-MM-DD', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
-        'http://dffdfddf',
-        '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
-프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
-INSERT INTO resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
-                      simple_introduce, created_at)
-VALUES (4, '백엔드 개발자', '/images/person12.jpg', '뤼튼성재', '19YY-MM-DD', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
-        'http://dffdfddf',
-        '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
-프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
-
-insert into resume_tb(person_id, title, profile, portfolio, introduce, career,
-                      simple_introduce, created_at)
-values (6, '백엔드 개발자, 장현정', '/images/person02.png', 'http://dffdfddf',
-        '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
-프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
-
 
 --채용공고 입력
 -- 더미데이터 company_id변경 <= JOIN
