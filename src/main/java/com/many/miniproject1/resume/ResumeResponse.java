@@ -50,7 +50,7 @@ public class ResumeResponse {
         private String introduce;
         private String career;
         private String simpleIntroduce;
-        private List<String> skills = new ArrayList<>();
+        private List<String> skills;
         private Timestamp createdAt;
         private String email;
         private String username;
@@ -73,6 +73,11 @@ public class ResumeResponse {
             this.tel = resume.getTel();
             this.address = resume.getAddress();
             this.birth = resume.getBirth();
+            this.skills = skills;
+        }
+
+        public List<String> getSkills() {
+            return skills;
         }
     }
 
