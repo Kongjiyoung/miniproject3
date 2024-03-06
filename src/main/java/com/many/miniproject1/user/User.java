@@ -19,8 +19,9 @@ public class User {
     private String username;
     private String tel;
     private String companyName;
-    private String companyAddress;
+    private String address;
     private String companyNum;
     private String profile;
+    private String birth;
     private Timestamp createdAt;
 }

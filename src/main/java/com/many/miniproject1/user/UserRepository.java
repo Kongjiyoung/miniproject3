@@ -33,38 +33,29 @@ public class UserRepository {
 
     @Transactional
     public void companySave(UserRequest.JoinDTO requestDTO) {
-        Query query = em.createNativeQuery("insert into user_tb(role, company_name, company_num, username, email, password, created_at) values('company',?,?,?,?,?, now())");
-        query.setParameter(1, requestDTO.getCompanyName());
-        query.setParameter(2, requestDTO.getCompanyNum());
+        Query query = em.createNativeQuery("insert into user_tb(role, email, password, username, company_name, company_num, address, created_at) values('company',?,?,?,?,?,?, now())");
+        query.setParameter(1, requestDTO.getEmail());
+        query.setParameter(2, requestDTO.getPassword());
         query.setParameter(3, requestDTO.getUsername());
-        query.setParameter(4, requestDTO.getEmail());
-        query.setParameter(5, requestDTO.getPassword());
+        query.setParameter(4, requestDTO.getCompanyName());
+        query.setParameter(5, requestDTO.getCompanyNum());
+        query.setParameter(6, requestDTO.getCompanyNum());
+        query.setParameter(6, requestDTO.getAddress());
         query.executeUpdate();
     }
 
     @Transactional
     public void personSave(UserRequest.JoinDTO requestDTO) {
-        Query query = em.createNativeQuery("insert into user_tb(role, username, email, password, created_at) values('person',?,?,?, now())");
+        Query query = em.createNativeQuery("insert into user_tb(role, birth, email, password, username, tel, address, created_at) values('person',?,?,?,?,?,?,now())");
+        query.setParameter(1, requestDTO.getBirth());
+        query.setParameter(1, requestDTO.getEmail());
+        query.setParameter(1, requestDTO.getPassword());
         query.setParameter(1, requestDTO.getUsername());
-        query.setParameter(2, requestDTO.getEmail());
-        query.setParameter(3, requestDTO.getPassword());
+        query.setParameter(2, requestDTO.getTel());
+        query.setParameter(3, requestDTO.getAddress());
         query.executeUpdate();
     }
 
-    @Transactional
-    public void companyUpdate(UserRequest.UpdateDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("update user_tb set company_name =? , company_num=?, company_address=?, username=?, tel=?, email=?, password =? where id = ?");
-        query.setParameter(1, requestDTO.getCompanyName());
-        query.setParameter(2, requestDTO.getCompanyNum());
-        query.setParameter(3, requestDTO.getCompanyAddress());
-        query.setParameter(4, requestDTO.getUsername());
-        query.setParameter(5, requestDTO.getTel());
-        query.setParameter(6, requestDTO.getEmail());
-        query.setParameter(7, requestDTO.getPassword());
-        query.setParameter(8, id);
-
-        query.executeUpdate();
-    }
 
 //    @Transactional
 //    public void delete(int id) {
@@ -86,37 +77,83 @@ public class UserRepository {
         }
     }
 
-    public UserResponse.DetailDTO findByIdWithUser(int id) {
-        Query query = em.createNativeQuery("select * from user_tb where id = ?");
-        query.setParameter(1, id);
+//    public UserResponse.DetailDTO personFindByIdWithUser(int id) {
+//        Query query = em.createNativeQuery("select * from user_tb where id = ?");
+//        query.setParameter(1, id);
+//
+//        Object[] row = (Object[]) query.getSingleResult();
+//        String role = (String) row[0];
+//        String email=(String) row[1];
+//        String password=(String) row[2];
+//        String username=(String) row[3];
+//        String tel=(String) row[4];
+//        String profile=(String) row[5];
+//
+//        UserResponse.DetailDTO responseDTO = new UserResponse.DetailDTO();
+//
+//        responseDTO.setRole(role);
+//        responseDTO.setEmail(email);
+//        responseDTO.setPassword(password);
+//        responseDTO.setUsername(username);
+//        responseDTO.setTel(tel);
+//        responseDTO.setProfile(profile);
+//        return responseDTO;
+//    }
+//    public UserResponse.DetailDTO companyFindByIdWithUser(int id) {
+//        Query query = em.createNativeQuery("select * from user_tb where id = ?");
+//        query.setParameter(1, id);
+//        Object[] row = (Object[]) query.getSingleResult();
+//        String role = (String) row[0];
+//        String profile=(String) row[1];
+//        String companyName=(String) row[2];
+//        String companyNum=(String) row[3];
+//        String companyAddress=(String) row[4];
+//        String username=(String) row[5];
+//        String tel=(String) row[6];
+//        String email=(String) row[7];
+//        String password=(String) row[8];
+//
+//        UserResponse.DetailDTO responseDTO = new UserResponse.DetailDTO();
+//
+//        responseDTO.setRole(role);
+//        responseDTO.setCompanyName(companyName);
+//        responseDTO.setCompanyNum(companyNum);
+//        responseDTO.setCompanyAddress(companyAddress);
+//        responseDTO.setEmail(email);
+//        responseDTO.setPassword(password);
+//        responseDTO.setUsername(username);
+//        responseDTO.setTel(tel);
+//        responseDTO.setProfile(profile);
+//        return responseDTO;
+//    }
 
-        Object[] row = (Object[]) query.getSingleResult();
-        String role = (String) row[0];
-        String email=(String) row[1];
-        String password=(String) row[2];
-        String username=(String) row[3];
-        String tel=(String) row[4];
-        String profile=(String) row[5];
+    @Transactional
+    public void personUpdate(UserRequest.PersonUpdateDTO requestDTO, int id) {
+        Query query = em.createNativeQuery("update user_tb set profile = ?, username=?, tel=?,address=?,birth=?, email=?, password =? where id = ?");
+        query.setParameter(1, requestDTO.getProfile());
+        query.setParameter(2, requestDTO.getUsername());
+        query.setParameter(3, requestDTO.getTel());
+        query.setParameter(4, requestDTO.getAddress());
+        query.setParameter(5, requestDTO.getBirth());
+        query.setParameter(6, requestDTO.getEmail());
+        query.setParameter(7, requestDTO.getPassword());
+        query.setParameter(8, id);
 
-        UserResponse.DetailDTO responseDTO = new UserResponse.DetailDTO();
-
-        responseDTO.setRole(role);
-        responseDTO.setEmail(email);
-        responseDTO.setPassword(password);
-        responseDTO.setUsername(username);
-        responseDTO.setTel(tel);
-        responseDTO.setProfile(profile);
-        return responseDTO;
+        query.executeUpdate();
     }
 
     @Transactional
-    public void personUpdate(UserRequest.UpdateDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("update user_tb set username=?, tel=?, email=?, password =? where id = ?");
-        query.setParameter(1, requestDTO.getUsername());
-        query.setParameter(2, requestDTO.getTel());
-        query.setParameter(3, requestDTO.getEmail());
-        query.setParameter(4, requestDTO.getPassword());
-        query.setParameter(5, id);
+    public void companyUpdate(UserRequest.CompanyUpdateDTO requestDTO, int id) {
+        Query query = em.createNativeQuery("update user_tb set profile=?, company_name =? , company_num=?, address=?, username=?, tel=?, email=?, password =? where id = ?");
+        query.setParameter(1, requestDTO.getProfile());
+        query.setParameter(2, requestDTO.getCompanyName());
+        query.setParameter(3, requestDTO.getCompanyNum());
+        query.setParameter(4, requestDTO.getAddress());
+        query.setParameter(5, requestDTO.getUsername());
+        query.setParameter(6, requestDTO.getTel());
+        query.setParameter(7, requestDTO.getEmail());
+        query.setParameter(8, requestDTO.getPassword());
+        query.setParameter(9, id);
 
         query.executeUpdate();
     }
