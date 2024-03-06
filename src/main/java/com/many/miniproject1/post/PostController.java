@@ -25,7 +25,7 @@ public class PostController {
 
     //회사 공고 관리
     @GetMapping("/company/post")
-    public String companyPosts(HttpServletRequest request) { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
+    public String companyPosts(HttpServletRequest request, Skill skill) { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
         // 목적: 우리 회사에서 쓴 포스트들이 화면에 나와야 한다.(0)
 
         // 1. 로그인 하지 않은 유저 로그인의 길로 인도
@@ -39,6 +39,7 @@ public class PostController {
         if (postList.isEmpty()) {
             return "company/savePostForm";
         }
+
         request.setAttribute("postList", postList);
         System.out.println(postList.getFirst());
 
@@ -49,10 +50,10 @@ public class PostController {
 //            List<String> skills = skillRepository.findByPostId(postList.get(i).getId());
 //            System.out.println(skills);
 //
-//            Post post = (Post) postList.get(i);
+//            List<Post> post = (List<Post>) postList.get(i);
 //            System.out.println(post);
 //
-//            postSkillList.add(new PostResponse.DetailDTO(post, skills));
+//            postSkillList.add(new PostResponse.DetailDTO(post.get(i), skills));
 //            System.out.println(postSkillList.get(i));
 //            request.setAttribute("postSkillList", postSkillList);
 //        }
@@ -141,9 +142,9 @@ public class PostController {
         // 변환된 스킬 DTO 리스트를 사용하여 저장
         int postId = postRepository.save(requestDTO);
         skillRepository.saveSkillsFromPost(skillDTOs, postId);
-        System.out.println(skills);
         request.setAttribute("post", requestDTO);
         request.setAttribute("skills", skills);
+        System.out.println(skills);
         return "redirect:/company/post";
     }
 
@@ -171,25 +172,19 @@ public class PostController {
             return "redirect:/company/loginForm";
         }
 
-
-
         List<SkillRequest.SaveDTO> skillDTOs = new ArrayList<>();
 
         skillRepository.resetSkill(id);
-        System.out.println("178: "+skillDTOs);
         for (String skill : skills) {
             SkillRequest.SaveDTO skillDTO = new SkillRequest.SaveDTO();
             skillDTO.setSkill(skill);
             skillDTO.setPostId(requestDTO.getId()); // 포스트 아이디 설정
             skillDTOs.add(skillDTO);
         }
-        System.out.println("185: "+skillDTOs);
 
         postRepository.update(id, requestDTO);
         skillRepository.saveSkillsFromPost(skillDTOs, id);
-        System.out.println("189: "+skills);
         request.setAttribute("post", requestDTO);
-        System.out.println("191: "+requestDTO);
         request.setAttribute("skills", skills);
         return "redirect:/company/post/detail/" + id;
     }
