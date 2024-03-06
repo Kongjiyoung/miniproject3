@@ -22,15 +22,32 @@ public class MainRepository {
     }
 
     public List<Post> findPost(int id) {
-        Query query = em.createNativeQuery("select * from post_tb where company_id=id", Post.class);
-
+        Query query = em.createNativeQuery("select * from post_tb where company_id=?", Post.class);
+        query.setParameter(1, id);
         return query.getResultList();
     }
 
     public List<Resume> findResume(int id) {
-        Query query = em.createNativeQuery("select * from resume_tb where person_id=id", Resume.class);
-
+        Query query = em.createNativeQuery("select * from resume_tb where person_id=?", Resume.class);
+        query.setParameter(1, id);
         return query.getResultList();
     }
+
+    public Integer findPersonId(int resumeId) {
+        Query query = em.createNativeQuery("select person_id from resume_tb where  id=?");
+        query.setParameter(1, resumeId);
+
+        Integer personId = (Integer) query.getSingleResult();
+        return personId;
+    }
+    public Integer findCompanyId(int id) {
+        Query query = em.createNativeQuery("select company_id from post_tb where id=?");
+        query.setParameter(1, id);
+
+        Integer companyId = (Integer) query.getSingleResult();
+        return companyId;
+    }
+
+
 
 }

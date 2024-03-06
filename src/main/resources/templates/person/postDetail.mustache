@@ -10,9 +10,9 @@
                 <form>
                     <select class="form-select" aria-label="Default select example" id="resumeChoice" name="resumeChoice">
                         <option selected>채용 공고 선택</option>
-                        {{#postList}}
+                        {{#resumeList}}
                             <option value="{{id}}">{{title}}</option>
-                        {{/postList}}
+                        {{/resumeList}}
                     </select>
                     <div class="d-flex justify-content-center mx-4">
                         <button class="btn btn-outline-success" type="submit">지원하기</button>
