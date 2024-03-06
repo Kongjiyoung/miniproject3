@@ -16,7 +16,7 @@ public class ResumeRepository {
     private final EntityManager em;
 
     public List<Resume> findAll() {
-        Query query = em.createNativeQuery("select * from resume_tb order by desc ", Resume.class);
+        Query query = em.createNativeQuery("select * from resume_tb", Resume.class);
 
         return query.getResultList();
     }
