@@ -115,7 +115,18 @@
                         </p>
                         <h6><span>{{career}}</span></h6>
                         <h6><span>{{workingArea}}</span></h6>
-                        <h6><span>스택</span>|<span>{{#skill}}{{.}}{{/skill}}</span></h6>
+                        <div class="d-flex justify-content-start" style="
+                  display: -webkit-box;
+                  -webkit-line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                ">
+                            <h6><span>{{#skill}}
+                                <button class="btn btn-outline-warning btn-sm disabled">
+                                    {{.}}
+                                </button>{{/skill}}</span></h6>
+                        </div>
 
                     </div>
                 </a>

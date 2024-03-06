@@ -24,28 +24,12 @@ public class ApplyController {
     //기업에서 받은 이력서 관리
 
     @GetMapping("/company/resume")
-    public String companyResume(HttpServletRequest request) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
+    public String companyResume() {
 
-        List<Post> postList=applyRepository.findPost(sessionUser.getId());
-        System.out.println(postList.size());
-
-
-        ArrayList<MainResponse.postDTO> postSkillList=new ArrayList<>();
-        for(int i =0 ; i<postList.size(); i++){
-            List<String> skills=skillRepository.findByPostId(postList.get(i).getId());
-            System.out.println(skills);
-            Post post=(postList.get(i));
-            System.out.println(post);
-            postSkillList.add(new MainResponse.postDTO(post,skills));
-            System.out.println(postSkillList.get(i));
-        }
-        request.setAttribute("sessionuser", sessionUser);
-        request.setAttribute("postSkillList", postSkillList);
         return "company/companyResumes";
     }
 
-    @GetMapping("/company/resume/detail/{id}")
+    @GetMapping("/company/resume/detail")
     public String companyResumeDetail(@PathVariable int id) {
         return "company/appliedResumeDetail";
     }
@@ -57,7 +41,24 @@ public class ApplyController {
 
     //이력서 현황
     @GetMapping("/person/apply")
-    public String personApply() {
+    public String personApply(HttpServletRequest request) {
+        User sessionUser=(User) session.getAttribute("sessionUser");
+
+        List<ApplyResponse.applyDetailDTO> postList=applyRepository.findPostPass(sessionUser.getId());
+        System.out.println("size="+postList.size());
+
+        ArrayList<ApplyResponse.postIsPassDTO> postSkillList=new ArrayList<>();
+        for(int i =0 ; i<postList.size(); i++){
+            System.out.println("size="+postList.size());
+            System.out.println(postList.get(i));
+            List<String> skills=skillRepository.findByPostId(postList.get(i).getId());
+            System.out.println("==============="+skills);
+            ApplyResponse.applyDetailDTO post=postList.get(i);
+            System.out.println("==============="+post);
+            postSkillList.add(new ApplyResponse.postIsPassDTO(post,skills));
+            System.out.println(postSkillList.get(i));
+        }
+        request.setAttribute("postSkillList", postSkillList);
         return "person/applies";
     }
 
