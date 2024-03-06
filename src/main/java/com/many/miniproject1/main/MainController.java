@@ -120,7 +120,7 @@ public class MainController {
 
 
         System.out.println(saveDTO);
-        offerRepository.save(saveDTO);
+        offerRepository.save(saveDTO, id);
 
         return "redirect:/resume/detail/{id}";
     }
