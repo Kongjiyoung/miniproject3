@@ -38,10 +38,10 @@ public class OfferController {
         ArrayList<MainResponse.resumeDTO> cResumeSkillList = new ArrayList<>();
         for(int i =0 ; i<companyOfferList.size(); i++){
             List<String> skills = skillRepository.findByResumeId(companyOfferList.get(i).getId());
-            System.out.println(skills);
             Resume resume=(Resume)companyOfferList.get(i);
-            System.out.println(resume);
             cResumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
+            System.out.println(resume);
+            System.out.println(skills);
             System.out.println(cResumeSkillList.get(i));
         }
         request.setAttribute("cResumeSkillList", cResumeSkillList);

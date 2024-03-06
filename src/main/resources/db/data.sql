@@ -79,7 +79,7 @@ values (1, '백엔드 개발자', '/images/person01.png', '공지영', '19991012
 
 insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
                       simple_introduce, created_at)
-values (2, '백엔드 개발자','/images/person05.png', '장현정', '19900524', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
+values (2, '백엔드 개발자','/images/person05.jpg', '장현정', '19900524', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
         'http://dffdfddf',
         '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
 프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
@@ -87,13 +87,13 @@ values (2, '백엔드 개발자','/images/person05.png', '장현정', '19900524'
 -- 더미 추가 0306
 INSERT INTO resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
                       simple_introduce, created_at)
-VALUES (3, '백엔드 개발자', '/images/person08.png', '뤼튼재성', '19YY-MM-DD', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
+VALUES (3, '백엔드 개발자', '/images/person08.jpg', '뤼튼재성', '19YY-MM-DD', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
         'http://dffdfddf',
         '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
 프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
 INSERT INTO resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
                       simple_introduce, created_at)
-VALUES (4, '백엔드 개발자', '/images/person12.png', '뤼튼성재', '19YY-MM-DD', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
+VALUES (4, '백엔드 개발자', '/images/person12.jpg', '뤼튼성재', '19YY-MM-DD', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
         'http://dffdfddf',
         '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
 프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
@@ -162,16 +162,16 @@ VALUES (1, 1, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (1, 2, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (1, 3, 14, 1, now());
+VALUES (1, 3, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (2, 3, 15, 1, now());
+VALUES (2, 3, 13, 1, now());
 -- 더미추가 0306
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (3, 3, 18, 1, now());
+VALUES (3, 3, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (4, 3, 18, 1, now());
+VALUES (4, 3, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (5, 3, 18, 1, now());
+VALUES (5, 3, 13, 1, now());
 
 
 

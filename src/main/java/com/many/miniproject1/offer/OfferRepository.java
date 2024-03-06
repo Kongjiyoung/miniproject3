@@ -16,6 +16,8 @@ import java.util.List;
 public class OfferRepository {
     private final EntityManager em;
 
+
+
     public List<Offer> findAll() {
         Query query = em.createNativeQuery("SELECT * FROM offer_tb", Offer.class);
 
