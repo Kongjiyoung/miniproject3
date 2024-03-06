@@ -21,43 +21,18 @@
             <!--            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required multiple>-->
             <form action="/company/post/save" method="post">
                 <!-- enctype="multipart/form-data" -->
-                <input type="hidden" id="companyId" name="companyId" value="3">
+                <input type="hidden" id="companyId" name="companyId" value="{{sessionUser.id}}">
                 <div class="px-5 mt-5">
                     <!-- 이미지 업로드 시작 -->
-                    <div>
-                        <div class="d-flex justify-content-center mb-5">
-                            <div class=" d-flex d-flex justify-content-center align-items-center"
-                                 style="width: 200px; height: 150px; border: 1px solid #e6e6e6; color: #e6e6e6;"
-                                 id="profilePreview"><b>사진을 등록해 주세요.</b></div>
-                        </div>
-                        <input class="mb-4" type="file" id="profile" name="profile" accept="image/*">
-
-                        <script>
-                            $('#profile').change(function () {
-                                let input = this;
-                                if (input.files && input.files[0]) {
-                                    let reader = new FileReader();
-
-                                    reader.onload = function (e) {
-                                        $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
-                                        // let fileName = input.files[0].name;
-                                        // $('#profile').val(fileName);
-                                        // console.log(fileName);
-                                    };
-
-                                    reader.readAsDataURL(input.files[0]);
-
-                                    // 파일명 출력
-                                    let fileName = input.files[0].name;
-                                    $('#profile').val(fileName);
-                                    console.log(fileName);
-                                }
-                            });
-                        </script>
+                                <div class="upload"><img src="{{sessionUser.profile}}" id="profile"
+                                                         class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25" ></div>
+<!--                                <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>-->
+<!--                                <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required-->
+<!--                                       multiple>-->
                         <!-- 이미지 업로드 끝 -->
                     </div>
                     <label for="companyName"><b>공고명</b></label>
-                    <input class="form-control" type="text" name="title" id="companyName" value="[인턴] 프론트엔드 개발자 (JavaScript)" required>
+                    <input class="form-control" type="text" name="title" id="title" required>
                     <div class="pt-4">
                         <hr class="d-inline-flex w-100">
                     </div>
@@ -92,24 +67,25 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th><label for="condition">근무 조건</label></th>
-                                    <td>
-                                        <select id="condition" name="condition" class="jm_select selectpicker"
-                                                data-style="btn-info" style=" height: 35px;">
-                                            <option value="계약직">계약직</option>
-                                            <option value="정규직" selected>정규직</option>
-                                        </select>
-                                    </td>
+<!--                                    <th>고용 형태</th>-->
+<!--                                    <td>-->
+<!--                                        <select name="condition" id="condition" class="jm_select selectpicker"-->
+<!--                                                style=" height: 35px;">-->
+<!--                                            <option value="고용 형태" selected></option>-->
+<!--                                            <option value="계약직">계약직</option>-->
+<!--                                            <option value="정규직">정규직</option>-->
+<!--                                        </select>-->
+<!--                                    </td>-->
                                     <th><label>근무 시간</label></th>
                                     <th style="display: none"></th>
                                     <th style="display: none"></th>
                                     <td class="d-flex">
                                         <label for="workStartTime">근무 시작 시간</label>
                                         <input class="form-control" type="time" style="width: 38%;" name="workStartTime"
-                                               id="workStartTime" value="09:00" required>
+                                               id="workStartTime" required>
                                         <label for="workEndTime">근무 종료 시간</label>
                                         <input class="form-control" type="time" style="width: 38%;" name="workEndTime"
-                                               id="workEndTime" value="18:00" required>
+                                               id="workEndTime" required>
                                     </td>
                                 </tr>
                             </table>
@@ -117,29 +93,29 @@
                         <div class="mt-4">
                             <label for="deadline"><b>마감 일자</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control" type="date" id="deadline" name="deadline"  value="2024-04-17" required>
+                                <input class="form-control" type="date" id="deadline" name="deadline" required>
                             </div>
                         </div>
 
                         <div class="mt-4">
                             <label for="task"><b>주요 업무</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="task" type="text" name="task"  value="VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다." required>
+                                <input class="form-control border-0" id="task" type="text" name="task" required>
                             </div>
                         </div>
 
                         <div class="mt-4">
                             <label for="workingArea"><b>근무 지역</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="workingArea" type="text" name="workingArea"value="경기 성남시 분당구"
-                                       required>
+                                <input class="form-control border-0" id="workingArea" type="text" name="workingArea"
+                                    required>
                             </div>
                         </div>
 
                         <div class="mt-4">
                             <label for="workCondition"><b>혜택 및 복지</b></label>
                             <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="workCondition" type="text" name="workCondition" value="처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정"
+                                <input class="form-control border-0" id="workCondition" type="text" name="workCondition"
                                        required>
                             </div>
                         </div>

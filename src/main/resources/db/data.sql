@@ -30,42 +30,42 @@ values ('person', 'harry@nate.com', '1234', 'harry', '010-1234-5678 ', '사진UR
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'sk_cnc@sk.com', '1234', 'sk_HR', '010-1234-5678 ', 'SK(주) C&C', '경기 성남시 분당구 성남대로343번길 9 에스케이유타워',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/company1.png', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'shinhancard@shinhan.com', '1234', 'shinhan_HR', '010-1234-5678', 'shinhancard', '서울 중구 을지로 100 A동',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/company2.jpg', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'nhn_kcp@nhn.com', '1234', 'nhn_HR', '010-1234-5678', 'NHN KCP', '서울 구로구 디지털로26길 72 (구로동, NHN KCP)',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/company3.JPG', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'inflearn@inflearn.com', '1234', 'inflearn_HR', '010-1234-5678', '인프랩(인프런)',
-        '경기 성남시 분당구 대왕판교로 660 1A 동 4층 405호', '123-456-78910', '사진URL', now());
+        '경기 성남시 분당구 대왕판교로 660 1A 동 4층 405호', '123-456-78910', '/images/company4.png', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'humanscape@nate.com', '1234', 'humanscape_HR', '010-1234-5678', '휴먼스케이프',
         '서울 강남구 봉은사로86길 6 레베쌍트빌딩 6층',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/company54.png', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'soomgo@soomgo.com', '1234', 'soomgo_HR', '010-1234-5678', '브레이브모바일 (숨고)',
         '서울 강남구 테헤란로 415 L7 강남타워 5층',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/company6.jpg', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'seedn@seedn.com', '1234', 'seedn_HR', '010-1234-5678', '씨드앤', '서울 성동구 왕십리로 115 헤이그라운드 서울숲점 605호',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/company7.jpg', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'pickleplus@pickle.com', '1234', 'pickleplus_HR', '010-1234-5678 ', '주식회사 피클플러스',
         '서울 중구 한강대로 416 서울스퀘어',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/company8.png', now());
 insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
                     created_at)
 values ('company', 'wadiz@wadiz.com', '1234', 'wadiz_HR', '010-1234-5678 ', '와디즈', '경기 성남시 분당구 판교로 242 A동 4층 와디즈',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/company9.jpg', now());
 
 
 --이력서정보 입력
@@ -95,20 +95,20 @@ values (6, '백엔드 개발자, 장현정', '/images/person02.png', '장현정'
 -- 더미데이터 company_id변경 <= JOIN
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
-values (13, '데이터 분석가', '
+values (16, '데이터 분석가', '
 미들 (4~8년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         '데이터 관리, 분석, 시각화, 모델링을 통해 데이터로부터 정보를 추출하고 인사이트를 도출합니다.', '/images/company4.png', '경기 성남시 분당구', now());
 
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
-values (13, 'React Native 개발자 (경력 1년 이상)', '
+values (16, 'React Native 개발자 (경력 1년 이상)', '
 주니어 (1~3년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'TypeScript, React Native 를 기반으로 Android / iOS 애플리케이션을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구',
         now());
 
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
-values (13, '[인턴] 프론트엔드 개발자 (JavaScript)', '
+values (16, '[인턴] 프론트엔드 개발자 (JavaScript)', '
 인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
 

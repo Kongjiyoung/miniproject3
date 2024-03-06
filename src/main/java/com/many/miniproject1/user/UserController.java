@@ -112,7 +112,7 @@ public class UserController {
 
     //회사 정보 및 수정
     //회사 정보 수정
-    @GetMapping("/company/info/{id}")
+    @GetMapping("/company/info")
     public String companyInfo(@PathVariable int id, HttpServletRequest request) {
         System.out.println("id: "+id);
         User sessionUser = (User) session.getAttribute("sessionUser");
