@@ -39,44 +39,6 @@ public class MainController {
     private final ApplyRepository applyRepository;
     private final ScrapRepository scrapRepository;
 
-//    @GetMapping("/")
-//    public String indexPost(HttpServletRequest request){
-//        List<Post> postList=postRepository.findAll();
-//        System.out.println(postList.size());
-//
-//
-//        ArrayList<MainResponse.postDTO> postSkillList=new ArrayList<>();
-//        for(int i =0 ; i<postList.size(); i++){
-//            List<String> skills=skillRepository.findByPostId(postList.get(i).getId());
-//            System.out.println(skills);
-//            Post post=(postList.get(i));
-//            System.out.println(post);
-//            postSkillList.add(new MainResponse.postDTO(post,skills));
-//            System.out.println(postSkillList.get(i));
-//        }
-//
-//        request.setAttribute("postSkillList", postSkillList);
-//        return "indexpost";
-//    }
-//
-//    @GetMapping("/resume")
-//    public String indexResume(HttpServletRequest request){
-//        List<Resume> resumeList=resumeRepository.findAll();
-//        System.out.println(resumeList.size());
-//
-//
-//        ArrayList<MainResponse.resumeDTO> resumeSkillList=new ArrayList<>();
-//        for(int i =0 ; i<resumeList.size(); i++){
-//            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
-//            System.out.println(skills);
-//            Resume resume=(Resume)resumeList.get(i);
-//            System.out.println(resume);
-//            resumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
-//            System.out.println(resumeSkillList.get(i));
-//        }
-//        request.setAttribute("resumeSkillList", resumeSkillList);
-//        return "indexresume";
-//    }
 
 
     //메인 구직 공고
