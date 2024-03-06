@@ -33,6 +33,7 @@ public class UserRequest {
         private String username;
         private String tel;
 
+
     }
     @Data
     public static class PersonUpdateDTO {
@@ -51,5 +52,11 @@ public class UserRequest {
         private String role;
         private String email;
         private String password;
+    }
+
+    @Data
+    public static class PasswordChangeDTO{
+        private String password;
+
     }
 }
