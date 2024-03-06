@@ -81,6 +81,7 @@ public class PostController {
         // 목적: 포스트 디테일 페이지를 불러온다.(0)
         // 1. 로그인 하지 않은 유저 로그인의 길로 인도
         User sessionUser = (User) session.getAttribute("sessionUser");
+        System.out.println(sessionUser);
         if (sessionUser == null) {
             return "redirect:/company/loginForm";
         }
@@ -88,17 +89,24 @@ public class PostController {
         // 2. id에 맞는 게시글을 본다.(이미 올라와 있는 것은 됨, 그러나 새로 쓴 글은 을
         PostResponse.DetailDTO responseDTO = postRepository.findById(id);
         request.setAttribute("post", responseDTO);
+        
+        // 스킬 리스트 만들어서 돌리기
+        
         return "company/postDetail";
     }
 
     @GetMapping("/company/post/saveForm")
-    public String companyPostForm() {
+    public String companyPostForm(PostRequest.SaveDTO requestDTO, HttpServletRequest request) {
         // 목적: 공고를 등록하는 페이지를 불러온다.(0)
         // 1. 로그인 하지 않은 유저 로그인의 길로 인도
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/company/loginForm";
         }
+        System.out.println(sessionUser);
+        request.setAttribute("post", requestDTO);
+        System.out.println(requestDTO);
+
         return "company/savePostForm";
     }
 
@@ -153,8 +161,11 @@ public class PostController {
         }
 
         // 변환된 스킬 DTO 리스트를 사용하여 저장
-        skillRepository.saveSkillsFromPost(skillDTOs);
+        int postId = postRepository.save(requestDTO);
+        skillRepository.saveSkillsFromPost(skillDTOs,postId);
         System.out.println(skills);
+        request.setAttribute("post", requestDTO);
+        request.setAttribute("skills", skills);
         return "redirect:/company/post";
     }
 

@@ -92,7 +92,7 @@ public class PostRepository {
     }
 
     @Transactional
-    public void save(PostRequest.SaveDTO requestDTO) {
+    public Integer save(PostRequest.SaveDTO requestDTO) {
         Query query = em.createNativeQuery("insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task, profile, working_area, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, '/images/company4.png', ?, now())");
         query.setParameter(1, requestDTO.getCompanyId());
         query.setParameter(2, requestDTO.getTitle());
@@ -106,7 +106,13 @@ public class PostRepository {
         query.setParameter(10, requestDTO.getWorkingArea());
 
         query.executeUpdate();
+
+        Query maxQquery = em.createNativeQuery("select max(id) from post_tb");
+        Integer postId = (Integer) maxQquery.getSingleResult();
+        return postId;
     }
+
+
 
     @Transactional
     public void update(int id, PostRequest.UpdateDTO requestDTO) {

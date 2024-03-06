@@ -65,13 +65,12 @@ public class SkillRepository {
     }
 
 
-
     @Transactional
-    public void saveSkillsFromPost(List<SkillRequest.SaveDTO> skillDTOs) {
+    public void saveSkillsFromPost(List<SkillRequest.SaveDTO> skillDTOs, int postId) {
         for (SkillRequest.SaveDTO requestDTO : skillDTOs) {
             Query query = em.createNativeQuery("insert into skill_tb(skill, post_id, created_at) values (?, ?, now())");
             query.setParameter(1, requestDTO.getSkill());
-            query.setParameter(2, requestDTO.getPostId());
+            query.setParameter(2, postId);
 
             query.executeUpdate();
         }
