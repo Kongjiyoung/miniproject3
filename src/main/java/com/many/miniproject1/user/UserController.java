@@ -116,7 +116,10 @@ public class UserController {
     //회사 정보 및 수정
     //회사 정보 수정
     @GetMapping("/company/info")
-    public String companyInfo(HttpServletRequest request) {
+
+    public String companyInfo(@PathVariable int id, HttpServletRequest request) {
+        System.out.println("id: "+id);
+
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
