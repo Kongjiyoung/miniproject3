@@ -57,7 +57,6 @@ public class PostRepository {
 
     public List<PostResponse.PostProfileDTO> findAllByCompanyId(int c_id) {
         Query query = em.createNativeQuery("select p.id, p.company_id,p.title, p.career, p.pay, p.work_condition, p.work_start_time, p.work_end_time, p.deadline, p.task, u.profile, p.working_area from post_tb p inner join user_tb u on p.company_id = u.id where p.company_id=?");
-        // Query query = em.createNativeQuery("select p.*, u.profile from post_tb p inner join user_tb u on p.company_id = u.id where p.company_id=?");
         query.setParameter(1, c_id);
 
         List<Object[]> results = query.getResultList();
@@ -111,7 +110,6 @@ public class PostRepository {
         Integer postId = (Integer) maxQquery.getSingleResult();
         return postId;
     }
-
 
 
     @Transactional

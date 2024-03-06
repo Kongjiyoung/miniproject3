@@ -42,6 +42,7 @@ public class PostController {
         request.setAttribute("postList", postList);
         System.out.println(postList.getFirst());
 
+
         // 3. 스킬
 //        ArrayList<PostResponse.DetailDTO> postSkillList = new ArrayList<>();
 //        for (int i = 0; i < postList.size(); i++) {
@@ -56,9 +57,6 @@ public class PostController {
 //            request.setAttribute("postSkillList", postSkillList);
 //        }
 
-//        // (심화) 로그인을 한 회사의 아이디와 일치하는지 확인한 후 오류 메시지:
-//        // 로그인한 아이디와 포스트리스트의 컴퍼니아이디가 같으면 로그인한 아이디의 공고 포스트들을 보여준다.
-        // (지금은 회사별 개인 페이지가 없는데 나중에 고쳐야 함)
 
 //        if (sessionUser.getId().equals(postList.get(0).getCompanyId())) {
 //            ArrayList<PostResponse.DetailDTO> postSkillList = new ArrayList<>();
@@ -117,33 +115,6 @@ public class PostController {
         return "company/savePostForm";
     }
 
-    //    @PostMapping("/company/post/save")
-//    public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request, @RequestParam("skill") List<String> skills) {
-//        // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
-//        // 1. 로그인 하지 않은 유저 로그인의 길로 인도
-//        User sessionUser = (User) session.getAttribute("sessionUser");
-//        System.out.println(sessionUser);
-//        //
-//        if (sessionUser == null) {
-//            return "redirect:/company/loginForm";
-//        }
-//
-//        System.out.println(requestDTO);
-//
-//        for (String skill : skills) {
-//            Skill skillEntity = new Skill();
-//            skillEntity.setSkill((skill));
-//            requestDTO.getSkill().add(skillEntity.getSkill());
-//        }
-//
-//        skills = postRepository.save(requestDTO); // 세션유저 아이디 아이고 공고 아이디가 필요함
-//
-//        postRepository.save(requestDTO);
-//        skillRepository.saveSkillsFromPost(skills, sessionUser.getId());
-////        skillRepository.saveSkillsFromPost(PostRequest.SaveDTO requestDTO);
-//
-//        return "redirect:/company/post";
-//    }
     @PostMapping("/company/post/save")
     public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request, @RequestParam("skill") List<String> skills) {
         // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
@@ -192,7 +163,7 @@ public class PostController {
     }
 
     @PostMapping("/company/post/detail/{id}/update")
-    public String companyUpdatePost(@PathVariable int id, PostRequest.UpdateDTO requestDTO, HttpServletRequest request) {
+    public String companyUpdatePost(@PathVariable int id, PostRequest.UpdateDTO requestDTO, HttpServletRequest request, @RequestParam("skill") List<String> skills) {
         // 목적: 업데이트폼에서 수정하기 누르면 그 디테일의 수정된 모습을 디테일페이지에서 볼 수 있게 바뀌기.(안즉)
         // 1. 로그인 하지 않은 유저 로그인의 길로 인도
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -200,9 +171,26 @@ public class PostController {
             return "redirect:/company/loginForm";
         }
 
+
+
+        List<SkillRequest.SaveDTO> skillDTOs = new ArrayList<>();
+
+        skillRepository.resetSkill(id);
+        System.out.println("178: "+skillDTOs);
+        for (String skill : skills) {
+            SkillRequest.SaveDTO skillDTO = new SkillRequest.SaveDTO();
+            skillDTO.setSkill(skill);
+            skillDTO.setPostId(requestDTO.getId()); // 포스트 아이디 설정
+            skillDTOs.add(skillDTO);
+        }
+        System.out.println("185: "+skillDTOs);
+
         postRepository.update(id, requestDTO);
+        skillRepository.saveSkillsFromPost(skillDTOs, id);
+        System.out.println("189: "+skills);
         request.setAttribute("post", requestDTO);
-        System.out.println(requestDTO);
+        System.out.println("191: "+requestDTO);
+        request.setAttribute("skills", skills);
         return "redirect:/company/post/detail/" + id;
     }
 

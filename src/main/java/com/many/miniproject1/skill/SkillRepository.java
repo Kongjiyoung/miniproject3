@@ -75,4 +75,12 @@ public class SkillRepository {
             query.executeUpdate();
         }
     }
+
+    @Transactional
+    public void resetSkill(int id) {
+        Query query = em.createNativeQuery("DELETE FROM skill_tb WHERE post_id=?");
+        query.setParameter(1, id);
+
+        query.executeUpdate();
+    }
 }

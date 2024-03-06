@@ -12,4 +12,11 @@ public class SkillRequest {
         private Integer resumeId;
         private Integer postId; // null 허용 되어야 한다
     }
+
+    @Data static class ResetDTO{
+        private Integer id;
+        private String skill;
+        private Integer resumeId;
+        private Integer postId;
+    }
 }
