@@ -1,8 +1,6 @@
 {{> layout/header}}
 <!-- <div class="container d-flex" style="height: 100vh;"> -->
 <div class="container d-flex">
-    <form action="/person/resume" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="personId" name="personId" value="{{sessionUser.id}}">
         <section class="container grid-gap: 50px; mt-5">
             <!-- 이력서 추가 버튼 -->
             <div class="d-flex justify-content-start mx-4">
@@ -78,7 +76,6 @@
                 {{/resumeSkillList}}
             </ul>
         </section>
-    </form>
     <!-- list-group( 오른쪽 바로가기) 시작 -->
     <div class="list-group mx-2">
         <a href="/person/info" class="list-group-item shadow " style="width: 150px;">회원정보관리</a>
