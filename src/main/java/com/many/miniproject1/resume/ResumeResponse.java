@@ -79,6 +79,9 @@ public class ResumeResponse {
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.createdAt = resume.getCreatedAt();
         }
+
+        public DetailDTO(Integer id, String title, String profile, String username, String birth, String tel, String address, String email, String portfolio, String introduce, String career, String simpleIntroduce) {
+        }
     }
 
     @Data
