@@ -7,6 +7,7 @@
         <div class="px-5">
             <div class="d-flex justify-content-start align-items-center">
                 <h3 class="">{{post.title}}</h3>
+                
                 {{#sessionuser}}
                     {{^isMatchingCompany}}
                         <form action="/post/detail/{{post.id}}/apply" method="post">
@@ -29,6 +30,7 @@
                         </form>
                     {{/isMatchingCompany}}
                 {{/sessionuser}}
+
             </div>
             <hr class="d-inline-flex w-100">
             <div class="pt-2 mt-3">

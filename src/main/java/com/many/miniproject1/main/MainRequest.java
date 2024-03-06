@@ -9,5 +9,4 @@ public class MainRequest {
         private Integer postId;
     }
 
-
 }

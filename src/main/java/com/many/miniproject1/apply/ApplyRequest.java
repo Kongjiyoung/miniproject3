@@ -2,6 +2,8 @@ package com.many.miniproject1.apply;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 
 public class ApplyRequest {
     @Data
@@ -11,6 +13,7 @@ public class ApplyRequest {
         private Integer companyId; // 채용공고 작성자 아이디
         private Integer personId; // 이력서 작성자 아이디
         private String isPass; // 불합격, 합격, 검토중
+
     }
 
     @Data

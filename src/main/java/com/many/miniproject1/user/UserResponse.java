@@ -15,7 +15,5 @@ public class UserResponse {
         private String companyAddress;
         private String companyNum;
         private String profile;
-        private Boolean infoOwner;
-
     }
 }

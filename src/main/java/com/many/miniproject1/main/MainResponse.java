@@ -31,11 +31,11 @@ public class MainResponse {
             this.personId = resume.getPersonId();
             this.title =  resume.getTitle();
             this.profile = resume.getProfile();
-            this.username = resume.getUsername();
-            this.birth = resume.getBirth();
-            this.tel = resume.getTel();
-            this.address = resume.getAddress();
-            this.email = resume.getEmail();
+//            this.username = resume.getUsername();
+//            this.birth = resume.getBirth();
+//            this.tel = resume.getTel();
+//            this.address = resume.getAddress();
+//            this.email = resume.getEmail();
             this.portfolio = resume.getPortfolio();
             this.introduce = resume.getIntroduce();
             this.career = resume.getCareer();

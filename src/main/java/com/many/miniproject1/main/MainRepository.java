@@ -24,12 +24,14 @@ public class MainRepository {
     public List<Post> findPost(int id) {
         Query query = em.createNativeQuery("select * from post_tb where company_id=?", Post.class);
         query.setParameter(1, id);
+
         return query.getResultList();
     }
 
     public List<Resume> findResume(int id) {
         Query query = em.createNativeQuery("select * from resume_tb where person_id=?", Resume.class);
         query.setParameter(1, id);
+
         return query.getResultList();
     }
 
@@ -47,7 +49,5 @@ public class MainRepository {
         Integer companyId = (Integer) query.getSingleResult();
         return companyId;
     }
-
-
 
 }

@@ -4,7 +4,7 @@
     <div class=" mx-2 pb-4 w-100">
         <div class=" border border-tertiary p-5 rounded shadow">
             <div class="d-flex justify-content-between">
-                <h1 class=" d-inline-flex">김하형님의 정보</h1>
+                <h1 class=" d-inline-flex">{{user.username}}님의 정보</h1>
             </div>
             <hr/>
             <div>
@@ -15,23 +15,23 @@
                     <form action="/person/info/updateForm" method="get">
                         <div class="input-group mb-3">
                                 <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이름</span>
-                            <input type="text" class="form-control" value="김하형" readonly>
+                            <input type="text" class="form-control" value="{{user.username}}" readonly>
                         </div>
                         <div class="input-group mb-3">
                                 <span class="input-group-text justify-content-center hs_span_size init_color hs_span">생년월일</span>
-                            <input type="text" class="form-control" value="1997-06-27" id="" readonly>
+                            <input type="text" class="form-control" value="{{user.birth}}" id="" readonly>
                         </div>
                         <div class="input-group mb-3">
                                 <span class="input-group-text justify-content-center hs_span_size init_color hs_span">연락처</span>
-                            <input type="text" class="form-control" value="010-2769-8932" readonly>
+                            <input type="text" class="form-control" value="{{user.tel}}" readonly>
                         </div>
                         <div class="input-group mb-3">
                                 <span class="input-group-text justify-content-center hs_span_size init_color hs_span">주소</span>
-                            <input type="text" class="form-control" value="부산시 해운대구 " readonly>
+                            <input type="text" class="form-control" value="{{user.address}}" readonly>
                         </div>
                         <div class="input-group mb-3">
                                 <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이메일</span>
-                            <input type="text" class="form-control" value="ssar@nate.com" readonly>
+                            <input type="text" class="form-control" value="{{user.email}}" readonly>
                         </div>
 
                         <hr class="my-4">

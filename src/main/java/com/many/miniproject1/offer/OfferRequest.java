@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 public class OfferRequest {
     @Data
     public static class SaveDTO {
-        private Integer id;
         private Integer resumeId;
         private Integer postId;
         private Integer companyId;

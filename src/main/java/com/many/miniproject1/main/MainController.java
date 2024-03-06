@@ -115,6 +115,7 @@ public class MainController {
         List<String> skills = skillRepository.findByResumeId(id);
         detailDTO.setSkill(skills);
 
+
         User sessionUser=(User) session.getAttribute("sessionUser");
         if(sessionUser!=null) {
             //이력서 선택
@@ -232,6 +233,7 @@ public class MainController {
             request.setAttribute("resumeList", resumeList);
         }
         request.setAttribute("sessionuser", sessionUser);
+
         request.setAttribute("post", detailDTO);
         return "person/postDetail";
     }
@@ -247,6 +249,7 @@ public class MainController {
         saveDTO.setResumeId(resumeId);
         saveDTO.setPostId(id);
         saveDTO.setCompanyId(mainRepository.findCompanyId(id));
+
         saveDTO.setPersonId(personId);
         saveDTO.setIsPass("검토중");
 

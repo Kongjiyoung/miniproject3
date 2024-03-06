@@ -19,6 +19,5 @@ public class Offer {
     private Integer postId;
     private Integer companyId; // 회사Id
     private Integer personId; // 구직자ID
-//    private String content;
     private Date createdAt;
 }

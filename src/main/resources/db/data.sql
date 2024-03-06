@@ -1,83 +1,89 @@
 --더미데이터에 들어가 있는 post 다 지우기
 -- role   1: 개인, 2: 회사
 --개인정보 입력
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'captain_kong@nate.com', '1234', 'captain_kong', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'mylove_lsh@nate.com', '1234', 'lsh', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'hahaha@nate.com', '1234', 'hahaha', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'hana@nate.com', '1234', 'hana', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'zusim@nate.com', '1234', 'zusim', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'ssar@nate.com', '1234', 'ssar', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'ryu@nate.com', '1234', 'ryu', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'nomad@nate.com', '1234', 'nomad', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'park_yun@nate.com', '1234', 'park_yun', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'pretty_sjm@nate.com', '1234', 'pretty_sjm ', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'jake@nate.com', '1234', 'jake', '010-1234-5678 ', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, profile, created_at)
-values ('person', 'harry@nate.com', '1234', 'harry', '010-1234-5678 ', '사진URL', now());
+insert into user_tb(role, birth, email, password, username, tel, address, profile, created_at)
+values ('person', '19980504','captain_kong@nate.com', '1234', 'captain_kong', '010-1234-5678 ', '부산광역시', '사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel,  address,profile, created_at)
+values ('person', '19970924','mylove_lsh@nate.com', '1234', 'lsh', '010-1234-5678 ', '부산광역시','사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel,  address,profile, created_at)
+values ('person', '20000709','hahaha@nate.com', '1234', 'hahaha', '010-1234-5678 ', '부산광역시','사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel,  address,profile, created_at)
+values ('person', '19930114','hana@nate.com', '1234', 'hana', '010-1234-5678 ', '부산광역시','사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel,  address,profile, created_at)
+values ('person', '19990230','zusim@nate.com', '1234', 'zusim', '010-1234-5678 ','부산광역시', '사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel, address, profile, created_at)
+values ('person', '20020422','ssar@nate.com', '1234', 'ssar', '010-1234-5678 ','부산광역시', '사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel,  address,profile, created_at)
+values ('person','19930521', 'ryu@nate.com', '1234', 'ryu', '010-1234-5678 ', '부산광역시','사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel,  address,profile, created_at)
+values ('person', '19950417','nomad@nate.com', '1234', 'nomad', '010-1234-5678 ', '부산광역시','사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel, address, profile, created_at)
+values ('person', '20011212','park_yun@nate.com', '1234', 'park_yun', '010-1234-5678 ','부산광역시', '사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel, address, profile, created_at)
+values ('person','19980815', 'pretty_sjm@nate.com', '1234', 'pretty_sjm ', '010-1234-5678 ', '부산광역시','사진URL', now());
+insert into user_tb(role, birth,email, password, username, tel, address,profile, created_at)
+values ('person','19881130', 'jake@nate.com', '1234', 'jake', '010-1234-5678 ', '사진URL','부산광역시', now());
+insert into user_tb(role, birth,email, password, username, tel, address, profile, created_at)
+values ('person', '19900302','harry@nate.com', '1234', 'harry', '010-1234-5678 ', '부산광역시', '사진URL', now());
 
 --회사정보 입력
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
 values ('company', 'sk_cnc@sk.com', '1234', 'sk_HR', '010-1234-5678 ', 'SK(주) C&C', '경기 성남시 분당구 성남대로343번길 9 에스케이유타워',
         '123-456-78910', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
 values ('company', 'shinhancard@shinhan.com', '1234', 'shinhan_HR', '010-1234-5678', 'shinhancard', '서울 중구 을지로 100 A동',
         '123-456-78910', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
 values ('company', 'nhn_kcp@nhn.com', '1234', 'nhn_HR', '010-1234-5678', 'NHN KCP', '서울 구로구 디지털로26길 72 (구로동, NHN KCP)',
         '123-456-78910', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
 values ('company', 'inflearn@inflearn.com', '1234', 'inflearn_HR', '010-1234-5678', '인프랩(인프런)',
         '경기 성남시 분당구 대왕판교로 660 1A 동 4층 405호', '123-456-78910', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
-values ('company', 'humanscape@nate.com', '1234', 'humanscape_HR', '010-1234-5678', '휴먼스케이프', '서울 강남구 봉은사로86길 6 레베쌍트빌딩 6층',
+values ('company', 'humanscape@nate.com', '1234', 'humanscape_HR', '010-1234-5678', '휴먼스케이프',
+        '서울 강남구 봉은사로86길 6 레베쌍트빌딩 6층',
         '123-456-78910', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
 values ('company', 'soomgo@soomgo.com', '1234', 'soomgo_HR', '010-1234-5678', '브레이브모바일 (숨고)',
         '서울 강남구 테헤란로 415 L7 강남타워 5층',
         '123-456-78910', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
 values ('company', 'seedn@seedn.com', '1234', 'seedn_HR', '010-1234-5678', '씨드앤', '서울 성동구 왕십리로 115 헤이그라운드 서울숲점 605호',
         '123-456-78910', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
-values ('company', 'pickleplus@pickle.com', '1234', 'pickleplus_HR', '010-1234-5678 ', '주식회사 피클플러스', '서울 중구 한강대로 416 서울스퀘어',
+values ('company', 'pickleplus@pickle.com', '1234', 'pickleplus_HR', '010-1234-5678 ', '주식회사 피클플러스',
+        '서울 중구 한강대로 416 서울스퀘어',
         '123-456-78910', '사진URL', now());
-insert into user_tb(role, email, password, username, tel, company_name, company_address, company_num, profile,
+insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
 values ('company', 'wadiz@wadiz.com', '1234', 'wadiz_HR', '010-1234-5678 ', '와디즈', '경기 성남시 분당구 판교로 242 A동 4층 와디즈',
         '123-456-78910', '사진URL', now());
 
 
 --이력서정보 입력
-insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
+insert into resume_tb(person_id, title, profile, portfolio, introduce, career,
                       simple_introduce, created_at)
-values (1, '백엔드 개발자', '/images/person01.png', '공지영', '19991012', '010-1234-5678', '창원시 진해구', 'ssar@nate.com',
-        'http://qmfmqfqmf',
+values (1, '백엔드 개발자', '/images/person01.png', 'http://qmfmqfqmf',
         '복잡한 문제를 구조화하고 추상화해 단순하게 풀어내는 것을 좋아합니다.
 꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.
 어려운 지식을 저만의 언어로 쉽게 풀어내는 것을 좋아합니다. 많은 사람에게 지식을 전파할 수 있는 사람이 되기를 원합니다.', '1년 근무', '꾸준히 공부하는 개발자입니다', now());
-insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
+insert into resume_tb(person_id, title, profile, portfolio, introduce, career,
                       simple_introduce, created_at)
-values (1, '백엔드 개발자, 장현정', '/images/person02.png', '장현정', '19900524', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
-        'http://dffdfddf',
+values (1, '백엔드 개발자, 장현정', '/images/person02.png', 'http://dffdfddf',
+        '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
+프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
+
+insert into resume_tb(person_id, title, profile, portfolio, introduce, career,
+                      simple_introduce, created_at)
+values (6, '백엔드 개발자, 장현정', '/images/person02.png', 'http://dffdfddf',
         '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
 프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
 
@@ -106,7 +112,7 @@ values (13, 'React Native 개발자 (경력 1년 이상)', '
 
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
-values (14, '[인턴] 프론트엔드 개발자 (JavaScript)', '
+values (13, '[인턴] 프론트엔드 개발자 (JavaScript)', '
 인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
 
@@ -121,7 +127,6 @@ insert into post_tb(company_id, title, career, pay, work_condition, work_start_t
 values (18, '[인턴] 프론트엔드 개발자 (JavaScript)', '
 인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
-
 
 
 
@@ -159,7 +164,7 @@ VALUES (1, 1, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (1, 2, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (1, 3, 14, 1,  now());
+VALUES (1, 3, 14, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (2, 3, 15, 1, now());
 
