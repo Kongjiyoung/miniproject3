@@ -1,11 +1,13 @@
 package com.many.miniproject1.offer;
 
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,19 +16,33 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OfferController {
     private final OfferRepository offerRepository;
+    private final HttpSession session;
 
     // company의 offers 관리
     @GetMapping("/company/offers")
-    public String personPost() {
+    public String personPost(HttpServletRequest request) {
+        User sessionUser=(User)session.getAttribute("sessionUser");
+        // 반복하기
+
+        List<Resume> companyOfferList = offerRepository.personFindAllOffer(sessionUser.getId());
+        System.out.println(companyOfferList);
+        request.setAttribute("companyOfferList", companyOfferList);
+
         return "company/offers";
     }
+
     // person의 offers 관리
-    @GetMapping("/person/offerEmails")
-    public String personPostE(HttpServletRequest request) {
-        List<Offer> offer =  offerRepository.findAll();
-        System.out.println(offer);
-        List<Offer> offerList = offerRepository.findAll();
-        request.setAttribute("offerList", offerList);
+    @GetMapping("/person/offerEmails/{id}")
+    public String getOfferById(@PathVariable int id, HttpServletRequest request) {
+        System.out.println("🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈");
+        // ot.company_id를 찾지 못함
+        OfferResponse.OfferBoardDTO responseDTO = offerRepository.findCompanyOffersWithId(1);
+        System.out.println("1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣");
+
+        request.setAttribute("offer", responseDTO);
+
+//        List<Offer> personOfferList = offerRepository.personFindAllOffer();
+//        request.setAttribute("personOfferList", personOfferList);
 
         return "person/offerEmails";
     }
@@ -46,24 +62,5 @@ public class OfferController {
         return "company/offerEmailForm";
     }
 
-    @GetMapping("/z1")
-    public String z1() {
-        return "company/appliedResumeDetail";
-    }
-    @GetMapping("/z2")
-    public String z2() {
-        return "company/companyInfo";
-    }
-    @GetMapping("/z3")
-    public String z3() {
-        return "company/companyResumes";
-    }
-    @GetMapping("/z4")
-    public String z4() {
-        return "company/joinForm";
-    }
-    @GetMapping("/z5")
-    public String z5() {
-        return "company/loginForm";
-    }
+
 }
