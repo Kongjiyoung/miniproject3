@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -54,10 +55,39 @@ public class PostRepository {
         return responseDTO;
     }
 
+    public List<PostResponse.PostProfileDTO> findAllByCompanyId(int c_id) {
+        Query query = em.createNativeQuery("select p.id, p.company_id,p.title, p.career, p.pay, p.work_condition, p.work_start_time, p.work_end_time, p.deadline, p.task, u.profile, p.working_area from post_tb p inner join user_tb u on p.company_id = u.id where p.company_id=?");
+        // Query query = em.createNativeQuery("select p.*, u.profile from post_tb p inner join user_tb u on p.company_id = u.id where p.company_id=?");
+        query.setParameter(1, c_id);
+
+        List<Object[]> results = query.getResultList();
+        List<PostResponse.PostProfileDTO> responseDTO = new ArrayList<>();
+
+        for (Object[] result : results) {
+
+            PostResponse.PostProfileDTO DTO = new PostResponse.PostProfileDTO();
+            DTO.setId((Integer) result[0]);
+            DTO.setCompanyId((Integer) result[1]);
+            DTO.setTitle((String) result[2]);
+            DTO.setCareer((String) result[3]);
+            DTO.setPay((String) result[4]);
+            DTO.setWorkCondition((String) result[5]);
+            DTO.setWorkStartTime((String) result[6]);
+            DTO.setWorkEndTime((String) result[7]);
+            DTO.setDeadline((String) result[8]);
+            DTO.setTask((String) result[9]);
+            DTO.setProfile((String) result[10]);
+            DTO.setWorkingArea((String) result[11]);
+
+            responseDTO.add(DTO);
+        }
+        return responseDTO;
+    }
+
     public Integer findCompanyId(Integer idx) {
         Query query = em.createNativeQuery("select company_id from post_tb where id=?");
         query.setParameter(1, idx);
-        Integer companyId=(Integer) query.getSingleResult();
+        Integer companyId = (Integer) query.getSingleResult();
         return companyId;
     }
 

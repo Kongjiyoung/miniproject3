@@ -30,21 +30,24 @@ public class PostController {
         if (sessionUser == null) {
             return "redirect:/company/loginForm";
         }
+
         // 2. 회사가 올린 공고들을 보여줌
-        List<Post> postList = postRepository.findAll();
+        List<PostResponse.PostProfileDTO> postList = postRepository.findAllByCompanyId(sessionUser.getId());
         request.setAttribute("postList", postList);
-        ArrayList<PostResponse.DetailDTO> postSkillList = new ArrayList<>();
-        for (int i = 0; i < postList.size(); i++) {
-            List<String> skills = skillRepository.findByPostId(postList.get(i).getId());
-            System.out.println(skills);
-
-            Post post = (Post) postList.get(i);
-            System.out.println(post);
-
-            postSkillList.add(new PostResponse.DetailDTO(post, skills));
-            System.out.println(postSkillList.get(i));
-            request.setAttribute("postSkillList", postSkillList);
-        }
+        System.out.println(postList.getFirst());
+        // 3. 스킬
+//        ArrayList<PostResponse.DetailDTO> postSkillList = new ArrayList<>();
+//        for (int i = 0; i < postList.size(); i++) {
+//            List<String> skills = skillRepository.findByPostId(postList.get(i).getId());
+//            System.out.println(skills);
+//
+//            Post post = (Post) postList.get(i);
+//            System.out.println(post);
+//
+//            postSkillList.add(new PostResponse.DetailDTO(post, skills));
+//            System.out.println(postSkillList.get(i));
+//            request.setAttribute("postSkillList", postSkillList);
+//        }
 
 //        // (심화) 로그인을 한 회사의 아이디와 일치하는지 확인한 후 오류 메시지: 
 //        // 로그인한 아이디와 포스트리스트의 컴퍼니아이디가 같으면 로그인한 아이디의 공고 포스트들을 보여준다.

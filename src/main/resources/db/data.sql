@@ -112,6 +112,11 @@ values (16, '[인턴] 프론트엔드 개발자 (JavaScript)', '
 인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
 
+insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
+                    profile, working_area, created_at)
+values (16, '[인턴] 프론트엔드 개발자 (JavaScript)', '
+인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+        'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
 
 -- entity수정 career데이터 varchar로 고치기
 --스킬
