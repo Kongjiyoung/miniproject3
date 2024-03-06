@@ -6,7 +6,7 @@
         <br>
         <ul class="row row-cols-4 gap-3">
             <!-- 이력서 시작 -->
-            {{#companyOfferList}}
+            {{#cResumeSkillList}}
                     <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
                         <a href="/person/resume/{{id}}/detail" style="text-decoration: none; color: black">
                             <div style="width: 100%; height: 15rem; overflow: hidden">
@@ -22,9 +22,8 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-    ">
-                                    {{simpleIntroduce}}
-                                </p>
+    ">{{simpleIntroduce}}</p>
+
                                 <div class="d-flex justify-content-start" style="
       display: -webkit-box;
       -webkit-line-clamp: 1;
@@ -32,16 +31,21 @@
       overflow: hidden;
       text-overflow: ellipsis;
     ">
-                                    <h6><span>
-
-                                        <button class="btn btn-outline-warning btn-sm disabled">
-                                        </button></span></h6>
+                                    <h6>
+                                        <span>
+                                            {{#skill}}
+                                                <button class="btn btn-outline-warning btn-sm disabled">
+                                                    {{.}}
+                                                </button>
+                                            {{/skill}}
+                                        </span>
+                                    </h6>
                                 </div>
                             </div>
                         </a>
 
                     </li>
-            {{/companyOfferList}}
+            {{/cResumeSkillList}}
 
             <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
                 <a href="#" style="text-decoration: none; color: black">

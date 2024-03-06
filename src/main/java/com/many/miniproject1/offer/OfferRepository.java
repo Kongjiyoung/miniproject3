@@ -23,11 +23,15 @@ public class OfferRepository {
     }
 
     public List<Resume> personFindAllOffer(int id) {
-        Query query = em.createNativeQuery("SELECT rt.*\n" +
-                "FROM offer_tb ot\n" +
-                "INNER JOIN resume_tb rt\n" +
-                "ON ot.resume_id = rt.id\n" +
-                "WHERE ot.company_id = ?;", Resume.class);
+        String q = """
+                SELECT rt.* 
+                FROM offer_tb ot 
+                INNER JOIN resume_tb rt 
+                ON ot.resume_id = rt.id 
+                WHERE ot.company_id = ?
+                """;
+        Query query = em.createNativeQuery(q, Resume.class);
+
         query.setParameter(1,id);
 
         return query.getResultList();
