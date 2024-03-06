@@ -135,7 +135,11 @@ values ('C', 2, now());
 insert into skill_tb(skill, post_id, created_at)
 values ('JAVA', 1, now());
 insert into skill_tb(skill, post_id, created_at)
+values ('Flutter', 1, now());
+insert into skill_tb(skill, post_id, created_at)
 values ('JAVA', 2, now());
+insert into skill_tb(skill, post_id, created_at)
+values ('C++', 2, now());
 insert into skill_tb(skill, post_id, created_at)
 values ('JAVA', 3, now());
 

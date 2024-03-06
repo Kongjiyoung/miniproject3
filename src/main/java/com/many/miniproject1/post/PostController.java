@@ -1,6 +1,8 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillRepository;
+import com.many.miniproject1.skill.SkillRequest;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,8 +102,35 @@ public class PostController {
         return "company/savePostForm";
     }
 
+    //    @PostMapping("/company/post/save")
+//    public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request, @RequestParam("skill") List<String> skills) {
+//        // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
+//        // 1. 로그인 하지 않은 유저 로그인의 길로 인도
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//        System.out.println(sessionUser);
+//        //
+//        if (sessionUser == null) {
+//            return "redirect:/company/loginForm";
+//        }
+//
+//        System.out.println(requestDTO);
+//
+//        for (String skill : skills) {
+//            Skill skillEntity = new Skill();
+//            skillEntity.setSkill((skill));
+//            requestDTO.getSkill().add(skillEntity.getSkill());
+//        }
+//
+//        skills = postRepository.save(requestDTO); // 세션유저 아이디 아이고 공고 아이디가 필요함
+//
+//        postRepository.save(requestDTO);
+//        skillRepository.saveSkillsFromPost(skills, sessionUser.getId());
+////        skillRepository.saveSkillsFromPost(PostRequest.SaveDTO requestDTO);
+//
+//        return "redirect:/company/post";
+//    }
     @PostMapping("/company/post/save")
-    public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request) {
+    public String companySavePost(PostRequest.SaveDTO requestDTO, HttpServletRequest request, @RequestParam("skill") List<String> skills) {
         // 목적: 공고를 저장하고 디테일 페이지를 보여준다.(0)
         // 1. 로그인 하지 않은 유저 로그인의 길로 인도
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -111,8 +141,20 @@ public class PostController {
         }
 
         System.out.println(requestDTO);
-        postRepository.save(requestDTO); // 세션유저 아이디 아이고 공고 아이디가 필요함
 
+        List<SkillRequest.SaveDTO> skillDTOs = new ArrayList<>(); // 스킬을 저장할 DTO 리스트 생성
+
+        // 각 스킬을 SkillRequest.SaveDTO 형태로 변환하여 리스트에 추가
+        for (String skill : skills) {
+            SkillRequest.SaveDTO skillDTO = new SkillRequest.SaveDTO();
+            skillDTO.setSkill(skill);
+            skillDTO.setPostId(requestDTO.getId()); // 포스트 아이디 설정
+            skillDTOs.add(skillDTO);
+        }
+
+        // 변환된 스킬 DTO 리스트를 사용하여 저장
+        skillRepository.saveSkillsFromPost(skillDTOs);
+        System.out.println(skills);
         return "redirect:/company/post";
     }
 
