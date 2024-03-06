@@ -144,7 +144,7 @@ public class UserRepository {
 
     @Transactional
     public void companyUpdate(UserRequest.CompanyUpdateDTO requestDTO, int id) {
-        Query query = em.createNativeQuery("update user_tb set profile=?, company_name =? , company_num=?, address=?, username=?, tel=?, email=?, password =? where id = ?");
+        Query query = em.createNativeQuery("update user_tb set profile=?, company_name =? , company_num=?, address=?, username=?, tel=?, email=? where id = ?");
         query.setParameter(1, requestDTO.getProfile());
         query.setParameter(2, requestDTO.getCompanyName());
         query.setParameter(3, requestDTO.getCompanyNum());
@@ -152,9 +152,17 @@ public class UserRepository {
         query.setParameter(5, requestDTO.getUsername());
         query.setParameter(6, requestDTO.getTel());
         query.setParameter(7, requestDTO.getEmail());
-        query.setParameter(8, requestDTO.getPassword());
-        query.setParameter(9, id);
+        query.setParameter(8, id);
 
         query.executeUpdate();
+    }
+
+    @Transactional
+    public void passwordUpdate(UserRequest.PasswordChangeDTO requestDTO, int id) {
+        Query query = em.createNativeQuery("update user_tb set password =? where id = ?");
+        query.setParameter(1, requestDTO.getPassword());
+        query.setParameter(2, id);
+        query.executeUpdate();
+
     }
 }

@@ -1,15 +1,18 @@
 package com.many.miniproject1.user;
 
+import ch.qos.logback.core.boolex.Matcher;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +129,25 @@ public class UserController {
         request.setAttribute("user",sessionUser);
 
         return "company/companyInfo";
+    }
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(@RequestBody UserRequest.PasswordChangeDTO request) {
+        UserRequest.PasswordChangeDTO newPassword = request;
+        System.out.println(newPassword);
+        boolean success = changePasswordInDatabase(newPassword);
+        return ResponseEntity.ok(new UserResponse.PasswordChangeDTO(success));
+    }
+    private boolean changePasswordInDatabase(UserRequest.PasswordChangeDTO request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId());
+
+        if (user == null) {
+            return false;
+        }
+        // 변경된 사용자 정보를 저장합니다.
+        userRepository.passwordUpdate(request, sessionUser.getId());
+
+        return true;
     }
 
     // 수정완료/취소 버튼 누르면 자원을 찾을 수 없음이라 나옴. 그것 수정하고 주석 지워주세요.
