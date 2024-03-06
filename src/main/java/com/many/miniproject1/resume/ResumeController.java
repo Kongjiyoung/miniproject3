@@ -2,6 +2,7 @@ package com.many.miniproject1.resume;
 
 import com.many.miniproject1.skill.SkillRepository;
 import com.many.miniproject1.user.User;
+import com.many.miniproject1.user.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -25,28 +26,29 @@ public class ResumeController {
     //개인 이력서 관리
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
-        List<Resume> resumeList= resumeRepository.findAll();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<ResumeResponse.DetailDTO> resumeList = resumeRepository.findresume(sessionUser.getId());
         request.setAttribute("resumeList", resumeList);
         System.out.println(resumeList.size());
 
-        ArrayList<ResumeResponse.resumeDTO> resumeSkillList=new ArrayList<>();
+        ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
         for (int i = 0; i < resumeList.size(); i++) {
-            List<String> skills=skillRepository.findByResumeId(resumeList.get(i).getId());
+            List<String> skills = skillRepository.findByResumeId(resumeList.get(i).getId());
             System.out.println(skills);
-            Resume resume=(Resume)resumeList.get(i);
+            ResumeResponse.DetailDTO resume = resumeList.get(i);
             System.out.println(resume);
 
-            resumeSkillList.add(new ResumeResponse.resumeDTO(resume,skills));
+            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume, skills));
             System.out.println(resumeSkillList.get(i));
-            request.setAttribute("resumeSkillList", resumeSkillList);
         }
+        request.setAttribute("resumeSkillList", resumeSkillList);
 
         return "person/resumes";
     }
 
     @GetMapping("/person/resume/{id}/detail")
     public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
-        System.out.println("id: "+id);
+        System.out.println("id: " + id);
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
@@ -108,7 +110,7 @@ public class ResumeController {
     public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request) {
         resumeRepository.update(id, requestDTO);
         request.setAttribute("resume", requestDTO);
-        return "redirect:/person/resume/detail/"+id;
+        return "redirect:/person/resume/detail/" + id;
     }
 
     @PostMapping("/person/resume/detail/{id}/delete")
