@@ -36,8 +36,12 @@ public class PostController {
 
         // 2. 회사가 올린 공고들을 보여줌
         List<PostResponse.PostProfileDTO> postList = postRepository.findAllByCompanyId(sessionUser.getId());
+        if (postList.isEmpty()) {
+            return "company/savePostForm";
+        }
         request.setAttribute("postList", postList);
         System.out.println(postList.getFirst());
+
         // 3. 스킬
 //        ArrayList<PostResponse.DetailDTO> postSkillList = new ArrayList<>();
 //        for (int i = 0; i < postList.size(); i++) {
@@ -52,7 +56,7 @@ public class PostController {
 //            request.setAttribute("postSkillList", postSkillList);
 //        }
 
-//        // (심화) 로그인을 한 회사의 아이디와 일치하는지 확인한 후 오류 메시지: 
+//        // (심화) 로그인을 한 회사의 아이디와 일치하는지 확인한 후 오류 메시지:
 //        // 로그인한 아이디와 포스트리스트의 컴퍼니아이디가 같으면 로그인한 아이디의 공고 포스트들을 보여준다.
         // (지금은 회사별 개인 페이지가 없는데 나중에 고쳐야 함)
 
@@ -88,10 +92,13 @@ public class PostController {
 
         // 2. id에 맞는 게시글을 본다.(이미 올라와 있는 것은 됨, 그러나 새로 쓴 글은 을
         PostResponse.DetailDTO responseDTO = postRepository.findById(id);
+        request.setAttribute("company", sessionUser);
+        System.out.println(sessionUser);
         request.setAttribute("post", responseDTO);
-        
+        System.out.println(responseDTO);
+
         // 스킬 리스트 만들어서 돌리기
-        
+
         return "company/postDetail";
     }
 
@@ -104,8 +111,8 @@ public class PostController {
             return "redirect:/company/loginForm";
         }
         System.out.println(sessionUser);
+        request.setAttribute("company", sessionUser);
         request.setAttribute("post", requestDTO);
-        System.out.println(requestDTO);
 
         return "company/savePostForm";
     }
@@ -162,7 +169,7 @@ public class PostController {
 
         // 변환된 스킬 DTO 리스트를 사용하여 저장
         int postId = postRepository.save(requestDTO);
-        skillRepository.saveSkillsFromPost(skillDTOs,postId);
+        skillRepository.saveSkillsFromPost(skillDTOs, postId);
         System.out.println(skills);
         request.setAttribute("post", requestDTO);
         request.setAttribute("skills", skills);

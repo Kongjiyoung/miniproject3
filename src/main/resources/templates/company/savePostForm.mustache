@@ -25,156 +25,155 @@
 
                 <div class="px-5 mt-5">
                     <!-- 이미지 업로드 시작 -->
-                                <div class="upload"><img src="{{sessionUser.profile}}" id="profile"
-                                                         class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25" >
-                                <input type="hidden" id="profile" name="profile" value="{{sessionUser.profile}}" />
-                                </div>
-<!--                                <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>-->
-<!--                                <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required-->
-<!--                                       multiple>-->
-                        <!-- 이미지 업로드 끝 -->
+                    <input type="hidden" id="profile" name="profile" value="{{sessionUser.profile}}"/>
+                    <div class="upload"><img src="{{sessionUser.profile}}" id="profile"
+                                             class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25">
                     </div>
-                    <label for="companyName"><b>공고명</b></label>
-                    <input class="form-control" type="text" name="title" id="title" required>
-                    <div class="pt-4">
-                        <hr class="d-inline-flex w-100">
+                    <!--                                <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>-->
+                    <!--                                <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required-->
+                    <!--                                       multiple>-->
+                    <!-- 이미지 업로드 끝 -->
+                </div>
+                <label for="companyName"><b>공고명</b></label>
+                <input class="form-control" type="text" name="title" id="title" required>
+                <div class="pt-4">
+                    <hr class="d-inline-flex w-100">
+                </div>
+
+                <div class="pt-2 mt-4">
+                    <div class="border border-tertiary pt-3 d-inline-flex me-3 mb-3 w-100">
+                        <table class="table table-borderless pt-5 ms-3">
+                            <tr class="pb-5">
+                                <th><label for="career">경력</label></th>
+                                <td>
+                                    <select id="career" name="career" class="jm_select selectpicker"
+                                            data-style="btn-info"
+                                            style=" height: 35px;">
+                                        <option value="경력무관" selected>경력무관</option>
+                                        <option value="인턴">인턴</option>
+                                        <option value="신입(1년 이하)">신입(1년 이하)</option>
+                                        <option value="주니어(1~3년)">주니어(1~3년)</option>
+                                        <option value="미들(9년 이상)">미들(9년 이상)</option>
+                                        <option value="Lead레벨">Lead레벨</option>
+                                    </select>
+                                </td>
+                                <th><label for="pay">연봉</label></th>
+                                <td>
+                                    <select id="pay" name="pay" class="jm_select selectpicker" data-style="btn-info"
+                                            style=" height: 35px;">
+                                        <option value="회사 내규에 따름" selected>회사 내규에 따름</option>
+                                        <option value="2000만원">2000만원</option>
+                                        <option value="3000만원">3000만원</option>
+                                        <option value="4000만원">4000만원</option>
+                                        <option value="5000만원 이상">5000만원 이상</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <!--                                    <th>고용 형태</th>-->
+                                <!--                                    <td>-->
+                                <!--                                        <select name="condition" id="condition" class="jm_select selectpicker"-->
+                                <!--                                                style=" height: 35px;">-->
+                                <!--                                            <option value="고용 형태" selected></option>-->
+                                <!--                                            <option value="계약직">계약직</option>-->
+                                <!--                                            <option value="정규직">정규직</option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </td>-->
+                                <th><label>근무 시간</label></th>
+                                <th style="display: none"></th>
+                                <th style="display: none"></th>
+                                <td class="d-flex">
+                                    <label for="workStartTime">근무 시작 시간</label>
+                                    <input class="form-control" type="time" style="width: 38%;" name="workStartTime"
+                                           id="workStartTime" required>
+                                    <label for="workEndTime">근무 종료 시간</label>
+                                    <input class="form-control" type="time" style="width: 38%;" name="workEndTime"
+                                           id="workEndTime" required>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mt-4">
+                        <label for="deadline"><b>마감 일자</b></label>
+                        <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                            <input class="form-control" type="date" id="deadline" name="deadline" required>
+                        </div>
                     </div>
 
-                    <div class="pt-2 mt-4">
-                        <div class="border border-tertiary pt-3 d-inline-flex me-3 mb-3 w-100">
-                            <table class="table table-borderless pt-5 ms-3">
-                                <tr class="pb-5">
-                                    <th><label for="career">경력</label></th>
-                                    <td>
-                                        <select id="career" name="career" class="jm_select selectpicker"
-                                                data-style="btn-info"
-                                                style=" height: 35px;">
-                                            <option value="경력무관" selected>경력무관</option>
-                                            <option value="인턴">인턴</option>
-                                            <option value="신입(1년 이하)">신입(1년 이하)</option>
-                                            <option value="주니어(1~3년)">주니어(1~3년)</option>
-                                            <option value="미들(9년 이상)">미들(9년 이상)</option>
-                                            <option value="Lead레벨">Lead레벨</option>
-                                        </select>
-                                    </td>
-                                    <th><label for="pay">연봉</label></th>
-                                    <td>
-                                        <select id="pay" name="pay" class="jm_select selectpicker" data-style="btn-info"
-                                                style=" height: 35px;">
-                                            <option value="회사 내규에 따름" selected>회사 내규에 따름</option>
-                                            <option value="2000만원">2000만원</option>
-                                            <option value="3000만원">3000만원</option>
-                                            <option value="4000만원">4000만원</option>
-                                            <option value="5000만원 이상">5000만원 이상</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-<!--                                    <th>고용 형태</th>-->
-<!--                                    <td>-->
-<!--                                        <select name="condition" id="condition" class="jm_select selectpicker"-->
-<!--                                                style=" height: 35px;">-->
-<!--                                            <option value="고용 형태" selected></option>-->
-<!--                                            <option value="계약직">계약직</option>-->
-<!--                                            <option value="정규직">정규직</option>-->
-<!--                                        </select>-->
-<!--                                    </td>-->
-                                    <th><label>근무 시간</label></th>
-                                    <th style="display: none"></th>
-                                    <th style="display: none"></th>
-                                    <td class="d-flex">
-                                        <label for="workStartTime">근무 시작 시간</label>
-                                        <input class="form-control" type="time" style="width: 38%;" name="workStartTime"
-                                               id="workStartTime" required>
-                                        <label for="workEndTime">근무 종료 시간</label>
-                                        <input class="form-control" type="time" style="width: 38%;" name="workEndTime"
-                                               id="workEndTime" required>
-                                    </td>
-                                </tr>
-                            </table>
+                    <div class="mt-4">
+                        <label for="task"><b>주요 업무</b></label>
+                        <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                            <input class="form-control border-0" id="task" type="text" name="task" required>
                         </div>
-                        <div class="mt-4">
-                            <label for="deadline"><b>마감 일자</b></label>
-                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control" type="date" id="deadline" name="deadline" required>
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="workingArea"><b>근무 지역</b></label>
+                        <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                            <input class="form-control border-0" id="workingArea" type="text" name="workingArea"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="workCondition"><b>혜택 및 복지</b></label>
+                        <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
+                            <input class="form-control border-0" id="workCondition" type="text" name="workCondition"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="skills"><b>기술/자격 조건</b></label>
+                        <div class="p-3 d-inline-flex mb-3 w-100">
+                            <div class="row row-cols-auto gap-3 justify-content-center my-3">
+                                <input type="checkbox" class="btn-check" id="java" value="java" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="java">Java</label>
+
+                                <input type="checkbox" class="btn-check" id="spring" value="spring" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="spring">Spring</label>
+
+                                <input type="checkbox" class="btn-check" id="html" value="html" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="html">HTML</label>
+
+                                <input type="checkbox" class="btn-check" id="javaScript" value="javaScript"
+                                       name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="javaScript">JavaScript</label>
+
+                                <input type="checkbox" class="btn-check" id="sql" value="sql" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="sql">SQL</label>
+
+                                <input type="checkbox" class="btn-check" id="android" value="android" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="android">Android</label>
+
+                                <input type="checkbox" class="btn-check" id="react" value="react" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="react">React</label>
+
+                                <input type="checkbox" class="btn-check" id="nodeJs" value="nodeJs" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="nodeJs">Node.js</label>
+
+                                <input type="checkbox" class="btn-check" id="express" value="express" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="express">Express</label>
+
+                                <input type="checkbox" class="btn-check" id="flutter" value="flutter" name="skill"
+                                       autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="flutter">Flutter</label>
                             </div>
                         </div>
-
-                        <div class="mt-4">
-                            <label for="task"><b>주요 업무</b></label>
-                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="task" type="text" name="task" required>
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <label for="workingArea"><b>근무 지역</b></label>
-                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="workingArea" type="text" name="workingArea"
-                                    required>
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <label for="workCondition"><b>혜택 및 복지</b></label>
-                            <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                <input class="form-control border-0" id="workCondition" type="text" name="workCondition"
-                                       required>
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <label for="skills"><b>기술/자격 조건</b></label>
-                            <div class="p-3 d-inline-flex mb-3 w-100">
-                                <div class="row row-cols-auto gap-3 justify-content-center my-3">
-                                    <input type="checkbox" class="btn-check" id="java" value="java" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="java">Java</label>
-
-                                    <input type="checkbox" class="btn-check" id="spring" value="spring" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="spring">Spring</label>
-
-                                    <input type="checkbox" class="btn-check" id="html" value="html" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="html">HTML</label>
-
-                                    <input type="checkbox" class="btn-check" id="javaScript" value="javaScript"
-                                           name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="javaScript">JavaScript</label>
-
-                                    <input type="checkbox" class="btn-check" id="sql" value="sql" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="sql">SQL</label>
-
-                                    <input type="checkbox" class="btn-check" id="android" value="android" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="android">Android</label>
-
-                                    <input type="checkbox" class="btn-check" id="react" value="react" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="react">React</label>
-
-                                    <input type="checkbox" class="btn-check" id="nodeJs" value="nodeJs" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="nodeJs">Node.js</label>
-
-                                    <input type="checkbox" class="btn-check" id="express" value="express" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="express">Express</label>
-
-                                    <input type="checkbox" class="btn-check" id="flutter" value="flutter" name="skill"
-                                           autocomplete="off"/>
-                                    <label class="btn btn-outline-primary" for="flutter">Flutter</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-outline-danger mb-3"
-                                    style="width: 100%">등록하기
-                            </button>
-                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-outline-danger mb-3"
+                                style="width: 100%">등록하기
+                        </button>
                     </div>
                 </div>
             </form>
