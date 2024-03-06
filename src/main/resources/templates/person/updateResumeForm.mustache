@@ -4,7 +4,7 @@
         <div class=" mx-2 pb-4 w-100">
             <div class="border border-tertiary w-100 p-5 rounded shadow">
                 <h1><input type="text" placeholder="저를 뽑아주세요." style="width: 700px; border: none;margin-left: 80px;"
-                           class="" name="" value="{{resume.title}}"></h1>
+                           class="" name="title" value="{{resume.title}}"></h1>
                 <hr>
                 <!-- <span>공개 여부 설정 |</span>
                 <select name="publish"> -->
@@ -29,12 +29,12 @@
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">이름</span>
                                     <input type="text" class="form-control" style="width: 120px;" value="{{resume.username}}"
-                                           name="">
+                                           name="username">
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">생년월일</span>
-                                    <input type="date" class="form-control" style="width: 120px;" value="{{resume.birth}}" id="birthdateInput" name="birthdate"
+                                    <input type="date" class="form-control" style="width: 120px;" value="{{resume.birth}}" id="birthdateInput" name="birth"
                                            required>
                                 </div>
                                 <script>
@@ -52,12 +52,12 @@
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">연락처</span>
-                                    <input type="tel" class="form-control" value="{{resume.tel}}" name="">
+                                    <input type="tel" class="form-control" value="{{resume.tel}}" name="tel">
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">주소</span>
-                                    <input type="text" class="form-control" value="{{resume.address}}" name="">
+                                    <input type="text" class="form-control" value="{{resume.address}}" name="address">
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
@@ -74,7 +74,7 @@
                             <input type="file" class="form-control mt-2" name="" />
                             <div class="mt-5">
                                 <h4>포트폴리오 주소</h4>
-                                <input type="text" class="form-control mt-2" id="" name="" style="display: block;"
+                                <input type="text" class="form-control mt-2" id="" name="portfolio" style="display: block;"
                                        value="{{resume.portfolio}}" required>
                             </div>
                         </div>
@@ -128,13 +128,13 @@
                         </div>
                         <div>
                             <h4>자기소개</h4>
-                            <textarea name="selfIntro" class="w-100 opacity-50" rows="10"
+                            <textarea name="introduce" class="w-100 opacity-50" rows="10"
                                       placeholder="내용을 입력하세요">{{resume.introduce}}</textarea>
                         </div>
                         <div class="d-flex justify-content-center" style="width: 100%;">
-                            <a href="/person/resume/detail/{{id}}" class="btn btn-outline-success mb-3 mt-3"
+                            <a href="/person/resume/{{id}}/detail" class="btn btn-outline-success mb-3 mt-3"
                                style="width: 100%">수정완료</a>
-                            <a href="/person/resume/detail/{{id}}" class="btn btn-outline-danger mb-3 mt-3"
+                            <a href="/person/resume/{{id}}/detail" class="btn btn-outline-danger mb-3 mt-3"
                                style="width: 100%">취소</a>
                         </div>
                     </div>

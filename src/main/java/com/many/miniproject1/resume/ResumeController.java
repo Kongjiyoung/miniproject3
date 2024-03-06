@@ -95,7 +95,7 @@ public class ResumeController {
 
         System.out.println(requestDTO);
         resumeRepository.save(requestDTO);
-        return "redirect:/person/resume/detail";
+        return "redirect:/person/resume/{id}detail";
     }
 
     @GetMapping("/person/resume/detail/{id}/updateForm")
@@ -110,7 +110,7 @@ public class ResumeController {
     public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request) {
         resumeRepository.update(id, requestDTO);
         request.setAttribute("resume", requestDTO);
-        return "redirect:/person/resume/detail/" + id;
+        return "redirect:/person/resume/{id}/detail";
     }
 
     @PostMapping("/person/resume/detail/{id}/delete")
