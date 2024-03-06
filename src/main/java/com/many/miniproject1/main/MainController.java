@@ -114,8 +114,8 @@ public class MainController {
     }
 
     @PostMapping("/resume/detail/{id}/offer")
-    public String companyResumeOffer(@PathVariable int id, @RequestParam("postId") Integer postId) {
-        System.out.println("======================" + postId);
+    public String companyResumeOffer(@PathVariable int id, @RequestParam("postChoice") Integer postChoice) {
+        System.out.println("======================" + postChoice);
         User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
         Integer companyId = sessionUser.getId();
@@ -123,7 +123,7 @@ public class MainController {
 
         OfferRequest.SaveDTO saveDTO = new OfferRequest.SaveDTO();
         saveDTO.setResumeId(id);
-        saveDTO.setPostId(postId);
+        saveDTO.setPostId(postChoice);
         saveDTO.setCompanyId(companyId);
         saveDTO.setPersonId(mainRepository.findPersonId(id));
 
@@ -223,15 +223,15 @@ public class MainController {
     }
 
     @PostMapping("/post/detail/{id}/apply")
-    public String personPostApply(@PathVariable int id, @RequestParam("resumeId") Integer resumeId) {
-        System.out.println("======================" + resumeId);
+    public String personPostApply(@PathVariable int id, @RequestParam("resumeChoice") Integer resumeChoice) {
+        System.out.println("======================" + resumeChoice);
         User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
         Integer personId = sessionUser.getId();
         System.out.println(personId);
 
         ApplyRequest.SaveDTO saveDTO = new ApplyRequest.SaveDTO();
-        saveDTO.setResumeId(resumeId);
+        saveDTO.setResumeId(resumeChoice);
         saveDTO.setPostId(id);
         saveDTO.setCompanyId(mainRepository.findCompanyId(id));
 
