@@ -10,7 +10,10 @@
             <hr />
             <div>
                 <div class="container w-50 mt-5 text ">
-                    <form action="/person/info/{{id}}/update" method="post" enctype="multipart/form-data">
+                    <div>
+                        <img class="mx-auto d-block mt-5 my-3 w-25" src="/images/person03.jpg" alt="이력서 사진">
+                    </div>
+                    <form action="/person/info/update" method="post" enctype="multipart/form-data">
                         <div class="input-group mb-3">
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" value="" id="" name="">
@@ -23,7 +26,7 @@
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">생년월일</span>
                             <input type="date" class="form-control" id=""value="1989-03-02">
-                            <input type="hidden" class="form-control" value="" id="">
+                            <input type="hidden" class="form-control" value="{{user.birth}}" id="">
                         </div>
                         <div class="input-group mb-3">
                                 <span
@@ -33,7 +36,7 @@
                         <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">주소</span>
-                            <input type="text" class="form-control" value="부산시 해운대구" id="">
+                            <input type="text" class="form-control" value="{{user.address}}" id="">
                         </div>
                         <div class="input-group mb-3">
                                 <span
@@ -60,7 +63,7 @@
                                 </button>
                             </div>
                             <div class="d-flex justify-content-center" style="width: 100%">
-                                <a href="/person/info/{{id}}" class="btn btn-outline-danger mb-3"
+                                <a href="/person/info" class="btn btn-outline-danger mb-3"
                                    style="width: 100%">취소</a>
                             </div>
                         </div>

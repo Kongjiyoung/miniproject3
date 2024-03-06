@@ -6,11 +6,14 @@ public class UserRequest {
     @Data
     public static class JoinDTO{
         private String role;
-        private String companyName;
-        private String companyNum;
-        private String username;
         private String email;
         private String password;
+        private String username;
+        private String companyName;
+        private String companyNum;
+        private String address;
+        private String birth;
+        private String tel;
     }
 
     @Data
@@ -19,17 +22,28 @@ public class UserRequest {
     }
 
     @Data
-    public static class UpdateDTO {
+    public static class CompanyUpdateDTO {
         private Integer id;
+        private String profile;
+        private String companyName;
+        private String companyNum;
+        private String address;
         private String email;
         private String password;
         private String username;
         private String tel;
-        private String companyName;
-        private String companyAddress;
-        private String companyNum;
-        private String companyYear;
-        private String companyMemberNum;
+
+    }
+    @Data
+    public static class PersonUpdateDTO {
+        private String profile;
+        private String username;
+        private String address;
+        private String birth;
+        private String tel;
+        private String email;
+        private String password;
+
     }
 
     @Data
