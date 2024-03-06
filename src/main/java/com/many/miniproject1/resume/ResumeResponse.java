@@ -13,11 +13,6 @@ public class ResumeResponse {
         private Integer personId;
         private String title;
         private String profile;
-        private String username;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
         private String portfolio;
         private String introduce;
         private String career;
@@ -26,15 +21,10 @@ public class ResumeResponse {
         private Timestamp createdAt;
 
         public resumeDTO(Resume resume, List<String> skill) {
-            this.id = resume.getId();;
+            this.id = resume.getId();
             this.personId = resume.getPersonId();
             this.title = resume.getTitle();
             this.profile = resume.getProfile();
-            this.username = resume.getUsername();
-            this.birth = resume.getBirth();
-            this.tel = resume.getTel();
-            this.address = resume.getAddress();
-            this.email = resume.getEmail();
             this.portfolio = resume.getPortfolio();
             this.introduce = resume.getIntroduce();
             this.career = resume.getCareer();
@@ -51,11 +41,6 @@ public class ResumeResponse {
         private Integer personId;
         private String title;
         private String profile;
-        private String username;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
         private String portfolio;
         private String introduce;
         private String career;
@@ -63,16 +48,11 @@ public class ResumeResponse {
         private List<String> skill = new ArrayList<>();
         private Timestamp createdAt;
 
-        public DetailDTO(Resume resume) {
+        public DetailDTO(Resume resume, List<String> skill) {
             this.id = resume.getId();
             this.personId = resume.getPersonId();
             this.title = resume.getTitle();
             this.profile = resume.getProfile();
-            this.username = resume.getUsername();
-            this.birth = resume.getBirth();
-            this.tel = resume.getTel();
-            this.address = resume.getAddress();
-            this.email = resume.getEmail();
             this.portfolio = resume.getPortfolio();
             this.introduce = resume.getIntroduce();
             this.career = resume.getCareer();
@@ -80,21 +60,15 @@ public class ResumeResponse {
             this.createdAt = resume.getCreatedAt();
         }
 
-        public DetailDTO(Integer id, String title, String profile, String username, String birth, String tel, String address, String email, String portfolio, String introduce, String career, String simpleIntroduce) {
+        public DetailDTO() {
         }
     }
-
     @Data
     public static class UpdateDTO {
         private Integer id;
         private Integer personId;
         private String title;
         private String profile;
-        private String username;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
         private String portfolio;
         private String introduce;
         private String career;

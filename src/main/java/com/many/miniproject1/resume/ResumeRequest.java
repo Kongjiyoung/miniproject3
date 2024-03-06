@@ -13,11 +13,6 @@ public class ResumeRequest {
         private Integer personId;
         private String title;
         private String profile;
-        private String username;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
         private String portfolio;
         private String introduce;
         private String career;
@@ -32,11 +27,6 @@ public class ResumeRequest {
         private Integer personId;
         private String title;
         private String profile;
-        private String username;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
         private String portfolio;
         private String introduce;
         private String career;
