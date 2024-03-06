@@ -55,27 +55,15 @@
                           overflow: hidden;
                           text-overflow: ellipsis;
                         ">
-                                <button class="btn btn-outline-info btn-sm disabled"
-                                        style="padding: 0px 5px; margin-bottom: 0px !important">
-                                    DEV
-                                </button>
-                                <button class="btn btn-outline-warning btn-sm disabled">
-                                    JAVA
-                                </button>
-                                <button class="btn btn-outline-warning btn-sm disabled">
-                                    Flutter
-                                </button>
-                                <button class="btn btn-outline-warning btn-sm disabled">
-                                    JavaScript
-                                </button>
-                                <button class="btn btn-outline-warning btn-sm disabled">
-                                    React
-                                </button>
+                                <h6><span>{{#skill}}
+                                    <button class="btn btn-outline-warning btn-sm disabled">
+                                        {{.}}
+                                    </button>{{/skill}}</span></h6>
                             </div>
                         </div>
                     </a>
                     <div class="d-flex justify-content-center">
-                        <a href="/person/resume/detail/{{id}}" class="btn btn-outline-success mb-3"
+                        <a href="/person/resume/{{id}}/detail" class="btn btn-outline-success mb-3"
                            style="width: 100%">기본이력서</a>
                     </div>
                     <div class="d-flex justify-content-center">
