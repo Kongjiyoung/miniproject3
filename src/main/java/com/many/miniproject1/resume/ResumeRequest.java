@@ -13,11 +13,6 @@ public class ResumeRequest {
         private Integer personId;
         private String title;
         private String profile;
-        private String username;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
         private String portfolio;
         private String introduce;
         private String career;
@@ -25,18 +20,29 @@ public class ResumeRequest {
         private List<String> skill;
         private Timestamp createdAt;
     }
-
+    @Data
+    public static class ResumeDTO {
+        private Integer id;
+        private Integer personId;
+        private String title;
+        private String profile;
+        private String portfolio;
+        private String introduce;
+        private String career;
+        private String simpleIntroduce;
+        private String email;
+        private String password;
+        private String username;
+        private String tel;
+        private String address;
+        private Timestamp createdAt;
+    }
     @Data
     public static class UpdateDTO {
         private Integer id;
         private Integer personId;
         private String title;
         private String profile;
-        private String username;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
         private String portfolio;
         private String introduce;
         private String career;

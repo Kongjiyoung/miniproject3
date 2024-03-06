@@ -1,13 +1,13 @@
 {{> layout/header}}
 <div class="container d-flex">
-    <form action="#" method="post" enctype="multipart/form-data">
-
+    <form action="/person/resume/save" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="personId" name="personId" value="{{sessionUser.id}}">
         <div class=" mx-2 pb-4 w-100">
 
             <div class="border border-tertiary w-100 p-5 rounded shadow">
                 <h4 style="margin-left: 95px;">*이력서를 작성해 주세요.</h4>
                 <h1 class="mx-5 "><input type="text" placeholder="이력서 제목을 입력하세요" style="width: 700px; border: none;"
-                                         class="hs_input_title mx-5" name="" value="" autofocus></h1>
+                                         class="hs_input_title mx-5" name="title" value="" autofocus></h1>
                 <!-- <span>공개 여부 설정 |</span>
                 <select name="publish"> -->
                 <!-- 공개중인 경우 -->
@@ -33,44 +33,30 @@
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">이름</span>
                                     <input type="text" class="form-control" style="width: 120px;"
-                                           value="{{resume.username}}" name="username"
+                                           name="username"
                                            required>
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">생년월일</span>
                                     <input type="date" class="form-control" style="width: 120px;"
-                                           value="{{resume.birth}}" id="birthdateInput" name="birthdate"
+                                           id="birthdateInput" name="birth"
                                            required>
                                 </div>
-
-                                <script>
-                                    var birthdateString = "{{resume.birth}}";
-
-                                    // 문자열을 날짜 객체로 변환
-                                    var birthdate = new Date(birthdateString.substring(0, 4), birthdateString.substring(4, 6) - 1, birthdateString.substring(6, 8));
-
-                                    // YYYY-MM-DD
-                                    var formattedBirthdate = birthdate.toISOString().substring(0, 10);
-
-                                    // 바꾼 날짜형식으로 넣기
-                                    document.getElementById("birthdateInput").value = formattedBirthdate;
-                                </script>
-
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">연락처</span>
-                                    <input type="tel" class="form-control" value="{{resume.tel}}" name="" required>
+                                    <input type="tel" class="form-control" name="tel" required>
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">주소</span>
-                                    <input type="text" class="form-control" value="{{resume.address}}" name="" required>
+                                    <input type="text" class="form-control"  name="address" required>
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">이메일</span>
-                                    <input type="email" class="form-control" value="{{resume.email}}" required>
+                                    <input type="email" class="form-control" name="email" required>
                                 </div>
                             </div>
                         </div>
@@ -81,8 +67,12 @@
                         <div class="col-md-14 mx-auto">
                             <input type="file" class="form-control mt-2" name=""/>
                             <div class="mt-5">
+                                <h4>커리어</h4>
+                                <input type="text" name="career" class="w-100 opacity-50" rows="10">
+                                <h4>간단 소개</h4>
+                                <input type="text" name="simpleIntroduce" class="w-100 opacity-50" rows="10">
                                 <h4>포트폴리오 주소</h4>
-                                <input type="text" class="form-control mt-2" id="" name="" style="display: block;"
+                                <input type="text" class="form-control mt-2" id="" name="portfolio" style="display: block;"
                                        value="">
                             </div>
                         </div>
@@ -135,12 +125,12 @@
                         </div>
                         <div>
                             <h4>자기소개</h4>
-                            <textarea name="selfIntro" class="w-100 opacity-50" rows="10"
+                            <textarea name="introduce" class="w-100 opacity-50" rows="10"
                                       placeholder="100자 이상 작성해 주세요." minlength="100"></textarea>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <a href="/person/resume" class="btn btn-outline-success mb-3 mt-3"
-                               style="width: 100%">저장하기</a>
+                            <button type="submit" class="btn btn-outline-success mb-3 mt-3"
+                                    style="width: 100%">저장하기</button>
                         </div>
                     </div>
                 </div>

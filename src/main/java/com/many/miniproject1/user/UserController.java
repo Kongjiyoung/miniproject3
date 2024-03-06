@@ -1,5 +1,7 @@
 package com.many.miniproject1.user;
 
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -113,83 +116,83 @@ public class UserController {
     //회사 정보 및 수정
     //회사 정보 수정
     @GetMapping("/company/info")
+
     public String companyInfo(@PathVariable int id, HttpServletRequest request) {
         System.out.println("id: "+id);
+
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "/company/loginForm";
         }
-        User user = userRepository.findById(id);
+
         request.setAttribute("user",sessionUser);
 
         return "company/companyInfo";
     }
 
     // 수정완료/취소 버튼 누르면 자원을 찾을 수 없음이라 나옴. 그것 수정하고 주석 지워주세요.
-    @GetMapping("/company/info/{id}/updateForm")
-    public String companyInfoUpdateForm(@PathVariable int id, HttpServletRequest request) {
+    @GetMapping("/company/info/updateForm")
+    public String companyInfoUpdateForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "redirect:/company/loginForm";
         }
-        User user = userRepository.findById(id);
+//        User user = userRepository.findById(id);
 
-        request.setAttribute("user",user);
+
+        request.setAttribute("user",sessionUser);
         return "company/updateInfoForm";
     }
 
 //   여기에도 머스치에도 post를 적었는데 get이 나오는 이유가 무엇일까요.
-    @PostMapping("/company/info/{id}/update")
-    public String companyInfoUpdate(@PathVariable int id, UserRequest.UpdateDTO requestDTO, HttpServletRequest request) {
+    @PostMapping("/company/info/update")
+    public String companyInfoUpdate(UserRequest.CompanyUpdateDTO requestDTO, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
 
-        userRepository.companyUpdate(requestDTO,id);
+        userRepository.companyUpdate(requestDTO,sessionUser.getId());
         request.setAttribute("user", requestDTO);
-        return "redirect:/company/info/"+id;
+        return "redirect:/company/info";
     }
 
     //개인 프로필 정보 및 수정
-    @GetMapping("/person/info/{id}")
-    public String personal(@PathVariable int id, HttpServletRequest request) {
-        System.out.println("id: "+id);
+    @GetMapping("/person/info")
+    public String personal(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "/person/loginForm";
         }
-        User user = userRepository.findById(id);
         request.setAttribute("user",sessionUser);
 
         return "person/personalInfo";
     }
 
-    @GetMapping("/person/info/{id}/updateForm")
-    public String personInfoInfoUpdateForm(@PathVariable int id, HttpServletRequest request) {
+    @GetMapping("/person/info/updateForm")
+    public String personInfoInfoUpdateForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "person/loginForm";
         }
-        User user = userRepository.findById(id);
 
-        request.setAttribute("user",user);
+        request.setAttribute("user",sessionUser);
         return "person/updatePersonalForm";
     }
 
-    @PostMapping("/person/info/{id}/update")
-    public String personInfoUpdate(@PathVariable int id, UserRequest.UpdateDTO requestDTO, HttpServletRequest request) {
+    @PostMapping("/person/info/update")
+    public String personInfoUpdate(UserRequest.PersonUpdateDTO requestDTO, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
-        userRepository.personUpdate(requestDTO,id);
+        userRepository.personUpdate(requestDTO,sessionUser.getId());
         request.setAttribute("user", requestDTO);
-        return "redirect:/person/info/"+id;
+        return "redirect:/person/info";
     }
 
 
