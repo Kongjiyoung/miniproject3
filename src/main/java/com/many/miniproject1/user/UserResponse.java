@@ -16,4 +16,12 @@ public class UserResponse {
         private String companyNum;
         private String profile;
     }
+    @Data
+    public static class PasswordChangeDTO{
+        private boolean success;
+
+        public PasswordChangeDTO(boolean success) {
+            this.success = success;
+        }
+    }
 }
