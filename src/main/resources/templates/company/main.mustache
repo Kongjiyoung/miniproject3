@@ -9,9 +9,14 @@
         <li class="nav-item">
             <a class="nav-link active" href="/company/main">구인공고</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{#isMatchingCompany}}/person/matching{{/isMatchingCompany}}{{^isMatchingCompany}}/company/matching{{/isMatchingCompany}}">맞춤공고</a>
-        </li>
+        {{#sessionuser}}
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="{{#isMatchingCompany}}/person/matching{{/isMatchingCompany}}{{^isMatchingCompany}}/company/matching{{/isMatchingCompany}}">맞춤공고</a>
+            </li>
+        {{/sessionuser}}
+
+
     </ul>
 </div>
 <!-- 유형별 공고 탭 끝 -->
@@ -118,15 +123,11 @@
                             <h6><span>{{#skill}}
                                 <button class="btn btn-outline-warning btn-sm disabled">
                                     {{.}}
-                            </button>{{/skill}}</span></h6>
+                                </button>{{/skill}}</span></h6>
                         </div>
                     </div>
                 </a>
-                {{#isMatchingCompany}}
-                <div class="d-flex justify-content-center">
-                    <a href="/view/company/resumeDetail.html" class="btn btn-outline-primary mb-3" style="width: 100%">스크랩하기</a>
-                </div>
-                {{/isMatchingCompany}}
+
             </li>
         {{/resumeSkillList}}
 

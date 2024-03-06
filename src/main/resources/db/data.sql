@@ -87,6 +87,13 @@ values (6, '백엔드 개발자, 장현정', '/images/person02.png', 'http://dff
         '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
 프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
 
+insert into resume_tb(person_id, title, profile, username, birth, tel, address, email, portfolio, introduce, career,
+                      simple_introduce, created_at)
+values (6, '백엔드 개발자, 장현정', '/images/person02.png', '장현정', '19900524', '010-1222-2222', '부산시 부산진구', 'love@nate.com',
+        'http://dffdfddf',
+        '문제를 찾아 해결하는 것에 즐거움을 느낍니다. best practice를 찾아 적용하려고 노력합니다.
+프로덕션 서비스를 설계, 개발, 운영한 경험이 있으며 확장성과 유지 보수성이 높은 구조와 패턴을 위해 언제나 고민하고 있습니다.', '3년 근무', '좋은 개발자가 되려고 노력하고 있습니다', now());
+
 
 --채용공고 입력
 -- 더미데이터 company_id변경 <= JOIN
@@ -108,6 +115,19 @@ insert into post_tb(company_id, title, career, pay, work_condition, work_start_t
 values (13, '[인턴] 프론트엔드 개발자 (JavaScript)', '
 인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+
+insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
+                    profile, working_area, created_at)
+values (18, '[인턴] 프론트엔드 개발자 (JavaScript)', '
+인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+        'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+
+insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
+                    profile, working_area, created_at)
+values (18, '[인턴] 프론트엔드 개발자 (JavaScript)', '
+인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+        'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
+
 
 
 -- entity수정 career데이터 varchar로 고치기
