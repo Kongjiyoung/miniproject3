@@ -8,10 +8,14 @@
         <li class="nav-item">
             <a class="nav-link " href="/company/main">구인공고</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link"
-               href="{{#isMatchingCompany}}/person/matching{{/isMatchingCompany}}{{^isMatchingCompany}}/company/matching{{/isMatchingCompany}}">맞춤공고</a>
-        </li>
+        {{#sessionuser}}
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="{{#isMatchingCompany}}/person/matching{{/isMatchingCompany}}{{^isMatchingCompany}}/company/matching{{/isMatchingCompany}}">맞춤공고</a>
+            </li>
+        {{/sessionuser}}
+
     </ul>
 </div>
 <div class="container align-items-center mt-3 border p-3" style="border-radius: 10px;">
@@ -111,15 +115,22 @@
                         </p>
                         <h6><span>{{career}}</span></h6>
                         <h6><span>{{workingArea}}</span></h6>
-                        <h6><span>스택</span>|<span>{{#skill}}{{.}}{{/skill}}</span></h6>
+                        <div class="d-flex justify-content-start" style="
+                  display: -webkit-box;
+                  -webkit-line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                ">
+                            <h6><span>{{#skill}}
+                                <button class="btn btn-outline-warning btn-sm disabled">
+                                    {{.}}
+                                </button>{{/skill}}</span></h6>
+                        </div>
 
                     </div>
                 </a>
-                {{^isMatchingCompany}}
-                    <div class="d-flex justify-content-center">
-                        <a href="#" class="btn btn-outline-primary mb-3" style="width: 100%">스크랩하기</a>
-                    </div>
-                {{/isMatchingCompany}}
+
             </li>
         {{/postSkillList}}
         <!-- 구인공고 끝 -->
