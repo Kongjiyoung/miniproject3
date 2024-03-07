@@ -172,7 +172,6 @@ INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (1, 3, 15, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (2, 3, 16, 1, now());
--- 더미추가 0306
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (3, 3, 17, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)

@@ -32,7 +32,7 @@ public class OfferController {
     public String personPost(HttpServletRequest request) {
         User sessionUser = (User)session.getAttribute("sessionUser");
         List<Resume> companyOfferList = offerRepository.personFindAllOffer(sessionUser.getId());
-//        System.out.println(companyOfferList);
+        System.out.println("🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗");
 
         // mustache 스킬 불러오기
         ArrayList<MainResponse.resumeDTO> cResumeSkillList = new ArrayList<>();
