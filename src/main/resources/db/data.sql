@@ -78,11 +78,22 @@ values (1, '백엔드 개발자', '/images/person01.png', 'http://qmfmqfqmf',
 어려운 지식을 저만의 언어로 쉽게 풀어내는 것을 좋아합니다. 많은 사람에게 지식을 전파할 수 있는 사람이 되기를 원합니다.', '1년 근무', '꾸준히 공부하는 개발자입니다', now());
 insert into resume_tb(person_id, title, profile, portfolio, introduce, career,
                       simple_introduce, created_at)
+values (1, '백엔드 개발자', '/images/person01.png', 'http://qmfmqfqmf',
+        '복잡한 문제를 구조화하고 추상화해 단순하게 풀어내는 것을 좋아합니다.
+꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.
+어려운 지식을 저만의 언어로 쉽게 풀어내는 것을 좋아합니다. 많은 사람에게 지식을 전파할 수 있는 사람이 되기를 원합니다.', '1년 근무', '꾸준히 공부하는 개발자입니다', now());
+insert into resume_tb(person_id, title, profile, portfolio, introduce, career,
+                      simple_introduce, created_at)
 values (6, '백엔드 개발자', '/images/person01.png', 'http://qmfmqfqmf',
         '복잡한 문제를 구조화하고 추상화해 단순하게 풀어내는 것을 좋아합니다.
 꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.
 어려운 지식을 저만의 언어로 쉽게 풀어내는 것을 좋아합니다. 많은 사람에게 지식을 전파할 수 있는 사람이 되기를 원합니다.', '1년 근무', '꾸준히 공부하는 개발자입니다', now());
-
+insert into resume_tb(person_id, title, profile, portfolio, introduce, career,
+                      simple_introduce, created_at)
+values (6, '백엔드 개발자', '/images/person01.png', 'http://qmfmqfqmf',
+        '복잡한 문제를 구조화하고 추상화해 단순하게 풀어내는 것을 좋아합니다.
+꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.
+어려운 지식을 저만의 언어로 쉽게 풀어내는 것을 좋아합니다. 많은 사람에게 지식을 전파할 수 있는 사람이 되기를 원합니다.', '1년 근무', '꾸준히 공부하는 개발자입니다', now());
 
 
 --채용공고 입력

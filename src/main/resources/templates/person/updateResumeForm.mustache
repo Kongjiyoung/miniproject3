@@ -1,6 +1,8 @@
 {{> layout/header}}
 <div class="container d-flex">
-    <form action="/person/resume/detail/{{id}}/update" method="post" enctype="multipart/form-data">
+
+    <form action="/person/resume/{{id}}/detail/update" method="post" enctype="multipart/form-data">
+
         <div class=" mx-2 pb-4 w-100">
             <div class="border border-tertiary w-100 p-5 rounded shadow">
                 <h1><input type="text" placeholder="저를 뽑아주세요." style="width: 700px; border: none;margin-left: 80px;"
@@ -28,14 +30,16 @@
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">이름</span>
-                                    <input type="text" class="form-control" style="width: 120px;" value="{{resume.username}}"
+                                    <input type="text" class="form-control" style="width: 120px;"
+                                           value="{{resume.username}}" disabled
                                            name="username">
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">생년월일</span>
-                                    <input type="date" class="form-control" style="width: 120px;" value="{{resume.birth}}" id="birthdateInput" name="birth"
-                                           required>
+                                    <input type="date" class="form-control" style="width: 120px;"
+                                           value="{{resume.birth}}" id="birthdateInput" name="birth"
+                                           disabled>
                                 </div>
                                 <script>
                                     var birthdateString = "{{resume.birth}}";
@@ -52,17 +56,18 @@
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">연락처</span>
-                                    <input type="tel" class="form-control" value="{{resume.tel}}" name="tel">
+                                    <input type="tel" class="form-control" value="{{resume.tel}}" name="tel" disabled>
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">주소</span>
-                                    <input type="text" class="form-control" value="{{resume.address}}" name="address">
+                                    <input type="text" class="form-control" value="{{resume.address}}" name="address"
+                                           disabled>
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">이메일</span>
-                                    <input type="email" class="form-control" value="{{resume.email}}" readonly>
+                                    <input type="email" class="form-control" value="{{resume.email}}" disabled>
                                 </div>
                             </div>
                         </div>
@@ -71,10 +76,15 @@
                 <div class="container" style="width: 85%;">
                     <div class="row justify-content-center">
                         <div class="col-md-14 mx-auto">
-                            <input type="file" class="form-control mt-2" name="" />
+                            <input type="file" class="form-control mt-2" name=""/>
                             <div class="mt-5">
+                                <h4>커리어</h4>
+                                <input type="text" name="career" class="w-100 opacity-50" value="저는 삼성에서 일했어요." rows="10">
+                                <h4>간단 소개</h4>
+                                <input type="text" name="simpleIntroduce" class="w-100 opacity-50" value="저는 삼성에서 일했어요.헤헤" rows="10">
                                 <h4>포트폴리오 주소</h4>
-                                <input type="text" class="form-control mt-2" id="" name="portfolio" style="display: block;"
+                                <input type="text" class="form-control mt-2" id="portfolio" name="portfolio"
+                                       style="display: block;"
                                        value="{{resume.portfolio}}" required>
                             </div>
                         </div>
@@ -132,8 +142,8 @@
                                       placeholder="내용을 입력하세요">{{resume.introduce}}</textarea>
                         </div>
                         <div class="d-flex justify-content-center" style="width: 100%;">
-                            <a href="/person/resume/{{id}}/detail" class="btn btn-outline-success mb-3 mt-3"
-                               style="width: 100%">수정완료</a>
+                            <button type="submit" class="btn btn-outline-success mb-3 mt-3"
+                               style="width: 100%">수정완료</button>
                             <a href="/person/resume/{{id}}/detail" class="btn btn-outline-danger mb-3 mt-3"
                                style="width: 100%">취소</a>
                         </div>
