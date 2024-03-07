@@ -94,7 +94,7 @@ public class ResumeController {
         if (sessionUser == null) {
             return "redirect:/person/loginForm";
         }
-
+        System.out.println(sessionUser);
 //        Resume resume = resumeRepository.findById(id);
 //        List<String> skills = skillRepository.findByResumeId(id);
 //        ResumeResponse.DetailDTO  detailDTO= new ResumeResponse.DetailDTO(new Resume());
@@ -115,7 +115,7 @@ public class ResumeController {
 
         System.out.println(requestDTO);
         resumeRepository.save(requestDTO);
-        return "redirect:/person/resume/{id}/detail";
+        return "redirect:/person/resume";
     }
 
     @GetMapping("/person/resume/{id}/detail/updateForm")

@@ -1,89 +1,88 @@
 {{> layout/header}}
 <div class="container d-flex">
-        <div class=" mx-2 pb-4 w-100">
-            <div class="border border-tertiary p-5 rounded shadow">
-                <h1>{{resume.title}}</h1>
-                <div class="d-flex justify-content-start mx-2">
-                    <!-- <div>
-                        공개 여부 설정 &nbsp &nbsp| &nbsp&nbsp
-                    </div> -->
-                    <!--                <div class="form-check d-flex justify-content-center">-->
-                    <!--                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"-->
-                    <!--                           checked required>-->
-                    <!--                    <label class="form-check-label" for="flexRadioDefault1">공개&nbsp&nbsp&nbsp&nbsp</label>-->
-                    <!--                </div>-->
-                    <!--                <div class="form-check d-flex justify-content-center">-->
-                    <!--                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"-->
-                    <!--                           required>-->
-                    <!--                    <label class="form-check-label" for="flexRadioDefault1">비공개</label>-->
-                    <!--                </div>-->
-                </div>
-                <hr>
+    <div class=" mx-2 pb-4 w-100">
+        <div class="border border-tertiary p-5 rounded shadow">
+            <h1>{{resume.title}}</h1>
+            <div class="d-flex justify-content-start mx-2">
+                <!-- <div>
+                    공개 여부 설정 &nbsp &nbsp| &nbsp&nbsp
+                </div> -->
+                <!--                <div class="form-check d-flex justify-content-center">-->
+                <!--                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"-->
+                <!--                           checked required>-->
+                <!--                    <label class="form-check-label" for="flexRadioDefault1">공개&nbsp&nbsp&nbsp&nbsp</label>-->
+                <!--                </div>-->
+                <!--                <div class="form-check d-flex justify-content-center">-->
+                <!--                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"-->
+                <!--                           required>-->
+                <!--                    <label class="form-check-label" for="flexRadioDefault1">비공개</label>-->
+                <!--                </div>-->
+            </div>
+            <hr>
 
-                <div class="d-flex justify-content-center">
-                    <div style="width: 85%;">
-                        <div class="jh_resume_flexbox mt-3">
-                            <!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
-                            <img src="/images/person04.jpg" alt="프로필 사진" style="width: 188px; height: 226px;">
-                            <table class="resume_table">
-                                <tr>
-                                    <td>이름</td>
-                                    <td>{{resume.username}}</td>
-                                </tr>
-                                <tr>
-                                    <td>생년월일</td>
-                                    <td>{{resume.birth}}</td>
-                                </tr>
-                                <tr>
-                                    <td>연락처</td>
-                                    <td>{{resume.tel}}</td>
-                                </tr>
-                                <tr>
-                                    <td>주소</td>
-                                    <td>{{resume.address}}</td>
-                                </tr>
-                                <tr>
-                                    <td>이메일</td>
-                                    <td>{{resume.email}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="mt-5">
-                            <h4>커리어</h4>
-                            <textarea name="career" class="w-100 opacity-50" rows="10" readOnly>{{resume.career}}
-                            </textarea>
-                            <h4>간단 소개</h4>
-                            <textarea name="simpleIntroduce" class="w-100 opacity-50" rows="10" readOnly>{{resume.simpleIntroduce}}
-                            </textarea>
-                            <h4>포트폴리오 주소</h4>
-                            <input type="url" class="form-control mt-2" id="" name="portfolio" style="display: block;"
-                                   value="{{resume.portfolio}}" readOnly>
-                        </div>
-                        <div class="mt-5 jh_resume_skill">
-                            <h4>기술스택</h4>
-                            <div>
-                                {{#resumeSkillList}}
+            <div class="d-flex justify-content-center">
+                <div style="width: 85%;">
+                    <div class="jh_resume_flexbox mt-3">
+                        <!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
+                        <img src="{{resume.profile}}" alt="프로필 사진" style="width: 188px; height: 226px;">
+                        <table class="resume_table">
+                            <tr>
+                                <td>이름</td>
+                                <td>{{resume.username}}</td>
+                            </tr>
+                            <tr>
+                                <td>생년월일</td>
+                                <td>{{resume.birth}}</td>
+                            </tr>
+                            <tr>
+                                <td>연락처</td>
+                                <td>{{resume.tel}}</td>
+                            </tr>
+                            <tr>
+                                <td>주소</td>
+                                <td>{{resume.address}}</td>
+                            </tr>
+                            <tr>
+                                <td>이메일</td>
+                                <td>{{resume.email}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mt-5">
+                        <h4>커리어</h4>
+                        <input name="career" class="w-100 opacity-50" rows="10" value="{{resume.career}}" readOnly>
+                        <h4>간단 소개</h4>
+                        <input name="simpleIntroduce" class="w-100 opacity-50" rows="10"
+                               value="{{resume.simpleIntroduce}}" readOnly>
+                        <h4>포트폴리오 주소</h4>
+                        <input type="url" class="form-control mt-2" id="" name="portfolio" style="display: block;"
+                               value="{{resume.portfolio}}" readOnly>
+                    </div>
+                    <div class="mt-5 jh_resume_skill">
+                        <h4>기술스택</h4>
+                        <div>
+                            {{#resumeSkillList}}
                                 <h6><span>{{#skills}}
                                     <button class="btn btn-outline-warning btn-sm disabled">
                                         {{.}}
                                     </button>{{/skills}}</span></h6>
-                                {{/resumeSkillList}}
-                            </div>
+                            {{/resumeSkillList}}
                         </div>
-                        <div class="mt-5 w-100">
-                            <h4>자기소개</h4>
-                            <textarea name="introduce" class="w-100 opacity-50" rows="10" readOnly>{{resume.introduce}}
-                            </textarea>
-                        </div>
-                        <div class="d-flex justify-content-center ">
-                            <a href="/person/resume/{{id}}/detail/updateForm" class="btn btn-outline-success mt-3 mb-3"
-                               style="width: 100%">수정하기</a>
-                        </div>
+                    </div>
+                    <div class="mt-5 w-100">
+                        <h4>자기소개</h4>
+                        <textarea name="introduce" class="w-100 opacity-50" rows="10" readOnly>{{resume.introduce}}
+                        </textarea>
+                    </div>
+                    <div class="d-flex justify-content-center ">
+                        <a href="/person/resume/{{id}}/detail/updateForm" class="btn btn-outline-success mt-3 mb-3"
+                           style="width: 100%">수정하기</a>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+<!--    </form>-->
     <!-- list-group( 오른쪽 바로가기) 시작 -->
     <div class="list-group mx-2">
         <a href="/person/info" class="list-group-item shadow " style="width: 150px;">회원정보관리</a>
