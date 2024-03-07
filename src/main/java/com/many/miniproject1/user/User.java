@@ -1,6 +1,7 @@
 package com.many.miniproject1.user;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
