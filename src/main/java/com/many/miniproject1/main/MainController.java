@@ -82,9 +82,8 @@ public class MainController {
         System.out.println("id: " + id);
         //내용작성
         // DTO에 ArrayList는 초기화 해두어도 된다.
-        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
         List<String> skills = skillRepository.findByResumeId(id);
-        //detailDTO.setSkill(skills);
+        ResumeResponse.DetailSkillDTO detailDTO=new ResumeResponse.DetailSkillDTO(resumeRepository.findById(id),skills);
 
 
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -93,8 +92,8 @@ public class MainController {
             System.out.println(sessionUser);
             Integer companyId = sessionUser.getId();
             System.out.println(companyId);
-            List<Post> postList = mainRepository.findPost(companyId);
-            System.out.println(postList);
+            List<Post> post = mainRepository.findPost(companyId);
+            System.out.println(post);
 
             //기업인지 개인인지 구분
             String role = sessionUser.getRole();
@@ -106,7 +105,7 @@ public class MainController {
             System.out.println(isCompany);
             request.setAttribute("isMatchingCompany", isCompany);
             System.out.println(isCompany);
-            request.setAttribute("postList", postList);
+            request.setAttribute("postList", post);
         }
         request.setAttribute("sessionuser", sessionUser);
         request.setAttribute("resume", detailDTO);
