@@ -45,22 +45,23 @@ public class ApplyResponse {
 
         public PostIsPassDTO(ApplyPostDTO post, List<String> skills) {
             this.id = post.getId();
-            this.companyId =  post.getCompanyId();
-            this.title =  post.getTitle();
-            this.career =  post.getCareer();
-            this.pay =  post.getPay();
-            this.workCondition =  post.getWorkCondition();
-            this.workStartTime =  post.getWorkStartTime();
-            this.workEndTime =  post.getWorkEndTime();
-            this.deadline =  post.getDeadline();
-            this.task =  post.getTask();
-            this.profile =  post.getProfile();
-            this.workingArea =  post.getWorkingArea();
-            this.isPass=post.getIsPass();
+            this.companyId = post.getCompanyId();
+            this.title = post.getTitle();
+            this.career = post.getCareer();
+            this.pay = post.getPay();
+            this.workCondition = post.getWorkCondition();
+            this.workStartTime = post.getWorkStartTime();
+            this.workEndTime = post.getWorkEndTime();
+            this.deadline = post.getDeadline();
+            this.task = post.getTask();
+            this.profile = post.getProfile();
+            this.workingArea = post.getWorkingArea();
+            this.isPass = post.getIsPass();
             this.skill = skills;
-            this.createdAt =  post.getCreatedAt();
+            this.createdAt = post.getCreatedAt();
         }
     }
+
     @Data
     public static class ApplyResumeDTO {
         private Integer id;

@@ -199,4 +199,11 @@ public class ApplyRepository {
 
         query.executeUpdate();
     }
+    @Transactional
+    public void applieddelete(int id) {
+        Query query = em.createNativeQuery("delete from apply_tb where post_id = ?");
+        query.setParameter(1, id);
+
+        query.executeUpdate();
+    }
 }
