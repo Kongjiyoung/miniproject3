@@ -38,7 +38,7 @@ public class OfferController {
         ArrayList<MainResponse.resumeDTO> cResumeSkillList = new ArrayList<>();
         for(int i =0 ; i<companyOfferList.size(); i++){
             List<String> skills = skillRepository.findByResumeId(companyOfferList.get(i).getId());
-            Resume resume=(Resume)companyOfferList.get(i);
+            Resume resume = (Resume) companyOfferList.get(i);
             cResumeSkillList.add(new MainResponse.resumeDTO(resume,skills));
             System.out.println(resume);
             System.out.println(skills);
@@ -52,30 +52,30 @@ public class OfferController {
     // person의 offers 관리
     @GetMapping("/person/offerEmails")
     public String getOfferById( HttpServletRequest request) {
-        System.out.println("🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈");
+        User sessionUser = (User)session.getAttribute("sessionUser");
+                System.out.println("🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈");
         // ot.company_id를 찾지 못함
-        OfferResponse.OfferBoardDTO responseDTO = offerRepository.findCompanyOffersWithId(1);
-        System.out.println("1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣");
+        List<OfferResponse.OfferBoardDTO> responseDTO = (List<OfferResponse.OfferBoardDTO>) offerRepository.findCompanyOffersWithId(sessionUser.getId());
+        System.out.println(responseDTO);
 
         request.setAttribute("offer", responseDTO);
-
-//        List<Offer> personOfferList = offerRepository.personFindAllOffer();
-//        request.setAttribute("personOfferList", personOfferList);
 
         return "person/offerEmails";
     }
 
-    //    제안 받은 이메일 디테일 머스태치가 없는 것으로 추정됨. 찾으면 알려주시고 공유해주세요. 꼭이요!!!
+
+    // 🚧🚧🚧🚧🚧email대신 공고 보내기로 수정🚧🚧🚧🚧🚧
 //    @GetMapping("/person/offer/detail/{id}")
 //    public String personPostDetail(@PathVariable int id) {
 //        return "company/offerEmailDetail";
 //    }
+
     @GetMapping("/company/updateInfoForm")
     public String FINDOFFER() {
         return "company/updateInfoForm";
     }
 
-    @GetMapping("/person/offerEmailForm/")
+    @GetMapping("/company/offerEmailForm/")
     public String pers() {
         return "company/offerEmailForm";
     }
