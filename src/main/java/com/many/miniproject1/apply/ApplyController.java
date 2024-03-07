@@ -55,7 +55,7 @@ public class ApplyController {
         List<String> skills = skillRepository.findByResumeId(id);
         ApplyResponse.ResumeIsPassDTO resumeSkill=new ApplyResponse.ResumeIsPassDTO(resume, skills);
         request.setAttribute("resume", resumeSkill);
-        return "company/mypageResumeDetail";
+        return "company/ApplyResumeDetail";
     }
 
     @PostMapping("/company/resume/{id}/detail/ispass")
@@ -103,18 +103,14 @@ public class ApplyController {
         request.setAttribute("post", responseDTO);
 
         // 스킬 리스트 만들어서 돌리기
-        return "person/mypagePostDetail";
+        return "person/ApplyPostDetail";
     }
 
-//    //메인 채용 공고
-//    @PostMapping("/post/detail/{id}/apply")
-//    public String personPostApply(@PathVariable int id) {
-//        return "redirect:/post/detail/"+id;
-//    }
-//
-//    //맞춤 공고 - 개인용
-//    @PostMapping("/matching/post/detail/{id}/apply")
-//    public String matchingPersonPostApply(@PathVariable int id) {
-//        return "matching/post/detail/"+id;
-//    }
+    @PostMapping("/person/apply/{id}/delete")
+    public String appliedDelete(@PathVariable int id) {
+        System.out.println(id);
+        applyRepository.applieddelete(id);
+        return "redirect:/person/apply";
+    }
+
 }

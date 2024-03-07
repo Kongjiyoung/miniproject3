@@ -84,4 +84,15 @@ public class MainResponse {
         }
     }
 
+    @Data
+    public static class ResumeSkillDTO{
+        private int resumeId;
+        private int score;
+
+        public ResumeSkillDTO(int resumeId, int score) {
+            this.resumeId = resumeId;
+            this.score = score;
+        }
+    }
+
 }
