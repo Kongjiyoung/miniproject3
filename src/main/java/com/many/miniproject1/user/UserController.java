@@ -1,8 +1,5 @@
 package com.many.miniproject1.user;
 
-import ch.qos.logback.core.boolex.Matcher;
-import com.many.miniproject1.post.Post;
-import com.many.miniproject1.post.PostResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +9,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -153,7 +152,9 @@ public class UserController {
     //회사 정보 및 수정
     //회사 정보 수정
     @GetMapping("/company/info")
+
     public String companyInfo(HttpServletRequest request) {
+
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "/company/loginForm";

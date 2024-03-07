@@ -3,12 +3,10 @@ package com.many.miniproject1.resume;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ public class ResumeRepository {
 
     public ResumeResponse.DetailDTO findById(int r_id) {
         try {
-            Query query = em.createNativeQuery("select r.id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, u.username, u.birth, u.tel, u.address, u.email from resume_tb r inner join user_tb u on r.person_id = u.id where r.id = ?");
+            Query query = em.createNativeQuery("select r.id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce from resume_tb r inner join user_tb u on r.person_id = u.id where r.id = ?");
             query.setParameter(1, r_id);
 
             Object[] row = (Object[]) query.getSingleResult();
@@ -38,11 +36,6 @@ public class ResumeRepository {
             String introduce = (String) row[4];
             String career = (String) row[5];
             String simpleIntroduce = (String) row[6];
-            String username = (String) row[7];
-            String birth = (String) row[8];
-            String tel = (String) row[9];
-            String address = (String) row[10];
-            String email = (String) row[11];
 
             ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO();
             responseDTO.setId(id);
@@ -52,11 +45,6 @@ public class ResumeRepository {
             responseDTO.setIntroduce(introduce);
             responseDTO.setCareer(career);
             responseDTO.setSimpleIntroduce(simpleIntroduce);
-            responseDTO.setUsername(username);
-            responseDTO.setBirth(birth);
-            responseDTO.setTel(tel);
-            responseDTO.setAddress(address);
-            responseDTO.setEmail(email);
 
             return responseDTO;
         } catch (NoResultException e) {
@@ -83,15 +71,15 @@ public class ResumeRepository {
         query.setParameter(5, requestDTO.getIntroduce());
         query.setParameter(6, requestDTO.getCareer());
         query.setParameter(7, requestDTO.getSimpleIntroduce());
-//      query.setParameter(8, requestDTO.getSkill());
+//        query.setParameter(8, requestDTO.getSkill());
 
         query.executeUpdate();
 
         // max pk 받아서 리턴!!
-        return 1; //이력서 pk값
+        return 1; // 이력서 pk값
     }
 
-    public List<ResumeResponse.DetailDTO> findResume(int u_id) {
+    public List<ResumeResponse.DetailDTO> findresume(int u_id) {
         Query query = em.createNativeQuery("SELECT u.email, u.username, u.tel, u.address, u.birth, r.id, r.person_id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, r.created_at FROM user_tb u INNER JOIN resume_tb r ON u.id = r.person_id where r.person_id=?");
         query.setParameter(1, u_id);
 
@@ -137,15 +125,16 @@ public class ResumeRepository {
 
     @Transactional
     public void update(int id, ResumeRequest.UpdateDTO requestDTO) {
-        Query query = em.createNativeQuery("update resume_tb set title=?, profile=?, portfolio=?, introduce=?, career=?, simple_introduce=?, skill=? where id = ?");
-        query.setParameter(1, requestDTO.getTitle());
-        query.setParameter(2, requestDTO.getProfile());
-        query.setParameter(3, requestDTO.getPortfolio());
-        query.setParameter(4, requestDTO.getIntroduce());
-        query.setParameter(5, requestDTO.getCareer());
-        query.setParameter(6, requestDTO.getSimpleIntroduce());
-        query.setParameter(7, requestDTO.getSkill());
-        query.setParameter(8, id);
+        Query query = em.createNativeQuery("update resume_tb set person_id=?, title=?, profile=?, portfolio=?, introduce=?, career=?, simple_introduce=?, skill=? where id = ?");
+        query.setParameter(1, requestDTO.getPersonId());
+        query.setParameter(2, requestDTO.getTitle());
+        query.setParameter(3, requestDTO.getProfile());
+        query.setParameter(4, requestDTO.getPortfolio());
+        query.setParameter(5, requestDTO.getIntroduce());
+        query.setParameter(6, requestDTO.getCareer());
+        query.setParameter(7, requestDTO.getSimpleIntroduce());
+        query.setParameter(8, requestDTO.getSkill());
+        query.setParameter(9, id);
 
         query.executeUpdate();
     }

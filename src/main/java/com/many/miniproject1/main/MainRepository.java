@@ -96,4 +96,45 @@ public class MainRepository {
         return result;
     }
 
+    public ResumeResponse.DetailDTO findMainResume(int idx) {
+        Query query = em.createNativeQuery("SELECT u.email, u.username, u.tel, u.address, u.birth, r.id, r.person_id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, r.created_at FROM user_tb u INNER JOIN resume_tb r ON u.id=r.person_id where r.id = ? ");
+        query.setParameter(1, idx);
+
+        Object[] row = (Object[]) query.getSingleResult();
+
+
+            String username = (String) row[0];
+            String birth = (String) row[1];
+            String tel = (String) row[2];
+            String address = (String) row[3];
+            String email = (String) row[4];
+            Integer id = (Integer) row[5];
+            Integer personId = (Integer) row[6];
+            String title = (String) row[7];
+            String profile = (String) row[8];
+            String portfolio = (String) row[9];
+            String introduce = (String) row[10];
+            String career = (String) row[11];
+            String simpleIntroduce = (String) row[12];
+            Timestamp createdAt = (Timestamp) row[13];
+
+            ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO();
+            responseDTO.setUsername(username);
+            responseDTO.setBirth(birth);
+            responseDTO.setTel(tel);
+            responseDTO.setAddress(address);
+            responseDTO.setEmail(email);
+            responseDTO.setId(id);
+            responseDTO.setPersonId(personId);
+            responseDTO.setTitle(title);
+            responseDTO.setProfile(profile);
+            responseDTO.setPortfolio(portfolio);
+            responseDTO.setIntroduce(introduce);
+            responseDTO.setCareer(career);
+            responseDTO.setSimpleIntroduce(simpleIntroduce);
+            responseDTO.setCreatedAt(createdAt);
+
+        return responseDTO;
+    }
+
 }

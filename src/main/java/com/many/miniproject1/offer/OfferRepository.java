@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -65,32 +66,38 @@ public class OfferRepository {
 
     }
 
-
-    public OfferResponse.OfferBoardDTO findCompanyOffersWithId(int oid) {
-        Query query = em.createNativeQuery("SELECT ot.id, ut.company_name, ot.post_id, pt.title, ot.created_at " +
-                "FROM offer_tb ot " +
-                "INNER JOIN user_tb ut ON ot.company_id = ut.id " +
-                "INNER JOIN post_tb pt ON ot.post_id = pt.id " +
-                "WHERE person_id= ?", Offer.class);
+    public List<OfferResponse.OfferBoardDTO> findCompanyOffersWithId(int oid) {
+        String q = """
+                SELECT ot.id, ut.company_name, ot.post_id, pt.title, ot.created_at 
+                FROM offer_tb ot 
+                INNER JOIN user_tb ut ON ot.company_id = ut.id 
+                INNER JOIN post_tb pt ON ot.post_id = pt.id 
+                WHERE ot.person_id= ?
+                """;
+        Query query = em.createNativeQuery(q);
         query.setParameter(1, oid);
 
-        Object[] row = (Object[]) query.getSingleResult();
+        List<Object[]> resultList = query.getResultList();
 
-        Integer id = (Integer) row[0];
-        String companyName = (String) row[1];
-        Integer postId = (Integer) row[2];
-        String title = (String) row[3];
-        Timestamp createdAt = (Timestamp) row[4];
+        List<OfferResponse.OfferBoardDTO> responseLIst = new ArrayList<>();
+        for (Object[] row : resultList) {
+            Integer id = (Integer) row[0];
+            String companyName = (String) row[1];
+            Integer postId = (Integer) row[2];
+            String title = (String) row[3];
+            Timestamp createdAt = (Timestamp) row[4];
 
-        OfferResponse.OfferBoardDTO responseDTO = new OfferResponse.OfferBoardDTO();
+            OfferResponse.OfferBoardDTO responseDTO = new OfferResponse.OfferBoardDTO();
 
-        responseDTO.setId(id);
-        responseDTO.setCompanyName(companyName);
-        responseDTO.setPostId(postId);
-        responseDTO.setTitle(title);
-        responseDTO.setCreatedAt(createdAt);
+            responseDTO.setId(id);
+            responseDTO.setCompanyName(companyName);
+            responseDTO.setPostId(postId);
+            responseDTO.setTitle(title);
+            responseDTO.setCreatedAt(createdAt);
 
-        return responseDTO;
+            responseLIst.add(responseDTO);
+        }
+        return responseLIst;
     }
 //    public Offer List<Offer> fintAllSelect(int id) {
 //        Query query = em.createNativeQuery("SELECT * FROM offer_tb WHERE id=?", Of);
