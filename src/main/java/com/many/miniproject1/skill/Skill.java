@@ -17,4 +17,3 @@ public class Skill {
     private Integer postId; // null 허용 되어야 한다
     private Timestamp createdAt;
 }
-
