@@ -17,10 +17,7 @@ public class Offer {
     private Integer id;         // 제안 ID
     private Integer resumeId;   // 이력서 ID
     private Integer postId;     // 공고 ID
-
-    @Column(name = "company_id")
     private Integer companyId;  // 회사 ID
-
     private Integer personId;   // 구직자 ID
     //    private String content;
     private Timestamp createdAt;
