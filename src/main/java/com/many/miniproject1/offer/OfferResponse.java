@@ -25,6 +25,7 @@ public class OfferResponse {
         private Integer postId;
         private Timestamp createdAt;
         private String title;
+        private String profile;
 
         public OfferBoardDTO() {
 

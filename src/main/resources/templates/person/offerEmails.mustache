@@ -11,6 +11,7 @@
             <div class="container mb-5 mt-5 w-100 h-100">
                 <table class="table table-hover">
                     <tr class="table-dark">
+                        <th class="col-2">회사</th>
                         <th class="col-2">회사명</th>
                         <th class="col-7">채용 공고</th>
                         <th class="col-2">날짜</th>
@@ -25,13 +26,15 @@
                             </tr> -->
                     <!-- 지원 이력서 하나일 때  -->
                     <tr class="table-info">
-                        <td>Space X</td>
+                        <td><img src="/images/SPACEX.png" style="width: 100%; max-width: 100px"></td>
+                        <td>Space X (머스테치 더미)</td>
                         <td><a href="#" class="text-decoration-none">채용공고</a></td>
                         <td>2024-03-05</td>
                     </tr>
                     <!-- 그 외 -->
                     {{#offer}}
                         <tr class="table-info">
+                            <td><img src="{{profile}}" style="width: 100%; max-width: 100px"></td>
                             <td>{{companyName}}</td>
                             <td><a href="/company/post/detail/{{postId}}" class="text-decoration-none">{{title}}</td>
                             <td>{{createdAt}}</td>

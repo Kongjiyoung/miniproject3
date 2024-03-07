@@ -68,7 +68,7 @@ public class OfferRepository {
 
     public List<OfferResponse.OfferBoardDTO> findCompanyOffersWithId(int oid) {
         String q = """
-                SELECT ot.id, ut.company_name, ot.post_id, pt.title, ot.created_at 
+                SELECT ot.id, ut.company_name, ot.post_id, pt.title, ot.created_at , pt.profile, 
                 FROM offer_tb ot 
                 INNER JOIN user_tb ut ON ot.company_id = ut.id 
                 INNER JOIN post_tb pt ON ot.post_id = pt.id 
@@ -86,6 +86,7 @@ public class OfferRepository {
             Integer postId = (Integer) row[2];
             String title = (String) row[3];
             Timestamp createdAt = (Timestamp) row[4];
+            String profile = (String) row[5];
 
             OfferResponse.OfferBoardDTO responseDTO = new OfferResponse.OfferBoardDTO();
 
@@ -94,6 +95,7 @@ public class OfferRepository {
             responseDTO.setPostId(postId);
             responseDTO.setTitle(title);
             responseDTO.setCreatedAt(createdAt);
+            responseDTO.setProfile(profile);
 
             responseLIst.add(responseDTO);
         }
