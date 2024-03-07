@@ -50,8 +50,8 @@ public class OfferController {
     }
 
     // person의 offers 관리
-    @GetMapping("/person/offerEmails/{id}")
-    public String getOfferById(@PathVariable int id, HttpServletRequest request) {
+    @GetMapping("/person/offerEmails")
+    public String getOfferById( HttpServletRequest request) {
         System.out.println("🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈");
         // ot.company_id를 찾지 못함
         OfferResponse.OfferBoardDTO responseDTO = offerRepository.findCompanyOffersWithId(1);
