@@ -8,10 +8,16 @@
                 <!-- <button type="button" class="btn btn-dark" style="width:100px; height:40px;">수정하기</button> -->
             </div>
             <hr>
-            <img src="/images/naver.png" class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25" alt="회사 로고">
+
             <div>
                 <div class="container w-50 mt-5 text ">
                     <form action="/company/info/updateForm" method="get">
+                        <div class="px-5 mt-5">
+                            <input type="hidden" id="profile" name="profile" value="{{sessionUser.profile}}"/>
+                            <div class="upload"><img src="{{sessionUser.profile}}" id="profile"
+                                                     class="rounded mx-auto d-block rounded-4 mt-5 my-3w-50 h-50">
+                            </div>
+                        </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text justify-content-center hs_span_size init_color hs_span">회사명</span>
                             <input type="text" class="form-control" value="{{user.companyName}}" readonly>
@@ -50,7 +56,8 @@
                         <hr class="my-4">
                         <div style="width: 100%;">
                             <button type="submit" class="btn btn-outline-success mb-3"
-                                    style="width: 100%">수정하기</button>
+                                    style="width: 100%">수정하기
+                            </button>
                         </div>
                         <!-- </div> -->
                     </form>
@@ -66,6 +73,5 @@
         <a href="/company/scrap" class="list-group-item shadow">스크랩한 이력서</a>
         <a href="/company/offers" class="list-group-item shadow">제안한 이력서</a>
     </div>
-    <!-- list-group( 오른쪽 바로가기) 끝 -->
 </div>
 {{> layout/footer}}

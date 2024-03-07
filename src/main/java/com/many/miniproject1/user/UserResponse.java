@@ -1,6 +1,7 @@
 package com.many.miniproject1.user;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 public class UserResponse {
     @Data
@@ -14,14 +15,7 @@ public class UserResponse {
         private String companyName;
         private String companyAddress;
         private String companyNum;
-        private String profile;
-    }
-    @Data
-    public static class PasswordChangeDTO{
-        private boolean success;
-
-        public PasswordChangeDTO(boolean success) {
-            this.success = success;
-        }
+        private MultipartFile profile;
+        private String newPassword;
     }
 }

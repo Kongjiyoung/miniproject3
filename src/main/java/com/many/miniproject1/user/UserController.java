@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,9 +123,7 @@ public class UserController {
     //회사 정보 수정
     @GetMapping("/company/info")
 
-    public String companyInfo(@PathVariable int id, HttpServletRequest request) {
-        System.out.println("id: "+id);
-
+    public String companyInfo(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
@@ -133,27 +134,6 @@ public class UserController {
 
         return "company/companyInfo";
     }
-    @PostMapping("/changePassword")
-    public ResponseEntity<?> changePassword(@RequestBody UserRequest.PasswordChangeDTO request) {
-        UserRequest.PasswordChangeDTO newPassword = request;
-        System.out.println(newPassword);
-        boolean success = changePasswordInDatabase(newPassword);
-        return ResponseEntity.ok(new UserResponse.PasswordChangeDTO(success));
-    }
-    private boolean changePasswordInDatabase(UserRequest.PasswordChangeDTO request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userRepository.findById(sessionUser.getId());
-
-        if (user == null) {
-            return false;
-        }
-        // 변경된 사용자 정보를 저장합니다.
-        userRepository.passwordUpdate(request, sessionUser.getId());
-
-        return true;
-    }
-
-    // 수정완료/취소 버튼 누르면 자원을 찾을 수 없음이라 나옴. 그것 수정하고 주석 지워주세요.
     @GetMapping("/company/info/updateForm")
     public String companyInfoUpdateForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -161,23 +141,37 @@ public class UserController {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "redirect:/company/loginForm";
         }
-//        User user = userRepository.findById(id);
-
-
-        request.setAttribute("user",sessionUser);
+        User user = userRepository.findById(sessionUser.getId());
+        request.setAttribute("user",user);
         return "company/updateInfoForm";
     }
 
-//   여기에도 머스치에도 post를 적었는데 get이 나오는 이유가 무엇일까요.
     @PostMapping("/company/info/update")
     public String companyInfoUpdate(UserRequest.CompanyUpdateDTO requestDTO, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
+        String profile = null;
+        MultipartFile profileImage = requestDTO.getProfile();
+        if (profileImage != null && !profileImage.isEmpty()) {
+            // 이미지 파일 처리
+            String fileName = profileImage.getOriginalFilename();
+            String filePath = "static.images" + fileName;
+            File dest = new File(filePath);
+            try {
+                profileImage.transferTo(dest);
+                profile = filePath;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        userRepository.companyUpdate(profile, requestDTO,sessionUser.getId(),requestDTO.getNewPassword());
+        User updateCompany = userRepository.findById(sessionUser.getId());
+        session.setAttribute("sessionUser",updateCompany);
+        request.setAttribute("user", updateCompany);
 
-        userRepository.companyUpdate(requestDTO,sessionUser.getId());
-        request.setAttribute("user", requestDTO);
+        System.out.println(requestDTO);
         return "redirect:/company/info";
     }
 
@@ -201,8 +195,8 @@ public class UserController {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "person/loginForm";
         }
-
-        request.setAttribute("user",sessionUser);
+        User user = userRepository.findById(sessionUser.getId());
+        request.setAttribute("user",user);
         return "person/updatePersonalForm";
     }
 
@@ -212,8 +206,25 @@ public class UserController {
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
-        userRepository.personUpdate(requestDTO,sessionUser.getId());
-        request.setAttribute("user", requestDTO);
+        System.out.println("User ID: " + sessionUser.getId());
+        String profile = null;
+        MultipartFile profileImage = requestDTO.getProfile();
+        if (profileImage != null && !profileImage.isEmpty()) {
+            // 이미지 파일 처리
+            String fileName = profileImage.getOriginalFilename();
+            String filePath = "static.images" + fileName;
+            File dest = new File(filePath);
+            try {
+                profileImage.transferTo(dest);
+                profile = filePath;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        userRepository.personUpdate(profile, requestDTO,sessionUser.getId(),requestDTO.getNewPassword());
+        User updatePerson = userRepository.findById(sessionUser.getId());
+        session.setAttribute("sessionUser",updatePerson);
+        request.setAttribute("user", updatePerson);
         return "redirect:/person/info";
     }
 

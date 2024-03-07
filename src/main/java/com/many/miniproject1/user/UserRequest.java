@@ -1,6 +1,7 @@
 package com.many.miniproject1.user;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 public class UserRequest {
     @Data
@@ -24,7 +25,7 @@ public class UserRequest {
     @Data
     public static class CompanyUpdateDTO {
         private Integer id;
-        private String profile;
+        private MultipartFile profile;
         private String companyName;
         private String companyNum;
         private String address;
@@ -32,18 +33,21 @@ public class UserRequest {
         private String password;
         private String username;
         private String tel;
+        private String newPassword;
+
 
 
     }
     @Data
     public static class PersonUpdateDTO {
-        private String profile;
+        private MultipartFile profile;
         private String username;
         private String address;
         private String birth;
         private String tel;
         private String email;
         private String password;
+        private String newPassword;
 
     }
 
@@ -54,9 +58,5 @@ public class UserRequest {
         private String password;
     }
 
-    @Data
-    public static class PasswordChangeDTO{
-        private String password;
 
-    }
 }
