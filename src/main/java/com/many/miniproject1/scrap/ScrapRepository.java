@@ -57,16 +57,18 @@ public class ScrapRepository {
     }
 
     @Transactional
-    public void deleteByResumeId(int id) {
-        Query query = em.createNativeQuery("delete from scrap_tb where resume_id = ?");
+    public void deleteByResumeId(int id, int companyId) {
+        Query query = em.createNativeQuery("delete from scrap_tb where resume_id = ? AND company_id=?");
         query.setParameter(1, id);
+        query.setParameter(2, companyId);
 
         query.executeUpdate();
     }
     @Transactional
-    public void deleteByPostId(int id) {
-        Query query = em.createNativeQuery("delete from scrap_tb where post_id = ?");
+    public void deleteByPostId(int id, int personId) {
+        Query query = em.createNativeQuery("delete from scrap_tb where post_id = ? AND person_id=?");
         query.setParameter(1, id);
+        query.setParameter(2, personId);
 
         query.executeUpdate();
     }
@@ -171,7 +173,7 @@ public class ScrapRepository {
                 FROM user_tb u
                 INNER JOIN resume_tb r ON u.id = r.person_id
                 INNER JOIN apply_tb a ON r.id = a.resume_id
-                WHERE a.company_id = ? AND r.id=?;
+                WHERE a.company_id = ? AND a.id=?;
                 """;
         Query query = em.createNativeQuery(q);
         query.setParameter(1, companyId);
