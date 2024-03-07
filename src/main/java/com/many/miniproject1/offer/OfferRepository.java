@@ -1,5 +1,6 @@
 package com.many.miniproject1.offer;
 
+import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import jakarta.persistence.EntityManager;
@@ -25,26 +26,61 @@ public class OfferRepository {
         return query.getResultList();
     }
 
-    public List<Resume> personFindAllOffer(int id) {
-        String q = """
-                SELECT rt.* 
-                FROM offer_tb ot 
-                INNER JOIN resume_tb rt 
-                ON ot.resume_id = rt.id 
+    public List<Resume> personFindAllOffer(int cid) {
+        String q ="""
+                SELECT rt.*, ut.username
+                FROM offer_tb ot
+                INNER JOIN resume_tb rt
+                ON ot.resume_id = rt.id
+                INNER JOIN user_tb ut
+                ON rt.person_id = ut.id
                 WHERE ot.company_id = ?
                 """;
-        Query query = em.createNativeQuery(q, Resume.class);
+        Query query = em.createNativeQuery(q);
 
-        query.setParameter(1,id);
+        query.setParameter(1,cid);
+
+        List<Object[]> resultList = query.getResultList();
+        List<OfferResponse.OfferResumeDTO> responseList = new ArrayList<>();
+        for (Object[] row : resultList){
+            Integer id = (Integer) row[0];
+            Integer personId = (Integer) row[1];
+            String title = (String) row[2];
+            String profile = (String) row[3];
+            String portfolio = (String) row[4];
+            String introduce = (String) row[5];
+            String career = (String) row[6];
+            String simpleIntroduce = (String) row[7];
+            Timestamp createdAt = (Timestamp) row[8];
+            String username = (String) row[10];
+
+            OfferResponse.OfferResumeDTO responseDTO = new OfferResponse.OfferResumeDTO();
+            responseDTO.setId(id);
+            responseDTO.setPersonId(personId);
+            responseDTO.setTitle(title);
+            responseDTO.setProfile(profile);
+            responseDTO.setPortfolio(portfolio);
+            responseDTO.setIntroduce(introduce);
+            responseDTO.setCareer(career);
+            responseDTO.setSimpleIntroduce(simpleIntroduce);
+            responseDTO.setCreatedAt(createdAt);
+            responseDTO.setUsername(username);
+
+            responseList.add(responseDTO);
+        }
 
         return query.getResultList();
     }
 
     public List<OfferResponse.companyFindAllOfferDTO> companyFindAllOffer() {
-        Query query = em.createNativeQuery("SELECT * " +
-                "FROM offer_tb o\n" +
-                "INNER JOIN resume_tb r\n" +
-                "ON o.resume_id = r.id", OfferResponse.companyFindAllOfferDTO.class);
+        String q = """
+               SELECT *
+               FROM offer_tb o
+               INNER JOIN resume_tb
+               ON o.resume_id = r.id
+               """;
+
+        Query query = em.createNativeQuery(q,OfferResponse.companyFindAllOfferDTO.class);
         try {
             Offer offer = (Offer) query.getSingleResult();
             return query.getResultList();
@@ -79,7 +115,7 @@ public class OfferRepository {
 
         List<Object[]> resultList = query.getResultList();
 
-        List<OfferResponse.OfferBoardDTO> responseLIst = new ArrayList<>();
+        List<OfferResponse.OfferBoardDTO> responseList = new ArrayList<>();
         for (Object[] row : resultList) {
             Integer id = (Integer) row[0];
             String companyName = (String) row[1];
@@ -88,18 +124,18 @@ public class OfferRepository {
             Timestamp createdAt = (Timestamp) row[4];
             String profile = (String) row[5];
 
-            OfferResponse.OfferBoardDTO responseDTO = new OfferResponse.OfferBoardDTO();
+            OfferResponse.OfferBoardDTO responseDTO1 = new OfferResponse.OfferBoardDTO();
 
-            responseDTO.setId(id);
-            responseDTO.setCompanyName(companyName);
-            responseDTO.setPostId(postId);
-            responseDTO.setTitle(title);
-            responseDTO.setCreatedAt(createdAt);
-            responseDTO.setProfile(profile);
+            responseDTO1.setId(id);
+            responseDTO1.setCompanyName(companyName);
+            responseDTO1.setPostId(postId);
+            responseDTO1.setTitle(title);
+            responseDTO1.setCreatedAt(createdAt);
+            responseDTO1.setProfile(profile);
 
-            responseLIst.add(responseDTO);
+            responseList.add(responseDTO1);
         }
-        return responseLIst;
+        return responseList;
     }
 //    public Offer List<Offer> fintAllSelect(int id) {
 //        Query query = em.createNativeQuery("SELECT * FROM offer_tb WHERE id=?", Of);

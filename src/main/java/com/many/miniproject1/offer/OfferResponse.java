@@ -17,19 +17,31 @@ public class OfferResponse {
     }
 
     @Data
-    @AllArgsConstructor
     public static class OfferBoardDTO{
 
         private Integer id;
         private String companyName;
         private Integer postId;
+        private String title;
         private Timestamp createdAt;
+        private String profile;
+    }
+
+    // resume_tb 전체 값과, user_tb.username담을 DTO
+    @Data
+    public static class OfferResumeDTO{
+        // resume_tb
+        private Integer id;
+        private Integer personId; // resumeWriterId
         private String title;
         private String profile;
-
-        public OfferBoardDTO() {
-
-        }
+        private String portfolio;
+        private String introduce;
+        private String career;
+        private String simpleIntroduce;
+        private Timestamp createdAt;
+        // user_tb
+        private String username;
     }
 
     @Data

@@ -54,7 +54,7 @@ public class MainRepository {
     }
 
     public List<ResumeResponse.DetailDTO> findAllResume() {
-        Query query = em.createNativeQuery("SELECT u.email, u.username, u.tel, u.address, u.birth, r.id, r.person_id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, r.created_at FROM user_tb u INNER JOIN resume_tb r ON u.id = r.person_id ");
+        Query query = em.createNativeQuery("SELECT u.email, u.username, u.tel, u.address, u.birth, r.id, r.person_id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, r.created_at FROM user_tb u INNER JOIN resume_tb r ON u.id = r.person_id");
 
         List<Object[]> rows = query.getResultList();
         List<ResumeResponse.DetailDTO> result = new ArrayList<>();
