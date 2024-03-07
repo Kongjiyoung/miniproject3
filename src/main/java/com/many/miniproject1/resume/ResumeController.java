@@ -2,11 +2,9 @@ package com.many.miniproject1.resume;
 
 import com.many.miniproject1.skill.SkillRepository;
 import com.many.miniproject1.user.User;
-import com.many.miniproject1.user.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,11 +24,7 @@ public class ResumeController {
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            return "redirect:/person/loginForm";
-        }
-
-        List<ResumeResponse.DetailDTO> resumeList = resumeRepository.findResume(sessionUser.getId());
+        List<ResumeResponse.DetailDTO> resumeList = resumeRepository.findresume(sessionUser.getId());
         request.setAttribute("resumeList", resumeList);
         System.out.println(resumeList.size());
 
@@ -65,21 +57,6 @@ public class ResumeController {
 //        ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(new Resume());
 
 //        detailDTO.setSkill(skills);
-
-        List<ResumeResponse.DetailDTO> resumeList = resumeRepository.findResume(sessionUser.getId());
-        request.setAttribute("resumeList", resumeList);
-
-        ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
-        for (int i = 0; i < resumeList.size(); i++) {
-            List<String> skills = skillRepository.findByResumeId(resumeList.get(i).getId());
-            System.out.println(skills);
-            ResumeResponse.DetailDTO resume = resumeList.get(i);
-            System.out.println(resume);
-
-            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume, skills));
-            System.out.println(resumeSkillList.get(i));
-        }
-        request.setAttribute("resumeSkillList", resumeSkillList);
 
         ResumeResponse.DetailDTO responseDTO = resumeRepository.findById(id);
         System.out.println(responseDTO);
@@ -115,25 +92,25 @@ public class ResumeController {
 
         System.out.println(requestDTO);
         resumeRepository.save(requestDTO);
-        return "redirect:/person/resume/{id}/detail";
+        return "redirect:/person/resume/{id}detail";
     }
 
-    @GetMapping("/person/resume/{id}/detail/updateForm")
+    @GetMapping("/person/resume/detail/{id}/updateForm")
     public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
-        ResumeResponse.DetailDTO detailDTO= resumeRepository.findById(id);
-        request.setAttribute("resume", detailDTO);
+//        Resume resume = resumeRepository.findById(id);
+//        ResumeResponse.DetailDTO  detailDTO= new ResumeResponse.DetailDTO(new Resume());
+//        request.setAttribute("resume", detailDTO);
         return "person/updateResumeForm";
     }
 
-    @PostMapping("/person/resume/{id}/detail/update")
+    @PostMapping("/person/resume/detail/{id}/update")
     public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request) {
         resumeRepository.update(id, requestDTO);
-//        ResumeResponse.DetailDTO UpdateDTO = resumeRepository.findById(id);
-//        request.setAttribute("resume", UpdateDTO);
+        request.setAttribute("resume", requestDTO);
         return "redirect:/person/resume/{id}/detail";
     }
 
-    @PostMapping("/person/resume/{id}/detail/delete")
+    @PostMapping("/person/resume/detail/{id}/delete")
     public String personDeletePost(@PathVariable int id, HttpServletRequest request) {
         resumeRepository.delete(id);
         return "redirect:/person/resume";
