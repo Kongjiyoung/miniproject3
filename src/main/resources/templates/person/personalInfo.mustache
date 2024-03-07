@@ -7,44 +7,46 @@
                 <h1 class=" d-inline-flex">{{user.username}}님의 정보</h1>
             </div>
             <hr/>
-            <div>
-                <div class="container w-50 mt-5 text ">
-                    <div>
-                        <img class="mx-auto d-block mt-5 my-3 w-25" src="/images/person03.jpg" alt="이력서 사진">
-                    </div>
-                    <form action="/person/info/updateForm" method="get">
-                        <div class="input-group mb-3">
-                                <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이름</span>
-                            <input type="text" class="form-control" value="{{user.username}}" readonly>
-                        </div>
-                        <div class="input-group mb-3">
-                                <span class="input-group-text justify-content-center hs_span_size init_color hs_span">생년월일</span>
-                            <input type="text" class="form-control" value="{{user.birth}}" id="" readonly>
-                        </div>
-                        <div class="input-group mb-3">
-                                <span class="input-group-text justify-content-center hs_span_size init_color hs_span">연락처</span>
-                            <input type="text" class="form-control" value="{{user.tel}}" readonly>
-                        </div>
-                        <div class="input-group mb-3">
-                                <span class="input-group-text justify-content-center hs_span_size init_color hs_span">주소</span>
-                            <input type="text" class="form-control" value="{{user.address}}" readonly>
-                        </div>
-                        <div class="input-group mb-3">
-                                <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이메일</span>
-                            <input type="text" class="form-control" value="{{user.email}}" readonly>
-                        </div>
+            <div class="container w-50 mt-5 text ">
 
-                        <hr class="my-4">
-                        <div style="width: 100%;">
-                            <button type="submit" class="btn btn-outline-success mb-3"
-                               style="width: 100%">수정하기</button>
+                <form action="/person/info/updateForm" method="get">
+                    <div class="px-5 mt-5">
+                        <input type="hidden" id="profile" name="profile" value="{{sessionUser.profile}}"/>
+                        <div class="upload"><img src="{{sessionUser.profile}}" id="profile"
+                                                 class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-50 h-50">
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이름</span>
+                        <input type="text" class="form-control" value="{{user.username}}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text justify-content-center hs_span_size init_color hs_span">생년월일</span>
+                        <input type="text" class="form-control" value="{{user.birth}}" id="" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text justify-content-center hs_span_size init_color hs_span">연락처</span>
+                        <input type="text" class="form-control" value="{{user.tel}}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text justify-content-center hs_span_size init_color hs_span">주소</span>
+                        <input type="text" class="form-control" value="{{user.address}}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이메일</span>
+                        <input type="text" class="form-control" value="{{user.email}}" readonly>
+                    </div>
+
+                    <hr class="my-4">
+                    <div style="width: 100%;">
+                        <button type="submit" class="btn btn-outline-success mb-3"
+                                style="width: 100%">수정하기
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- list-group( 오른쪽 바로가기) 시작 -->
     <div class="list-group mx-2">
         <a href="/person/info" class="list-group-item shadow " style="width: 150px;">회원정보관리</a>
         <a href="/person/resume" class="list-group-item shadow">이력서관리</a>
@@ -52,7 +54,9 @@
         <a href="/person/offerEmails" class="list-group-item shadow">받은 제안</a>
         <a href="/person/apply" class="list-group-item shadow">지원 현황</a>
     </div>
-    <!-- list-group( 오른쪽 바로가기) 끝 -->
 </div>
+<!-- list-group( 오른쪽 바로가기) 시작 -->
+
+<!-- list-group( 오른쪽 바로가기) 끝 -->
 
 {{> /layout/footer}}

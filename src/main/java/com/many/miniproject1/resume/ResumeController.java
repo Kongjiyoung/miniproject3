@@ -7,7 +7,6 @@ import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,11 +27,7 @@ public class ResumeController {
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request, Skill skill) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            return "redirect:/person/loginForm";
-        }
-
-        List<ResumeResponse.DetailDTO> resumeList = resumeRepository.findResume(sessionUser.getId());
+        List<ResumeResponse.DetailDTO> resumeList = resumeRepository.findresume(sessionUser.getId());
         request.setAttribute("resumeList", resumeList);
         System.out.println(resumeList.size());
 
@@ -65,6 +60,7 @@ public class ResumeController {
 //        ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(new Resume());
 //        detailDTO.setSkill(skills);
 
+
 //        List<ResumeResponse.DetailDTO> resumeList = resumeRepository.findResume(sessionUser.getId());
 //        request.setAttribute("resumeList", resumeList);
 //
@@ -85,6 +81,7 @@ public class ResumeController {
         ResumeResponse.DetailSkillDTO resumeSkill= new ResumeResponse.DetailSkillDTO(responseDTO, skills);
         System.out.println(sessionUser);
         request.setAttribute("resume", resumeSkill);
+
         System.out.println(responseDTO);
 
         return "person/resumeDetail";
@@ -118,6 +115,7 @@ public class ResumeController {
 
         System.out.println(requestDTO);
 
+
         List<SkillRequest.SaveDTO> skillDTOs = new ArrayList<>(); // 스킬을 저장할 DTO 리스트 생성
 
         // 각 스킬을 SkillRequest.SaveDTO 형태로 변환하여 리스트에 추가
@@ -136,14 +134,17 @@ public class ResumeController {
         System.out.println(skills);
 
         return "redirect:/person/resume";
+
     }
 
-    @GetMapping("/person/resume/{id}/detail/updateForm")
+    @GetMapping("/person/resume/detail/{id}/updateForm")
     public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
-        ResumeResponse.DetailDTO detailDTO= resumeRepository.findById(id);
-        request.setAttribute("resume", detailDTO);
+//        Resume resume = resumeRepository.findById(id);
+//        ResumeResponse.DetailDTO  detailDTO= new ResumeResponse.DetailDTO(new Resume());
+//        request.setAttribute("resume", detailDTO);
         return "person/updateResumeForm";
     }
+
 
     @PostMapping("/person/resume/{id}/detail/update")
     public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request, @RequestParam("skills") List<String> skills) {
@@ -177,9 +178,10 @@ public class ResumeController {
         request.setAttribute("resume", requestDTO);
         request.setAttribute("skills", skills);
         return "redirect:/person/resume/"+id+"/detail";
+
     }
 
-    @PostMapping("/person/resume/{id}/detail/delete")
+    @PostMapping("/person/resume/detail/{id}/delete")
     public String personDeletePost(@PathVariable int id, HttpServletRequest request) {
         resumeRepository.delete(id);
         return "redirect:/person/resume";

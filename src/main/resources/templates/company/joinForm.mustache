@@ -6,25 +6,62 @@
     </div>
     <div class="d-flex justify-content-center">
         <div class="border rounded p-3 m-3 shadow" style="width: 300px;">
-            <form action="/company/join" method="post">
+            <form action="/company/join" method="post" enctype="multipart/form-data">
                 <div class="form-group form-floating m-3 mx-auto">
-                    <!-- id="" label for="" 안의 값이 같아야 연동됨 -->
-                    <!-- TODO: placeholder를 넣지 않는 방식 -->
+                    <div class="px-5 mt-5">
+                        <!-- 이미지 업로드 시작 -->
+                        <div class="upload d-flex justify-content-center mb-5 flex-column align-items-center">
+                            <div class="d-flex justify-content-center align-items-center"
+                                 style="width: 200px; height: 150px; border: 1px solid #E6E6E6; color: #E6E6E6;"
+                                 id="profilePreview">
+                                <b>사진을 등록해 주세요.</b>
+                            </div>
+                            <input type="file" id="imageUpload" name="profile" class="real-upload mx-auto d-block mt-2 w-50 h-50" accept="image/*" required
+                                   multiple>
+                        </div>
+                        <!-- 이미지 업로드 끝 -->
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function () {
+                        $('#imageUpload').change(function (event) {
+                            if (this.files && this.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
+                                };
+                                reader.readAsDataURL(this.files[0]);
+                                let fileName = this.files[0].name; // 'this'를 사용해서 파일 이름을 가져옵니다.
+                                console.log(fileName);
+                            }
+                        });
+                    });
+                </script>
+
+                <!-- 이미지 업로드 끝 -->
+
+
+                <div class="form-group form-floating m-3 mx-auto">
                     <input type="text" name="companyName" class="form-control" id="" value="hyeon" required>
-                    <!-- <input type="text" name="" class="form-control" id="" placeholder="회사명" required> -->
                     <label for="">회사명</label>
                 </div>
-                <!-- <div class="form-group form-floating m-3 mx-auto">
-                    <input type="text" name="" class="form-control" id="" required>
-                    <label for="">회사 주소</label>
-                </div> -->
                 <div class="form-group form-floating m-3 mx-auto">
-                    <input type="text" name="companyNum" maxlength="10" class="form-control" id="" value="12345679" required>
+                    <input type="text" name="companyNum" maxlength="10" class="form-control" id="" value="12345679"
+                           required>
                     <label for="">사업자 번호</label>
                 </div>
                 <div class="form-group form-floating m-3 mx-auto">
                     <input type="text" name="username" class="form-control" id="" value="hyeon" required>
                     <label for="">담당자 이름</label>
+                </div>
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="text" name="tel" class="form-control" id="tel" value="01030445555" required>
+                    <label for="">회사 주소</label>
+                </div>
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="text" name="address" class="form-control" id="address" value="부산광역시" required>
+                    <label for="">회사 주소</label>
                 </div>
                 <div class="form-group form-floating m-3 mx-auto">
                     <input type="email" name="email" class="form-control" id="" value="hyeon@nate.com" required>
@@ -39,9 +76,10 @@
                     <label for="">비밀번호 확인</label>
                 </div>
                 <!-- 비밀번호 체크 확인 알림창 -->
-                <div id="passwordCheckAlert"> </div>
+                <div id="passwordCheckAlert"></div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" href="#" class="btn btn-outline-primary mb-3 mt-4" style="width: 100%">가입하기</button>
+                    <button type="submit" href="#" class="btn btn-outline-primary mb-3 mt-4" style="width: 100%">가입하기
+                    </button>
                 </div>
             </form>
             <div class="text-center sj_login_join">

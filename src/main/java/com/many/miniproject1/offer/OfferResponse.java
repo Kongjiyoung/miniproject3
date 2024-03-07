@@ -1,5 +1,6 @@
 package com.many.miniproject1.offer;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -16,14 +17,18 @@ public class OfferResponse {
     }
 
     @Data
+    @AllArgsConstructor
     public static class OfferBoardDTO{
-        private Integer id;
-        private Integer companyId;
 
+        private Integer id;
         private String companyName;
         private Integer postId;
-        private String title;
         private Timestamp createdAt;
+        private String title;
+
+        public OfferBoardDTO() {
+
+        }
     }
 
     @Data

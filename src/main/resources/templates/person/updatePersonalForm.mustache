@@ -1,4 +1,7 @@
 {{> layout/header}}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
 <div class="container d-flex">
     <div class=" mx-2 pb-4 w-100">
         <div class="border border-tertiary p-5 rounded shadow">
@@ -7,17 +10,36 @@
                 <!-- 저장 버튼 아래로 위치 변경 -->
                 <!-- <button type="button" class="btn btn-dark" style="width:80px; height: 40px;">저장</button> -->
             </div>
-            <hr />
+            <hr/>
             <div>
                 <div class="container w-50 mt-5 text ">
-                    <div>
-                        <img class="mx-auto d-block mt-5 my-3 w-25" src="/images/person03.jpg" alt="이력서 사진">
-                    </div>
+
                     <form action="/person/info/update" method="post" enctype="multipart/form-data">
-                        <div class="input-group mb-3">
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" value="" id="" name="">
+                        <div class="px-5 mt-5">
+                            <!-- 이미지 업로드 시작 -->
+                            <div class="upload">
+                                <img src="{{user.profile}}" id="profileImage"
+                                     class=" mx-auto d-block mt-5 my-3 w-50 h-50">
+                                <ul class="image-preview mx-auto d-block mt-5 my-3 w-50 h-50"></ul>
+                                <input type="file" id="imageUpload" name="profile"
+                                       class="real-upload mx-auto d-block mt-5 my-3 w-50 h-50"
+                                       accept="image/*" required multiple>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#imageUpload').change(function (event) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            $('#profileImage').attr('src', e.target.result);
+                                        };
+                                        reader.readAsDataURL(event.target.files[0]);
+                                    });
+                                });
+                            </script>
+
+                            <!-- 이미지 업로드 끝 -->
+                        </div>
+                        <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">이름</span>
                             <input type="text" class="form-control" value="{{user.username}}" name="username" id="">
@@ -25,7 +47,7 @@
                         <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">생년월일</span>
-                            <input type="date" class="form-control" id=""value="1989-03-02">
+                            <input type="date" class="form-control" id="" value="1989-03-02">
                             <input type="hidden" class="form-control" value="{{user.birth}}" id="">
                         </div>
                         <div class="input-group mb-3">
@@ -43,19 +65,75 @@
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">이메일</span>
                             <input type="email" class="form-control" value="{{user.email}}" name="email" id="" readonly>
                         </div>
-                        <div class="input-group mb-3">
-                                <span
-                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">비밀번호</span>
-                            <input type="password" class="form-control" value="{{user.password}}" name="password" id="">
+                        <div class="mt-5">
+                            <h4 class="border-bottom pb-4">비밀번호 수정</h4>
                         </div>
-                        <div class="input-group mb-3">
-                                <span
-                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">비밀번호
-                                    확인</span>
-                            <input type="password" class="form-control" id="">
+                        <br>
+
+                        <div class="company-password">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text  justify-content-center hs_span_size init_color">기존 비밀번호</span>
+                                <input type="password" class="form-control" value="{{user.password}}" id=""
+                                       name="password">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text  justify-content-center hs_span_size init_color">비밀번호 확인</span>
+                                <input type="password" class="form-control" name="checkPassword"
+                                       id="checkPassword" placeholder="기존 비밀번호 입력">
+                            </div>
+                            <div class="d-flex justify-content-center" style="width: 100%;">
+                                <div style="width: 100%;">
+                                    <button type="submit" class="btn btn-outline-success mb-3"
+                                            style="width: 100%">확인
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div id="checkAlertBox"></div>
-                        <div id="checkAlertBox"></div>
+                        <div class="input-group mb-3 mt-3">
+                            <span class="input-group-text  justify-content-center hs_span_size init_color">변경 비밀번호</span>
+                            <input type="password" class="form-control" id="newPassword"
+                                   name="newPassword">
+                        </div>
+
+
+                        <script>
+                            // '확인' 버튼 클릭 이벤트
+                            document.querySelector('.company-password button[type="submit"]').addEventListener('click', function (e) {
+                                e.preventDefault();
+                                var oldPassword = document.querySelector('input[name="password"]').value;
+                                var confirmPassword = document.querySelector('input[name="checkPassword"]').value;
+
+                                // 기존 비밀번호와 확인 비밀번호가 일치하지 않으면
+                                if (oldPassword !== confirmPassword) {
+                                    // 경고 메시지를 출력합니다.
+                                    alert('기존 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+                                } else {
+                                    // 비밀번호가 일치하면 메시지를 출력합니다.
+                                    alert('비밀번호가 일치합니다. 변경하실 수 있습니다.');
+                                }
+                            });
+
+                            // '수정완료' 버튼 클릭 이벤트
+                            document.querySelector('button[type="submit"]:not(.company-password button)').addEventListener('click', function (e) {
+                                e.preventDefault(); // 폼 제출을 일시 중단합니다.
+
+                                var oldPassword = document.querySelector('input[name="password"]').value;
+                                var confirmPassword = document.querySelector('input[name="checkPassword"]').value;
+                                var newPassword = document.querySelector('input[name="newPassword"]').value;
+
+                                // 기존 비밀번호와 확인 비밀번호가 일치하지 않으면
+                                if (oldPassword !== confirmPassword) {
+                                    // 경고 메시지를 출력합니다.
+                                    alert('기존 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+                                } else {
+                                    // 새 비밀번호를 기존 비밀번호 필드에 덮어씌웁니다.
+                                    document.querySelector('input[name="password"]').value = newPassword;
+
+                                    // 폼 제출을 수행합니다.
+                                    document.querySelector('form').submit();
+                                }
+                            });
+                        </script>
                         <div class="d-flex justify-content-center mt-5" style="width: 100%;">
                             <div style="width: 100%;">
                                 <button type="submit" class="btn btn-outline-success mb-3"

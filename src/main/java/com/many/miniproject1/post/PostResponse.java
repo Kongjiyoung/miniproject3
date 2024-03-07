@@ -41,7 +41,7 @@ public class PostResponse {
 
         // 이거 문제생기면 생성자 안에 뭐 넣으면 됨
         public DetailDTO() {
-            
+
         }
     }
 
