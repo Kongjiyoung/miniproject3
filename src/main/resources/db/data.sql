@@ -65,7 +65,7 @@ values ('company', 'pickleplus@pickle.com', '1234', 'pickleplus_HR', '010-1234-5
 insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile,
                     created_at)
 values ('company', 'wadiz@wadiz.com', '1234', 'wadiz_HR', '010-1234-5678 ', '와디즈', '경기 성남시 분당구 판교로 242 A동 4층 와디즈',
-        '123-456-78910', '사진URL', now());
+        '123-456-78910', '/images/wadiz.png', now());
 
 
 --이력서정보 입력
@@ -101,42 +101,35 @@ VALUES (5, '백엔드 개발자', '/images/person04.jpg', 'http://qmfmqfqmf',
 어려운 저를 지식의 언어로 쉽게 풀어내는 것을 좋아합니다. 많은 사람에게 지식을 전파할 수 있는 사람이 되기를 원합니다.', '그린아카데미 3개월 차', '개발히 공부하는 꾸준자입니다', now());
 
 INSERT INTO resume_tb(person_id, title, profile, portfolio, introduce, career, simple_introduce, created_at)
-VALUES (6, '백엔드 개발자', '/images/person05.jgp', 'http://qmfmqfqmf',
-        '복잡한 문제를 구조화하고 추상화해 단순하게 풀어내는 것을 좋아합니다.
-꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.
+VALUES (6, '백엔드 개발자', '/images/person05.jgp', 'http://qmfmqfqmf', '복잡한 문제를 구조화하고 추상화해 단순하게 풀어내는 것을 좋아합니다. 꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.
 어려운 지식을 저만의 언어로 쉽게 풀어내는 것을 좋아합니다. 많은 사람에게 지식을 전파할 수 있는 사람이 되기를 원합니다.', '1년 근무', '꾸준히 개발하는 공부자입니다', now());
 
 --채용공고 입력
 -- 더미데이터 company_id변경 <= JOIN
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
-values (13, '데이터 분석가', '
-미들 (4~8년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+values (13, '데이터 분석가', '미들 (4~8년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         '데이터 관리, 분석, 시각화, 모델링을 통해 데이터로부터 정보를 추출하고 인사이트를 도출합니다.', '/images/company1.png', '경기 성남시 분당구', now());
 
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
-values (13, 'React Native 개발자 (경력 1년 이상)', '
-주니어 (1~3년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+values (14, 'React Native 개발자 (경력 1년 이상)', '주니어 (1~3년)', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'TypeScript, React Native 를 기반으로 Android / iOS 애플리케이션을 개발하고 배포합니다.', '/images/company2.jpg', '경기 성남시 분당구',
         now());
 
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
-values (13, '[인턴] 프론트엔드 개발자 (JavaScript)', '
-인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+values (15, '[인턴] 프론트엔드 개발자 (JavaScript)', '인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+        'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/NHNKCP.png', '경기 성남시 분당구', now());
+
+insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
+                    profile, working_area, created_at)
+values (16, '[인턴] 인프런 프론트엔드 개발자 (JavaScript)', '인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
 
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
-values (18, '[인턴] 프론트엔드 개발자 (JavaScript)', '
-인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
-        'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/company4.png', '경기 성남시 분당구', now());
-
-insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
-                    profile, working_area, created_at)
-values (18, '[인턴] 프론트엔드 개발자 (JavaScript)', '
-인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
+values (21, '[인턴] 프론트엔드 개자발 (JavaScript)', '인턴', '회사 내규에 따름', '처우는 채용 전형 진행 후 합격자에 대해 개인 별 협의 예정', '09:00', '18:00', '채용 시 마감',
         'VanillaJS (ES6) 를 기반으로 프론트엔드 기능을 개발하고 배포합니다.', '/images/wadiz.png', '경기 성남시 분당구', now());
 
 
@@ -170,6 +163,7 @@ values (1, 1, 13, 1, '합격');
 
 --제안
 --offer_tb content 삭제, 더미 추가
+--post_id가 5개 뿐이라 3을 4번 넣음
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (1, 1, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
@@ -184,7 +178,7 @@ VALUES (3, 3, 17, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (4, 3, 18, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (5, 3, 21, 1, now());
+VALUES (5, 5, 21, 1, now());
 
 
 
