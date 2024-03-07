@@ -1,7 +1,9 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1.user.User;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class PostResponse {
@@ -39,7 +41,7 @@ public class PostResponse {
 
         // 이거 문제생기면 생성자 안에 뭐 넣으면 됨
         public DetailDTO() {
-            
+
         }
     }
 
