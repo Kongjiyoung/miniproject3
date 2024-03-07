@@ -56,8 +56,9 @@ public class ScrapController {
 
     @PostMapping("/person/scrap/{id}/detail/delete")
     public String personScrapDelete(@PathVariable int id) {
-        scrapRepository.deleteByPostId(id);
-        return "redirect:/company/scrap";
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        scrapRepository.deleteByPostId(id, sessionUser.getId());
+        return "redirect:/person/scrap";
     }
 
     //기업 이력서 스크랩
@@ -93,7 +94,8 @@ public class ScrapController {
 
     @PostMapping("/company/scrap/{id}/detail/delete")
     public String companyScrapDelete(@PathVariable int id) {
-        scrapRepository.deleteByResumeId(id);
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        scrapRepository.deleteByResumeId(id,sessionUser.getId());
         return "redirect:/company/scrap";
     }
 

@@ -126,7 +126,7 @@ public class ApplyRepository {
                 FROM user_tb u
                 INNER JOIN resume_tb r ON u.id = r.person_id
                 INNER JOIN apply_tb a ON r.id = a.resume_id
-                WHERE a.company_id = ? AND r.id=?;
+                WHERE a.company_id = ? AND a.resume_id=?;
                 """;
         Query query = em.createNativeQuery(q);
         query.setParameter(1, companyId);
