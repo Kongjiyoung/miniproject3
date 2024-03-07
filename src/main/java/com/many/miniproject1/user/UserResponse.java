@@ -15,7 +15,8 @@ public class UserResponse {
         private String companyName;
         private String companyAddress;
         private String companyNum;
-        private MultipartFile profile;
+        private String profile;
         private String newPassword;
+        private String birth;
     }
 }

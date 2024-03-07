@@ -16,8 +16,6 @@
 
                     <form action="/person/info/update" method="post" enctype="multipart/form-data">
                         <div class="px-5 mt-5">
-
-
                             <!-- 이미지 업로드 시작 -->
                             <div class="upload">
                                 <img src="{{user.profile}}" id="profileImage"
@@ -67,19 +65,6 @@
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">이메일</span>
                             <input type="email" class="form-control" value="{{user.email}}" name="email" id="" readonly>
                         </div>
-                        <div class="input-group mb-3">
-                                <span
-                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">비밀번호</span>
-                            <input type="password" class="form-control" value="{{user.password}}" name="password" id="">
-                        </div>
-                        <div class="input-group mb-3">
-                                <span
-                                        class="input-group-text init_color justify-content-center hs_span_size hs_span">비밀번호
-                                    확인</span>
-                            <input type="password" class="form-control" id="">
-                        </div>
-                        <div id="checkAlertBox"></div>
-                        <div id="checkAlertBox"></div>
                         <div class="mt-5">
                             <h4 class="border-bottom pb-4">비밀번호 수정</h4>
                         </div>
@@ -130,14 +115,23 @@
 
                             // '수정완료' 버튼 클릭 이벤트
                             document.querySelector('button[type="submit"]:not(.company-password button)').addEventListener('click', function (e) {
-                                var form = document.querySelector('form');
+                                e.preventDefault(); // 폼 제출을 일시 중단합니다.
+
+                                var oldPassword = document.querySelector('input[name="password"]').value;
+                                var confirmPassword = document.querySelector('input[name="checkPassword"]').value;
                                 var newPassword = document.querySelector('input[name="newPassword"]').value;
 
-                                // 새 비밀번호를 기존 비밀번호 필드에 덮어씌웁니다.
-                                document.querySelector('input[name="password"]').value = newPassword;
+                                // 기존 비밀번호와 확인 비밀번호가 일치하지 않으면
+                                if (oldPassword !== confirmPassword) {
+                                    // 경고 메시지를 출력합니다.
+                                    alert('기존 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+                                } else {
+                                    // 새 비밀번호를 기존 비밀번호 필드에 덮어씌웁니다.
+                                    document.querySelector('input[name="password"]').value = newPassword;
 
-                                // 폼 제출을 수행합니다.
-                                form.submit();
+                                    // 폼 제출을 수행합니다.
+                                    document.querySelector('form').submit();
+                                }
                             });
                         </script>
                         <div class="d-flex justify-content-center mt-5" style="width: 100%;">

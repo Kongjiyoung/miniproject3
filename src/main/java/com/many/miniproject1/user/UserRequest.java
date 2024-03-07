@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserRequest {
     @Data
     public static class JoinDTO{
+        private MultipartFile profile; // 사용자가 업로드한 파일
+        private String profilePath; // 파일의 저장 경로
         private String role;
         private String email;
         private String password;
@@ -15,6 +17,7 @@ public class UserRequest {
         private String address;
         private String birth;
         private String tel;
+
     }
 
     @Data

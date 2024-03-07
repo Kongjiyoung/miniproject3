@@ -33,7 +33,7 @@ public class UserRepository {
 
     @Transactional
     public void companySave(UserRequest.JoinDTO requestDTO) {
-        Query query = em.createNativeQuery("insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at) values ('company', ?, ?, ?, ?, ?, ?, ?, '/images/company1.png', now());");
+        Query query = em.createNativeQuery("insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at) values ('company', ?, ?, ?, ?, ?, ?, ?,?, now());");
         query.setParameter(1, requestDTO.getEmail());
         query.setParameter(2, requestDTO.getPassword());
         query.setParameter(3, requestDTO.getUsername());
@@ -41,6 +41,7 @@ public class UserRepository {
         query.setParameter(5, requestDTO.getCompanyName());
         query.setParameter(6, requestDTO.getAddress());
         query.setParameter(7, requestDTO.getCompanyNum());
+        query.setParameter(8,requestDTO.getProfilePath());
 
         query.executeUpdate();
     }
