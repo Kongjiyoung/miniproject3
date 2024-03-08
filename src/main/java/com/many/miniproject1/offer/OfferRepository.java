@@ -220,4 +220,13 @@ public class OfferRepository {
 
         query.executeUpdate();
     }
+
+    @Transactional
+    public void offerDelete(int rid, int cid) {
+        Query query = em.createNativeQuery("DELETE FROM offer_tb WHERE resume_id = ? AND company_id = ? ");
+        query.setParameter(1, rid);
+        query.setParameter(2, cid);
+
+        query.executeUpdate();
+    }
 }

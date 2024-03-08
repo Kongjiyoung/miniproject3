@@ -48,10 +48,11 @@ public class OfferController {
         return "company/mypageResumeDetail";
     }
     // 제안한 이력서 제거
-    @PostMapping("/company/offetr/{id}/detail/delete")
-    public void offerDelete(@PathVariable int id, HttpServletRequest request){
-        offerRepository.offerDelete(id);
-        request.setAttribute("deleteByOfferId",id);
+    @PostMapping("/company/offer/{id}/detail/delete")
+    public String offerDelete(@PathVariable int id, HttpServletRequest request){
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        offerRepository.offerDelete(id, sessionUser.getId());
+        return "redirect:/company/offers";
     }
 
     @GetMapping("/v")

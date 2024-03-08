@@ -132,9 +132,9 @@ VALUES (1, 1, 13, 1, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (2, 2, 13, 2, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (3, 3, 13, 1, now());
+VALUES (3, 3, 13, 3, now());
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
-VALUES (2, 3, 16, 1, now());
+VALUES (4, 3, 16, 4, now());
 
 INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 VALUES (3, 3, 13, 1, now());
