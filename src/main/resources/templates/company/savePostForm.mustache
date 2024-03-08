@@ -4,33 +4,15 @@
         <div class="border border-tertiary p-5 rounded shadow">
             <h1 class="d-inline-flex">공고 등록하기</h1>
             <hr>
-
-            <div class="upload px-5 mt-5">
-                <!--                <form action="/upload" method="post">-->
-                <!--                    <div>-->
-                <!--                        <input type="text" name="title" placeholder="사진제목...">-->
-                <!--                        <input type="file" name="imgFile">-->
-                <!--                        <button>사진업로드</button>-->
-                <!--                    </div>-->
-                <!--                </form>-->
-                <!--                <div id="companyLogo"-->
-                <!--                     class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25 "></div>-->
-            </div>
-            <!--            <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>-->
-            <!--            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required multiple>-->
             <form action="/company/post/save" method="post">
-                <!-- enctype="multipart/form-data" -->
                 <input type="hidden" id="companyId" name="companyId" value="{{sessionUser.id}}">
 
                 <div class="px-5 mt-5">
                     <!-- 이미지 업로드 시작 -->
                     <input type="hidden" id="profile" name="profile" value="{{sessionUser.profile}}"/>
-                    <div class="upload"><img src="/images/{{sessionUser.profile}}" id="profile"
+                    <div class="view-profile"><img src="/images/{{sessionUser.profile}}" id="viewProfile"
                                              class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25">
                     </div>
-                    <!--                                <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>-->
-                    <!--                                <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*" required-->
-                    <!--                                       multiple>-->
                     <!-- 이미지 업로드 끝 -->
                 </div>
                 <label for="companyName"><b>공고명</b></label>

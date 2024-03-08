@@ -26,13 +26,15 @@
                             overflow: hidden;
                             text-overflow: ellipsis;
                           ">{{title}}</h5>
-                            <p style=" margin: 5px;
+                            {{#skillList}}
+                                <p style=" margin: 5px;
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            "><span>Java</span> | <span>Spring</span></p>
+                            "><span>{{.}}</span></p>
+                            {{/skillList}}
                             <p style="  margin: 5px;
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
@@ -43,9 +45,9 @@
                         </div>
                     </a>
                     <!-- 삭제하기 버튼 아직 안 됨(디테일에서는 됨) -->
-                    <div class="d-flex justify-content-center">
-                        <a href="#" class="btn btn-outline-danger mb-3" style="width: 100%">삭제하기</a>
-                    </div>
+                    <form action="/company/post/detail/{{id}}/delete" method="post" class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-outline-danger mb-3" style="width: 100%">삭제하기</button>
+                    </form>
                 </li>
             {{/postList}}
         </ul>

@@ -12,9 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -89,7 +95,6 @@ public class ResumeController {
 
     @GetMapping("/person/resume/saveForm")
     public String personSaveResumeForm(ResumeRequest.SaveDTO requestDTO, HttpServletRequest request) {
-
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/person/loginForm";
@@ -107,7 +112,6 @@ public class ResumeController {
 
     @PostMapping("/person/resume/save")
     public String personSaveResume(ResumeRequest.SaveDTO requestDTO, HttpServletRequest request, @RequestParam("skills") List<String> skills) {
-
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null) {
             return "redirect:/person/loginForm";
@@ -115,7 +119,27 @@ public class ResumeController {
 
         System.out.println(requestDTO);
 
+        // 이력서 업로드(이미지 포함)
 
+        // 1. 데이터 전달 받고
+        MultipartFile profile = requestDTO.getProfile(); // 변경된 변수명으로 수정
+
+        // 2. 파일저장 위치 설정해서 파일을 저장 (UUID 붙여서 롤링)
+        String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename(); // 변경된 변수명으로 수정
+
+        Path profilePath = Paths.get("./images/" + profileFilename); // 변경된 변수명으로 수정
+
+        try {
+            Files.write(profilePath, profile.getBytes());
+
+            // 3. DB에 저장 (title, realFileName)
+//            resumeRepository.save(requestDTO, profileFilename);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // 스킬
         List<SkillRequest.SaveDTO> skillDTOs = new ArrayList<>(); // 스킬을 저장할 DTO 리스트 생성
 
         // 각 스킬을 SkillRequest.SaveDTO 형태로 변환하여 리스트에 추가
@@ -127,7 +151,7 @@ public class ResumeController {
         }
 
         // 변환된 스킬 DTO 리스트를 사용하여 저장
-        int resumeId = resumeRepository.save(requestDTO);
+        int resumeId = resumeRepository.save(requestDTO, profileFilename);
         skillRepository.saveSkillsFromResume(skillDTOs, resumeId);
         request.setAttribute("resume", requestDTO);
         request.setAttribute("skills", skills);
