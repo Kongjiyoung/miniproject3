@@ -267,30 +267,6 @@ public class MainController {
         return "person/matching";
     }
 
-//    @GetMapping("/matching/resume/detail/{id}")
-//    public String matchingResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
-//        System.out.println("id: " + id);
-//
-//        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
-//        List<String> skills = skillRepository.findByResumeId(id);
-//
-//        //detailDTO.setSkill(skills);
-//
-//        request.setAttribute("resume", detailDTO);
-//        return "person/resumeDetail";
-//    }
-//
-//    @PostMapping("/matching/resume/detail/{id}/offer")
-//    public String matchingCompanyResumeOffer() {
-//
-//        return "redirect:/matching/resume/detail/{id}";
-//    }
-//
-//    @PostMapping("/matching/resume/detail/{id}/scrap")
-//    public String matchingCompanyResumeScrap() {
-//        return "redirect:/matching/resume/detail/{id}";
-//    }
-
     //맞춤 공고 - 개인이 보는 매칭 공고
     @GetMapping("/person/matchingform")
     public String matchingPostForm(HttpServletRequest request,MainRequest.postIdDTO requestDTO) {
