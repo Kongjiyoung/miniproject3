@@ -3,7 +3,6 @@ package com.many.miniproject1.resume;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeResponse {
@@ -50,7 +49,7 @@ public class ResumeResponse {
         private String introduce;
         private String career;
         private String simpleIntroduce;
-        private List<String> skills;
+        private List<String> skill;
         private Timestamp createdAt;
         private String email;
         private String username;
@@ -58,7 +57,7 @@ public class ResumeResponse {
         private String address;
         private String birth;
 
-        public DetailSkillDTO(DetailDTO resume, List<String> skills) {
+        public DetailSkillDTO(DetailDTO resume, List<String> skill) {
             this.id = resume.getId();
             this.personId = resume.getPersonId();
             this.title = resume.getTitle();
@@ -73,11 +72,11 @@ public class ResumeResponse {
             this.tel = resume.getTel();
             this.address = resume.getAddress();
             this.birth = resume.getBirth();
-            this.skills = skills;
+            this.skill = skill;
         }
 
-        public List<String> getSkills() {
-            return skills;
+        public DetailSkillDTO() {
+
         }
     }
 
@@ -109,7 +108,7 @@ public class ResumeResponse {
         private String introduce;
         private String career;
         private String simpleIntroduce;
-        private List<String> skill = new ArrayList<>();
+        private List<String> skills;
         private Timestamp createdAt;
     }
 }

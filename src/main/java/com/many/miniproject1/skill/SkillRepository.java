@@ -66,6 +66,17 @@ public class SkillRepository {
 
 
     @Transactional
+    public void saveSkillsFromResume(List<SkillRequest.SaveDTO> skillDTOs, int resumeId) {
+        for (SkillRequest.SaveDTO requestDTO : skillDTOs) {
+            Query query = em.createNativeQuery("insert into skill_tb(skill, resume_id, created_at) values (?, ?, now())");
+            query.setParameter(1, requestDTO.getSkill());
+            query.setParameter(2, resumeId);
+
+            query.executeUpdate();
+        }
+    }
+
+    @Transactional
     public void saveSkillsFromPost(List<SkillRequest.SaveDTO> skillDTOs, int postId) {
         for (SkillRequest.SaveDTO requestDTO : skillDTOs) {
             Query query = em.createNativeQuery("insert into skill_tb(skill, post_id, created_at) values (?, ?, now())");
@@ -77,7 +88,7 @@ public class SkillRepository {
     }
 
     @Transactional
-    public void resetSkill(int id) {
+    public void resetSkill(int id) { // 포스트/이력서를 업데이트 할 때 기존 스킬들을 리셋해서 다시 체크하게 하기 위해서 사용하는 것이다.
         Query query = em.createNativeQuery("DELETE FROM skill_tb WHERE post_id=?");
         query.setParameter(1, id);
 

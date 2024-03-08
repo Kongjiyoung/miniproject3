@@ -1,0 +1,95 @@
+{{> layout/header}}
+<div class="container d-flex">
+    <div class=" mx-2 pb-4 w-100">
+        <div class="border border-tertiary p-5 rounded shadow">
+            <h1></h1>
+            <div class="d-flex justify-content-start mx-2">
+            </div>
+            <div>
+                <h3>{{resume.title}}</h3>
+                <form action="/company/scrap/{{resume.id}}/detail/delete" method="post">
+                    <div class="d-flex justify-content-center mx-4">
+                        <button class="btn btn-outline-success" type="submit">제안하기</button>
+                    </div>
+                </form>
+                <form action="/person/scrap/{{resume.id}}/detail/delete" method="post">
+                    <div class="d-flex justify-content-center mx-4">
+                        <button class="btn btn-outline-success" type="submit">취소하기</button>
+                    </div>
+                </form>
+            </div>
+            <hr>
+
+            <div class="d-flex justify-content-center">
+                <div style="width: 85%;">
+
+                    <div class="jh_resume_flexbox mt-3">
+                        <!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
+                        <img src="{{resume.profile}}" alt="프로필 사진" style="width: 188px; height: 226px;">
+                        <table class="resume_table">
+                            <tr>
+                                <td>{{resume.username}}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>{{resume.birth}}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>{{resume.tel}}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>{{resume.address}}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>{{resume.email}}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mt-5">
+                        <h4>커리어</h4>
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
+                            {{resume.career}}
+                        </textarea>
+                        <h4>간단 소개</h4>
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
+                            {{resume.simpleIntroduce}}
+                        </textarea>
+                        <h4>포트폴리오 주소</h4>
+                        <input type="url" class="form-control mt-2" id="" style="display: block;"
+                               value="{{resume.portfolio}}" readOnly>
+                    </div>
+                    <div class="mt-5 jh_resume_skill">
+                        <h4>기술스택</h4>
+                        <div>
+                            <ul>
+                                {{#resume.skills}}
+                                    <li>{{.}}</li>
+                                {{/resume.skills}}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-5 w-100">
+                        <h4>자기소개</h4>
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
+                            {{resume.introduce}}
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 시작 -->
+    <div class="list-group mx-2">
+        <a href="/company/info" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
+        <a href="/company/post" class="list-group-item shadow">공고 관리</a>
+        <a href="/company/resume" class="list-group-item hs_list_effect shadow">받은 이력서</a>
+        <a href="/company/scrap" class="list-group-item shadow">스크랩한 이력서</a>
+        <a href="/company/offers" class="list-group-item shadow">제안한 이력서</a>
+    </div>
+    <!-- list-group( 오른쪽 바로가기) 끝 -->
+</div>
+{{> layout/footer}}

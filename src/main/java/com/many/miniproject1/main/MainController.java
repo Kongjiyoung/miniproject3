@@ -18,10 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,7 @@ public class MainController {
     private final OfferRepository offerRepository;
     private final ApplyRepository applyRepository;
     private final ScrapRepository scrapRepository;
-
+    private Integer postChoose;
 
     //메인 구직 공고
     @GetMapping("/company/main")
@@ -128,7 +125,7 @@ public class MainController {
 
 
         System.out.println(saveDTO);
-        offerRepository.save(saveDTO, id);
+        offerRepository.save(saveDTO);
 
         return "redirect:/resume/detail/{id}";
     }
@@ -270,32 +267,34 @@ public class MainController {
         return "person/matching";
     }
 
-    @GetMapping("/matching/resume/detail/{id}")
-    public String matchingResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
-        System.out.println("id: " + id);
-
-        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
-        List<String> skills = skillRepository.findByResumeId(id);
-
-        //detailDTO.setSkill(skills);
-
-        request.setAttribute("resume", detailDTO);
-        return "person/resumeDetail";
-    }
-
-    @PostMapping("/matching/resume/detail/{id}/offer")
-    public String matchingCompanyResumeOffer() {
-        return "redirect:/matching/resume/detail/{id}";
-    }
-
-    @PostMapping("/matching/resume/detail/{id}/scrap")
-    public String matchingCompanyResumeScrap() {
-        return "redirect:/matching/resume/detail/{id}";
-    }
+//    @GetMapping("/matching/resume/detail/{id}")
+//    public String matchingResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
+//        System.out.println("id: " + id);
+//
+//        ResumeResponse.DetailDTO detailDTO = resumeRepository.findById(id);
+//        List<String> skills = skillRepository.findByResumeId(id);
+//
+//        //detailDTO.setSkill(skills);
+//
+//        request.setAttribute("resume", detailDTO);
+//        return "person/resumeDetail";
+//    }
+//
+//    @PostMapping("/matching/resume/detail/{id}/offer")
+//    public String matchingCompanyResumeOffer() {
+//
+//        return "redirect:/matching/resume/detail/{id}";
+//    }
+//
+//    @PostMapping("/matching/resume/detail/{id}/scrap")
+//    public String matchingCompanyResumeScrap() {
+//        return "redirect:/matching/resume/detail/{id}";
+//    }
 
     //맞춤 공고 - 개인이 보는 매칭 공고
-    @GetMapping("/person/matching")
-    public String matchingPostForm(HttpServletRequest request) {
+    @GetMapping("/person/matchingform")
+    public String matchingPostForm(HttpServletRequest request,MainRequest.postIdDTO requestDTO) {
+        //공고 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(sessionUser);
         Integer userId = sessionUser.getId();
@@ -303,20 +302,88 @@ public class MainController {
         request.setAttribute("postList", postList);
 
 
+
+        //매칭할 공고 가져오기
+        int postChoose=requestDTO.getPostId();
+
+        //매칭할 공고 스킬 가져와 리스트에 담기
+        List<String> postSkill=skillRepository.findByPostId(postChoose);
+        //전체 이력서 새로운 이력서점수리스트에 담기, 점수는 0으로 시작
+        List<MainResponse.ResumeSkillDTO> resumeSkillScore=new ArrayList<>();
+        for (int i=0; i<skillRepository.findAll().size();i++){
+            int resumeId=skillRepository.findAll().get(i).getResumeId();
+            resumeSkillScore.add(new MainResponse.ResumeSkillDTO(resumeId, 0));
+        }
+        //공고스킬만큼 반복문 돌리기
+        for(int i=0; i<postSkill.size();i++){
+            //모든 스킬테이블에서 비교하기위해 반복문 돌리기
+            for(int j=0; j<skillRepository.findAll().size();j++){
+                //스킬테이블과 공고스킬 비교하기
+                if(postSkill.get(i)==skillRepository.findAll().get(j).getSkill()){
+                    //스킬테이블에서 같은 스킬 찾아서 거기 이력서아이디 가져오기
+                    int resumeId=skillRepository.findAll().get(j).getId();
+                    //이력서점수리스트 만큼 반복문 돌리기
+                    for (int k = 0; k < resumeSkillScore.size(); k++) {
+                        //이력서점수리스트의 이력서아이디와 스킬테이블 이력서 아이디와 같으면 이력서 점수리스트에 해당하는 점수 1점 올리기
+                        if(resumeSkillScore.get(k).getResumeId()==resumeId){
+                            resumeSkillScore.get(k).setScore(resumeSkillScore.get(k).getScore() + 1);
+                        }
+                    }
+                }
+            }
+        }
+        //2점이상 이력서아이다만 가져와 리스트 만들기
+        List<Integer>finalResumeSkillScore=new ArrayList<>();
+        for (int i=0; i<resumeSkillScore.size();i++){
+            if(resumeSkillScore.get(i).getScore()>1){
+                int two=resumeSkillScore.get(i).getResumeId();
+                finalResumeSkillScore.add(two);
+            }
+        }
+
+        List<ResumeResponse.DetailDTO> resumeList =new ArrayList<>();
+
+        for (int i=0; i<finalResumeSkillScore.size();i++){
+            int resumeId=finalResumeSkillScore.get(i);
+            resumeList.add(mainRepository.findMainResume(resumeId));
+        }
+
+        request.setAttribute("resumeList", resumeList);
+        System.out.println(resumeList.size());
+
+        ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
+        for (int i = 0; i < resumeList.size(); i++) {
+            List<String> skills = skillRepository.findByResumeId(resumeList.get(i).getId());
+            System.out.println(skills);
+            ResumeResponse.DetailDTO resume = resumeList.get(i);
+            System.out.println(resume);
+
+            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume, skills));
+            System.out.println(resumeSkillList.get(i));
+        }
+
+
+
         return "company/matching";
     }
 
-    @GetMapping("/matching/post/detail/{id}")
-    public String matchingPostDetailForm(@PathVariable int id, HttpServletRequest request) {
-
-        PostResponse.DetailDTO detailDTO = postRepository.findById(id);
-        List<String> skills = skillRepository.findByResumeId(id);
-
-        detailDTO.setSkill(skills);
-
-        request.setAttribute("post", detailDTO);
-        return "company/postDetail";
+    @PostMapping("/person/matching")
+    public String matchingPost(@RequestParam("postChoice") Integer postChoice) {
+        postChoose=postChoice;
+        return  "redirect:/person/matchingform";
     }
+//
+//    @GetMapping("/matching/post/detail/{id}")
+//    public String matchingPostDetailForm(@PathVariable int id, HttpServletRequest request) {
+//
+//        PostResponse.DetailDTO detailDTO = postRepository.findById(id);
+//        List<String> skills = skillRepository.findByResumeId(id);
+//
+//        detailDTO.setSkill(skills);
+//
+//        request.setAttribute("post", detailDTO);
+//        return "company/postDetail";
+//    }
 }
 
 
