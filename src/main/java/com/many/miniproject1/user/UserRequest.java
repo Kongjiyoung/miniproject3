@@ -38,9 +38,6 @@ public class UserRequest {
         private String username;
         private String tel;
         private String newPassword;
-
-
-
     }
     @Data
     public static class PersonUpdateDTO {

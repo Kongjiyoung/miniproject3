@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,16 +49,17 @@ public class UserController {
             try {
                 String absolutePath = userFileService.saveFile(profileImage);  // 파일 저장 및 절대 경로 반환
                 String filename = Paths.get(absolutePath).getFileName().toString();  // 파일 이름 추출
-                profilePath = "/images/" + filename;  // 웹 서버의 상대 경로 생성
-//                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
+
+                // 원하시는 부분: filename을 그대로 profilePath에 할당합니다.
+                profilePath = filename;  // 웹 서버의 상대 경로 생성이 아닌 파일 이름 그대로 저장
 
                 // 실제로 저장된 파일의 이름 출력
-                System.out.println("Saved file path: " + profilePath);
+                System.out.println("Saved file name: " + profilePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        requestDTO.setProfilePath(profilePath); // 프로필 이미지 경로를 DTO에 설정
+        requestDTO.setProfilePath(profilePath); // 프로필 이미지 이름을 DTO에 설정
         userRepository.companySave(requestDTO);
         return "redirect:/company/loginForm";
     }
@@ -106,16 +108,17 @@ public class UserController {
             try {
                 String absolutePath = userFileService.saveFile(profileImage);  // 파일 저장 및 절대 경로 반환
                 String filename = Paths.get(absolutePath).getFileName().toString();  // 파일 이름 추출
-                profilePath = "/images/" + filename;  // 웹 서버의 상대 경로 생성
-//                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
+
+                // 원하시는 부분: filename을 그대로 profilePath에 할당합니다.
+                profilePath = filename;  // 웹 서버의 상대 경로 생성이 아닌 파일 이름 그대로 저장
 
                 // 실제로 저장된 파일의 이름 출력
-                System.out.println("Saved file path: " + profilePath);
+                System.out.println("Saved file name: " + profilePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        requestDTO.setProfilePath(profilePath); // 프로필 이미지 경로를 DTO에 설정
+        requestDTO.setProfilePath(profilePath); // 프로필 이미지 이름을 DTO에 설정
         userRepository.personSave(requestDTO);
         return "redirect:/person/loginForm";
     }
@@ -198,34 +201,39 @@ public class UserController {
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
+
+        // 이미지 파일 처리
         MultipartFile profileImage = requestDTO.getProfile();
         String profilePath = null;
         if (profileImage != null && !profileImage.isEmpty()) {
-            // 이미지 파일 처리
-
             try {
-//                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
-                String absolutePath = userFileService.saveFile(profileImage);  // 파일 저장 및 절대 경로 반환
-                String filename = Paths.get(absolutePath).getFileName().toString();  // 파일 이름 추출
-                profilePath = "/images/" + filename;  // 웹 서버의 상대 경로 생성
-                // 실제로 저장된 파일의 이름 출력
+                String absolutePath = userFileService.saveFile(profileImage);
+                String filename = Paths.get(absolutePath).getFileName().toString();
+                profilePath = filename;
                 System.out.println("Saved file path: " + profilePath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+} else {
+// 이미지를 선택하지 않은 경우, 기존 이미지 경로를 가져옴
+User existingUser = userRepository.findById(sessionUser.getId());
+profilePath = existingUser.getProfile();
         }
 
-        User user = userRepository.findById(sessionUser.getId());
-//        session.setAttribute("sessionUser", user);
+User user = userRepository.findById(sessionUser.getId());
         request.setAttribute("user", user);
 
-        requestDTO.setProfilePath(profilePath); // 프로필 이미지 경로를 DTO에 설정
-        userRepository.companyUpdate(requestDTO, sessionUser.getId(), requestDTO.getNewPassword());
+        // 새 비밀번호가 비어있으면 기존 비밀번호를 사용하도록 설정
+        if (StringUtils.isEmpty(requestDTO.getNewPassword())) {
+            requestDTO.setNewPassword(user.getPassword());
+        }
+
+        requestDTO.setProfilePath(profilePath);
+        userRepository.companyUpdate(requestDTO, sessionUser.getId());
 
         System.out.println(requestDTO);
         return "redirect:/company/info";
     }
-
     //개인 프로필 정보 및 수정
     @GetMapping("/person/info")
     public String personal(HttpServletRequest request) {
@@ -259,29 +267,35 @@ public class UserController {
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
+
+        // 이미지 파일 처리
         MultipartFile profileImage = requestDTO.getProfile();
         String profilePath = null;
         if (profileImage != null && !profileImage.isEmpty()) {
-            // 이미지 파일 처리
-
             try {
-//                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
-                String absolutePath = userFileService.saveFile(profileImage);  // 파일 저장 및 절대 경로 반환
-                String filename = Paths.get(absolutePath).getFileName().toString();  // 파일 이름 추출
-                profilePath = "/images/" + filename;  // 웹 서버의 상대 경로 생성
-                // 실제로 저장된 파일의 이름 출력
+                String absolutePath = userFileService.saveFile(profileImage);
+                String filename = Paths.get(absolutePath).getFileName().toString();
+                profilePath = filename;
                 System.out.println("Saved file path: " + profilePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            // 이미지를 선택하지 않은 경우, 기존 이미지 경로를 가져옴
+            User existingUser = userRepository.findById(sessionUser.getId());
+            profilePath = existingUser.getProfile();
         }
 
         User user = userRepository.findById(sessionUser.getId());
-//        session.setAttribute("sessionUser", user);
         request.setAttribute("user", user);
 
-        requestDTO.setProfilePath(profilePath); // 프로필 이미지 경로를 DTO에 설정
-        userRepository.personUpdate(requestDTO, sessionUser.getId(), requestDTO.getNewPassword());
+        // 새 비밀번호가 비어있으면 기존 비밀번호를 사용하도록 설정
+        if (StringUtils.isEmpty(requestDTO.getNewPassword())) {
+            requestDTO.setNewPassword(user.getPassword());
+        }
+
+        requestDTO.setProfilePath(profilePath);
+        userRepository.personUpdate(requestDTO, sessionUser.getId());
 
         System.out.println(requestDTO);
         return "redirect:/person/info";

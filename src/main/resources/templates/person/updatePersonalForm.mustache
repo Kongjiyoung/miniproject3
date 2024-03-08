@@ -19,12 +19,12 @@
                         <div class="px-5 mt-5">
                             <!-- 이미지 업로드 시작 -->
                             <div class="upload">
-                                <img src="{{user.profile}}"
+                                <img src="/images/{{user.profile}}"
                                      id="profileImage"
                                      class=" mx-auto d-block mt-5 my-3 w-25">
                                 <ul class="image-preview mx-auto d-block mt-5 my-3 w-50 h-50"></ul>
                                 <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*"
-                                       name="profile" id="imageUpload" multiple required>
+                                       name="profile" id="imageUpload" multiple>
                             </div>
                             <script>
                                 $(document).ready(function () {
@@ -33,6 +33,10 @@
                                         reader.onload = function (e) {
                                             $('#profileImage').attr('src', e.target.result);
                                         };
+                                        // 선택된 파일이 없다면(이미지 변경이 없다면) 기존 이미지로 설정
+                                        if (event.target.files.length === 0) {
+                                            $('#profileImage').attr('src', '/images/{{user.profile}}');
+                                        }
                                         reader.readAsDataURL(event.target.files[0]);
                                     });
                                 });
@@ -73,9 +77,9 @@
 
                         <div class="company-password">
                             <div class="input-group mb-3">
-                                <span class="input-group-text  justify-content-center hs_span_size init_color">기존 비밀번호</span>
-                                <input type="password" class="form-control" value="{{user.password}}" id=""
-                                       name="password">
+                                <span class="input-group-text  justify-content-center hs_span_size init_color">비밀번호</span>
+                                <input type="password" class="form-control" value="{{user.password}}" id="password"
+                                       name="password" readonly>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color">비밀번호 확인</span>

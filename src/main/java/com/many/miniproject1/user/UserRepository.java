@@ -1,5 +1,6 @@
 package com.many.miniproject1.user;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
@@ -81,23 +82,45 @@ public class UserRepository {
     }
 
     @Transactional
-    public void personUpdate(UserRequest.PersonUpdateDTO requestDTO, int id, String newPassword) {
-        Query query = em.createNativeQuery("update user_tb set profile = ?, username=?, tel=?,address=?,birth=?, email=?, password =? where id = ?");
+    public void personUpdate(UserRequest.PersonUpdateDTO requestDTO, int id) {
+        String updateQuery = "update user_tb set profile=?, username=?, tel=?, address=?, birth=?, email=?";
+
+        // Check if newPassword is not empty, then update the password
+        if (StringUtils.isNotEmpty(requestDTO.getNewPassword())) {
+            updateQuery += ", password=?";
+        }
+        updateQuery += " where id = ?";
+
+        Query query = em.createNativeQuery(updateQuery);
         query.setParameter(1, requestDTO.getProfilePath());
         query.setParameter(2, requestDTO.getUsername());
         query.setParameter(3, requestDTO.getTel());
         query.setParameter(4, requestDTO.getAddress());
         query.setParameter(5, requestDTO.getBirth());
         query.setParameter(6, requestDTO.getEmail());
-        query.setParameter(7, newPassword);
-        query.setParameter(8, id);
+
+        // If newPassword is not empty, set it; otherwise, set the existing password
+        if (StringUtils.isNotEmpty(requestDTO.getNewPassword())) {
+            query.setParameter(7, requestDTO.getNewPassword());
+            query.setParameter(8, id);
+        } else {
+            query.setParameter(7, requestDTO.getPassword());
+            query.setParameter(8, id);
+        }
 
         query.executeUpdate();
     }
 
     @Transactional
-    public void companyUpdate(UserRequest.CompanyUpdateDTO requestDTO, int id, String newPassword) {
-        Query query = em.createNativeQuery("update user_tb set profile=?, company_name =? , company_num=?, address=?, username=?, tel=?, email=?, password=? where id = ?");
+    public void companyUpdate(UserRequest.CompanyUpdateDTO requestDTO, int id) {
+        String updateQuery = "update user_tb set profile=?, company_name=?, company_num=?, address=?, username=?, tel=?, email=?";
+        // Check if newPassword is not empty, then update the password
+        if (StringUtils.isNotEmpty(requestDTO.getNewPassword())) {
+            updateQuery += ", password=?";
+        }
+        updateQuery += " where id = ?";
+
+        Query query = em.createNativeQuery(updateQuery);
         query.setParameter(1, requestDTO.getProfilePath());
         query.setParameter(2, requestDTO.getCompanyName());
         query.setParameter(3, requestDTO.getCompanyNum());
@@ -105,8 +128,15 @@ public class UserRepository {
         query.setParameter(5, requestDTO.getUsername());
         query.setParameter(6, requestDTO.getTel());
         query.setParameter(7, requestDTO.getEmail());
-        query.setParameter(8, newPassword);
-        query.setParameter(9, id);
+
+        // If newPassword is not empty, set it; otherwise, set the existing password
+        if (StringUtils.isNotEmpty(requestDTO.getNewPassword())) {
+            query.setParameter(8, requestDTO.getNewPassword());
+            query.setParameter(9, id);
+        } else {
+            query.setParameter(8, requestDTO.getPassword());
+            query.setParameter(9, id);
+        }
 
         query.executeUpdate();
     }

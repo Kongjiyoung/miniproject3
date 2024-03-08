@@ -30,19 +30,4 @@ public class UserFileService {
         // 파일의 상대 경로 반환
         return filePath;
     }
-
-//    public Resource loadFile(String filename) throws FileNotFoundException {
-//        try {
-//            Path file = Paths.get(uploadDir).resolve(filename);
-//            Resource resource = new UrlResource(file.toUri());
-//
-//            if (resource.exists() || resource.isReadable()) {
-//                return resource;
-//            } else {
-//                throw new FileNotFoundException("Unable to load file: " + filename);
-//            }
-//        } catch (MalformedURLException e) {
-//            throw new FileNotFoundException("Unable to load file: " + filename + e);
-//        }
-//    }
 }
