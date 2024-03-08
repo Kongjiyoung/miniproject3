@@ -69,7 +69,6 @@ public class ResumeRepository {
         query.setParameter(6, requestDTO.getCareer());
         query.setParameter(7, requestDTO.getSimpleIntroduce());
 
-
         query.executeUpdate();
 
         Query maxQquery = em.createNativeQuery("select max(id) from resume_tb");
@@ -77,12 +76,9 @@ public class ResumeRepository {
         return resumeId;
 
         // max pk 받아서 리턴!!
-
         // return 이력서 pk값
 
     }
-
-
 
     public List<ResumeResponse.DetailDTO> findresume(int u_id) {
         Query query = em.createNativeQuery("SELECT u.email, u.username, u.tel, u.address, u.birth, r.id, r.person_id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, r.created_at FROM user_tb u INNER JOIN resume_tb r ON u.id = r.person_id where r.person_id=?");
@@ -115,7 +111,7 @@ public class ResumeRepository {
     }
 
     @Transactional
-    public void update(int id, ResumeRequest.UpdateDTO requestDTO) {
+    public int update(int id, ResumeRequest.UpdateDTO requestDTO) {
 
         Query query = em.createNativeQuery("update resume_tb set title=?, profile=?, portfolio=?, introduce=?, career=?, simple_introduce=? where id = ?");
         query.setParameter(1, requestDTO.getTitle());
@@ -126,6 +122,17 @@ public class ResumeRepository {
         query.setParameter(6, requestDTO.getSimpleIntroduce());
         query.setParameter(7, id);
 
+        query.executeUpdate();
+
+
+        Query maxQquery = em.createNativeQuery("select max(id) from resume_tb");
+        Integer resumeId = (Integer) maxQquery.getSingleResult();
+        return resumeId;
+    }
+
+    public void skilldelete(int id) {
+        Query query = em.createNativeQuery("delete from skill_tb where resumeId = ?");
+        query.setParameter(1, id);
 
         query.executeUpdate();
     }

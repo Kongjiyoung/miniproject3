@@ -3,6 +3,7 @@ package com.many.miniproject1.skill;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostRequest;
 import com.many.miniproject1.post.PostResponse;
+import com.many.miniproject1.resume.ResumeResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
@@ -66,11 +67,11 @@ public class SkillRepository {
 
 
     @Transactional
-    public void saveSkillsFromResume(List<SkillRequest.SaveDTO> skillDTOs, int resumeId) {
-        for (SkillRequest.SaveDTO requestDTO : skillDTOs) {
+    public void saveSkillsFromResume(List<ResumeResponse.skillDTO> skillDTOs){
+        for (ResumeResponse.skillDTO requestDTO : skillDTOs) {
             Query query = em.createNativeQuery("insert into skill_tb(skill, resume_id, created_at) values (?, ?, now())");
             query.setParameter(1, requestDTO.getSkill());
-            query.setParameter(2, resumeId);
+            query.setParameter(2, requestDTO.getResumeId());
 
             query.executeUpdate();
         }

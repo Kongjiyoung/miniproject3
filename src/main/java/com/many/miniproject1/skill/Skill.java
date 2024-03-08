@@ -13,7 +13,7 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
     private String skill;
-    private Integer resumeId;
+    private Integer resumeId; //null
     private Integer postId; // null 허용 되어야 한다
     private Timestamp createdAt;
 }

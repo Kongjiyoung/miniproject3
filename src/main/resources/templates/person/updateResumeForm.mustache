@@ -1,188 +1,193 @@
 {{> layout/header}}
 <div class="container d-flex">
 
-    <form action="/person/resume/{{id}}/detail/update" method="post" enctype="application/x-www-form-urlencoded">
-        <input type="hidden" id="personId" name="personId" value="{{sessionUser.id}}">
-        <div class=" mx-2 pb-4 w-100">
-            <div class="border border-tertiary w-100 p-5 rounded shadow">
-                <h1><input type="text" placeholder="저를 뽑아주세요." style="width: 700px; border: none;margin-left: 80px;"
-                           class="" name="title" value="{{resume.title}}"></h1>
-                <hr>
-                <!-- <span>공개 여부 설정 |</span>
-                <select name="publish"> -->
-                <!-- 공개중인 경우 -->
-                <!-- <option value="true" selected>공개중</option>
-                    <option value="false">비공개중</option> -->
-                <!-- </c:when>
-                   <c:otherwise> -->
-                <!-- 비공개중인 경우 -->
-                <!-- <option value="true">공개중</option>
-                    <option value="false" selected>비공개중</option> -->
-                <!-- </select>
-                <hr> -->
-                <div class="container" style="width: 85%;">
-                    <div class="d-flex row justify-content-center">
-                        <div class="jh_resume_flexbox mt-3">
-                            <div class="form-group form-floating m-3 mx-auto">
-                                <div class="px-5 mt-5">
-                                    <!-- 이미지 업로드 시작 -->
-                                            <div class="upload">
-                                                <img src="/images/{{sessionUser.profile}}"
-                                                     id="profileImage"
-                                                     class=" mx-auto d-block mt-5 my-3 w-25">
-                                                <ul class="image-preview mx-auto d-block mt-5 my-3 w-50 h-50"></ul>
-                                                <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*"
-                                                       name="profile" id="imageUpload" multiple>
-                                            </div>
-
-                                    <!-- 이미지 업로드 끝 -->
+    <form action="/person/resume/{{resume.id}}/detail/update" method="post"
+          enctype="application/x-www-form-urlencoded">
+    <input type="hidden" id="personId" name="personId" value="{{sessionUser.id}}">
+    <div class=" mx-2 pb-4 w-100">
+        <div class="border border-tertiary w-100 p-5 rounded shadow">
+            <h1><input type="text" placeholder="저를 뽑아주세요." style="width: 700px; border: none;margin-left: 80px;"
+                       class="" name="title" value="{{resume.title}}"></h1>
+            <hr>
+            <!-- <span>공개 여부 설정 |</span>
+            <select name="publish"> -->
+            <!-- 공개중인 경우 -->
+            <!-- <option value="true" selected>공개중</option>
+                <option value="false">비공개중</option> -->
+            <!-- </c:when>
+               <c:otherwise> -->
+            <!-- 비공개중인 경우 -->
+            <!-- <option value="true">공개중</option>
+                <option value="false" selected>비공개중</option> -->
+            <!-- </select>
+            <hr> -->
+            <div class="container" style="width: 85%;">
+                <div class="d-flex row justify-content-center">
+                    <div class="jh_resume_flexbox mt-3">
+                        <div class="form-group form-floating m-3 mx-auto">
+                            <div class="px-5 mt-5">
+                                <!-- 이미지 업로드 시작 -->
+                                <div class="upload">
+                                    <img src="/images/{{sessionUser.profile}}"
+                                         id="profileImage"
+                                         class=" mx-auto d-block mt-5 my-3 w-25">
+                                    <ul class="image-preview mx-auto d-block mt-5 my-3 w-50 h-50"></ul>
+                                    <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25"
+                                           accept="image/*"
+                                           name="profile" id="imageUpload" multiple>
                                 </div>
+
+                                <!-- 이미지 업로드 끝 -->
                             </div>
-                            <script>
-                                $(document).ready(function () {
-                                    $('#imageUpload').change(function (event) {
-                                        var reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            $('#profileImage').attr('src', e.target.result);
-                                        };
-                                        // 선택된 파일이 없다면(이미지 변경이 없다면) 기존 이미지로 설정
-                                        if (event.target.files.length === 0) {
-                                            $('#profileImage').attr('src', '/images/{{sessionUser.profile}}');
-                                        }
-                                        reader.readAsDataURL(event.target.files[0]);
-                                    });
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#imageUpload').change(function (event) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        $('#profileImage').attr('src', e.target.result);
+                                    };
+                                    // 선택된 파일이 없다면(이미지 변경이 없다면) 기존 이미지로 설정
+                                    if (event.target.files.length === 0) {
+                                        $('#profileImage').attr('src', '/images/{{sessionUser.profile}}');
+                                    }
+                                    reader.readAsDataURL(event.target.files[0]);
                                 });
-                            </script>
-                                <div class="jh_resume_personal_info">
-                                    <div class="input-group mb-3">
+                            });
+                        </script>
+                        <div class="jh_resume_personal_info">
+                            <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">이름</span>
-                                        <input type="text" class="form-control" style="width: 120px;"
-                                               value="{{sessionUser.username}}" disabled
-                                               name="username">
-                                    </div>
-                                    <div class="input-group mb-3">
+                                <input type="text" class="form-control" style="width: 120px;"
+                                       value="{{sessionUser.username}}" disabled
+                                       name="username">
+                            </div>
+                            <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">생년월일</span>
-                                        <input type="date" class="form-control" style="width: 120px;"
-                                               value="{{sessionUser.birth}}" id="birthdateInput" name="birth"
-                                               disabled>
-                                    </div>
-                                    <script>
-                                        var birthdateString = "{{sessionUser.birth}}";
+                                <input type="date" class="form-control" style="width: 120px;"
+                                       value="{{sessionUser.birth}}" id="birthdateInput" name="birth"
+                                       disabled>
+                            </div>
+                            <script>
+                                var birthdateString = "{{sessionUser.birth}}";
 
-                                        // 문자열을 날짜 객체로 변환
-                                        var birthdate = new Date(birthdateString.substring(0, 4), birthdateString.substring(4, 6) - 1, birthdateString.substring(6, 8));
+                                // 문자열을 날짜 객체로 변환
+                                var birthdate = new Date(birthdateString.substring(0, 4), birthdateString.substring(4, 6) - 1, birthdateString.substring(6, 8));
 
-                                        // YYYY-MM-DD
-                                        var formattedBirthdate = birthdate.toISOString().substring(0, 10);
+                                // YYYY-MM-DD
+                                var formattedBirthdate = birthdate.toISOString().substring(0, 10);
 
-                                        // 바꾼 날짜형식으로 넣기
-                                        document.getElementById("birthdateInput").value = formattedBirthdate;
-                                    </script>
-                                    <div class="input-group mb-3">
+                                // 바꾼 날짜형식으로 넣기
+                                document.getElementById("birthdateInput").value = formattedBirthdate;
+                            </script>
+                            <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">연락처</span>
-                                        <input type="tel" class="form-control" value="{{sessionUser.tel}}" name="tel"
-                                               disabled>
-                                    </div>
-                                    <div class="input-group mb-3">
+                                <input type="tel" class="form-control" value="{{sessionUser.tel}}" name="tel"
+                                       disabled>
+                            </div>
+                            <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">주소</span>
-                                        <input type="text" class="form-control" value="{{sessionUser.address}}"
-                                               name="address"
-                                               disabled>
-                                    </div>
-                                    <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{sessionUser.address}}"
+                                       name="address"
+                                       disabled>
+                            </div>
+                            <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">이메일</span>
-                                        <input type="email" class="form-control" value="{{sessionUser.email}}" disabled>
-                                    </div>
-                                </div>
+                                <input type="email" class="form-control" value="{{sessionUser.email}}" disabled>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="container" style="width: 85%;">
-                    <div class="row justify-content-center">
-                        <div class="col-md-14 mx-auto">
-                            <input type="file" class="form-control mt-2" name=""/>
-                            <div class="mt-5">
-                                <h4>커리어</h4>
-                                <input type="text" name="career" class="w-100 opacity-50" value="저는 삼성에서 일했어요."
-                                       rows="10">
-                                <h4>간단 소개</h4>
-                                <input type="text" name="simpleIntroduce" class="w-100 opacity-50"
-                                       value="저는 삼성에서 일했어요.헤헤" rows="10">
-                                <h4>포트폴리오 주소</h4>
-                                <input type="text" class="form-control mt-2" id="portfolio" name="portfolio"
-                                       style="display: block;"
-                                       value="{{resume.portfolio}}" required>
-                            </div>
+            </div>
+            <div class="container" style="width: 85%;">
+                <div class="row justify-content-center">
+                    <div class="col-md-14 mx-auto">
+                        <input type="file" class="form-control mt-2" name=""/>
+                        <div class="mt-5">
+                            <h4>커리어</h4>
+                            <input type="text" name="career" class="w-100 opacity-50" value="저는 삼성에서 일했어요."
+                                   rows="10">
+                            <h4>간단 소개</h4>
+                            <input type="text" name="simpleIntroduce" class="w-100 opacity-50"
+                                   value="저는 삼성에서 일했어요.헤헤" rows="10">
+                            <h4>포트폴리오 주소</h4>
+                            <input type="text" class="form-control mt-2" id="portfolio" name="portfolio"
+                                   style="display: block;"
+                                   value="{{resume.portfolio}}" required>
                         </div>
-                        <div class="my-5">
-                            <h4>기존 기술스택</h4>
-                            <input type="hidden" value="${skillPS}" id="check">
-                            <div class="row row-cols-auto gap-3 justify-content-center my-3">
-                                <!-- 반복문: 이전에 체크했던 항목들 시작-->
-                                <input type="checkbox" name="skills" class="btn-check" id="java" value="java"
-                                       autocomplete="off">
-                                <label class="btn btn-outline-primary" for="java">JAVA</label>
-                                <input type="checkbox" name="skills" class="btn-check" id="flutter" value="flutter"
-                                       autocomplete="off">
-                                <label class="btn btn-outline-primary" for="flutter">Flutter</label>
-                                <!-- 반복문: 이전에 체크했던 항목들 끝 -->
+                    </div>
+                    <div class="my-5">
+                        <h4>기존 기술스택</h4>
+                        <input type="hidden" value="${skillPS}" id="check">
+                        <div class="row row-cols-auto gap-3 justify-content-center my-3">
+                            <!-- 반복문: 이전에 체크했던 항목들 시작-->
+                            <h6><span>{{#skills}}
+                                <button class="btn btn-outline-warning btn-sm disabled">
+                                    {{.}}
+                                </button>{{/skills}}</span></h6>
 
-                                <!-- 체크했던 항목 수정 가능하게 스택 추가 -->
-                                <div class="my-5">
-                                    <h4>기술스택 (최대 5개 선택)</h4>
-                                    <div class="row row-cols-auto gap-3 justify-content-center my-3">
-                                        <input type="checkbox" class="btn-check" id="btn1" value="java"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn1">java</label>
-                                        <input type="checkbox" class="btn-check" id="btn2" value="spring"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn2">spring</label>
-                                        <input type="checkbox" class="btn-check" id="btn3" value="html"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn3">html</label>
-                                        <input type="checkbox" class="btn-check" id="btn4" value="javascript"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn4">javascript</label>
-                                        <input type="checkbox" class="btn-check" id="btn5" value="sql" name="skills"
-                                               autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn5">sql</label>
-                                        <input type="checkbox" class="btn-check" id="btn6" value="android"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn6">android</label>
-                                        <input type="checkbox" class="btn-check" id="btn7" value="React"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn7">React</label>
-                                        <input type="checkbox" class="btn-check" id="btn8" value="Node.js"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn8">Node.js</label>
-                                        <input type="checkbox" class="btn-check" id="btn9" value="Express"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn9">Express</label>
-                                    </div>
+                            <!-- 반복문: 이전에 체크했던 항목들 끝 -->
+
+                            <!-- 체크했던 항목 수정 가능하게 스택 추가 -->
+                            <div class="my-5">
+                                <h4>기술스택 (최대 5개 선택)</h4>
+                                <div class="row row-cols-auto gap-3 justify-content-center my-3">
+                                    <input type="checkbox" class="btn-check" id="btn1" value="java"
+                                           name="skills" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn1">java</label>
+                                    <input type="checkbox" class="btn-check" id="btn2" value="spring"
+                                           name="skills" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn2">spring</label>
+                                    <input type="checkbox" class="btn-check" id="btn3" value="html"
+                                           name="skills" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn3">html</label>
+                                    <input type="checkbox" class="btn-check" id="btn4" value="javascript"
+                                           name="skills" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn4">javascript</label>
+                                    <input type="checkbox" class="btn-check" id="btn5" value="sql" name="skills"
+                                           autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn5">sql</label>
+                                    <input type="checkbox" class="btn-check" id="btn6" value="android"
+                                           name="skills" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn6">android</label>
+                                    <input type="checkbox" class="btn-check" id="btn7" value="React"
+                                           name="skills" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn7">React</label>
+                                    <input type="checkbox" class="btn-check" id="btn8" value="Node.js"
+                                           name="skills" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn8">Node.js</label>
+                                    <input type="checkbox" class="btn-check" id="btn9" value="Express"
+                                           name="skills" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btn9">Express</label>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <h4>자기소개</h4>
-                            <textarea name="introduce" class="w-100 opacity-50" rows="10"
-                                      placeholder="내용을 입력하세요">{{resume.introduce}}</textarea>
-                        </div>
-                        <div class="d-flex justify-content-center" style="width: 100%;">
+                    </div>
+                    <div>
+                        <h4>자기소개</h4>
+                        <textarea name="introduce" class="w-100 opacity-50" rows="10"
+                                  placeholder="내용을 입력하세요">{{resume.introduce}}</textarea>
+                    </div>
+                    <div class="d-flex justify-content-center" style="width: 100%;">
+
                             <button type="submit" class="btn btn-outline-success mb-3 mt-3"
                                     style="width: 100%">수정완료
                             </button>
-                            <a href="/person/resume/{{id}}/detail" class="btn btn-outline-danger mb-3 mt-3"
-                               style="width: 100%">취소</a>
+
+                        <div>
+                        <a href="/person/resume/{{id}}/detail" class="btn btn-outline-danger mb-3 mt-3"
+                           style="width: 100%">취소</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </form>
     <!-- list-group( 오른쪽 바로가기) 시작 -->
     <div class="list-group mx-2">

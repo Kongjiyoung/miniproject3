@@ -34,10 +34,9 @@ public class ResumeController {
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
-    public String personResumeForm(HttpServletRequest request, Skill skill) {
+    public String personResumeForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<ResumeResponse.DetailDTO> resumeList = resumeRepository.findresume(sessionUser.getId());
-        request.setAttribute("resumeList", resumeList);
         System.out.println(resumeList.size());
 
         ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
@@ -133,16 +132,16 @@ public class ResumeController {
         int resumeId = resumeRepository.save(requestDTO);
 
         // 스킬 저장
-        List<SkillRequest.SaveDTO> skillDTOs = new ArrayList<>();
-        for (String skill : skills) {
-            SkillRequest.SaveDTO skillDTO = new SkillRequest.SaveDTO();
+        List<ResumeResponse.skillDTO> skillDTOList=new ArrayList<>();
+        for(String skill:skills){
+            ResumeResponse.skillDTO skillDTO=new ResumeResponse.skillDTO();
             skillDTO.setSkill(skill);
             skillDTO.setResumeId(resumeId);
-            skillDTOs.add(skillDTO);
+            skillDTOList.add(skillDTO);
         }
 
         // 스킬 저장
-        skillRepository.saveSkillsFromResume(skillDTOs, resumeId);
+        skillRepository.saveSkillsFromResume(skillDTOList);
 
         request.setAttribute("resume", requestDTO);
         request.setAttribute("skills", skills);
@@ -193,23 +192,25 @@ public class ResumeController {
         }
         requestDTO.setProfilePath(profilePath);
 
+        resumeRepository.skilldelete(id);
+        requestDTO.setProfilePath(profilePath);
+        // 이력서 저장 및 저장된 이력서 ID 획득
+        int resumeId = resumeRepository.update(id, requestDTO);
 
-        System.out.println(1);
-        List<SkillRequest.SaveDTO> skillDTOs = new ArrayList<>(); // 스킬을 저장할 DTO 리스트 생성
-        System.out.println(2);
-        skillRepository.resetSkill(id);
-        for (String skill : skills) {
-            SkillRequest.SaveDTO skillDTO = new SkillRequest.SaveDTO();
+        // 스킬 저장
+        List<ResumeResponse.skillDTO> skillDTOList=new ArrayList<>();
+        for(String skill:skills){
+            ResumeResponse.skillDTO skillDTO=new ResumeResponse.skillDTO();
             skillDTO.setSkill(skill);
-            skillDTO.setResumeId(requestDTO.getId());
-            skillDTOs.add(skillDTO);
+            skillDTO.setResumeId(resumeId);
+            skillDTOList.add(skillDTO);
         }
 
+        // 스킬 저장
+        skillRepository.saveSkillsFromResume(skillDTOList);
+
 //        ResumeRequest.UpdateDTO updatedResume = resumeRepository.save(requestDTO); // 이력서 업데이트
-        resumeRepository.update(id, requestDTO);
-        System.out.println(requestDTO);
-        skillRepository.saveSkillsFromResume(skillDTOs, id);
-        System.out.println(3);
+
 //        ResumeResponse.DetailDTO UpdateDTO = resumeRepository.findById(id);
 //        resumeRepository.findById(id);
 
