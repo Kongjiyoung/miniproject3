@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
@@ -27,20 +28,6 @@ public class UserFileService {
         file.transferTo(dest);
 
         // 파일의 상대 경로 반환
-        return "/images/" + fileName;
-    }
-    public Resource loadFile(String filename) {
-        try {
-            Path file = Paths.get(uploadDir).resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            } else {
-                throw new RuntimeException("Could not read the file!");
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Could not read the file!", e);
-        }
+        return filePath;
     }
 }
