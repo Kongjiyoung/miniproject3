@@ -24,6 +24,11 @@ public class SkillRepository {
 
         return query.getResultList();
     }
+    public List<Skill> findResume() {
+        Query query = em.createNativeQuery("select * from skill_tb where resume_id IS NOT NULL", Skill.class);
+
+        return query.getResultList();
+    }
 
     public Skill findById(int id) {
         Query query = em.createNativeQuery("select * from skill_tb where id=?");
@@ -65,6 +70,20 @@ public class SkillRepository {
     }
 
 
+    public List<String> findSkillAndResumeId(int id) {
+
+        Query query = em.createNativeQuery("select skill from skill_tb where post_id=?");
+        query.setParameter(1, id);
+
+        List<String> rows = query.getResultList();
+        List<String> skills = new ArrayList<>();
+
+        for (String row : rows) {
+            skills.add(row);
+        }
+
+        return skills;
+    }
     @Transactional
     public void saveSkillsFromResume(List<SkillRequest.SaveDTO> skillDTOs, int resumeId) {
         for (SkillRequest.SaveDTO requestDTO : skillDTOs) {
