@@ -63,6 +63,7 @@ VALUES (6, '백엔드 개발자', '/images/person05.jgp', 'http://qmfmqfqmf', '�
 
 --채용공고 입력
 -- 더미데이터 company_id변경 <= JOIN
+
 insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task,
                     profile, working_area, created_at)
 values (13, '데이터 분석가', '

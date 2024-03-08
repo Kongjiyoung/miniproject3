@@ -23,30 +23,30 @@ public class ResumeRepository {
 
     public ResumeResponse.DetailDTO findById(int r_id) {
 
-            Query query = em.createNativeQuery("select r.id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, u.username, u.birth, u.tel, u.address, u.email from resume_tb r inner join user_tb u on r.person_id = u.id where r.id = ?");
+        Query query = em.createNativeQuery("select r.id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, u.username, u.birth, u.tel, u.address, u.email from resume_tb r inner join user_tb u on r.person_id = u.id where r.id = ?");
 
-            query.setParameter(1, r_id);
+        query.setParameter(1, r_id);
 
-            Object[] row = (Object[]) query.getSingleResult();
+        Object[] row = (Object[]) query.getSingleResult();
 
-            Integer id = (Integer) row[0];
-            String title = (String) row[1];
-            String profile = (String) row[2];
-            String portfolio = (String) row[3];
-            String introduce = (String) row[4];
-            String career = (String) row[5];
-            String simpleIntroduce = (String) row[6];
+        Integer id = (Integer) row[0];
+        String title = (String) row[1];
+        String profile = (String) row[2];
+        String portfolio = (String) row[3];
+        String introduce = (String) row[4];
+        String career = (String) row[5];
+        String simpleIntroduce = (String) row[6];
 
-            ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO();
-            responseDTO.setId(id);
-            responseDTO.setTitle(title);
-            responseDTO.setProfile(profile);
-            responseDTO.setPortfolio(portfolio);
-            responseDTO.setIntroduce(introduce);
-            responseDTO.setCareer(career);
-            responseDTO.setSimpleIntroduce(simpleIntroduce);
+        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO();
+        responseDTO.setId(id);
+        responseDTO.setTitle(title);
+        responseDTO.setProfile(profile);
+        responseDTO.setPortfolio(portfolio);
+        responseDTO.setIntroduce(introduce);
+        responseDTO.setCareer(career);
+        responseDTO.setSimpleIntroduce(simpleIntroduce);
 
-            return responseDTO;
+        return responseDTO;
     }
 
     // 이력서 insert 한번 하고 -> max id 값 받아서 -> 이력서ID
@@ -63,12 +63,11 @@ public class ResumeRepository {
 
         query.setParameter(1, requestDTO.getPersonId());
         query.setParameter(2, requestDTO.getTitle());
-        query.setParameter(3, requestDTO.getProfile());
+        query.setParameter(3, requestDTO.getProfilePath());
         query.setParameter(4, requestDTO.getPortfolio());
         query.setParameter(5, requestDTO.getIntroduce());
         query.setParameter(6, requestDTO.getCareer());
         query.setParameter(7, requestDTO.getSimpleIntroduce());
-
 
         query.executeUpdate();
 
@@ -77,7 +76,6 @@ public class ResumeRepository {
         return resumeId;
 
         // max pk 받아서 리턴!!
-
         // return 이력서 pk값
 
     }
@@ -113,17 +111,28 @@ public class ResumeRepository {
     }
 
     @Transactional
-    public void update(int id, ResumeRequest.UpdateDTO requestDTO) {
+    public int update(int id, ResumeRequest.UpdateDTO requestDTO) {
 
         Query query = em.createNativeQuery("update resume_tb set title=?, profile=?, portfolio=?, introduce=?, career=?, simple_introduce=? where id = ?");
         query.setParameter(1, requestDTO.getTitle());
-        query.setParameter(2, requestDTO.getProfile());
+        query.setParameter(2, requestDTO.getProfilePath());
         query.setParameter(3, requestDTO.getPortfolio());
         query.setParameter(4, requestDTO.getIntroduce());
         query.setParameter(5, requestDTO.getCareer());
         query.setParameter(6, requestDTO.getSimpleIntroduce());
         query.setParameter(7, id);
 
+        query.executeUpdate();
+
+
+        Query maxQquery = em.createNativeQuery("select max(id) from resume_tb");
+        Integer resumeId = (Integer) maxQquery.getSingleResult();
+        return resumeId;
+    }
+
+    public void skilldelete(int id) {
+        Query query = em.createNativeQuery("delete from skill_tb where resumeId = ?");
+        query.setParameter(1, id);
 
         query.executeUpdate();
     }
