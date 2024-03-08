@@ -48,13 +48,14 @@ public class UserRepository {
 
     @Transactional
     public void personSave(UserRequest.JoinDTO requestDTO) {
-        Query query = em.createNativeQuery("insert into user_tb(role, birth, email, password, username, tel, address, created_at) values('person',?,?,?,?,?,?,now())");
+        Query query = em.createNativeQuery("insert into user_tb(role, birth, email, password, username, tel, address, profile, created_at) values('person',?,?,?,?,?,?,?,now())");
         query.setParameter(1, requestDTO.getBirth());
         query.setParameter(2, requestDTO.getEmail());
         query.setParameter(3, requestDTO.getPassword());
         query.setParameter(4, requestDTO.getUsername());
         query.setParameter(5, requestDTO.getTel());
         query.setParameter(6, requestDTO.getAddress());
+        query.setParameter(7, requestDTO.getProfilePath());
         query.executeUpdate();
     }
 
@@ -80,9 +81,9 @@ public class UserRepository {
     }
 
     @Transactional
-    public void personUpdate(String profile, UserRequest.PersonUpdateDTO requestDTO, int id, String newPassword) {
+    public void personUpdate(UserRequest.PersonUpdateDTO requestDTO, int id, String newPassword) {
         Query query = em.createNativeQuery("update user_tb set profile = ?, username=?, tel=?,address=?,birth=?, email=?, password =? where id = ?");
-        query.setParameter(1, profile);
+        query.setParameter(1, requestDTO.getProfilePath());
         query.setParameter(2, requestDTO.getUsername());
         query.setParameter(3, requestDTO.getTel());
         query.setParameter(4, requestDTO.getAddress());
@@ -95,9 +96,9 @@ public class UserRepository {
     }
 
     @Transactional
-    public void companyUpdate(String profile, UserRequest.CompanyUpdateDTO requestDTO, int id, String newPassword) {
+    public void companyUpdate(UserRequest.CompanyUpdateDTO requestDTO, int id, String newPassword) {
         Query query = em.createNativeQuery("update user_tb set profile=?, company_name =? , company_num=?, address=?, username=?, tel=?, email=?, password=? where id = ?");
-        query.setParameter(1, profile);
+        query.setParameter(1, requestDTO.getProfilePath());
         query.setParameter(2, requestDTO.getCompanyName());
         query.setParameter(3, requestDTO.getCompanyNum());
         query.setParameter(4, requestDTO.getAddress());

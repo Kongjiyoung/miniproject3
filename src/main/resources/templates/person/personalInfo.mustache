@@ -11,10 +11,7 @@
 
                 <form action="/person/info/updateForm" method="get">
                     <div class="px-5 mt-5">
-                        <input type="hidden" id="profile" name="profile" value="{{sessionUser.profile}}"/>
-                        <div class="upload"><img src="{{sessionUser.profile}}" id="profile"
-                                                 class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-50 h-50">
-                        </div>
+                        <img src="{{user.profile}}" id="profile" class="mx-auto d-block mt-5 my-3 w-50 h-50">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이름</span>

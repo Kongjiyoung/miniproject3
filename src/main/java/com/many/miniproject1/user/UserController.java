@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -44,7 +46,10 @@ public class UserController {
         if (profileImage != null && !profileImage.isEmpty()) {
             // 이미지 파일 처리
             try {
-                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
+                String absolutePath = userFileService.saveFile(profileImage);  // 파일 저장 및 절대 경로 반환
+                String filename = Paths.get(absolutePath).getFileName().toString();  // 파일 이름 추출
+                profilePath = "/images/" + filename;  // 웹 서버의 상대 경로 생성
+//                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
 
                 // 실제로 저장된 파일의 이름 출력
                 System.out.println("Saved file path: " + profilePath);
@@ -99,7 +104,10 @@ public class UserController {
         if (profileImage != null && !profileImage.isEmpty()) {
             // 이미지 파일 처리
             try {
-                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
+                String absolutePath = userFileService.saveFile(profileImage);  // 파일 저장 및 절대 경로 반환
+                String filename = Paths.get(absolutePath).getFileName().toString();  // 파일 이름 추출
+                profilePath = "/images/" + filename;  // 웹 서버의 상대 경로 생성
+//                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
 
                 // 실제로 저장된 파일의 이름 출력
                 System.out.println("Saved file path: " + profilePath);
@@ -163,14 +171,15 @@ public class UserController {
         request.setAttribute("user", user);
         return "company/companyInfo";
     }
-    @GetMapping("/images/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-        Resource file = userFileService.loadFile(filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                .body(file);
-    }
+//    @GetMapping("/images/{filename}")
+//    @ResponseBody
+//    public ResponseEntity<Resource> serveFile(@PathVariable String filename)throws FileNotFoundException {
+//        Resource file = userFileService.loadFile(filename);
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+//                .body(file);
+//    }
+
     @GetMapping("/company/info/updateForm")
     public String companyInfoUpdateForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -189,24 +198,29 @@ public class UserController {
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
-        String profile = null;
         MultipartFile profileImage = requestDTO.getProfile();
+        String profilePath = null;
         if (profileImage != null && !profileImage.isEmpty()) {
             // 이미지 파일 처리
-            String fileName = profileImage.getOriginalFilename();
-            String filePath = "/images/" + fileName;
-            File dest = new File(filePath);
+
             try {
-                profileImage.transferTo(dest);
-                profile = filePath;
+//                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
+                String absolutePath = userFileService.saveFile(profileImage);  // 파일 저장 및 절대 경로 반환
+                String filename = Paths.get(absolutePath).getFileName().toString();  // 파일 이름 추출
+                profilePath = "/images/" + filename;  // 웹 서버의 상대 경로 생성
+                // 실제로 저장된 파일의 이름 출력
+                System.out.println("Saved file path: " + profilePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        userRepository.companyUpdate(profile, requestDTO, sessionUser.getId(), requestDTO.getNewPassword());
-        User updateCompany = userRepository.findById(sessionUser.getId());
-        session.setAttribute("sessionUser", updateCompany);
-        request.setAttribute("user", updateCompany);
+
+        User user = userRepository.findById(sessionUser.getId());
+//        session.setAttribute("sessionUser", user);
+        request.setAttribute("user", user);
+
+        requestDTO.setProfilePath(profilePath); // 프로필 이미지 경로를 DTO에 설정
+        userRepository.companyUpdate(requestDTO, sessionUser.getId(), requestDTO.getNewPassword());
 
         System.out.println(requestDTO);
         return "redirect:/company/info";
@@ -245,25 +259,31 @@ public class UserController {
         if (sessionUser == null) {
             return "redirect:/loginForm";
         }
-        System.out.println("User ID: " + sessionUser.getId());
-        String profile = null;
         MultipartFile profileImage = requestDTO.getProfile();
+        String profilePath = null;
         if (profileImage != null && !profileImage.isEmpty()) {
             // 이미지 파일 처리
-            String fileName = profileImage.getOriginalFilename();
-            String filePath = "static.images" + fileName;
-            File dest = new File(filePath);
+
             try {
-                profileImage.transferTo(dest);
-                profile = filePath;
+//                profilePath = userFileService.saveFile(profileImage);  // 파일 저장 및 상대 경로 반환
+                String absolutePath = userFileService.saveFile(profileImage);  // 파일 저장 및 절대 경로 반환
+                String filename = Paths.get(absolutePath).getFileName().toString();  // 파일 이름 추출
+                profilePath = "/images/" + filename;  // 웹 서버의 상대 경로 생성
+                // 실제로 저장된 파일의 이름 출력
+                System.out.println("Saved file path: " + profilePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        userRepository.personUpdate(profile, requestDTO, sessionUser.getId(), requestDTO.getNewPassword());
-        User updatePerson = userRepository.findById(sessionUser.getId());
-        session.setAttribute("sessionUser", updatePerson);
-        request.setAttribute("user", updatePerson);
+
+        User user = userRepository.findById(sessionUser.getId());
+//        session.setAttribute("sessionUser", user);
+        request.setAttribute("user", user);
+
+        requestDTO.setProfilePath(profilePath); // 프로필 이미지 경로를 DTO에 설정
+        userRepository.personUpdate(requestDTO, sessionUser.getId(), requestDTO.getNewPassword());
+
+        System.out.println(requestDTO);
         return "redirect:/person/info";
     }
 
