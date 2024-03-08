@@ -6,64 +6,83 @@
             <div class="d-flex justify-content-start mx-2">
             </div>
             <div>
-                <h3>{{resume.title}}</h3>
+                <h3>🎱resume.title🎱</h3>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-outline-success" type="submit">🎱resume.isPass🎱</button>
+                </div>
+                <form action="/company/resume/id/detail/ispass" method="post">
+                    <select class="form-select" aria-label="Default select example" id="isPass"
+                            name="isPass">
+                        <option selected>합격 여부 선택</option>
+                        <option value="합격">합격</option>
+                        <option value="불합격">불합격</option>
+                        <option value="심사중">심사중</option>
+
+                    </select>
+                    <div class="d-flex justify-content-center mx-4">
+                        <button class="btn btn-outline-success" type="submit">제안하기</button>
+                    </div>
+                </form>
             </div>
             <hr>
 
             <div class="d-flex justify-content-center">
                 <div style="width: 85%;">
-                    <form action="/company/offer/{{id}}/detail/delete" method="post">
-                        <button class="btn btn-outline-danger mb-3">제안취소</button>
-                    </form>
+
                     <div class="jh_resume_flexbox mt-3">
                         <!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
-                        <img src="{{resume.profile}}" alt="프로필 사진" style="width: 188px; height: 226px;">
+                        <img src="/images/person01.jpg" alt="프로필 사진" style="width: 188px; height: 226px;">
                         <table class="resume_table">
                             <tr>
-                                <td>{{resume.username}}</td>
+                                <td>🎱resume.username🎱</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>{{resume.birth}}</td>
+                                <td>🎱resume.birth🎱</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>{{resume.tel}}</td>
+                                <td>🎱resume.tel🎱</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>{{resume.address}}</td>
+                                <td>🎱resume.address🎱</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>{{resume.email}}</td>
+                                <td>🎱esume.email🎱</td>
                                 <td></td>
                             </tr>
                         </table>
                     </div>
                     <div class="mt-5">
                         <h4>커리어</h4>
-                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.career}}
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
+                            🎱resume.career🎱
                         </textarea>
                         <h4>간단 소개</h4>
-                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.simpleIntroduce}}
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
+                            🎱resume.simpleIntroduce🎱
                         </textarea>
                         <h4>포트폴리오 주소</h4>
-                        <input type="url" class="form-control mt-2" id="" style="display: block;" value="{{resume.portfolio}}" readOnly>
+                        <input type="url" class="form-control mt-2" id="" style="display: block;"
+                               value="🎱resume.portfolio🎱" readOnly>
                     </div>
                     <div class="mt-5 jh_resume_skill">
                         <h4>기술스택</h4>
                         <div>
                             <ul>
-                                {{#resume.skills}}
+🎱#resume.skills🎱
                                     <li>{{.}}</li>
-                                {{/resume.skills}}
+🎱/resume.skills🎱
                             </ul>
                         </div>
                     </div>
                     <div class="mt-5 w-100">
                         <h4>자기소개</h4>
-                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.introduce}}</textarea>
+                        <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
+🎱resume.introduce🎱
+                        </textarea>
                     </div>
                 </div>
             </div>
