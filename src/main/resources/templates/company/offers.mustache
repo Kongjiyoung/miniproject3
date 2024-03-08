@@ -8,7 +8,7 @@
             <!-- 이력서 시작 -->
             {{#cResumeSkillList}}
                     <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                        <a href="/person/resume/{{id}}/detail" style="text-decoration: none; color: black">
+                        <a href="/company/offer/{{id}}/detail" style="text-decoration: none; color: black">
                             <div style="width: 100%; height: 15rem; overflow: hidden">
                                 <img src="{{profile}}" class="card-img-top" alt="이력서 사진"/>
                             </div>
@@ -22,7 +22,7 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-    ">{{simpleIntroduce}}</p>
+                ">{{simpleIntroduce}}</p>
 
                                 <div class="d-flex justify-content-start" style="
       display: -webkit-box;
@@ -32,13 +32,11 @@
       text-overflow: ellipsis;
     ">
                                     <h6>
-                                        <span>
-                                            {{#skill}}
-                                                <button class="btn btn-outline-warning btn-sm disabled">
-                                                    {{.}}
-                                                </button>
-                                            {{/skill}}
-                                        </span>
+                                        {{#skills}}
+                                            <button class="btn btn-outline-warning btn-sm disabled">
+                                                {{.}}
+                                            </button>
+                                        {{/skills}}
                                     </h6>
                                 </div>
                             </div>
@@ -55,7 +53,7 @@
                         <img src="/images/person01.png" class="card-img-top" alt="이력서 사진" />
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><b>Programer Kong</b></h5>
+                        <h5 class="card-title"><b>(더미)Programer Kong</b></h5>
                         <h6><span>커리어</span>|<span>2년차, 2개 회사 근무</span></h6>
                         <p class="card-text" style="
                           display: -webkit-box;
