@@ -29,6 +29,7 @@ public class UserRequest {
     public static class CompanyUpdateDTO {
         private Integer id;
         private MultipartFile profile;
+        private String profilePath;
         private String companyName;
         private String companyNum;
         private String address;
@@ -37,13 +38,11 @@ public class UserRequest {
         private String username;
         private String tel;
         private String newPassword;
-
-
-
     }
     @Data
     public static class PersonUpdateDTO {
         private MultipartFile profile;
+        private String profilePath;
         private String username;
         private String address;
         private String birth;
