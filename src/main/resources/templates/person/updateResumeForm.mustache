@@ -1,8 +1,8 @@
 {{> layout/header}}
 <div class="container d-flex">
 
-    <form action="/person/resume/{{id}}/detail/update" method="post" enctype="multipart/form-data">
-
+    <form action="/person/resume/{{id}}/detail/update" method="post" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" id="personId" name="personId" value="{{sessionUser.id}}">
         <div class=" mx-2 pb-4 w-100">
             <div class="border border-tertiary w-100 p-5 rounded shadow">
                 <h1><input type="text" placeholder="저를 뽑아주세요." style="width: 700px; border: none;margin-left: 80px;"
@@ -23,53 +23,82 @@
                 <div class="container" style="width: 85%;">
                     <div class="d-flex row justify-content-center">
                         <div class="jh_resume_flexbox mt-3">
-                            <!-- 프로필 사진이 있으면 사진을 보여주고, 없으면 디폴트 이미지를 보여줌. -->
-                            <img src="/images/person06.jpg" alt="프로필 사진" id="" style="width: 200px; height: 250px;"
-                                 class="mb-2 border border-tertiary">
-                            <div class="jh_resume_personal_info">
-                                <div class="input-group mb-3">
-                                        <span
-                                                class="input-group-text justify-content-center w-25 init_color hs_span">이름</span>
-                                    <input type="text" class="form-control" style="width: 120px;"
-                                           value="{{resume.username}}" disabled
-                                           name="username">
-                                </div>
-                                <div class="input-group mb-3">
-                                        <span
-                                                class="input-group-text justify-content-center w-25 init_color hs_span">생년월일</span>
-                                    <input type="date" class="form-control" style="width: 120px;"
-                                           value="{{resume.birth}}" id="birthdateInput" name="birth"
-                                           disabled>
-                                </div>
-                                <script>
-                                    var birthdateString = "{{resume.birth}}";
+                            <div class="form-group form-floating m-3 mx-auto">
+                                <div class="px-5 mt-5">
+                                    <!-- 이미지 업로드 시작 -->
+                                            <div class="upload">
+                                                <img src="/images/{{sessionUser.profile}}"
+                                                     id="profileImage"
+                                                     class=" mx-auto d-block mt-5 my-3 w-25">
+                                                <ul class="image-preview mx-auto d-block mt-5 my-3 w-50 h-50"></ul>
+                                                <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*"
+                                                       name="profile" id="imageUpload" multiple>
+                                            </div>
 
-                                    // 문자열을 날짜 객체로 변환
-                                    var birthdate = new Date(birthdateString.substring(0, 4), birthdateString.substring(4, 6) - 1, birthdateString.substring(6, 8));
-
-                                    // YYYY-MM-DD
-                                    var formattedBirthdate = birthdate.toISOString().substring(0, 10);
-
-                                    // 바꾼 날짜형식으로 넣기
-                                    document.getElementById("birthdateInput").value = formattedBirthdate;
-                                </script>
-                                <div class="input-group mb-3">
-                                        <span
-                                                class="input-group-text justify-content-center w-25 init_color hs_span">연락처</span>
-                                    <input type="tel" class="form-control" value="{{resume.tel}}" name="tel" disabled>
-                                </div>
-                                <div class="input-group mb-3">
-                                        <span
-                                                class="input-group-text justify-content-center w-25 init_color hs_span">주소</span>
-                                    <input type="text" class="form-control" value="{{resume.address}}" name="address"
-                                           disabled>
-                                </div>
-                                <div class="input-group mb-3">
-                                        <span
-                                                class="input-group-text justify-content-center w-25 init_color hs_span">이메일</span>
-                                    <input type="email" class="form-control" value="{{resume.email}}" disabled>
+                                    <!-- 이미지 업로드 끝 -->
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#imageUpload').change(function (event) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            $('#profileImage').attr('src', e.target.result);
+                                        };
+                                        // 선택된 파일이 없다면(이미지 변경이 없다면) 기존 이미지로 설정
+                                        if (event.target.files.length === 0) {
+                                            $('#profileImage').attr('src', '/images/{{sessionUser.profile}}');
+                                        }
+                                        reader.readAsDataURL(event.target.files[0]);
+                                    });
+                                });
+                            </script>
+                                <div class="jh_resume_personal_info">
+                                    <div class="input-group mb-3">
+                                        <span
+                                                class="input-group-text justify-content-center w-25 init_color hs_span">이름</span>
+                                        <input type="text" class="form-control" style="width: 120px;"
+                                               value="{{sessionUser.username}}" disabled
+                                               name="username">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span
+                                                class="input-group-text justify-content-center w-25 init_color hs_span">생년월일</span>
+                                        <input type="date" class="form-control" style="width: 120px;"
+                                               value="{{sessionUser.birth}}" id="birthdateInput" name="birth"
+                                               disabled>
+                                    </div>
+                                    <script>
+                                        var birthdateString = "{{sessionUser.birth}}";
+
+                                        // 문자열을 날짜 객체로 변환
+                                        var birthdate = new Date(birthdateString.substring(0, 4), birthdateString.substring(4, 6) - 1, birthdateString.substring(6, 8));
+
+                                        // YYYY-MM-DD
+                                        var formattedBirthdate = birthdate.toISOString().substring(0, 10);
+
+                                        // 바꾼 날짜형식으로 넣기
+                                        document.getElementById("birthdateInput").value = formattedBirthdate;
+                                    </script>
+                                    <div class="input-group mb-3">
+                                        <span
+                                                class="input-group-text justify-content-center w-25 init_color hs_span">연락처</span>
+                                        <input type="tel" class="form-control" value="{{sessionUser.tel}}" name="tel"
+                                               disabled>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span
+                                                class="input-group-text justify-content-center w-25 init_color hs_span">주소</span>
+                                        <input type="text" class="form-control" value="{{sessionUser.address}}"
+                                               name="address"
+                                               disabled>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span
+                                                class="input-group-text justify-content-center w-25 init_color hs_span">이메일</span>
+                                        <input type="email" class="form-control" value="{{sessionUser.email}}" disabled>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -79,9 +108,11 @@
                             <input type="file" class="form-control mt-2" name=""/>
                             <div class="mt-5">
                                 <h4>커리어</h4>
-                                <input type="text" name="career" class="w-100 opacity-50" value="저는 삼성에서 일했어요." rows="10">
+                                <input type="text" name="career" class="w-100 opacity-50" value="저는 삼성에서 일했어요."
+                                       rows="10">
                                 <h4>간단 소개</h4>
-                                <input type="text" name="simpleIntroduce" class="w-100 opacity-50" value="저는 삼성에서 일했어요.헤헤" rows="10">
+                                <input type="text" name="simpleIntroduce" class="w-100 opacity-50"
+                                       value="저는 삼성에서 일했어요.헤헤" rows="10">
                                 <h4>포트폴리오 주소</h4>
                                 <input type="text" class="form-control mt-2" id="portfolio" name="portfolio"
                                        style="display: block;"
@@ -143,7 +174,8 @@
                         </div>
                         <div class="d-flex justify-content-center" style="width: 100%;">
                             <button type="submit" class="btn btn-outline-success mb-3 mt-3"
-                               style="width: 100%">수정완료</button>
+                                    style="width: 100%">수정완료
+                            </button>
                             <a href="/person/resume/{{id}}/detail" class="btn btn-outline-danger mb-3 mt-3"
                                style="width: 100%">취소</a>
                         </div>

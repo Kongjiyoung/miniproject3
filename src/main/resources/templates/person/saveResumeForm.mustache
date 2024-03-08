@@ -3,62 +3,77 @@
     <form action="/person/resume/save" method="post" enctype="multipart/form-data">
         <input type="hidden" id="personId" name="personId" value="{{sessionUser.id}}">
         <div class=" mx-2 pb-4 w-100">
-
             <div class="border border-tertiary w-100 p-5 rounded shadow">
-                <h4 style="margin-left: 95px;">*이력서를 작성해 주세요.</h4>
-                <h1 class="mx-5 "><input type="text" placeholder="이력서 제목을 입력하세요" style="width: 700px; border: none;"
-                                         class="hs_input_title mx-5" name="title" value="저를 뽑아주세요" autofocus></h1>
-                <!-- <span>공개 여부 설정 |</span>
-                <select name="publish"> -->
-                <!-- 공개중인 경우 -->
-                <!-- <option value="true" selected>공개중</option>
-                    <option value="false">비공개중</option> -->
-                <!-- </c:when>
-                   <c:otherwise> -->
-                <!-- 비공개중인 경우 -->
-                <!-- <option value="true">공개중</option>
-                    <option value="false" selected>비공개중</option> -->
-                <!-- </select>
-                <hr> -->
+                <label style="margin-left: 95px;" for="title">*이력서를 작성해 주세요.</label>
+                <h1 class="mx-5 mb-3">
+                    <input type="text" placeholder="이력서 제목을 입력하세요" style="width: 700px; border: none;"
+                           class="hs_input_title mx-5" name="title" value="" autofocus/>
+                </h1>
+                <!-- 이미지 업로드 시작 -->
+
+                <div class="px-5 mt-5">
+                    <!-- 이미지 업로드 시작 -->
+                    <div class="upload d-flex justify-content-center mb-5 flex-column align-items-center">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="width: 200px; height: 150px; border: 1px solid #E6E6E6; color: #E6E6E6;"
+                             id="profilePreview">
+                            <b>사진을 등록해 주세요.</b>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input type="file" id="imageUpload" name="profile"
+                                   class="real-upload mx-auto d-block mt-2 w-50 h-50" accept="image/*" required
+                                   multiple>
+                        </div>
+
+                    </div>
+                    <!-- 이미지 업로드 끝 -->
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $('#imageUpload').change(function (event) {
+                            if (this.files && this.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
+                                };
+                                reader.readAsDataURL(this.files[0]);
+                                let fileName = this.files[0].name; // 'this'를 사용해서 파일 이름을 가져옵니다.
+                                console.log(fileName);
+                            }
+                        });
+                    });
+                </script>
+
                 <div class="container" style="width: 85%;">
                     <div class="d-flex row justify-content-center">
                         <div class="jh_resume_flexbox mt-3">
-                            <!-- 프로필 사진이 있으면 사진을 보여주고, 없으면 디폴트 이미지를 보여줌. -->
-                            <div class="border mb-3" style="width: 200px; height: 250px;">
-                                <!--                                이미지 업로드 구현하면 수정해야함.-->
-                                <img src="/images/person1.png" alt="프로필 사진" width="100%" id=""
-                                     class="mb-2 border border-tertiary">
-                            </div>
-
                             <div class="jh_resume_personal_info">
                                 <div class="input-group mb-3">
-                                        <span
-                                                class="input-group-text justify-content-center w-25 init_color hs_span">이름</span>
-                                    <input type="text" class="form-control" style="width: 120px;"
-                                           name="username" value="김하형"
-                                           required>
+                                    <span class="input-group-text justify-content-center w-25 init_color hs_span">이름</span>
+                                    <input type="text" class="form-control" style="width: 120px;" value="개인정보에서받아오기"
+                                           name="username"
+                                           disabled>
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">생년월일</span>
                                     <input type="date" class="form-control" style="width: 120px;"
-                                           id="birthdateInput" name="birth" value="2000-03-07"
-                                           required>
+                                           id="birthdateInput" name="birth" value="개인정보에서받아오기"
+                                           disabled>
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">연락처</span>
-                                    <input type="tel" class="form-control" name="tel" value="010-1234-5678" required>
+                                    <input type="tel" class="form-control" name="tel"  value="개인정보에서받아오기" disabled>
                                 </div>
                                 <div class="input-group mb-3">
                                         <span
                                                 class="input-group-text justify-content-center w-25 init_color hs_span">주소</span>
-                                    <input type="text" class="form-control" name="address" value="서울특별시 강남구" required>
+                                    <input type="text" class="form-control" name="address"  value="개인정보에서받아오기" disabled>
                                 </div>
                                 <div class="input-group mb-3">
-                                        <span
-                                                class="input-group-text justify-content-center w-25 init_color hs_span">이메일</span>
-                                    <input type="email" class="form-control" name="email" value="khh@nate.com" required>
+                                    <span class="input-group-text justify-content-center w-25 init_color hs_span">이메일</span>
+                                    <input type="email" class="form-control" name="email"  value="개인정보에서받아오기" disabled>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +82,6 @@
                 <div class="container" style="width: 85%;">
                     <div class="row justify-content-center">
                         <div class="col-md-14 mx-auto">
-                            <input type="file" class="form-control mt-2" name=""/>
                             <div class="mt-5">
                                 <h4>커리어</h4>
                                 <input type="text" name="career" class="w-100 opacity-50" value="저는 삼성에서 일했어요." rows="10">
@@ -78,48 +92,57 @@
                                        style="display: block;">
                             </div>
                         </div>
-                        <div class="my-5">
+                        <div class="mt-4">
                             <label for="skills"><b>기술/자격 조건</b></label>
-                            <!--                            <input type="hidden" value="${skillPS}" id="check">-->
-                            <div class="row row-cols-auto gap-3 justify-content-center my-3">
-                                <div class="my-5">
-                                    <h4>기술스택 (최대 5개 선택)</h4>
-                                    <div class="row row-cols-auto gap-3 justify-content-center my-3">
-                                        <input type="checkbox" class="btn-check" id="btn1" value="java"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn1">java</label>
-                                        <input type="checkbox" class="btn-check" id="btn2" value="spring"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn2">spring</label>
-                                        <input type="checkbox" class="btn-check" id="btn3" value="html"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn3">html</label>
-                                        <input type="checkbox" class="btn-check" id="btn4" value="javascript"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn4">javascript</label>
-                                        <input type="checkbox" class="btn-check" id="btn5" value="sql" name="skills"
-                                               autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn5">sql</label>
-                                        <input type="checkbox" class="btn-check" id="btn6" value="android"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn6">android</label>
-                                        <input type="checkbox" class="btn-check" id="btn7" value="React"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn7">React</label>
-                                        <input type="checkbox" class="btn-check" id="btn8" value="Node.js"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn8">Node.js</label>
-                                        <input type="checkbox" class="btn-check" id="btn9" value="Express"
-                                               name="skills" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btn9">Express</label>
-                                    </div>
+                            <div class="p-3 d-inline-flex mb-3 w-100">
+                                <div class="row row-cols-auto gap-3 justify-content-center my-3">
+                                    <input type="checkbox" class="btn-check" id="java" value="java" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="java">Java</label>
+
+                                    <input type="checkbox" class="btn-check" id="spring" value="spring" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="spring">Spring</label>
+
+                                    <input type="checkbox" class="btn-check" id="html" value="html" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="html">HTML</label>
+
+                                    <input type="checkbox" class="btn-check" id="javaScript" value="javaScript"
+                                           name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="javaScript">JavaScript</label>
+
+                                    <input type="checkbox" class="btn-check" id="sql" value="sql" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="sql">SQL</label>
+
+                                    <input type="checkbox" class="btn-check" id="android" value="android" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="android">Android</label>
+
+                                    <input type="checkbox" class="btn-check" id="react" value="react" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="react">React</label>
+
+                                    <input type="checkbox" class="btn-check" id="nodeJs" value="nodeJs" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="nodeJs">Node.js</label>
+
+                                    <input type="checkbox" class="btn-check" id="express" value="express" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="express">Express</label>
+
+                                    <input type="checkbox" class="btn-check" id="flutter" value="flutter" name="skills"
+                                           autocomplete="off"/>
+                                    <label class="btn btn-outline-primary" for="flutter">Flutter</label>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <h4>자기소개</h4>
                             <textarea name="introduce" class="w-100 opacity-50" rows="10"
-                                      placeholder="100자 이상 작성해 주세요." minlength="100">꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.꾸준한 공부를 통해 문제를 오랫동안 끊임없이 개선하는 것을 좋아합니다.개선하는 것을 좋아합니다. 안녕하세요  ㅇㄴㄴㅇㄹㅇㄴ</textarea>
+                                      placeholder="10자 이상 작성해 주세요." minlength="10"></textarea>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-outline-success mb-3 mt-3"

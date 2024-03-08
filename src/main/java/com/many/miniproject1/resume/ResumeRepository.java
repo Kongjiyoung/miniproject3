@@ -23,30 +23,30 @@ public class ResumeRepository {
 
     public ResumeResponse.DetailDTO findById(int r_id) {
 
-            Query query = em.createNativeQuery("select r.id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, u.username, u.birth, u.tel, u.address, u.email from resume_tb r inner join user_tb u on r.person_id = u.id where r.id = ?");
+        Query query = em.createNativeQuery("select r.id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, u.username, u.birth, u.tel, u.address, u.email from resume_tb r inner join user_tb u on r.person_id = u.id where r.id = ?");
 
-            query.setParameter(1, r_id);
+        query.setParameter(1, r_id);
 
-            Object[] row = (Object[]) query.getSingleResult();
+        Object[] row = (Object[]) query.getSingleResult();
 
-            Integer id = (Integer) row[0];
-            String title = (String) row[1];
-            String profile = (String) row[2];
-            String portfolio = (String) row[3];
-            String introduce = (String) row[4];
-            String career = (String) row[5];
-            String simpleIntroduce = (String) row[6];
+        Integer id = (Integer) row[0];
+        String title = (String) row[1];
+        String profile = (String) row[2];
+        String portfolio = (String) row[3];
+        String introduce = (String) row[4];
+        String career = (String) row[5];
+        String simpleIntroduce = (String) row[6];
 
-            ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO();
-            responseDTO.setId(id);
-            responseDTO.setTitle(title);
-            responseDTO.setProfile(profile);
-            responseDTO.setPortfolio(portfolio);
-            responseDTO.setIntroduce(introduce);
-            responseDTO.setCareer(career);
-            responseDTO.setSimpleIntroduce(simpleIntroduce);
+        ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO();
+        responseDTO.setId(id);
+        responseDTO.setTitle(title);
+        responseDTO.setProfile(profile);
+        responseDTO.setPortfolio(portfolio);
+        responseDTO.setIntroduce(introduce);
+        responseDTO.setCareer(career);
+        responseDTO.setSimpleIntroduce(simpleIntroduce);
 
-            return responseDTO;
+        return responseDTO;
     }
 
     // 이력서 insert 한번 하고 -> max id 값 받아서 -> 이력서ID
@@ -63,7 +63,7 @@ public class ResumeRepository {
 
         query.setParameter(1, requestDTO.getPersonId());
         query.setParameter(2, requestDTO.getTitle());
-        query.setParameter(3, requestDTO.getProfile());
+        query.setParameter(3, requestDTO.getProfilePath());
         query.setParameter(4, requestDTO.getPortfolio());
         query.setParameter(5, requestDTO.getIntroduce());
         query.setParameter(6, requestDTO.getCareer());
@@ -81,6 +81,8 @@ public class ResumeRepository {
         // return 이력서 pk값
 
     }
+
+
 
     public List<ResumeResponse.DetailDTO> findresume(int u_id) {
         Query query = em.createNativeQuery("SELECT u.email, u.username, u.tel, u.address, u.birth, r.id, r.person_id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, r.created_at FROM user_tb u INNER JOIN resume_tb r ON u.id = r.person_id where r.person_id=?");
@@ -117,7 +119,7 @@ public class ResumeRepository {
 
         Query query = em.createNativeQuery("update resume_tb set title=?, profile=?, portfolio=?, introduce=?, career=?, simple_introduce=? where id = ?");
         query.setParameter(1, requestDTO.getTitle());
-        query.setParameter(2, requestDTO.getProfile());
+        query.setParameter(2, requestDTO.getProfilePath());
         query.setParameter(3, requestDTO.getPortfolio());
         query.setParameter(4, requestDTO.getIntroduce());
         query.setParameter(5, requestDTO.getCareer());
