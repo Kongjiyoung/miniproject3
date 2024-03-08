@@ -169,11 +169,11 @@ public class ScrapRepository {
 
     public ScrapResponse.ScrapResumeDTO findResume(int companyId, int resumeId) {
         String q = """
-                SELECT u.email, u.username, u.tel, u.address, u.birth, r.id, r.person_id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, r.created_at, a.is_Pass
+                SELECT u.email, u.username, u.tel, u.address, u.birth, r.id, r.person_id, r.title, r.profile, r.portfolio, r.introduce, r.career, r.simple_introduce, r.created_at
                 FROM user_tb u
                 INNER JOIN resume_tb r ON u.id = r.person_id
-                INNER JOIN apply_tb a ON r.id = a.resume_id
-                WHERE a.company_id = ? AND a.id=?;
+                INNER JOIN scrap_tb a ON r.id = a.resume_id
+                WHERE a.company_id = ? AND a.resume_id=?;
                 """;
         Query query = em.createNativeQuery(q);
         query.setParameter(1, companyId);
