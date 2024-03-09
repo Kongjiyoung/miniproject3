@@ -148,6 +148,8 @@ public class ResumeController {
 
         // 스킬 저장
         List<ResumeResponse.skillDTO> skillDTOList=new ArrayList<>();
+
+        int resumeId = resumeRepository.save(requestDTO, profileFilename);
         for(String skill:skills){
             ResumeResponse.skillDTO skillDTO=new ResumeResponse.skillDTO();
             skillDTO.setSkill(skill);
@@ -157,9 +159,8 @@ public class ResumeController {
 
 
         // 변환된 스킬 DTO 리스트를 사용하여 저장
-        int resumeId = resumeRepository.save(requestDTO, profileFilename);
-        skillRepository.saveSkillsFromResume(skillDTOs, resumeId);
 
+        skillRepository.saveSkillsFromResume(skillDTOList);
         request.setAttribute("resume", requestDTO);
         request.setAttribute("skills", skills);
         System.out.println(skills);
@@ -186,45 +187,45 @@ public class ResumeController {
         System.out.println("🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗");
         System.out.println(requestDTO);
 
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            return "redirect:/person/loginForm";
-        }
-        // 이미지 파일 처리
-        MultipartFile profileImage = requestDTO.getProfile();
-        String profilePath = null;
-        if (profileImage != null && !profileImage.isEmpty()) {
-            try {
-                String absolutePath = userFileService.saveFile(profileImage);
-                String filename = Paths.get(absolutePath).getFileName().toString();
-                profilePath = filename;
-                System.out.println("Saved file path: " + profilePath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            // 이미지를 선택하지 않은 경우, 기존 이미지 경로를 가져옴
-            ResumeResponse.DetailDTO existingResume = resumeRepository.findById(id);
-            profilePath = existingResume.getProfile();
-        }
-        requestDTO.setProfilePath(profilePath);
-
-        resumeRepository.skilldelete(id);
-        requestDTO.setProfilePath(profilePath);
-        // 이력서 저장 및 저장된 이력서 ID 획득
-        int resumeId = resumeRepository.update(id, requestDTO);
-
-        // 스킬 저장
-        List<ResumeResponse.skillDTO> skillDTOList=new ArrayList<>();
-        for(String skill:skills){
-            ResumeResponse.skillDTO skillDTO=new ResumeResponse.skillDTO();
-            skillDTO.setSkill(skill);
-            skillDTO.setResumeId(resumeId);
-            skillDTOList.add(skillDTO);
-        }
-
-        // 스킬 저장
-        skillRepository.saveSkillsFromResume(skillDTOList);
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//        if (sessionUser == null) {
+//            return "redirect:/person/loginForm";
+//        }
+//        // 이미지 파일 처리
+//        MultipartFile profileImage = requestDTO.getProfile();
+//        String profilePath = null;
+//        if (profileImage != null && !profileImage.isEmpty()) {
+//            try {
+//                String absolutePath = userFileService.saveFile(profileImage);
+//                String filename = Paths.get(absolutePath).getFileName().toString();
+//                profilePath = filename;
+//                System.out.println("Saved file path: " + profilePath);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            // 이미지를 선택하지 않은 경우, 기존 이미지 경로를 가져옴
+//            ResumeResponse.DetailDTO existingResume = resumeRepository.findById(id);
+//            profilePath = existingResume.getProfile();
+//        }
+//        requestDTO.setProfilePath(profilePath);
+//
+//        resumeRepository.skilldelete(id);
+//        requestDTO.setProfilePath(profilePath);
+//        // 이력서 저장 및 저장된 이력서 ID 획득
+//        int resumeId = resumeRepository.update(id, requestDTO);
+//
+//        // 스킬 저장
+//        List<ResumeResponse.skillDTO> skillDTOList=new ArrayList<>();
+//        for(String skill:skills){
+//            ResumeResponse.skillDTO skillDTO=new ResumeResponse.skillDTO();
+//            skillDTO.setSkill(skill);
+//            skillDTO.setResumeId(resumeId);
+//            skillDTOList.add(skillDTO);
+//        }
+//
+//        // 스킬 저장
+//        skillRepository.saveSkillsFromResume(skillDTOList);
 
 //        ResumeRequest.UpdateDTO updatedResume = resumeRepository.save(requestDTO); // 이력서 업데이트
 
