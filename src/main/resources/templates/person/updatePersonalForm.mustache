@@ -21,13 +21,13 @@
                             <div class="upload">
                                 <img src="/images/{{user.profile}}"
                                      id="profileImage"
-                                     class=" mx-auto d-block mt-5 my-3 w-25">
-                                <ul class="image-preview mx-auto d-block mt-5 my-3 w-50 h-50"></ul>
-                                <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*"
+                                     class=" mx-auto d-block mt-5 my-3">
+                                <ul class="image-preview mx-auto d-block mt-5 my-3"></ul>
+                                <input type="file" class="real-upload mx-auto d-block mt-5 my-3" accept="image/*"
                                        name="profile" id="imageUpload" multiple>
                             </div>
                             <script>
-                                $(document).ready(function () {
+                                // $(document).ready(function () {
                                     $('#imageUpload').change(function (event) {
                                         var reader = new FileReader();
                                         reader.onload = function (e) {
@@ -39,7 +39,7 @@
                                         }
                                         reader.readAsDataURL(event.target.files[0]);
                                     });
-                                });
+                                // });
                             </script>
 
                             <!-- 이미지 업로드 끝 -->
