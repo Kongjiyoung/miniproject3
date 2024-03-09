@@ -412,18 +412,18 @@ VALUES ('Java', 2, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Spring', 2, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
-VALUES ('Android', 2, now());
+VALUES ('SQL', 2, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Flutter', 2, now());
 
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Java', 3, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
-VALUES ('Express', 3, now());
+VALUES ('Spring', 3, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
-VALUES ('Android', 3, now());
+VALUES ('SQL', 3, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
-VALUES ('React', 3, now());
+VALUES ('Flutter', 3, now());
 
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Java', 4, now());
