@@ -5,14 +5,10 @@
         <div class="px-5 pt-5 pb-2">
         </div>
         <div class="px-5">
-            <div class="d-flex justify-content-start align-items-center">
-
-
-            </div>
             <div class="row align-items-center">
                 <!-- title -->
                 <div class="col">
-                    <h3 class="" style="font-weight: bold">{{post.title}}</h3>
+                    <h3 style="font-weight: bold">{{post.title}}</h3>
                 </div>
                 <!-- 스트랩 -->
                 <div class="col-auto">
@@ -28,7 +24,7 @@
             {{#sessionuser}}
                 {{^isMatchingCompany}}
                     <!-- 이력서 선택/보내기 -->
-                    <form class="row d-flex justify-content-end" action="/post/detail/{{post.id}}/apply" method="post" class="row g-3 align-items-center">
+                    <form class="row d-flex justify-content-end g-3 align-items-center" action="/post/detail/{{post.id}}/apply" method="post">
                         <div class="col-auto">
                             <select class="form-select form-select-sm" aria-label="Default select example" id="resumeChoice" name="resumeChoice">
                                 <option selected>이력서 선택</option>
@@ -41,7 +37,6 @@
                             <button class="btn btn-outline-success btn-sm" type="submit"><i class="far fa-paper-plane"></i></button>
                         </div>
                     </form>
-
                 {{/isMatchingCompany}}
             {{/sessionuser}}
             <div class="pt-5 mt-3">

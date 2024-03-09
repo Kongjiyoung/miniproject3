@@ -125,11 +125,11 @@ public class ResumeRepository {
         for (Object[] result : results) {
 
             ResumeResponse.DetailDTO DTO = new ResumeResponse.DetailDTO();
-            DTO.setUsername((String) result[0]);
-            DTO.setBirth((String) result[1]);
+            DTO.setEmail((String) result[0]);
+            DTO.setUsername((String) result[1]);
             DTO.setTel((String) result[2]);
             DTO.setAddress((String) result[3]);
-            DTO.setEmail((String) result[4]);
+            DTO.setBirth((String) result[4]);
             DTO.setId((Integer) result[5]);
             DTO.setPersonId((Integer) result[6]);
             DTO.setTitle((String) result[7]);
