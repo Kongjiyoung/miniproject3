@@ -33,4 +33,4 @@ spring:
         format_sql: true
     defer-datasource-initialization: true
 file:
-  upload-dir: D:\\workspace\\new_miniproject\\images
+  upload-dir: \\images

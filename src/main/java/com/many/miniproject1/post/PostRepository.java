@@ -1,5 +1,6 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1.resume.ResumeRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -92,7 +93,7 @@ public class PostRepository {
 
     @Transactional
     public Integer save(PostRequest.SaveDTO requestDTO) {
-        Query query = em.createNativeQuery("insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task, profile, working_area, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, '/images/company4.png', ?, now())");
+        Query query = em.createNativeQuery("insert into post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task, profile, working_area, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())");
         query.setParameter(1, requestDTO.getCompanyId());
         query.setParameter(2, requestDTO.getTitle());
         query.setParameter(3, requestDTO.getCareer());
@@ -102,7 +103,8 @@ public class PostRepository {
         query.setParameter(7, requestDTO.getWorkEndTime());
         query.setParameter(8, requestDTO.getDeadline());
         query.setParameter(9, requestDTO.getTask());
-        query.setParameter(10, requestDTO.getWorkingArea());
+        query.setParameter(10, requestDTO.getProfile());
+        query.setParameter(11, requestDTO.getWorkingArea());
 
         query.executeUpdate();
 
@@ -111,7 +113,33 @@ public class PostRepository {
         return postId;
     }
 
-
+//    // 사진 등록
+//    @Transactional
+//    public int save(ResumeRequest.SaveDTO requestDTO, String profileFileName) {
+//        String q = """
+//                      insert into resume_tb(person_id, title,  profile, portfolio, introduce, career,
+//                      simple_introduce, created_at)
+//                      values (?, ?, ?, ?, ?, ?, ?, now());
+//                """;
+//
+//        Query query = em.createNativeQuery(q);
+//
+//        query.setParameter(1, requestDTO.getPersonId());
+//        query.setParameter(2, requestDTO.getTitle());
+//        query.setParameter(3, profileFileName);
+//        query.setParameter(4, requestDTO.getPortfolio());
+//        query.setParameter(5, requestDTO.getIntroduce());
+//        query.setParameter(6, requestDTO.getCareer());
+//        query.setParameter(7, requestDTO.getSimpleIntroduce());
+////        query.setParameter(8, requestDTO.getSkill());
+//
+//        query.executeUpdate();
+//
+//        // max pk 받아서 리턴!!
+//        Query maxQquery = em.createNativeQuery("select max(id) from resume_tb");
+//        Integer resumeId = (Integer) maxQquery.getSingleResult();
+//        return resumeId;
+//    }
     @Transactional
     public void update(int id, PostRequest.UpdateDTO requestDTO) {
         Query query = em.createNativeQuery("update post_tb set title=?, career=?,pay=?, work_condition=?, work_start_time=?,work_end_time=?, deadline=?, task=?, profile=?, working_area=? where id = ?");

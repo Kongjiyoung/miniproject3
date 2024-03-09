@@ -12,7 +12,7 @@
             <div class="pt-2 mt-3">
                 <div class="border border-tertiary px-3 py-3 pt-3 d-inline-flex ms-2 me-3 mb-3 w-100">
                     <div>
-                        <img src="{{post.profile}}" alt="이력서 사진" style="width: 100%; height: 226px;">
+                        <img src="/images/{{post.profile}}" alt="이력서 사진" style="width: 100%; height: 226px;">
                     </div>
                     <table class="mx-4">
                         <tr>
@@ -29,7 +29,7 @@
                         </tr>
                         <tr>
                             <td>회사명</td>
-                            <td><a href="#" style=" color: black; font-weight: bold;">인프런</a></td>
+                            <td><a href="#" style=" color: black; font-weight: bold;">{{company.companyName}}</a></td>
                             <!-- TODO: 가능하다면 이 회사의 진행 중인 채용 공고 모음을 만들어보자 -->
                         </tr>
                     </table>
@@ -56,17 +56,14 @@
                     <h4>필요 스킬</h4>
                     <div class="d-flex justify-content-start">
                         <div class="row row-cols-auto gap-3 justify-content-start my-3" style="width: 70%;">
-                            {{#skills}}
+                            {{#skillList}}
                                 <div class="btn btn-outline-primary mx-3 disabled">{{.}}</div>
-                            {{/skills}}
+                            {{/skillList}}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3">
-                <!--                <a href="/company/post/detail/{id}/updateForm" class="btn btn-outline-success mb-3"-->
-                <!--                        style="width: 100%">수정하기-->
-                <!--                </a> -->
                 <div>
                     <a href="/company/post/detail/{{id}}/updateForm" class="btn btn-outline-success mb-3"
                        style="width: 100%">수정하기

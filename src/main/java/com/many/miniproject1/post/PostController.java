@@ -1,5 +1,6 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1.resume.ResumeResponse;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillRepository;
 import com.many.miniproject1.skill.SkillRequest;
@@ -34,47 +35,37 @@ public class PostController {
             return "redirect:/company/loginForm";
         }
 
+
         // 2. 회사가 올린 공고들을 보여줌
         List<PostResponse.PostProfileDTO> postList = postRepository.findAllByCompanyId(sessionUser.getId());
+        //List<Post> post = postRepository.findAll();
         if (postList.isEmpty()) {
             return "company/savePostForm";
         }
-
         request.setAttribute("postList", postList);
         System.out.println(postList.getFirst());
 
+        System.out.println("postList: " + postList);
 
-        // 3. 스킬
+
+//        // 3. 스킬
 //        ArrayList<PostResponse.DetailDTO> postSkillList = new ArrayList<>();
+//        System.out.println("포스트스킬리스트" + postSkillList);
+//        List<String> skills = new ArrayList<>();
 //        for (int i = 0; i < postList.size(); i++) {
-//            List<String> skills = skillRepository.findByPostId(postList.get(i).getId());
-//            System.out.println(skills);
+//            skills = skillRepository.findByPostId(postList.get(i).getId());
+//            for (int j = 0; j <skills.size(); j++) {
 //
-//            List<Post> post = (List<Post>) postList.get(i);
-//            System.out.println(post);
-//
-//            postSkillList.add(new PostResponse.DetailDTO(post.get(i), skills));
-//            System.out.println(postSkillList.get(i));
-//            request.setAttribute("postSkillList", postSkillList);
-//        }
-
-
-//        if (sessionUser.getId().equals(postList.get(0).getCompanyId())) {
-//            ArrayList<PostResponse.DetailDTO> postSkillList = new ArrayList<>();
-//            for (int i = 0; i < postList.size(); i++) {
-//                List<String> skills = skillRepository.findByPostId(postList.get(i).getId());
 //                System.out.println(skills);
 //
-//                Post post = (Post) postList.get(i);
-//                System.out.println(post);
-//
-//                postSkillList.add(new PostResponse.DetailDTO(post, skills));
-//                System.out.println(postSkillList.get(i));
-//                request.setAttribute("postSkillList", postSkillList);
+////            List<Post> post = (List<Post>) postList.get(i);
+////            System.out.println(post);
+////
+////            postSkillList.add(new PostResponse.DetailDTO(post.get(i), skills));
+////            System.out.println(postSkillList.get(i));
 //            }
-//        } else {
-//            return "error/403";
 //        }
+//        request.setAttribute("skillList", skills);
 
         return "company/posts";
     }
@@ -84,7 +75,6 @@ public class PostController {
         // 목적: 포스트 디테일 페이지를 불러온다.(0)
         // 1. 로그인 하지 않은 유저 로그인의 길로 인도
         User sessionUser = (User) session.getAttribute("sessionUser");
-        System.out.println(sessionUser);
         if (sessionUser == null) {
             return "redirect:/company/loginForm";
         }
@@ -92,10 +82,9 @@ public class PostController {
         // 2. id에 맞는 게시글을 본다.(이미 올라와 있는 것은 됨, 그러나 새로 쓴 글은 을
         PostResponse.DetailDTO responseDTO = postRepository.findById(id);
         request.setAttribute("company", sessionUser);
-        System.out.println(sessionUser);
         request.setAttribute("post", responseDTO);
-        System.out.println(responseDTO);
-
+        List<String> skillList = skillRepository.findByPostId(id);
+        request.setAttribute("skillList", skillList);
         // 스킬 리스트 만들어서 돌리기
 
         return "company/postDetail";

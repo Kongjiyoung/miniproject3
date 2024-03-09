@@ -19,7 +19,7 @@
                 <div class="px-5 mt-5">
                     <!-- 이미지 업로드 시작 -->
                     <input type="hidden" id="profile" name="profile" value="{{sessionUser.profile}}"/>
-                    <div class="upload"><img src="{{sessionUser.profile}}" id="profile"
+                    <div class="upload"><img src="/images/{{sessionUser.profile}}" id="profile"
                                              class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25">
                     </div>
                     <!--                                <ul class="image-preview rounded mx-auto d-block rounded-4 mt-5 my-3 w-25"></ul>-->
@@ -128,7 +128,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <label for="skills"><b>기술/자격 조건</b></label>
+                        <label for="skills" ><b>기술/자격 조건</b></label>
                         <div class="p-3 d-inline-flex mb-3 w-100">
                             <div class="row row-cols-auto gap-3 justify-content-center my-3">
                                 <input type="checkbox" class="btn-check" id="java" value="java" name="skill"
@@ -173,6 +173,16 @@
                                 <label class="btn btn-outline-primary" for="flutter">Flutter</label>
                             </div>
                         </div>
+                       <script>
+                           $('form').submit(function(event) {
+                               let checkedCount = $('input[type="checkbox"]:checked').length;
+
+                               if (checkedCount === 0) {
+                                   event.preventDefault();
+                                   alert('하나 이상의 기술/자격 조건을 선택해주세요.');
+                               }
+                           });
+                       </script>
                     </div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-outline-success mb-3"
