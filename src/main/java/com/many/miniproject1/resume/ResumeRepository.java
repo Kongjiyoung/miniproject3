@@ -150,7 +150,7 @@ public class ResumeRepository {
 
         Query query = em.createNativeQuery("update resume_tb set title=?, profile=?, portfolio=?, introduce=?, career=?, simple_introduce=? where id = ?");
         query.setParameter(1, requestDTO.getTitle());
-        query.setParameter(2, requestDTO.getProfilePath());
+        query.setParameter(2, requestDTO.getProfile());
         query.setParameter(3, requestDTO.getPortfolio());
         query.setParameter(4, requestDTO.getIntroduce());
         query.setParameter(5, requestDTO.getCareer());
