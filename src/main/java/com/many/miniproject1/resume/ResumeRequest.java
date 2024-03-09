@@ -3,11 +3,13 @@ package com.many.miniproject1.resume;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import java.sql.Timestamp;
 import java.util.List;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,6 +22,7 @@ public class ResumeRequest {
         private Integer personId;
         private String title;
         private MultipartFile profile;
+
         private String portfolio;
         private String introduce;
         private String career;

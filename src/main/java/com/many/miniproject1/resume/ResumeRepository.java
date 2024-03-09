@@ -95,12 +95,16 @@ public class ResumeRepository {
 
         query.setParameter(1, requestDTO.getPersonId());
         query.setParameter(2, requestDTO.getTitle());
+
         query.setParameter(3, profileFileName);
+
         query.setParameter(4, requestDTO.getPortfolio());
         query.setParameter(5, requestDTO.getIntroduce());
         query.setParameter(6, requestDTO.getCareer());
         query.setParameter(7, requestDTO.getSimpleIntroduce());
+
 //        query.setParameter(8, requestDTO.getSkill());
+
 
         query.executeUpdate();
 
@@ -108,6 +112,7 @@ public class ResumeRepository {
         Query maxQquery = em.createNativeQuery("select max(id) from resume_tb");
         Integer resumeId = (Integer) maxQquery.getSingleResult();
         return resumeId;
+
     }
 
     public List<ResumeResponse.DetailDTO> findresume(int u_id) {
@@ -141,17 +146,28 @@ public class ResumeRepository {
     }
 
     @Transactional
-    public void update(int id, ResumeRequest.UpdateDTO requestDTO) {
+    public int update(int id, ResumeRequest.UpdateDTO requestDTO) {
 
         Query query = em.createNativeQuery("update resume_tb set title=?, profile=?, portfolio=?, introduce=?, career=?, simple_introduce=? where id = ?");
         query.setParameter(1, requestDTO.getTitle());
-        query.setParameter(2, requestDTO.getProfile());
+        query.setParameter(2, requestDTO.getProfilePath());
         query.setParameter(3, requestDTO.getPortfolio());
         query.setParameter(4, requestDTO.getIntroduce());
         query.setParameter(5, requestDTO.getCareer());
         query.setParameter(6, requestDTO.getSimpleIntroduce());
         query.setParameter(7, id);
 
+        query.executeUpdate();
+
+
+        Query maxQquery = em.createNativeQuery("select max(id) from resume_tb");
+        Integer resumeId = (Integer) maxQquery.getSingleResult();
+        return resumeId;
+    }
+
+    public void skilldelete(int id) {
+        Query query = em.createNativeQuery("delete from skill_tb where resumeId = ?");
+        query.setParameter(1, id);
 
         query.executeUpdate();
     }

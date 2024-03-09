@@ -99,6 +99,12 @@ public class ResumeResponse {
     }
 
     @Data
+    public static class skillDTO {
+        private Integer resumeId;
+        private String skill;
+    }
+
+    @Data
     public static class UpdateDTO {
         private Integer id;
         private Integer personId;

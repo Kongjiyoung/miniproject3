@@ -203,6 +203,7 @@ VALUES (13,
 
 -- 더미데이터 company_id변경 <= JOIN
 
+
 -- SK(주) C&C
 INSERT INTO post_tb(company_id, title, career, pay, work_condition, work_start_time, work_end_time, deadline, task, profile, working_area, created_at)
 VALUES (14,
