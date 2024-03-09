@@ -22,7 +22,6 @@ public class ResumeRequest {
         private Integer personId;
         private String title;
         private MultipartFile profile;
-
         private String portfolio;
         private String introduce;
         private String career;
