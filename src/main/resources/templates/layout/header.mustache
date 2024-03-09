@@ -24,18 +24,18 @@
             class="sj_full_container navbar navbar-light navcolor d-flex justify-content-around sticky-top border-bottom align-self-center py-4">
         <div class="container d-flex justify-content-between" style="">
             {{#sessionUser}}
-            <a class="navbar-brand fs-2"
-               href="{{#isCompany}}/company/main{{/isCompany}}{{#isPerson}}/person/main{{/isPerson}}">
-                <img src="/images/logo.png" alt="로고" width="100%;" height="100px;"
-                     class="d-inline-block align-text-top"/>
-            </a>
+                <a class="navbar-brand fs-2"
+                   href="{{#isMatchingCompany}}/company/main{{/isMatchingCompany}}{{^isMatchingCompany}}/person/main{{/isMatchingCompany}}">
+                    <img src="/images/logo.png" alt="로고" width="100%;" height="100px;"
+                         class="d-inline-block align-text-top"/>
+                </a>
             {{/sessionUser}}
             {{^sessionUser}}
-            <a class="navbar-brand fs-2"
-               href="/">
-                <img src="/images/logo.png" alt="로고" width="100%;" height="100px;"
-                     class="d-inline-block align-text-top"/>
-            </a>
+                <a class="navbar-brand fs-2"
+                   href="/">
+                    <img src="/images/logo.png" alt="로고" width="100%;" height="100px;"
+                         class="d-inline-block align-text-top"/>
+                </a>
             {{/sessionUser}}
             <div>
                 <ul class="nav link-dark d-flex justify-content-end">

@@ -152,6 +152,16 @@
                                 <label class="btn btn-outline-primary" for="flutter">Flutter</label>
                             </div>
                         </div>
+                        <script>
+                            $('form').submit(function(event) {
+                                let checkedCount = $('input[type="checkbox"]:checked').length;
+
+                                if (checkedCount === 0) {
+                                    event.preventDefault();
+                                    alert('하나 이상의 기술/자격 조건을 선택해주세요.');
+                                }
+                            });
+                        </script>
                     </div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-outline-danger mb-3"
