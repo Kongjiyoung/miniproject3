@@ -1,20 +1,39 @@
 # 미니프로젝트 - 이력서 관리 사이트
 
 ## 1. 기술스택
--JDK 11
++JDK 11
 
--Springboot 3.2.3
++Springboot 3.2.3
 
--테스트 h2 디비
++테스트 h2 디비
 
--HTML
++HTML
 
--CSS
++CSS
 
--JAVAScript
++JAVAScript
 
--Bootstrap
++Bootstrap
 ## 2. 기능
-![image](https://github.com/Kongjiyoung/miniproject/assets/52162820/0faadaea-73b4-4f8f-b56b-69d72bea31b8)
+-----------------------
+#### MANY는 구인하는 기업과 구직하는 구직자의 매칭 기능 제공하는 사이트입니다.
 
+### 공통 기능
+
+### 기업
+일반 회원 로그인 시 하나의 메소드만 호출하는 방식으로 구현
+회원가입 시 이메일 중복 체크 및 비밀번호 유효성(동일한 비밀번호를 입력했는지) 체크
++공고에 등록한 기술과 
++등록한 공고 수정 및 삭제 기능
++지원한 구직자 검토중, 합격, 불합격 선택 기능
++기업 제안하기 철회 가능
++이력서 제안 기능
++관심 있는 이력서 스크랩
+### 구직자
++등록한 이력서 수정 및 삭제 기능
++채용 합/불합격시 실시간 조회가능 
++공고 지원 기능
++관심 있는 공고 스크랩
 ## 3. 테이블
+![image](https://github.com/Kongjiyoung/miniproject/assets/52162820/fe8f21df-8ff8-4c20-a38b-bcb612843ab0)
+
