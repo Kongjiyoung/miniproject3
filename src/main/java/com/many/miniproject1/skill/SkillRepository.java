@@ -1,8 +1,5 @@
 package com.many.miniproject1.skill;
 
-import com.many.miniproject1.post.Post;
-import com.many.miniproject1.post.PostRequest;
-import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.ResumeResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -92,7 +89,7 @@ public class SkillRepository {
         return skills;
     }
     @Transactional
-    public void saveSkillsFromResume(List<ResumeResponse.skillDTO> skillDTOs){
+    public void saveSkillsIntoResume(List<ResumeResponse.skillDTO> skillDTOs){
         for (ResumeResponse.skillDTO requestDTO : skillDTOs) {
             Query query = em.createNativeQuery("insert into skill_tb(skill, resume_id, created_at) values (?, ?, now())");
             query.setParameter(1, requestDTO.getSkill());
@@ -103,7 +100,7 @@ public class SkillRepository {
     }
 
     @Transactional
-    public void saveSkillsFromPost(List<SkillRequest.SaveDTO> skillDTOs, int postId) {
+    public void saveSkillsIntoPost(List<SkillRequest.SaveDTO> skillDTOs, int postId) {
         for (SkillRequest.SaveDTO requestDTO : skillDTOs) {
             Query query = em.createNativeQuery("insert into skill_tb(skill, post_id, created_at) values (?, ?, now())");
             query.setParameter(1, requestDTO.getSkill());
@@ -114,8 +111,16 @@ public class SkillRepository {
     }
 
     @Transactional
-    public void resetSkill(int id) { // 포스트/이력서를 업데이트 할 때 기존 스킬들을 리셋해서 다시 체크하게 하기 위해서 사용하는 것이다.
+    public void resetSkillsInPost(int id) { // 포스트/이력서를 업데이트 할 때 기존 스킬들을 리셋해서 다시 체크하게 하기 위해서 사용하는 것이다.
         Query query = em.createNativeQuery("DELETE FROM skill_tb WHERE post_id=?");
+        query.setParameter(1, id);
+
+        query.executeUpdate();
+    }
+
+    @Transactional
+    public void resetSkillInResume(int id) { // 포스트/이력서를 업데이트 할 때 기존 스킬들을 리셋해서 다시 체크하게 하기 위해서 사용하는 것이다.
+        Query query = em.createNativeQuery("DELETE FROM skill_tb WHERE resume_id=?");
         query.setParameter(1, id);
 
         query.executeUpdate();

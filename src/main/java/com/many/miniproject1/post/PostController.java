@@ -1,6 +1,5 @@
 package com.many.miniproject1.post;
 
-import com.many.miniproject1.resume.ResumeResponse;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillRepository;
 import com.many.miniproject1.skill.SkillRequest;
@@ -130,7 +129,7 @@ public class PostController {
 
         // 변환된 스킬 DTO 리스트를 사용하여 저장
         int postId = postRepository.save(requestDTO);
-        skillRepository.saveSkillsFromPost(skillDTOs, postId);
+        skillRepository.saveSkillsIntoPost(skillDTOs, postId);
         request.setAttribute("post", requestDTO);
         request.setAttribute("skills", skills);
         System.out.println(skills);
@@ -163,7 +162,7 @@ public class PostController {
 
         List<SkillRequest.SaveDTO> skillDTOs = new ArrayList<>();
 
-        skillRepository.resetSkill(id);
+        skillRepository.resetSkillsInPost(id);
         for (String skill : skills) {
             SkillRequest.SaveDTO skillDTO = new SkillRequest.SaveDTO();
             skillDTO.setSkill(skill);
@@ -172,9 +171,10 @@ public class PostController {
         }
 
         postRepository.update(id, requestDTO);
-        skillRepository.saveSkillsFromPost(skillDTOs, id);
+        skillRepository.saveSkillsIntoPost(skillDTOs, id);
         request.setAttribute("post", requestDTO);
         request.setAttribute("skills", skills);
+        System.out.println(requestDTO);
         return "redirect:/company/post/detail/" + id;
     }
 

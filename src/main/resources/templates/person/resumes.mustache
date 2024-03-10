@@ -1,5 +1,4 @@
 {{> layout/header}}
-<!-- <div class="container d-flex" style="height: 100vh;"> -->
 <div class="container d-flex">
     <section class="container grid-gap: 50px; mt-5">
         <!-- 이력서 추가 버튼 -->
@@ -32,14 +31,13 @@
                                 <h6><span>커리어</span>|<span>{{career}}</span></h6>
                                 <p class="card-text" style="
                           display: -webkit-box;
-                          -webkit-line-clamp: 2;
+                          -webkit-line-clamp: 1;
                           -webkit-box-orient: vertical;
                           overflow: hidden;
                           text-overflow: ellipsis;
                         ">
                                     {{simpleIntroduce}}
                                 </p>
-                                <!-- 버튼 구림 -->
                                 <div class="d-flex justify-content-start" style="
                           display: -webkit-box;
                           -webkit-line-clamp: 1;
@@ -66,6 +64,7 @@
                                 </form>
                             </div>
                         </div>
+                    </a>
                 </li>
             {{/resumeSkillList}}
         </ul>

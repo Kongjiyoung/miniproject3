@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,7 +30,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-public class ResumeController {
+public class ResumeController{
     private final ResumeRepository resumeRepository;
     private final SkillRepository skillRepository;
     private final HttpSession session;
@@ -160,7 +161,7 @@ public class ResumeController {
 
         // 변환된 스킬 DTO 리스트를 사용하여 저장
 
-        skillRepository.saveSkillsFromResume(skillDTOList);
+        skillRepository.saveSkillsIntoResume(skillDTOList);
         request.setAttribute("resume", requestDTO);
         request.setAttribute("skills", skills);
         System.out.println(skills);
@@ -183,7 +184,7 @@ public class ResumeController {
     }
 
     @PostMapping("/person/resume/{id}/detail/update")
-    public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request, @RequestParam("skills") List<String> skills) {
+    public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request, @RequestParam("skill") List<String> skills) {
         System.out.println("🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗");
         System.out.println(requestDTO);
 
@@ -220,18 +221,18 @@ public class ResumeController {
         List<ResumeResponse.skillDTO> skillDTOList=new ArrayList<>();
 
 //        int resumeId = resumeRepository.save(requestDTO, profileFilename);
-        skillRepository.resetSkill(id);
+        skillRepository.resetSkillsInPost(id);
         for(String skill:skills){
             ResumeResponse.skillDTO skillDTO=new ResumeResponse.skillDTO();
             skillDTO.setSkill(skill);
             skillDTO.setResumeId(id);
             skillDTOList.add(skillDTO);
         }
-
+        System.out.println("skills:sdfasfdasdf"+skills);
         // 변환된 스킬 DTO 리스트를 사용하여 저장
 
-        resumeRepository.update(id, requestDTO);
-        skillRepository.saveSkillsFromResume(skillDTOList);
+        resumeRepository.update(id, requestDTO, profileFilename);
+        skillRepository.saveSkillsIntoResume(skillDTOList);
 //        request.setAttribute("resume", requestDTO);
 //        request.setAttribute("skills", skills);
         System.out.println(skills);

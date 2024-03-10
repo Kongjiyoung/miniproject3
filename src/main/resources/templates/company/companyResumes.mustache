@@ -1,8 +1,7 @@
 {{> layout/header}}
-<div class="container d-flex" style="height: 100vh;">
-<!-- 이거 화면 이상하면 위에 100vh 지워보세요. -->
+<div class="container d-flex">
     <section class="container grid-gap: 50px; mt-5">
-        <h1>00에 도착한 이력서를 검토해보세요</h1>
+        <h1>{{company.companyName}}에 도착한 이력서를 검토해보세요</h1>
         <br>
 
         <!-- 유형별 공고 탭 끝 -->
@@ -10,11 +9,6 @@
         <ul class="row row-cols-4 gap-3">
                 {{#resumeSkillList}}
                     <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                        <div class="form-check d-flex justify-content-center">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                                   checked required>
-                            <label class="form-check-label" for="flexRadioDefault1"></label>
-                        </div>
                         <a href="/company/resume/{{id}}/detail" style="text-decoration: none; color: black">
                             <div style="width: 100%; height: 15rem; overflow: hidden">
                                 <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
@@ -30,7 +24,7 @@
                                 <h6><span>커리어</span>|<span>{{career}}</span></h6>
                                 <p class="card-text" style="
                           display: -webkit-box;
-                          -webkit-line-clamp: 2;
+                          -webkit-line-clamp: 1;
                           -webkit-box-orient: vertical;
                           overflow: hidden;
                           text-overflow: ellipsis;

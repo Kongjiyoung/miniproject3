@@ -411,18 +411,18 @@ VALUES ('Java', 2, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Spring', 2, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
-VALUES ('Android', 2, now());
+VALUES ('SQL', 2, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Flutter', 2, now());
 
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Java', 3, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
-VALUES ('Express', 3, now());
+VALUES ('Spring', 3, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
-VALUES ('Android', 3, now());
+VALUES ('SQL', 3, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
-VALUES ('React', 3, now());
+VALUES ('Flutter', 3, now());
 
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Java', 4, now());
@@ -513,6 +513,24 @@ INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Express', 13, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Java', 13, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('React', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 14, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('React', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 15, now());
 
 --공고에서(1~13)
 -- Java, Spring HTML, JavaScript, SQL, Android, React, Node.js, Express, Flutter
