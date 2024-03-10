@@ -38,6 +38,7 @@ public class MainController {
     private final ApplyRepository applyRepository;
     private final ScrapRepository scrapRepository;
     private Integer postChoose = 0;
+    private Integer resumeChoose = 0;
 
     //메인 구직 공고
     @GetMapping("/company/main")
@@ -365,28 +366,105 @@ public class MainController {
     //맞춤 공고 - 개인이 보는 매칭 공고
     @GetMapping("/person/matching")
     public String matchingPostForm(HttpServletRequest request) {
+        //공고 가져오기
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        System.out.println(sessionUser);
+        Integer userId = sessionUser.getId();
+        List<Resume> resumeList = mainRepository.findResume(userId);
+        System.out.println(resumeList);
+        request.setAttribute("resumeList", resumeList);
 
+        if (postChoose != 0) {
+            //매칭할 공고 스킬 가져와 리스트에 담기
+            List<String> resumeSkill = skillRepository.findByResumeId(postChoose);
+            System.out.println(resumeSkill);
+            //전체 이력서 새로운 이력서점수리스트에 담기, 점수는 0으로 시작
+            List<MainResponse.PostSkillDTO> postSkillScore = new ArrayList<>();
+            System.out.println(skillRepository.findResume().size());
+            for (int i = 0; i < postRepository.findAll().size(); i++) {
+                System.out.println(i);
+                int postId = postRepository.findAll().get(i).getId();
+                postSkillScore.add(new MainResponse.PostSkillDTO(postId, 0));
+                System.out.println("추가" + postSkillScore);
+            }
+            System.out.println(postSkillScore);
+            //공고스킬만큼 반복문 돌리기
+            for (int i = 0; i < resumeSkill.size(); i++) {
+                System.out.println(i);
+                System.out.println("이력서스킬 : " + resumeSkill.get(i));
+                //모든 스킬테이블에서 비교하기위해 반복문 돌리기
+                for (int j = 0; j < skillRepository.findAll().size(); j++) {
+                    System.out.println(j);
+                    System.out.println("스킬테이블 : " + j);
+                    if (skillRepository.findAll().get(j).getPostId()==null){
+                        break;
+                    }
+                    //스킬테이블과 공고스킬 비교하기
+                    if (resumeSkill.get(i).equals(skillRepository.findPost().get(j).getSkill())) {
+                        System.out.println("같은 스킬 공고 아이디 : " + skillRepository.findPost().get(j).getPostId());
+                        //스킬테이블에서 같은 스킬 찾아서 거기 이력서아이디 가져오기
+                        int postId = skillRepository.findPost().get(j).getPostId();
+                        //이력서점수리스트 만큼 반복문 돌리기
+                        for (int k = 0; k < postSkillScore.size(); k++) {
+                            System.out.println(k);
+                            //이력서점수리스트의 이력서아이디와 스킬테이블 이력서 아이디와 같으면 이력서 점수리스트에 해당하는 점수 1점 올리기
+                            if (postSkillScore.get(k).getPostId() == postId) {
+                                System.out.println(postSkillScore.get(k));
+                                //이력서점수 1점 추가하기
+                                postSkillScore.get(k).setScore(postSkillScore.get(k).getScore()+1);;
+                                System.out.println(postSkillScore);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+            //2점이상 이력서아이디만 가져와 리스트 만들기
+            ArrayList<Integer> finalPostSkillScore = new ArrayList<>();
+            for (int i = 0; i < postSkillScore.size(); i++) {
+                if (postSkillScore.get(i).getScore() > 1) {
+                    int two = postSkillScore.get(i).getPostId();
+                    finalPostSkillScore.add(two);
+                }
+            }
+            System.out.println("2점이상 이력서 아이디"+finalPostSkillScore);
+
+            //매칭되는 스택이 많은 공고부터 정렬
+            Collections.sort(finalPostSkillScore, Collections.reverseOrder());
+            System.out.println("2점이상 이력서 아이디 정렬 : "+finalPostSkillScore);
+
+            List<Post> postList = new ArrayList<>();
+
+            for (int i = 0; i < finalPostSkillScore.size(); i++) {
+                int postId = finalPostSkillScore.get(i);
+                postList.add(mainRepository.findMainPost(postId));
+            }
+            System.out.println("2점이상 이력서 : "+postList);
+
+            System.out.println(postList.size());
+
+            ArrayList<PostResponse.DetailDTO> postSkillList = new ArrayList<>();
+            for (int i = 0; i < postList.size(); i++) {
+                List<String> skills = skillRepository.findByPostId(postList.get(i).getId());
+                System.out.println(skills);
+                Post post = postList.get(i);
+                System.out.println(post);
+
+                postSkillList.add(new PostResponse.DetailDTO(post, skills));
+                System.out.println(postSkillList.get(i));
+            }
+            request.setAttribute("postSkillList", postSkillList);
+        }
 
         return "person/matching";
     }
 
     @PostMapping("/person/match")
-    public String matchingResume(@RequestParam("postChoice") Integer postChoice) {
-        postChoose = postChoice;
+    public String matchingResume(@RequestParam("resumeChoice") Integer resumeChoice) {
+        resumeChoose = resumeChoice;
         return "redirect:/person/matching";
     }
-//
-//    @GetMapping("/matching/post/detail/{id}")
-//    public String matchingPostDetailForm(@PathVariable int id, HttpServletRequest request) {
-//
-//        PostResponse.DetailDTO detailDTO = postRepository.findById(id);
-//        List<String> skills = skillRepository.findByResumeId(id);
-//
-//        detailDTO.setSkill(skills);
-//
-//        request.setAttribute("post", detailDTO);
-//        return "company/postDetail";
-//    }
 }
 
 
