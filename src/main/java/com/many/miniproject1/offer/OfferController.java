@@ -5,6 +5,8 @@ import com.many.miniproject1.apply.ApplyRepository;
 import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.main.MainResponse;
 import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostRepository;
+import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeRepository;
 import com.many.miniproject1.skill.SkillRepository;
@@ -29,7 +31,7 @@ public class OfferController {
     private final HttpSession session;
     // 이력서/스킬 레파지토리 불러오기
     private final SkillRepository skillRepository;
-    private final ApplyRepository applyRepository;
+    private final PostRepository postRepository;
 
     @PostMapping("/company/offers/delete")
     public void delete(@RequestParam int id,HttpServletRequest request){
@@ -38,14 +40,15 @@ public class OfferController {
     }
 
     // 제안한 이력서 상세보기
-    @GetMapping("/company/offer/{id}/detail")
+    @GetMapping("/person/post/detail/{id}")
     public String search(HttpServletRequest request, @PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        OfferResponse.OfferResumeDetailDTO resumeDTO = offerRepository.companyOfferResumeDetail(sessionUser.getId(),id);
-        List<String> skills = skillRepository.findByResumeId(id);
-        OfferResponse.OfferResumeDetailPlusSkillDTO resumeSkill = new OfferResponse.OfferResumeDetailPlusSkillDTO(resumeDTO, skills);
-        request.setAttribute("resume", resumeSkill);
-        return "company/mypageResumeDetail";
+
+        PostResponse.DetailDTO responseDTO = postRepository.findById(id);
+        request.setAttribute("post", responseDTO);
+        List<String> skillList = skillRepository.findByPostId(id);
+        request.setAttribute("skillList", skillList);
+
+        return "person/postDetail";
     }
     // 제안한 이력서 제거
     @PostMapping("/company/offer/{id}/detail/delete")
@@ -55,12 +58,15 @@ public class OfferController {
         return "redirect:/company/offers";
     }
 
-    @GetMapping("/v")
-    public String mattewEdit() {
-
-        return "/company/mattewEdit";
+    @GetMapping("/company/offer/{id}/detail")
+    public String personDetail(HttpServletRequest request, @PathVariable int id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        OfferResponse.OfferResumeDetailDTO resumeDTO = offerRepository.companyOfferResumeDetail(sessionUser.getId(),id);
+        List<String> skills = skillRepository.findByResumeId(id);
+        OfferResponse.OfferResumeDetailPlusSkillDTO resumeSkill = new OfferResponse.OfferResumeDetailPlusSkillDTO(resumeDTO, skills);
+        request.setAttribute("resume", resumeSkill);
+        return "company/mypageResumeDetail";
     }
-
     // company의 offers 관리
     // skill 만 불러오면 되나.?
     @GetMapping("/company/offers")

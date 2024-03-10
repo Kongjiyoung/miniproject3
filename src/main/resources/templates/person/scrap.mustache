@@ -2,11 +2,10 @@
 {{> layout/header}}
 <div class="container d-flex">
     <section class="container grid-gap: 50px; mt-5">
-        <!-- 이력서 추가 버튼 -->
         <div class="d-flex justify-content-start mx-4">
             <h1>스크랩한 공고</h1>
         </div>
-        <br>
+
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
             {{#postSkillList}}
@@ -53,23 +52,7 @@
             {{/postSkillList}}
         </ul>
     </section>
-    <script>
-        document.querySelectorAll('input[name="resumeRadio"]').forEach((radio) => {
-            radio.addEventListener('change', function () {
-                // 모든 기본 이력서 버튼 숨기기
-                document.querySelectorAll('.default-resume').forEach((element) => {
-                    element.style.display = 'none';
-                });
 
-                // 선택한 라디오 버튼에 해당하는 기본 이력서 버튼 표시
-                var resumeId = this.value;
-                var defaultResumeDiv = document.getElementById('defaultResume' + resumeId);
-                if (this.checked) {
-                    defaultResumeDiv.style.display = 'flex';
-                }
-            });
-        });
-    </script>
     <!-- list-group( 오른쪽 바로가기) 시작 -->
     <div class="list-group mx-2">
         <a href="/person/info" class="list-group-item shadow " style="width: 150px;">회원정보관리</a>
