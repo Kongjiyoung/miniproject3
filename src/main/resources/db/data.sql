@@ -3,32 +3,32 @@
 --개인정보 입력
 -- 0308 이름 맞춤, 이미지 추가
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19980504', 'captain_kong@nate.com', '1234', 'captain_kong', '010-1234-5678 ', '부산광역시', 'person01.jpg', now());
+VALUES ('person', '1998-05-04', 'captain_kong@nate.com', '1234', 'captain_kong', '010-1234-5678 ', '부산광역시', 'person01.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19970924', 'mylove_lsh@nate.com', '1234', 'lsh', '010-1234-5678 ', '부산광역시', 'person02.jpg', now());
+VALUES ('person', '1997-09-24', 'mylove_lsh@nate.com', '1234', 'lsh', '010-1234-5678 ', '부산광역시', 'person02.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '20000709', 'hahaha@nate.com', '1234', 'khh', '010-1234-5678 ', '부산광역시', 'person03.jpg', now());
+VALUES ('person', '2000-07-09', 'hahaha@nate.com', '1234', 'khh', '010-1234-5678 ', '부산광역시', 'person03.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19930114', 'hana@nate.com', '1234', 'ysh', '010-1234-5678 ', '부산광역시', 'person04.jpg', now());
+VALUES ('person', '1993-01-14', 'hana@nate.com', '1234', 'ysh', '010-1234-5678 ', '부산광역시', 'person04.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19990230', 'jhj@nate.com', '1234', 'jhj', '010-1234-5678 ', '부산광역시', 'person05.jpg', now());
+VALUES ('person', '1999-02-30', 'jhj@nate.com', '1234', 'jhj', '010-1234-5678 ', '부산광역시', 'person05.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '20020422', 'ssar@nate.com', '1234', 'ssar', '010-1234-5678 ', '부산광역시', 'person06.jpg', now());
+VALUES ('person', '2002-04-22', 'ssar@nate.com', '1234', 'ssar', '010-1234-5678 ', '부산광역시', 'person06.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19930521', 'zusim@nate.com', '1234', 'zusim', '010-1234-5678 ', '부산광역시', 'person07.jpg', now());
+VALUES ('person', '1993-05-21', 'zusim@nate.com', '1234', 'zusim', '010-1234-5678 ', '부산광역시', 'person07.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19950417', 'ryu@nate.com', '1234', 'ryu', '010-1234-5678 ', '부산광역시', 'person08.jpg', now());
+VALUES ('person', '1995-04-17', 'ryu@nate.com', '1234', 'ryu', '010-1234-5678 ', '부산광역시', 'person08.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '20011212', 'sunghun@nate.com', '1234', 'sunghun', '010-1234-5678 ', '부산광역시', 'person09.jpg', now());
+VALUES ('person', '2001-12-12', 'sunghun@nate.com', '1234', 'sunghun', '010-1234-5678 ', '부산광역시', 'person09.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19980815', 'hoondong@nate.com', '1234', 'hoondong ', '010-1234-5678 ', '부산광역시', 'person10.jpg',
+VALUES ('person', '1998-08-15', 'hoondong@nate.com', '1234', 'hoondong ', '010-1234-5678 ', '부산광역시', 'person10.jpg',
         now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19881130', 'minji@nate.com', '1234', 'minji', '010-1234-5678 ', '부산광역시', 'person11.jpg', now());
+VALUES ('person', '1988-11-30', 'minji@nate.com', '1234', 'minji', '010-1234-5678 ', '부산광역시', 'person11.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '19900302', 'jake@nate.com', '1234', 'jake', '010-1234-5678 ', '부산광역시', 'person12.jpg', now());
+VALUES ('person', '1990-03-02', 'jake@nate.com', '1234', 'jake', '010-1234-5678 ', '부산광역시', 'person12.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '20000302', 'harry@nate.com', '1234', 'harry', '010-1234-5678 ', '부산광역시', 'person13.jpg', now());
+VALUES ('person', '2000-03-02', 'harry@nate.com', '1234', 'harry', '010-1234-5678 ', '부산광역시', 'person13.jpg', now());
 
 
 --회사정보 입력

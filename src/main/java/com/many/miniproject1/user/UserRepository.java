@@ -33,7 +33,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void companySave(UserRequest.JoinDTO requestDTO) {
+    public void companySave(UserRequest.JoinDTO requestDTO, String profileFileName) {
         Query query = em.createNativeQuery("insert into user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at) values ('company', ?, ?, ?, ?, ?, ?, ?,?, now());");
         query.setParameter(1, requestDTO.getEmail());
         query.setParameter(2, requestDTO.getPassword());
@@ -42,13 +42,13 @@ public class UserRepository {
         query.setParameter(5, requestDTO.getCompanyName());
         query.setParameter(6, requestDTO.getAddress());
         query.setParameter(7, requestDTO.getCompanyNum());
-        query.setParameter(8, requestDTO.getProfilePath());
+        query.setParameter(8, profileFileName);
 
         query.executeUpdate();
     }
 
     @Transactional
-    public void personSave(UserRequest.JoinDTO requestDTO) {
+    public void personSave(UserRequest.JoinDTO requestDTO, String profileFileName) {
         Query query = em.createNativeQuery("insert into user_tb(role, birth, email, password, username, tel, address, profile, created_at) values('person',?,?,?,?,?,?,?,now())");
         query.setParameter(1, requestDTO.getBirth());
         query.setParameter(2, requestDTO.getEmail());
@@ -56,7 +56,7 @@ public class UserRepository {
         query.setParameter(4, requestDTO.getUsername());
         query.setParameter(5, requestDTO.getTel());
         query.setParameter(6, requestDTO.getAddress());
-        query.setParameter(7, requestDTO.getProfilePath());
+        query.setParameter(7, profileFileName);
         query.executeUpdate();
     }
 
@@ -82,7 +82,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void personUpdate(UserRequest.PersonUpdateDTO requestDTO, int id) {
+    public void personUpdate(UserRequest.PersonUpdateDTO requestDTO, int id, String profileFileName) {
         String updateQuery = "update user_tb set profile=?, username=?, tel=?, address=?, birth=?, email=?";
 
         // Check if newPassword is not empty, then update the password
@@ -92,7 +92,7 @@ public class UserRepository {
         updateQuery += " where id = ?";
 
         Query query = em.createNativeQuery(updateQuery);
-        query.setParameter(1, requestDTO.getProfilePath());
+        query.setParameter(1, profileFileName);
         query.setParameter(2, requestDTO.getUsername());
         query.setParameter(3, requestDTO.getTel());
         query.setParameter(4, requestDTO.getAddress());
@@ -112,7 +112,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void companyUpdate(UserRequest.CompanyUpdateDTO requestDTO, int id) {
+    public void companyUpdate(UserRequest.CompanyUpdateDTO requestDTO, int id, String profileFileName) {
         String updateQuery = "update user_tb set profile=?, company_name=?, company_num=?, address=?, username=?, tel=?, email=?";
         // Check if newPassword is not empty, then update the password
         if (StringUtils.isNotEmpty(requestDTO.getNewPassword())) {
@@ -121,7 +121,7 @@ public class UserRepository {
         updateQuery += " where id = ?";
 
         Query query = em.createNativeQuery(updateQuery);
-        query.setParameter(1, requestDTO.getProfilePath());
+        query.setParameter(1, profileFileName);
         query.setParameter(2, requestDTO.getCompanyName());
         query.setParameter(3, requestDTO.getCompanyNum());
         query.setParameter(4, requestDTO.getAddress());
