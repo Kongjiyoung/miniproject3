@@ -1,6 +1,7 @@
 package com.many.miniproject1.post;
 
 import com.many.miniproject1.resume.ResumeRequest;
+import com.many.miniproject1.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -89,6 +90,12 @@ public class PostRepository {
         query.setParameter(1, idx);
         Integer companyId = (Integer) query.getSingleResult();
         return companyId;
+    }
+
+    public User findCompanyName(Integer idx) {
+        Query query = em.createNativeQuery("select u.* from user_tb u inner join post_tb p on u.id=p.company_id where p.id=?", User.class);
+        query.setParameter(1, idx);
+        return (User) query.getSingleResult();
     }
 
     @Transactional
