@@ -1,31 +1,40 @@
+ScrapResumeDetail
+
 {{> layout/header}}
 <div class="container d-flex">
     <div class=" mx-2 pb-4 w-100">
         <div class="border border-tertiary p-5 rounded shadow">
-            <h1></h1>
-            <div class="d-flex justify-content-start mx-2">
-            </div>
-            <div>
-                <h3>{{resume.title}}</h3>
-                <form action="/company/scrap/{{resume.id}}/detail/offer" method="post">
-                    <select class="form-select" aria-label="Default select example" id="postChoice"
-                            name="postChoice">
-                        <option selected>채용 공고 선택</option>
-                        {{#postList}}
-                            <option value="{{id}}">{{title}}</option>
-                        {{/postList}}
-                    </select>
-                    <div class="d-flex justify-content-center mx-4">
-                        <button class="btn btn-outline-success" type="submit">제안하기</button>
+            <div class="px-5">
+                <input style="display: none" id="companyId">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="col">
+                        <h3 style="font-weight: bold">{{resume.title}}</h3>
+                    </div>
+                    <form action="/company/scrap/{{resume.id}}/detail/delete" method="post">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-outline-success" type="submit">취소하기</button>
+                        </div>
+                    </form>
+                </div>
+                <hr class="d-inline-flex w-100">
+                <form class="row d-flex justify-content-end g-3 align-items-center"
+                      action="/company/scrap/{{resume.id}}/detail/offer" method="post">
+                    <div class="col-auto">
+                        <select class="form-select form-select-sm" aria-label="Default select example" id="postChoice"
+                                name="postChoice">
+                            <option selected>채용 공고 선택</option>
+                            {{#postList}}
+                                <option value="{{id}}">{{title}}</option>
+                            {{/postList}}
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-outline-success btn-sm" type="submit"><i class="far fa-paper-plane"></i>
+                        </button>
                     </div>
                 </form>
-                <form action="/company/scrap/{{resume.id}}/detail/delete" method="post">
-                    <div class="d-flex justify-content-center mx-4">
-                        <button class="btn btn-outline-success" type="submit">취소하기</button>
-                    </div>
-                </form>
             </div>
-            <hr>
+
 
             <div class="d-flex justify-content-center">
                 <div style="width: 85%;">
