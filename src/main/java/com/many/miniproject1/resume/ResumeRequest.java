@@ -27,7 +27,7 @@ public class ResumeRequest {
         private String career;
         private String simpleIntroduce;
         private List<String> skill;
-        private Timestamp createdAt;
+//        private Timestamp createdAt;
     }
 
     @Data
@@ -45,7 +45,6 @@ public class ResumeRequest {
         private String username;
         private String tel;
         private String address;
-        private Timestamp createdAt;
     }
 
     @Data
@@ -59,6 +58,5 @@ public class ResumeRequest {
         private String career;
         private String simpleIntroduce;
         private List<String> skill;
-        private Timestamp createdAt;
     }
 }

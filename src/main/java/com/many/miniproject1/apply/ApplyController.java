@@ -43,6 +43,7 @@ public class ApplyController {
             resumeSkillList.add(new ApplyResponse.ResumeIsPassDTO(resume, skills));
             System.out.println(resumeSkillList.get(i));
         }
+        request.setAttribute("company", sessionUser);
         request.setAttribute("resumeSkillList", resumeSkillList);
 
         return "company/companyResumes";

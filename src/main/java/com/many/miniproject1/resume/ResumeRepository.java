@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +85,7 @@ public class ResumeRepository {
 
     // 사진 등록
     @Transactional
-    public int save(ResumeRequest.SaveDTO requestDTO, String profileFileName) {
+    public Integer save(ResumeRequest.SaveDTO requestDTO, String profileFileName) {
         String q = """
                       insert into resume_tb(person_id, title,  profile, portfolio, introduce, career,
                       simple_introduce, created_at) 
@@ -146,11 +147,17 @@ public class ResumeRepository {
     }
 
     @Transactional
-    public int update(int id, ResumeRequest.UpdateDTO requestDTO) {
-
+    public void update(int id, ResumeRequest.UpdateDTO requestDTO, String profileFileName) {
         Query query = em.createNativeQuery("update resume_tb set title=?, profile=?, portfolio=?, introduce=?, career=?, simple_introduce=? where id = ?");
+        System.out.println(requestDTO.getTitle());
+        System.out.println(profileFileName);
+        System.out.println(requestDTO.getPortfolio());
+        System.out.println(requestDTO.getIntroduce());
+        System.out.println(requestDTO.getCareer());
+        System.out.println(requestDTO.getSimpleIntroduce());
+        System.out.println(id);
         query.setParameter(1, requestDTO.getTitle());
-        query.setParameter(2, requestDTO.getProfile());
+        query.setParameter(2, profileFileName);
         query.setParameter(3, requestDTO.getPortfolio());
         query.setParameter(4, requestDTO.getIntroduce());
         query.setParameter(5, requestDTO.getCareer());
@@ -159,10 +166,6 @@ public class ResumeRepository {
 
         query.executeUpdate();
 
-
-        Query maxQquery = em.createNativeQuery("select max(id) from resume_tb");
-        Integer resumeId = (Integer) maxQquery.getSingleResult();
-        return resumeId;
     }
 
     public void skilldelete(int id) {

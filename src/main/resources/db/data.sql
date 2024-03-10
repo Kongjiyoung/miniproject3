@@ -515,6 +515,24 @@ VALUES ('Express', 13, now());
 INSERT INTO skill_tb(skill, resume_id, created_at)
 VALUES ('Java', 13, now());
 
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('React', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 14, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('React', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 15, now());
+
 --공고에서(1~13)
 -- Java, Spring HTML, JavaScript, SQL, Android, React, Node.js, Express, Flutter
 INSERT INTO skill_tb(skill, post_id, created_at)
