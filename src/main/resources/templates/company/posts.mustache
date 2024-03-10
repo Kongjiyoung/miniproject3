@@ -26,14 +26,20 @@
                             overflow: hidden;
                             text-overflow: ellipsis;
                           ">{{title}}</h5>
-                            {{#skillList}}
-                                <div style=" margin: 5px;
+                            <div style="  margin: 5px;
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            "><span>{{.}}</span></div>
+                          ">
+                                <span class="btn btn-outline-primary disabled">Java</span>
+                                <span class="btn btn-outline-primary disabled">Spring</span>
+                                <span class="btn btn-outline-primary disabled">Flutter</span>
+                            </div>
+                            <!-- TODO: 나중에 꼭 할게요!!! -->
+                            {{#skillList}}
+                                <div class="btn btn-outline-primary disabled">{{.}}</div>
                             {{/skillList}}
                             <p style="  margin: 5px;
                             display: -webkit-box;
@@ -45,7 +51,8 @@
                         </div>
                     </a>
                     <!-- 삭제하기 버튼 아직 안 됨(디테일에서는 됨) -->
-                    <form action="/company/post/detail/{{id}}/delete" method="post" class="d-flex justify-content-center">
+                    <form action="/company/post/detail/{{id}}/delete" method="post"
+                          class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-outline-danger mb-3" style="width: 100%">삭제하기</button>
                     </form>
                 </li>
