@@ -1,7 +1,9 @@
 {{> layout/header}}
 <div class="container d-flex">
-        <h1>스크랩한 공고</h1>
-        <br>
+    <section class="container grid-gap: 50px; mt-5">
+        <div class="d-flex justify-content-start mx-4">
+            <h1>스크랩한 공고</h1>
+        </div>
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
             {{#postSkillList}}
@@ -50,6 +52,7 @@
             <!-- 구인공고 시작 -->
             <!-- 구인공고 끝 -->
         </ul>
+    </section>
     </section>
     <!-- list-group( 오른쪽 바로가기) 시작 -->
     <div class="list-group mx-2">
