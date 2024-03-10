@@ -7,7 +7,6 @@ public class UserRequest {
     @Data
     public static class JoinDTO{
         private MultipartFile profile; // 사용자가 업로드한 파일
-        private String profilePath; // 파일의 저장 경로
         private String role;
         private String email;
         private String password;
@@ -29,7 +28,6 @@ public class UserRequest {
     public static class CompanyUpdateDTO {
         private Integer id;
         private MultipartFile profile;
-        private String profilePath;
         private String companyName;
         private String companyNum;
         private String address;
@@ -42,7 +40,7 @@ public class UserRequest {
     @Data
     public static class PersonUpdateDTO {
         private MultipartFile profile;
-        private String profilePath;
+        // private String profilePath;
         private String username;
         private String address;
         private String birth;

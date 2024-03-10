@@ -37,7 +37,7 @@
         <div class=" mx-2 pb-4 w-100">
             <div class="border border-tertiary p-5 rounded shadow">
                 <div class="d-flex justify-content-between">
-                    <h1>개인정보수정</h1>
+                    <h1>회사정보수정</h1>
                 </div>
                 <hr>
 
@@ -48,49 +48,53 @@
                     <input type="hidden" id="id" name="id" value="{{sessionUser.id}}">
                     <div class="px-5 mt-5">
                         <!-- 이미지 업로드 시작 -->
-                        <div class="upload">
-                            <img src="/images/{{user.profile}}"
-                                 id="profileImage"
-                                 class=" mx-auto d-block mt-5 my-3 w-25">
-                            <ul class="image-preview mx-auto d-block mt-5 my-3 w-50 h-50"></ul>
-                            <input type="file" class="real-upload mx-auto d-block mt-5 my-3 w-25" accept="image/*"
-                                   name="profile" id="imageUpload" multiple>
+                        <div class="upload d-flex justify-content-center mb-3">
+                            <div class=" d-flex d-flex justify-content-center align-items-center"
+                                 style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"
+                                 id="profilePreview"><img src="/images/{{user.profile}}"
+                                                          style="width: 100%; height: 100%;">
+                            </div>
                         </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#imageUpload').change(function (event) {
-                                    var reader = new FileReader();
-                                    reader.onload = function (e) {
-                                        $('#profileImage').attr('src', e.target.result);
-                                    };
-                                    // 선택된 파일이 없다면(이미지 변경이 없다면) 기존 이미지로 설정
-                                    if (event.target.files.length === 0) {
-                                        $('#profileImage').attr('src', '/images/{{user.profile}}');
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control mt-2" accept="image/*" name="profile"
+                                   id="profile" value="{{user.profile}}" multiple required/>
+                            <script>
+                                $('#profile').change(function () {
+                                    let input = this;
+                                    if (input.files && input.files[0]) {
+                                        let reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
+                                        };
+
+                                        reader.readAsDataURL(input.files[0]);
+
+                                        // 파일명 출력
+                                        let fileName = input.files[0].name;
+                                        $('#profile').val(fileName);
+                                        console.log(fileName);
                                     }
-
-                                    reader.readAsDataURL(event.target.files[0]);
                                 });
-                            });
-                        </script>
-
+                            </script>
+                        </div>
                         <!-- 이미지 업로드 끝 -->
                     </div>
                     <div class="container w-50 mt-5 text ">
                         <div class="mt-5">
-                            <h4 class="border-bottom pb-4">회사정보</h4>
+                            <h4 class="border-bottom pb-4">기본 정보</h4>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">회사명</span>
                             <input type="text" class="form-control" value="{{user.companyName}}" name="companyName"
-                                   readonly>
+                                   disabled>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업자번호</span>
                             <input type="text" class="form-control" value="{{user.companyNum}}" name="companyNum"
-                                   maxlength="10" readonly>
+                                   maxlength="10" disabled>
                         </div>
-
 
                         <div class="input-group mb-3">
                             <span class="input-group-text justify-content-center hs_span_size init_color hs_span">주소</span>
@@ -114,7 +118,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color">이메일</span>
-                            <input type="text" class="form-control" value="{{user.email}}" name="email">
+                            <input type="text" class="form-control" value="{{user.email}}" name="email" disabled>
                         </div>
 
                         <div id="checkAlertBox"></div>
@@ -155,8 +159,8 @@
                             // '확인' 버튼 클릭 이벤트
                             document.querySelector('.company-password button[type="submit"]').addEventListener('click', function (e) {
                                 e.preventDefault();
-                                var oldPassword = document.querySelector('input[name="password"]').value;
-                                var confirmPassword = document.querySelector('input[name="checkPassword"]').value;
+                                let oldPassword = document.querySelector('input[name="password"]').value;
+                                let confirmPassword = document.querySelector('input[name="checkPassword"]').value;
 
                                 // 기존 비밀번호와 확인 비밀번호가 일치하지 않으면
                                 if (oldPassword !== confirmPassword) {
@@ -172,9 +176,9 @@
                             document.querySelector('button[type="submit"]:not(.company-password button)').addEventListener('click', function (e) {
                                 e.preventDefault(); // 폼 제출을 일시 중단합니다.
 
-                                var oldPassword = document.querySelector('input[name="password"]').value;
-                                var confirmPassword = document.querySelector('input[name="checkPassword"]').value;
-                                var newPassword = document.querySelector('input[name="newPassword"]').value;
+                                let oldPassword = document.querySelector('input[name="password"]').value;
+                                let confirmPassword = document.querySelector('input[name="checkPassword"]').value;
+                                let newPassword = document.querySelector('input[name="newPassword"]').value;
 
                                 // 기존 비밀번호와 확인 비밀번호가 일치하지 않으면
                                 if (oldPassword !== confirmPassword) {
@@ -201,7 +205,7 @@
                                    style="width: 100%">취소</a>
                             </div>
                         </div>
-
+                    </div>
                 </form>
             </div>
         </div>
