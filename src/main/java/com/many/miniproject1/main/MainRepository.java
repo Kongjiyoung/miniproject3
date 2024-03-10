@@ -103,20 +103,20 @@ public class MainRepository {
         Object[] row = (Object[]) query.getSingleResult();
 
 
-            String username = (String) row[0];
-            String birth = (String) row[1];
-            String tel = (String) row[2];
-            String address = (String) row[3];
-            String email = (String) row[4];
-            Integer id = (Integer) row[5];
-            Integer personId = (Integer) row[6];
-            String title = (String) row[7];
-            String profile = (String) row[8];
-            String portfolio = (String) row[9];
-            String introduce = (String) row[10];
-            String career = (String) row[11];
-            String simpleIntroduce = (String) row[12];
-            Timestamp createdAt = (Timestamp) row[13];
+        String email = (String) row[0];
+        String username = (String) row[1];
+        String tel = (String) row[2];
+        String address = (String) row[3];
+        String birth = (String) row[4];
+        Integer id = (Integer) row[5];
+        Integer personId = (Integer) row[6];
+        String title = (String) row[7];
+        String profile = (String) row[8];
+        String portfolio = (String) row[9];
+        String introduce = (String) row[10];
+        String career = (String) row[11];
+        String simpleIntroduce = (String) row[12];
+        Timestamp createdAt = (Timestamp) row[13];
 
             ResumeResponse.DetailDTO responseDTO = new ResumeResponse.DetailDTO();
             responseDTO.setUsername(username);

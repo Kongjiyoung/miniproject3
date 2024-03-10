@@ -1,173 +1,96 @@
 {{> layout/header}}
 <!-- 공고 본체  -->
 <div class="container justify-content-center mt-4 mb-5">
-    <div class="border hs_content_box w-100 mx-2 mt-4 rounded shadow">
-        <div class="px-5 pt-5 pb-2">
-        </div>
+    <div class="border hs_content_box w-100 mx-2 mt-4 rounded shadow pb-5">
+        <div class="px-5 pt-5 pb-2"></div>
         <div class="px-5">
-            <div class="d-flex justify-content-start align-items-center">
-                <h3 class="">{{resume.title}}</h3>
-                {{#sessionuser}}
-                    {{#isMatchingCompany}}
-                        <form action="/resume/detail/{{resume.id}}/offer" method="post">
-                            <select class="form-select" aria-label="Default select example" id="postChoice"
-                                    name="postChoice">
+            <div class="row align-items-center">
+                <!-- 타이틀 -->
+                <div class="col">
+                    <h3 style="font-weight: bold">{{resume.title}}</h3>
+                </div>
+                <!-- 스크랩 -->
+                <div class="col-auto">
+                    <form action="/resume/detail/{{resume.id}}/scrap" method="post">
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-outline-success" type="submit">스크랩하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="d-inline-flex w-100">
+            <!-- 제안, 스크랩 버튼 -->
+            {{#sessionuser}}
+                {{#isMatchingCompany}}
+                    <form class="row d-flex justify-content-end g-3" action="/resume/detail/{{resume.id}}/offer" method="post">
+                        <div class="col-auto">
+                            <select class="form-select" aria-label="Default select example" id="postChoice" name="postChoice">
                                 <option selected>채용 공고 선택</option>
                                 {{#postList}}
                                     <option value="{{id}}">{{title}}</option>
                                 {{/postList}}
                             </select>
-                            <div class="d-flex justify-content-center mx-4">
-                                <button class="btn btn-outline-success" type="submit">제안하기</button>
-                            </div>
-                        </form>
-                        <form action="/resume/detail/{{resume.id}}/scrap" method="post">
-                            <div class="d-flex justify-content-center">
-                                <button class="btn btn-outline-success" type="submit">스크랩하기</button>
-                            </div>
-                        </form>
-                    {{/isMatchingCompany}}
-                {{/sessionuser}}
+                        </div>
+                        <div class="col-auto">
+                            <button class=" btn btn-outline-success" type="submit"><i class="far fa-paper-plane"></i></button>
+                        </div>
+                    </form>
+                {{/isMatchingCompany}}
+            {{/sessionuser}}
 
-            </div>
-            <hr class="d-inline-flex w-100">
-            <div class="pt-2 mt-3">
-
-                <div class="d-flex justify-content-center">
-                    <div style="width: 85%;">
-                        <div class="jh_resume_flexbox mt-3">
-                            <!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
-                            <img src="/images/{{resume.profile}}" alt="프로필 사진" style="width: 188px; height: 226px;">
-                            <table class="resume_table">
-                                <tr>
-                                    <td>이름</td>
-                                    <td>{{resume.username}}</td>
-                                </tr>
-                                <tr>
-                                    <td>생년월일</td>
-                                    <td>{{resume.birth}}</td>
-                                </tr>
-                                <tr>
-                                    <td>연락처</td>
-                                    <td>{{resume.tel}}</td>
-                                </tr>
-                                <tr>
-                                    <td>주소</td>
-                                    <td>{{resume.address}}</td>
-                                </tr>
-                                <tr>
-                                    <td>이메일</td>
-                                    <td>{{resume.email}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="mt-5">
-                            <h4>커리어</h4>
-                            <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.career}}
-                            </textarea>
-                            <h4>간단 소개</h4>
-                            <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.simpleIntroduce}}
-                            </textarea>
-                            <h4>포트폴리오 주소</h4>
-                            <input type="url" class="form-control mt-2" id="" style="display: block;"
-                                   value="{{resume.portfolio}}" readOnly>
-                        </div>
-                        <div class="mt-5 jh_resume_skill">
-                            <h4>기술스택</h4>
-                            <div>
-                                <ul>
-                                    {{#resume.skill}}
-                                        <li>{{.}}</li>
-                                    {{/resume.skill}}
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mt-5 w-100">
-                            <h4>자기소개</h4>
-                            <textarea name="" class="w-100 opacity-50" rows="10" readOnly>{{resume.introduce}}
-                            </textarea>
-                        </div>
+            <div class="pt-5 mt-3">
+                <div class="border border-tertiary px-3 py-3 pt-3 d-inline-flex ms-2 me-3 mb-3 w-100">
+                    <div><!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
+                        <img src="/images/{{resume.profile}}" alt="프로필 사진" style="width: 188px; height: 226px;">
                     </div>
+                    <table class="mx-4 resume_table">
+                        <tr>
+                            <td style="width: 120px">이름</td>
+                            <td>{{resume.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>생년월일</td>
+                            <td>{{resume.birth}}</td>
+                        </tr>
+                        <tr>
+                            <td>연락처</td>
+                            <td>{{resume.tel}}</td>
+                        </tr>
+                        <tr>
+                            <td>주소</td>
+                            <td>{{resume.address}}</td>
+                        </tr>
+                        <tr>
+                            <td>이메일</td>
+                            <td>{{resume.email}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mt-5">
+                    <h4>커리어</h4>
+                    <textarea style="max-height: 150px; overflow-y: auto;" class="w-100 mb-5 opacity-80" rows="10" readOnly>{{resume.career}}</textarea>
+                    <h4>간단 소개</h4>
+                    <textarea style="max-height: 150px; overflow-y: auto;" class="w-100 mb-5 opacity-80" rows="10" readOnly>{{resume.simpleIntroduce}}</textarea>
+                    <h4>포트폴리오 주소</h4>
+                    <input type="url" class="form-control mt-2" id="" style="display: block;"
+                           value="{{resume.portfolio}}" readOnly>
+                </div>
+                <div class="mt-5 jh_resume_skill">
+                    <h4>기술스택</h4>
+                    <div>
+                        {{#resume.skill}}
+                            <button class="btn btn-outline-warning btn-sm disabled col-1">{{.}}</button>
+                        {{/resume.skill}}
+                    </div>
+                </div>
+                <div class="mt-5 w-100">
+                    <h4>자기소개</h4>
+                    <textarea  style="max-height: 150px; overflow-y: auto;" class="w-100 opacity-80" rows="10" readOnly>{{resume.introduce}}
+                    </textarea>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 모달 -->
-<div id="applyModal" class="modal fade" style="display: none;" id="">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="">나의 이력서</h4>
-                <button type="button" class="btn-close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="#" method="post">
-                    <!-- 이력서 선택하는 부분 시작 -->
-                    <div class="px-5 mt-5">
-                        <h5><b>구직 제안 메일 제목</b></h5>
-                        <input class="form-control" type="text" name="title" required>
-                        <div class="pt-4">
-                            <hr class="d-inline-flex w-100">
-                        </div>
-                        <div class="pt-2 mt-4">
-                            <div class="mt-4">
-                                <h5><b>메일 내용</b></h5>
-                                <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                    <input class="form-control border-0" type="text" name="cIntro" required>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <h5><b>채용공고 선택</b></h5>
-                                <select name="pay" class="jm_select selectpicker" data-style="btn-info"
-                                        style=" height: 35px;">
-                                    <option value="면접 후 결정" selected>웹디자이너</option>
-                                    <option value="2000만원">프로그래머</option>
-                                    <option value="3000만원">회계</option>
-                                    <option value="4000만원">경영</option>
-                                </select>
-                            </div>
-                            <div class="mt-4 mb-4">
-                                <h5><b>기업 정보</b></h5>
-                                <div class="border border-tertiary ps-5 pe-2 pt-3 d-inline-flex mb-3 w-100">
-                                    <table class="table table-borderless pt-5 ms-5">
-                                        <tr class="pb-5">
-                                            <th>사원수</th>
-                                            <td>25명</td>
-                                            <th>대표자</th>
-                                            <td>최주호</td>
-                                        </tr>
-                                        <tr>
-                                            <th>설립년도</th>
-                                            <td>2020-03-05</td>
-                                            <th>전화번호</th>
-                                            <td>010-1234-5678</td>
-                                        </tr>
-                                        <tr>
-                                            <th>주소</th>
-                                            <td>부산시 해운대구 모처</td>
-                                            <th>이메일</th>
-                                            <td>ssar@nate.com</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="text-center mt-5 mb-5">
-                                <button type="submit" class="btn btn-dark w-50">메일보내기</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 이력서 선택하는 부분 끝 -->
-                    <hr>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-dark mx-2">새로 작성</button>
-                        <!-- 이력서가 선택되어야 제출하기가 활성화되게 합시다. -->
-                        <button type="submit" class="btn init_color">제출하기</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 {{> layout/footer}}
