@@ -72,6 +72,10 @@ public class ScrapController {
         List<Resume> resumeList = mainRepository.findResume(personId);
         request.setAttribute("resumeList", resumeList);
         System.out.println(resumeList);
+
+        User user=postRepository.findCompanyName(id);
+        request.setAttribute("user", user);
+
         return "person/ScrapPostDetail";
     }
 

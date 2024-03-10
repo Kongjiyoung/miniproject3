@@ -217,6 +217,9 @@ public class MainController {
         request.setAttribute("sessionuser", sessionUser);
 
         request.setAttribute("post", detailDTO);
+
+        User user=postRepository.findCompanyName(id);
+        request.setAttribute("user", user);
         return "person/postDetail";
     }
 
