@@ -9,11 +9,6 @@
             <div class="d-flex justify-content-start align-items-center">
                 <h3 class="title">{{post.title}}</h3>
 
-                    <form action="/person/apply/{{post.id}}/delete" method="post">
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-outline-success" type="submit">취소하기</button>
-                        </div>
-                    </form>
             </div>
             <hr class="d-inline-flex w-100">
             <div class="pt-2 mt-3">
@@ -36,7 +31,7 @@
                         </tr>
                         <tr>
                             <td>회사명</td>
-                            <td><a href="#" style=" color: black; font-weight: bold;">인프런</a></td>
+                            <td><a href="#" style=" color: black; font-weight: bold;">{{user.companyName}}</a></td>
                             <!-- TODO: 가능하다면 이 회사의 진행 중인 채용 공고 모음을 만들어보자 -->
                         </tr>
                     </table>

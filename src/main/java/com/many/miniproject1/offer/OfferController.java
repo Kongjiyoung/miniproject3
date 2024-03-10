@@ -47,8 +47,9 @@ public class OfferController {
         request.setAttribute("post", responseDTO);
         List<String> skillList = skillRepository.findByPostId(id);
         request.setAttribute("skillList", skillList);
-
-        return "person/postDetail";
+        User user=postRepository.findCompanyName(id);
+        request.setAttribute("user", user);
+        return "person/mypagePostDetail";
     }
     // 제안한 이력서 제거
     @PostMapping("/company/offer/{id}/detail/delete")
