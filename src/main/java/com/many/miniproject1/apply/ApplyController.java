@@ -102,6 +102,8 @@ public class ApplyController {
         // 2. id에 맞는 게시글을 본다.(이미 올라와 있는 것은 됨, 그러나 새로 쓴 글은 을
         PostResponse.DetailDTO responseDTO = postRepository.findById(id);
         request.setAttribute("post", responseDTO);
+        User user=postRepository.findCompanyName(id);
+        request.setAttribute("user", user);
 
         // 스킬 리스트 만들어서 돌리기
         return "person/ApplyPostDetail";
