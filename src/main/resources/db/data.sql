@@ -35,8 +35,7 @@ VALUES ('person', '20000302', 'harry@nate.com', '1234', 'harry', '010-1234-5678 
 INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
 VALUES ('company', 'sk_cnc@sk.com', '1234', 'sk_HR', '010-1234-5678 ', 'SK(주) C&C', '경기 성남시 분당구 성남대로343번길 9 에스케이유타워', '123-456-78910', 'company01.jpg', now());
 INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'shinhancard@shinhan.com', '1234', 'shinhan_HR', '010-1234-5678', '신한카드', '서울 중구 을지로 100 A동',
-        '123-456-78910', 'company02.jpg', now());
+VALUES ('company', 'shinhancard@shinhan.com', '1234', 'shinhan_HR', '010-1234-5678', '신한카드', '서울 중구 을지로 100 A동', '123-456-78910', 'company02.jpg', now());
 INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
 VALUES ('company', 'nhn_kcp@nhn.com', '1234', 'nhn_HR', '010-1234-5678', 'NHN KCP', '서울 구로구 디지털로26길 72 (구로동, NHN KCP)', '123-456-78910', 'company03.jpg', now());
 INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)

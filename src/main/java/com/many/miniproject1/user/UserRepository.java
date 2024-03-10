@@ -42,7 +42,7 @@ public class UserRepository {
         query.setParameter(5, requestDTO.getCompanyName());
         query.setParameter(6, requestDTO.getAddress());
         query.setParameter(7, requestDTO.getCompanyNum());
-        query.setParameter(8,requestDTO.getProfilePath());
+        query.setParameter(8, requestDTO.getProfilePath());
 
         query.executeUpdate();
     }
