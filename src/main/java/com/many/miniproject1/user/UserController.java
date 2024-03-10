@@ -163,7 +163,6 @@ public class UserController {
     //회사 정보 및 수정
     //회사 정보 수정
     @GetMapping("/company/info")
-
     public String companyInfo(HttpServletRequest request) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -237,6 +236,7 @@ public class UserController {
     @GetMapping("/person/info/updateForm")
     public String personInfoInfoUpdateForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+
         if (sessionUser == null) {
             // sessionUser가 null인 경우, 로그인 페이지로 리다이렉트
             return "person/loginForm";

@@ -37,7 +37,7 @@
         <div class=" mx-2 pb-4 w-100">
             <div class="border border-tertiary p-5 rounded shadow">
                 <div class="d-flex justify-content-between">
-                    <h1>개인정보수정</h1>
+                    <h1>회사정보수정</h1>
                 </div>
                 <hr>
 
@@ -77,20 +77,19 @@
                     </div>
                     <div class="container w-50 mt-5 text ">
                         <div class="mt-5">
-                            <h4 class="border-bottom pb-4">회사정보</h4>
+                            <h4 class="border-bottom pb-4">기본 정보</h4>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">회사명</span>
                             <input type="text" class="form-control" value="{{user.companyName}}" name="companyName"
-                                   readonly>
+                                   disabled>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업자번호</span>
                             <input type="text" class="form-control" value="{{user.companyNum}}" name="companyNum"
-                                   maxlength="10" readonly>
+                                   maxlength="10" disabled>
                         </div>
-
 
                         <div class="input-group mb-3">
                             <span class="input-group-text justify-content-center hs_span_size init_color hs_span">주소</span>
@@ -155,8 +154,8 @@
                             // '확인' 버튼 클릭 이벤트
                             document.querySelector('.company-password button[type="submit"]').addEventListener('click', function (e) {
                                 e.preventDefault();
-                                var oldPassword = document.querySelector('input[name="password"]').value;
-                                var confirmPassword = document.querySelector('input[name="checkPassword"]').value;
+                                let oldPassword = document.querySelector('input[name="password"]').value;
+                                let confirmPassword = document.querySelector('input[name="checkPassword"]').value;
 
                                 // 기존 비밀번호와 확인 비밀번호가 일치하지 않으면
                                 if (oldPassword !== confirmPassword) {
@@ -172,9 +171,9 @@
                             document.querySelector('button[type="submit"]:not(.company-password button)').addEventListener('click', function (e) {
                                 e.preventDefault(); // 폼 제출을 일시 중단합니다.
 
-                                var oldPassword = document.querySelector('input[name="password"]').value;
-                                var confirmPassword = document.querySelector('input[name="checkPassword"]').value;
-                                var newPassword = document.querySelector('input[name="newPassword"]').value;
+                                let oldPassword = document.querySelector('input[name="password"]').value;
+                                let confirmPassword = document.querySelector('input[name="checkPassword"]').value;
+                                let newPassword = document.querySelector('input[name="newPassword"]').value;
 
                                 // 기존 비밀번호와 확인 비밀번호가 일치하지 않으면
                                 if (oldPassword !== confirmPassword) {
@@ -201,7 +200,7 @@
                                    style="width: 100%">취소</a>
                             </div>
                         </div>
-
+                    </div>
                 </form>
             </div>
         </div>
