@@ -28,6 +28,12 @@ public class SkillRepository {
         return query.getResultList();
     }
 
+    public List<Skill> findPost() {
+        Query query = em.createNativeQuery("select * from skill_tb where post_id IS NOT NULL", Skill.class);
+
+        return query.getResultList();
+    }
+
     public Skill findById(int id) {
         Query query = em.createNativeQuery("select * from skill_tb where id=?");
         query.setParameter(1, id);
