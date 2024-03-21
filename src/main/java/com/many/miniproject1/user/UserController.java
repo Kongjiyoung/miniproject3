@@ -4,26 +4,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -74,19 +64,13 @@ public class UserController {
 
     @PostMapping("/company/login")
     public String companyLogin(UserRequest.LoginDTO requestDTO) {
-        System.out.println(requestDTO);
-//        if (requestDTO.getEmail().length() < 3) {
-//            return "error/400";
-//        }
-
         User user = userRepository.findByEmailAndPassword(requestDTO);
         if (user == null) {
             return "/company/loginForm";
         } else if (!user.getRole().equals("company")) {
             return "error/404";
         } else { // 조회 됐음 (인증됨)
-            Boolean isCompany;
-            isCompany = true;
+            Boolean isCompany = true;
             session.setAttribute("sessionUser", user);
             session.setAttribute("isCompany", isCompany);
         }
