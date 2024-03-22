@@ -8,9 +8,9 @@
             <input style="display: none" id="companyId">
             <div class="d-flex justify-content-start align-items-center">
                 <div class="col">
-                    <h3 style="font-weight: bold">{{post.title}}</h3>
+                    <h3 style="font-weight: bold">공고 제목</h3>
                 </div>
-                <form action="/person/scrap/{{post.id}}/detail/delete" method="post">
+                <form action="/person/scrap/1/detail/delete" method="post">
                     <div class="d-flex justify-content-end">
                         <button class="btn btn-outline-success" type="submit">취소하기</button>
                     </div>
@@ -18,14 +18,13 @@
             </div>
             <hr class="d-inline-flex w-100">
             <form class="row d-flex justify-content-end g-3 align-items-center"
-                  action="/person/scrap/{{post.id}}/detail/apply" method="post">
+                  action="/person/scrap/1/detail/apply" method="post">
                 <div class="col-auto">
                     <select class="form-select form-select-sm" aria-label="Default select example" id="resumeChoice"
                             name="resumeChoice">
                         <option selected>이력서 선택</option>
-                        {{#resumeList}}
-                            <option value="{{id}}">{{title}}</option>
-                        {{/resumeList}}
+                        이력서반복문
+                            <option value="이력서아이디">이력서제목</option>
                     </select>
                 </div>
                 <div class="col-auto">
@@ -39,24 +38,24 @@
             <div class="pt-2 mt-3">
                 <div class="border border-tertiary px-3 py-3 pt-3 d-inline-flex ms-2 me-3 mb-3 w-100">
                     <div>
-                        <img src="/images/{{post.profile}}" alt="이력서 사진" style="width: 100%; height: 226px;">
+                        <img src="/images/이력서경로" alt="이력서 사진" style="width: 100%; height: 226px;">
                     </div>
                     <table class="mx-4">
                         <tr>
                             <td>경력</td>
-                            <td>{{post.career}}</td>
+                            <td>커리어</td>
                         </tr>
                         <tr>
                             <td>최소 연봉</td>
-                            <td>{{post.pay}}</td>
+                            <td>연봉</td>
                         </tr>
                         <tr>
                             <td>마감일</td>
-                            <td>{{post.deadline}}</td>
+                            <td>마감일</td>
                         </tr>
                         <tr>
                             <td>회사명</td>
-                            <td><a href="#" style=" color: black; font-weight: bold;">{{user.companyName}}</a></td>
+                            <td><a href="#" style=" color: black; font-weight: bold;">회사이름</a></td>
                             <!-- TODO: 가능하다면 이 회사의 진행 중인 채용 공고 모음을 만들어보자 -->
                         </tr>
                     </table>
@@ -65,25 +64,26 @@
                 </div>
                 <div class="mt-5 task">
                     <h4>주요 업무</h4>
-                    <div>{{post.task}}</div>
+                    <div>주요업무</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>근무 시간</h4>
-                    <div>{{post.workStartTime}} ~ {{post.workEndTime}}</div>
+                    <div>시작시간 ~ 끝시간</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>근무 지역</h4>
-                    <div>{{post.workingArea}}</div>
+                    <div>근무지</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>혜택 및 복지</h4>
-                    <div>{{post.workCondition}}</div>
+                    <div>혜택</div>
                 </div>
                 <div class="mt-5 qualification">
                     <h4>필요 스킬</h4>
                     <div class="d-flex justify-content-start">
+                        스킬반복문
                         <div class="row row-cols-auto gap-3 justify-content-start my-3" style="width: 70%;">
-                            <div class="btn btn-outline-primary mx-3 disabled">Java</div>
+                            <div class="btn btn-outline-primary mx-3 disabled">스킬</div>
                         </div>
                     </div>
                 </div>

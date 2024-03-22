@@ -4,11 +4,11 @@
         <h1>스크랩한 구직자를 확인해 보세요</h1>
         <br>
         <ul class="row row-cols-4 gap-3">
-            {{#resumeSkillList}}
+            이력서반복문
                 <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                    <a href="/company/scrap/{{id}}/detail" style="text-decoration: none; color: black">
+                    <a href="/company/scrap/1/detail" style="text-decoration: none; color: black">
                         <div style="width: 100%; height: 15rem; overflow: hidden">
-                            <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
+                            <img src="/images/프로필경로" class="card-img-top" alt="이력서 사진"/>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title" style="
@@ -17,8 +17,8 @@
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                          "><b>{{title}}</b></h5>
-                            <h6><span>커리어</span>|<span>{{career}}</span></h6>
+                          "><b>이력서제목</b></h5>
+                            <h6><span>커리어</span>|<span>커리어</span></h6>
                             <p class="card-text" style="
                           display: -webkit-box;
                           -webkit-line-clamp: 2;
@@ -26,7 +26,7 @@
                           overflow: hidden;
                           text-overflow: ellipsis;
                         ">
-                                {{simpleIntroduce}}
+                                간단자기소개
                             </p>
                             <div class="d-flex justify-content-start" style="
                           display: -webkit-box;
@@ -35,15 +35,15 @@
                           overflow: hidden;
                           text-overflow: ellipsis;
                         ">
-                                <h6><span>{{#skills}}
+                                <h6><span>스킬반복문
                                     <button class="btn btn-outline-warning btn-sm disabled">
-                                        {{.}}
-                                    </button>{{/skills}}</span></h6>
+                                        스킬
+                                    </button></span></h6>
                             </div>
                         </div>
                     </a>
                 </li>
-            {{/resumeSkillList}}
+
 
         </ul>
     </section>
