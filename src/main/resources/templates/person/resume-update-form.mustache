@@ -1,13 +1,13 @@
 {{> layout/header}}
 <div class="container d-flex">
-    <form action="/person/resume/{{resume.id}}/detail/update" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="personId" name="personId" value="{{sessionUser.id}}">
+    <form action="/person/resume/1/detail/update" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="personId" name="personId" value="">
         <div class=" mx-2 pb-4 w-100">
             <div class="border border-tertiary w-100 p-5 rounded shadow">
                 <label style="margin-left: 95px;" for="title">*이력서를 작성해 주세요.</label>
                 <h1 class="mx-5 mb-3">
                     <input type="text" style="width: 700px; border: none;"
-                           class="hs_input_title mx-5" name="title" value="{{resume.title}}" autofocus/>
+                           class="hs_input_title mx-5" name="title" value="제목" autofocus/>
                 </h1>
                 <!-- 이미지 업로드 시작 -->
 
@@ -15,7 +15,7 @@
                     <div class="upload d-flex justify-content-center mb-3">
                         <div class=" d-flex d-flex justify-content-center align-items-center"
                              style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"
-                             id="profilePreview"><img src="/images/{{resume.profile}}" style="width: 100%; height: 100%;">
+                             id="profilePreview"><img src="/images/person01.jpg" style="width: 100%; height: 100%;">
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                             <div class="jh_resume_personal_info">
                                 <div class="input-group mb-3">
                                     <input type="file" class="form-control mt-2" accept="image/*" name="profile"
-                                           id="profile" value="{{resume.profile}}" multiple required/>
+                                           id="profile" value="person01.jpg" multiple required/>
                                     <script>
                                         $('#profile').change(function () {
                                             let input = this;
@@ -85,14 +85,14 @@
                         <div class="col-md-14 mx-auto">
                             <div class="mt-5">
                                 <h4>커리어</h4>
-                                <input type="text" name="career" class="w-100 opacity-50" value="{{resume.career}}"
+                                <input type="text" name="career" class="w-100 opacity-50" value="1년 근무"
                                        rows="10">
                                 <h4>간단 소개</h4>
                                 <input type="text" name="simpleIntroduce" class="w-100 opacity-50"
-                                       value="{{resume.simpleIntroduce}}" rows="10">
+                                       value="꾸준히 공부하는 개발자입니다" rows="10">
                                 <h4>포트폴리오 주소</h4>
                                 <input type="text" class="form-control mt-2" id="" name="portfolio"
-                                       value="{{resume.portfolio}}"
+                                       value="http://qmfmqfqmf"
                                        style="display: block;">
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                         <div>
                             <h4>자기소개</h4>
                             <textarea name="introduce" class="w-100 opacity-50" rows="10"
-                                  >{{resume.introduce}}</textarea>
+                                  >이력서소개</textarea>
 
                         </div>
                         <div class="d-flex justify-content-center">
@@ -174,7 +174,7 @@
         <a href="/person/info" class="list-group-item shadow " style="width: 150px;">회원정보관리</a>
         <a href="/person/resume" class="list-group-item shadow">이력서관리</a>
         <a href="/person/scrap" class="list-group-item hs_list_effect shadow">스크랩한 공고</a>
-        <a href="/person/offerEmails" class="list-group-item shadow">받은 제안</a>
+        <a href="/person/offers" class="list-group-item shadow">받은 제안</a>
         <a href="/person/apply" class="list-group-item shadow">지원 현황</a>
     </div>
     <!-- list-group( 오른쪽 바로가기) 끝 -->

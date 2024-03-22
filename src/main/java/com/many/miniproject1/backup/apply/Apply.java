@@ -1,7 +1,10 @@
 package com.many.miniproject1.backup.apply;
 
+import com.many.miniproject1.backup.post.Post;
+import com.many.miniproject1.backup.resume.Resume;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -12,10 +15,14 @@ public class Apply { // 지원 테이블
     @Id // PK 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
-    private Integer resumeId;
-    private Integer postId; // 채용공고 아이디
-    private Integer companyId; // 채용공고 작성자 아이디
-    private Integer personId; // 이력서 작성자 아이디
+
+=    @ManyToOne(fetch = FetchType.LAZY)
+    private Resume resume; // 이력서 아이디
+=    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post; // 채용공고 아이디
+
+
     private String isPass; // 불합격, 합격, 검토중
+    @CreationTimestamp
     private Timestamp createdAt;
 }

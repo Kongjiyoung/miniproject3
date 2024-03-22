@@ -1,7 +1,11 @@
 package com.many.miniproject1.backup.scrap;
 
+import com.many.miniproject1.backup.post.Post;
+import com.many.miniproject1.backup.resume.Resume;
+import com.many.miniproject1.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -12,9 +16,16 @@ public class Scrap {
     @Id // PK 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
-    private Integer resumeId;
-    private Integer postId;
-    private Integer companyId;
-    private Integer personId;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Resume resume;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    @CreationTimestamp
     private Timestamp createdAt;
 }

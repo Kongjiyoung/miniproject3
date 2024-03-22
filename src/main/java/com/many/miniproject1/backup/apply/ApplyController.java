@@ -1,6 +1,6 @@
 package com.many.miniproject1.backup.apply;
 
-import com.many.miniproject1.backup.resume.ResumeRepository;
+
 import com.many.miniproject1.backup.skill.SkillRepository;
 import com.many.miniproject1.backup.post.PostRepository;
 import com.many.miniproject1.user.User;
@@ -19,7 +19,6 @@ public class ApplyController {
     private final ApplyRepository applyRepository;
     private final SkillRepository skillRepository;
     private final PostRepository postRepository;
-    private final ResumeRepository resumeRepository;
     //기업에서 받은 이력서 관리
 
     @GetMapping("/company/resumes")
@@ -27,6 +26,7 @@ public class ApplyController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         return "company/applied-resumes";
+
     }
 
     @GetMapping("/company/resumes/{id}")
@@ -34,6 +34,7 @@ public class ApplyController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         return "company/applied-resume-detail";
+
     }
 
     @PostMapping("/company/resumes/{id}/ispass")
@@ -64,5 +65,4 @@ public class ApplyController {
         applyRepository.applieddelete(id);
         return "redirect:/person/apply";
     }
-
 }

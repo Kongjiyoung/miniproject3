@@ -2,7 +2,7 @@
 <div class="container d-flex">
     <div class=" mx-2 pb-4 w-100">
         <div class="border border-tertiary p-5 rounded shadow">
-            <h1>{{resume.title}}</h1>
+            <h1>이력서 제목</h1>
             <div class="d-flex justify-content-start mx-2">
                 <!-- <div>
                     공개 여부 설정 &nbsp &nbsp| &nbsp&nbsp
@@ -22,62 +22,57 @@
 
             <div class="d-flex justify-content-center">
                 <div style="width: 85%;">
-                    <img src="/images/{{resume.profile}}" alt="프로필 사진" style="width: 188px; height: 226px;">
+                    <img src="/images/person01.jpg" alt="프로필 사진" style="width: 188px; height: 226px;">
                     <div class="jh_resume_flexbox mt-3">
                         <!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
-                        {{#resumeSkill}}
                             <table class="resume_table">
                                 <tr>
                                     <td>이름</td>
-                                    <td>{{resume.username}}</td>
+                                    <td>이력서이름</td>
                                 </tr>
                                 <tr>
                                     <td>생년월일</td>
-                                    <td>{{resume.birth}}</td>
+                                    <td>이력서생년월일</td>
                                 </tr>
                                 <tr>
                                     <td>연락처</td>
-                                    <td>{{resume.tel}}</td>
+                                    <td>이력서연락처</td>
                                 </tr>
                                 <tr>
                                     <td>주소</td>
-                                    <td>{{resume.address}}</td>
+                                    <td>이력서주소</td>
                                 </tr>
                                 <tr>
                                     <td>이메일</td>
-                                    <td>{{resume.email}}</td>
+                                    <td>이력서이메일</td>
                                 </tr>
                             </table>
-                        {{/resumeSkill}}
                     </div>
                     <div class="mt-5">
                         <h4>커리어</h4>
-                        <input name="career" class="w-100 opacity-50" rows="10" value="{{resume.career}}" readOnly>
+                        <input name="career" class="w-100 opacity-50" rows="10" value="1년 근무" readOnly>
                         <h4>간단 소개</h4>
                         <input name="simpleIntroduce" class="w-100 opacity-50" rows="10"
-                               value="{{resume.simpleIntroduce}}" readOnly>
+                               value="꾸준히 공부하는 개발자입니다" readOnly>
                         <h4>포트폴리오 주소</h4>
                         <input type="url" class="form-control mt-2" id="" name="portfolio" style="display: block;"
-                               value="{{resume.portfolio}}" readOnly>
+                               value="http://qmfmqfqmf" readOnly>
                     </div>
                     <div class="mt-5 jh_resume_skill">
                         <h4>기술스택</h4>
                         <div>
-                            {{#resume}}
-                                <h6><span>{{#skill}}
+                                <h6><span>
                                     <button class="btn btn-outline-warning btn-sm disabled">
-                                        {{.}}
-                                    </button>{{/skill}}</span></h6>
-                            {{/resume}}
+                                    </button></span></h6>
                         </div>
                     </div>
                     <div class="mt-5 w-100">
                         <h4>자기소개</h4>
-                        <textarea name="introduce" class="w-100 opacity-50" rows="10" readOnly>{{resume.introduce}}
+                        <textarea name="introduce" class="w-100 opacity-50" rows="10" readOnly>이력서소개
                         </textarea>
                     </div>
                     <div class="d-flex justify-content-center ">
-                        <a href="/person/resume/detail/{{id}}/updateForm" class="btn btn-outline-success mt-3 mb-3"
+                        <a href="/person/resume/detail/1/update-form" class="btn btn-outline-success mt-3 mb-3"
                            style="width: 100%">수정하기</a>
                     </div>
                 </div>
@@ -90,7 +85,7 @@
         <a href="/person/info" class="list-group-item shadow " style="width: 150px;">회원정보관리</a>
         <a href="/person/resume" class="list-group-item shadow">이력서관리</a>
         <a href="/person/scrap" class="list-group-item hs_list_effect shadow">스크랩한 공고</a>
-        <a href="/person/offerEmails" class="list-group-item shadow">받은 제안</a>
+        <a href="/person/offers" class="list-group-item shadow">받은 제안</a>
         <a href="/person/apply" class="list-group-item shadow">지원 현황</a>
     </div>
     <!-- list-group( 오른쪽 바로가기) 끝 -->

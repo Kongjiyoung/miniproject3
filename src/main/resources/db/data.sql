@@ -32,24 +32,24 @@ VALUES ('person', '2000-03-02', 'harry@nate.com', '1234', 'harry', '010-1234-567
 
 
 --회사정보 입력
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'sk_cnc@sk.com', '1234', 'sk_HR', '010-1234-5678 ', 'SK(주) C&C', '경기 성남시 분당구 성남대로343번길 9 에스케이유타워', '123-456-78910', 'company01.jpg', now());
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'shinhancard@shinhan.com', '1234', 'shinhan_HR', '010-1234-5678', '신한카드', '서울 중구 을지로 100 A동', '123-456-78910', 'company02.jpg', now());
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'nhn_kcp@nhn.com', '1234', 'nhn_HR', '010-1234-5678', 'NHN KCP', '서울 구로구 디지털로26길 72 (구로동, NHN KCP)', '123-456-78910', 'company03.jpg', now());
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'inflearn@inflearn.com', '1234', 'inflearn_HR', '010-1234-5678', '인프랩(인프런)', '경기 성남시 분당구 대왕판교로 660 1A 동 4층 405호', '123-456-78910', 'company04.jpg', now());
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'humanscape@nate.com', '1234', 'humanscape_HR', '010-1234-5678', '휴먼스케이프', '서울 강남구 봉은사로86길 6 레베쌍트빌딩 6층', '123-456-78910', 'company05.jpg', now());
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'soomgo@soomgo.com', '1234', 'soomgo_HR', '010-1234-5678', '브레이브모바일 (숨고)', '서울 강남구 테헤란로 415 L7 강남타워 5층', '123-456-78910', 'company06.jpg', now());
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'seedn@seedn.com', '1234', 'seedn_HR', '010-1234-5678', '씨드앤', '서울 성동구 왕십리로 115 헤이그라운드 서울숲점 605호', '123-456-78910', 'company07.jpg', now());
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'pickleplus@pickle.com', '1234', 'pickleplus_HR', '010-1234-5678 ', '주식회사 피클플러스', '서울 중구 한강대로 416 서울스퀘어', '123-456-78910', 'company08.jpg', now());
-INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at)
-VALUES ('company', 'wadiz@wadiz.com', '1234', 'wadiz_HR', '010-1234-5678 ', '와디즈', '경기 성남시 분당구 판교로 242 A동 4층 와디즈', '123-456-78910', 'company09.jpg', now());
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'sk_cnc@sk.com', '1234', 'sk_HR', '010-1234-5678 ', 'SK(주) C&C', '경기 성남시 분당구 성남대로343번길 9 에스케이유타워', '123-456-78910', 'company01.jpg', now(), '김인사');
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'shinhancard@shinhan.com', '1234', 'shinhan_HR', '010-1234-5678', '신한카드', '서울 중구 을지로 100 A동', '123-456-78910', 'company02.jpg', now(), '김인사');
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'nhn_kcp@nhn.com', '1234', 'nhn_HR', '010-1234-5678', 'NHN KCP', '서울 구로구 디지털로26길 72 (구로동, NHN KCP)', '123-456-78910', 'company03.jpg', now(), '김인사');
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'inflearn@inflearn.com', '1234', 'inflearn_HR', '010-1234-5678', '인프랩(인프런)', '경기 성남시 분당구 대왕판교로 660 1A 동 4층 405호', '123-456-78910', 'company04.jpg', now(), '김인사');
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'humanscape@nate.com', '1234', 'humanscape_HR', '010-1234-5678', '휴먼스케이프', '서울 강남구 봉은사로86길 6 레베쌍트빌딩 6층', '123-456-78910', 'company05.jpg', now(), '김인사');
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'soomgo@soomgo.com', '1234', 'soomgo_HR', '010-1234-5678', '브레이브모바일 (숨고)', '서울 강남구 테헤란로 415 L7 강남타워 5층', '123-456-78910', 'company06.jpg', now(), '김인사');
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'seedn@seedn.com', '1234', 'seedn_HR', '010-1234-5678', '씨드앤', '서울 성동구 왕십리로 115 헤이그라운드 서울숲점 605호', '123-456-78910', 'company07.jpg', now(), '김인사');
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'pickleplus@pickle.com', '1234', 'pickleplus_HR', '010-1234-5678 ', '주식회사 피클플러스', '서울 중구 한강대로 416 서울스퀘어', '123-456-78910', 'company08.jpg', now(), '김인사');
+INSERT INTO user_tb(role, email, password, username, tel, company_name, address, company_num, profile, created_at, name)
+VALUES ('company', 'wadiz@wadiz.com', '1234', 'wadiz_HR', '010-1234-5678 ', '와디즈', '경기 성남시 분당구 판교로 242 A동 4층 와디즈', '123-456-78910', 'company09.jpg', now(), '김인사');
 
 
 --이력서정보 입력

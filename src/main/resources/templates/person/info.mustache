@@ -4,34 +4,34 @@
     <div class=" mx-2 pb-4 w-100">
         <div class=" border border-tertiary p-5 rounded shadow">
             <div class="d-flex justify-content-between">
-                <h1 class=" d-inline-flex">{{user.username}}님의 정보</h1>
+                <h1 class=" d-inline-flex">공지영님의 정보</h1>
             </div>
             <hr/>
             <div class="container w-50 mt-5 text ">
 
-                <form action="/person/info/updateForm" method="get">
+                <form action="/person/info/update-form" method="get">
                     <div class="px-5 mt-5">
-                        <img src="/images/{{user.profile}}" id="profile" class="mx-auto d-block mt-5 my-3 w-50 h-50">
+                        <img src="/images/person01.jpg" id="profile" class="mx-auto d-block mt-5 my-3 w-50 h-50">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이름</span>
-                        <input type="text" class="form-control" value="{{user.username}}" readonly>
+                        <input type="text" class="form-control" value="공지영" readonly>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text justify-content-center hs_span_size init_color hs_span">생년월일</span>
-                        <input type="text" class="form-control" value="{{user.birth}}" id="" readonly>
+                        <input type="text" class="form-control" value="1998-05-04" id="" readonly>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text justify-content-center hs_span_size init_color hs_span">연락처</span>
-                        <input type="text" class="form-control" value="{{user.tel}}" readonly>
+                        <input type="text" class="form-control" value="010-1234-5678" readonly>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text justify-content-center hs_span_size init_color hs_span">주소</span>
-                        <input type="text" class="form-control" value="{{user.address}}" readonly>
+                        <input type="text" class="form-control" value="부산광역시" readonly>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text justify-content-center hs_span_size init_color hs_span">이메일</span>
-                        <input type="text" class="form-control" value="{{user.email}}" readonly>
+                        <input type="text" class="form-control" value="captain_kong@nate.com" readonly>
                     </div>
 
                     <hr class="my-4">
@@ -48,7 +48,7 @@
         <a href="/person/info" class="list-group-item shadow " style="width: 150px;">회원정보관리</a>
         <a href="/person/resume" class="list-group-item shadow">이력서관리</a>
         <a href="/person/scrap" class="list-group-item hs_list_effect shadow">스크랩한 공고</a>
-        <a href="/person/offerEmails" class="list-group-item shadow">받은 제안</a>
+        <a href="/person/offers" class="list-group-item shadow">받은 제안</a>
         <a href="/person/apply" class="list-group-item shadow">지원 현황</a>
     </div>
 </div>

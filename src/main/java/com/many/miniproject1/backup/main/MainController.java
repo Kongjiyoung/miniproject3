@@ -8,7 +8,6 @@ import com.many.miniproject1.backup.post.Post;
 import com.many.miniproject1.backup.post.PostRepository;
 import com.many.miniproject1.backup.post.PostResponse;
 import com.many.miniproject1.backup.resume.Resume;
-import com.many.miniproject1.backup.resume.ResumeRepository;
 import com.many.miniproject1.backup.resume.ResumeResponse;
 import com.many.miniproject1.backup.scrap.ScrapRepository;
 import com.many.miniproject1.backup.scrap.ScrapRequest;
@@ -29,7 +28,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainController {
     private final MainRepository mainRepository;
-    private final ResumeRepository resumeRepository;
     private final PostRepository postRepository;
     private final SkillRepository skillRepository;
     private final HttpSession session;
