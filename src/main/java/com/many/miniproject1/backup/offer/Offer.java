@@ -2,11 +2,9 @@ package com.many.miniproject1.backup.offer;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Table(name = "offer_tb")
 @Data
@@ -15,10 +13,12 @@ public class Offer {
     @Id // PK 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;         // 제안 ID
+
     private Integer resumeId;   // 이력서 ID
     private Integer postId;     // 공고 ID
     private Integer companyId;  // 회사 ID
     private Integer personId;   // 구직자 ID
     //    private String content;
+    @CreationTimestamp
     private Timestamp createdAt;
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -28,12 +29,12 @@ public class User {
     private String address;
     private String companyNum;
     private String profile;
-    private Timestamp birth;
+    private Date birth;
     @CreationTimestamp
     private Timestamp createdAt;//
 
     @Builder
-    public User(Integer id, String role, String username, String email, String password, String name, String tel, String companyName, String address, String companyNum, String profile, Timestamp birth, Timestamp createdAt) {
+    public User(Integer id, String role, String username, String email, String password, String name, String tel, String companyName, String address, String companyNum, String profile, Date birth, Timestamp createdAt) {
         this.id = id;
         this.role = role;
         this.username = username;

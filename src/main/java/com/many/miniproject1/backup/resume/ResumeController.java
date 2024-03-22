@@ -4,7 +4,6 @@ import com.many.miniproject1.backup.skill.SkillRepository;
 import com.many.miniproject1.backup.skill.SkillRequest;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserFileService;
-import com.many.miniproject1.user.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

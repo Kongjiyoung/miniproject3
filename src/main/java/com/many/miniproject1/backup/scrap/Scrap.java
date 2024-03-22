@@ -2,6 +2,7 @@ package com.many.miniproject1.backup.scrap;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -12,9 +13,13 @@ public class Scrap {
     @Id // PK 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
+
+
     private Integer resumeId;
     private Integer postId;
-    private Integer companyId;
+
     private Integer personId;
+    private Integer companyId;
+    @CreationTimestamp
     private Timestamp createdAt;
 }
