@@ -1,5 +1,7 @@
 package com.many.miniproject1.user;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final HttpSession session;
+    private final UserQueryRepository userQueryRepository;
 
     // 회사 회원가입
     @GetMapping("/company/join-form")
@@ -83,8 +87,10 @@ public class UserController {
 
     //개인 프로필 정보 및 수정
     @GetMapping("/person/info")
-    public String personal() {
-
+    public String personInfo(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userQueryRepository.findById(sessionUser.getId());
+        request.setAttribute("user", user);
         return "person/info";
     }
 
