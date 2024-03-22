@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-start align-items-center">
             <h1 class="m-3">등록한 공고</h1>
             <div class="d-flex justify-content-center ">
-                <a href="/company/post/saveForm" class="btn btn-outline-primary" style="width: 100%;">새 공고 만들기</a>
+                <a href="/company/posts/save-form" class="btn btn-outline-primary" style="width: 100%;">새 공고 만들기</a>
             </div>
         </div>
         <br>
@@ -13,7 +13,7 @@
             <!-- 구인공고 시작 -->
             {{#postList}}
                 <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                    <a href="/company/post/detail/{{id}}" style="text-decoration: none; color: black">
+                    <a href="/company/posts/detail/{{id}}" style="text-decoration: none; color: black">
                         <div style="width: 240px; height:125px; overflow: hidden">
                             <!--                        이미지 에스알씨를 디비에서 받아오게 해야 한다. -->
                             <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>

@@ -5,11 +5,11 @@
         <br>
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
-            {{#postSkillList}}
+            공고 반복문
                 <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                    <a href="/person/apply/{{id}}/detail" style="text-decoration: none; color: black">
+                    <a href="/person/apply/1/detail" style="text-decoration: none; color: black">
                         <div style="width: 100%; height: 15rem; overflow: hidden">
-                            <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
+                            <img src="/images/사진경로" class="card-img-top" alt="이력서 사진"/>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title"><b style="
@@ -18,7 +18,7 @@
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                          ">{{title}}</b></h5>
+                          ">공고제목</b></h5>
                             <p class="card-text" style="
       display: -webkit-box;
       -webkit-line-clamp: 1;
@@ -27,10 +27,10 @@
       text-overflow: ellipsis;
       margin-bottom:5px!important;
     ">
-                                {{task}}
+                                일
                             </p>
-                            <h6><span>{{career}}</span></h6>
-                            <h6><span>{{workingArea}}</span></h6>
+                            <h6><span>커리어</span></h6>
+                            <h6><span>근무지</span></h6>
                             <!-- 스킬 넘치면 more 나오게 하기(추후에) -->
                             <div class="d-flex justify-content-start" style="
                   display: -webkit-box;
@@ -39,18 +39,18 @@
                   overflow: hidden;
                   text-overflow: ellipsis;
                 ">
-                                <h6><span>{{#skill}}
+                                <h6><span>스킬반복문
                                     <button class="btn btn-outline-warning btn-sm disabled">
-                                        {{.}}
-                                    </button>{{/skill}}</span></h6>
+                                        스킬
+                                    </button></span></h6>
                             </div>
                         </div>
                     </a>
                     <div class="d-flex justify-content-center">
-                        <a href="#" class="btn btn-outline-success mb-3" style="width: 100%">{{isPass}}</a>
+                        <a href="#" class="btn btn-outline-success mb-3" style="width: 100%">합격불합격</a>
                     </div>
                 </li>
-            {{/postSkillList}}
+
 
             <!-- 구인공고 끝 -->
 
