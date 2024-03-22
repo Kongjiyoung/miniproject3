@@ -6,16 +6,16 @@
             <input style="display: none" id="companyId">
             <div class="d-flex justify-content-start align-items-center">
                 <div class="col">
-                    <h3 style="font-weight: bold">{{resume.title}}</h3>
+                    <h3 style="font-weight: bold">이력서제목</h3>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-outline-success" type="submit">{{resume.isPass}}</button>
+                    <button class="btn btn-outline-success" type="submit">이력서합격</button>
                 </div>
 
             </div>
             <hr class="d-inline-flex w-100">
             <form class="row d-flex justify-content-end g-3 align-items-center"
-                  action="/company/resume/{{id}}/detail/ispass" method="post">
+                  action="/company/resume/1/detail/ispass" method="post">
                 <div class="col-auto">
                     <select class="form-select form-select-sm" aria-label="Default select example" id="isPass"
                             name="isPass">
@@ -36,26 +36,26 @@
 
                     <div class="jh_resume_flexbox mt-3">
                         <!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
-                        <img src="/images/{{resume.profile}}" alt="프로필 사진" style="width: 188px; height: 226px;">
+                        <img src="/images/person01.jpg" alt="프로필 사진" style="width: 188px; height: 226px;">
                         <table class="resume_table">
                             <tr>
-                                <td>{{resume.username}}</td>
+                                <td>이력서이름</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>{{resume.birth}}</td>
+                                <td>이력서생년월일</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>{{resume.tel}}</td>
+                                <td>이력서번호</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>{{resume.address}}</td>
+                                <td>이력서주소</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>{{resume.email}}</td>
+                                <td>이력서이메일</td>
                                 <td></td>
                             </tr>
                         </table>
@@ -63,30 +63,23 @@
                     <div class="mt-5">
                         <h4>커리어</h4>
                         <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
-                            {{resume.career}}
+                            이력서커리어
                         </textarea>
                         <h4>간단 소개</h4>
                         <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
-                            {{resume.simpleIntroduce}}
+                            이력서간단소개
                         </textarea>
                         <h4>포트폴리오 주소</h4>
                         <input type="url" class="form-control mt-2" id="" style="display: block;"
-                               value="{{resume.portfolio}}" readOnly>
+                               value="" readOnly>
                     </div>
                     <div class="mt-5 jh_resume_skill">
                         <h4>기술스택</h4>
-                        <div>
-                            <ul>
-                                {{#resume.skills}}
-                                    <li>{{.}}</li>
-                                {{/resume.skills}}
-                            </ul>
-                        </div>
                     </div>
                     <div class="mt-5 w-100">
                         <h4>자기소개</h4>
                         <textarea name="" class="w-100 opacity-50" rows="10" readOnly>
-                            {{resume.introduce}}
+                            이력서소개
                         </textarea>
                     </div>
                 </div>
