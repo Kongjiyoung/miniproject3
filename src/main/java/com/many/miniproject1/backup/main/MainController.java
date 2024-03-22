@@ -1,39 +1,22 @@
 package com.many.miniproject1.backup.main;
 
-import com.many.miniproject1.backup.apply.ApplyRepository;
-import com.many.miniproject1.backup.apply.ApplyRequest;
-import com.many.miniproject1.backup.offer.OfferRepository;
-import com.many.miniproject1.backup.offer.OfferRequest;
-import com.many.miniproject1.backup.post.Post;
-import com.many.miniproject1.backup.post.PostRepository;
-import com.many.miniproject1.backup.post.PostResponse;
-import com.many.miniproject1.backup.resume.Resume;
-import com.many.miniproject1.backup.resume.ResumeResponse;
-import com.many.miniproject1.backup.scrap.ScrapRepository;
-import com.many.miniproject1.backup.scrap.ScrapRequest;
-import com.many.miniproject1.backup.skill.SkillRepository;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-    private final MainRepository mainRepository;
-    private final PostRepository postRepository;
-    private final SkillRepository skillRepository;
+
     private final HttpSession session;
-    private final OfferRepository offerRepository;
-    private final ApplyRepository applyRepository;
-    private final ScrapRepository scrapRepository;
+
     private Integer postChoose = 0;
     private Integer resumeChoose = 0;
 
@@ -132,8 +115,7 @@ public class MainController {
 //        }
         request.setAttribute("sessionuser", sessionUser);
 
-        User user = postRepository.findCompanyName(id);
-        request.setAttribute("user", user);
+
         return "person/post-detail";
     }
 

@@ -1,10 +1,5 @@
 package com.many.miniproject1.backup.scrap;
 
-import com.many.miniproject1.backup.apply.ApplyRepository;
-import com.many.miniproject1.backup.main.MainRepository;
-import com.many.miniproject1.backup.skill.SkillRepository;
-import com.many.miniproject1.backup.offer.OfferRepository;
-import com.many.miniproject1.backup.post.PostRepository;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,12 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class ScrapController {
     private final HttpSession session;
-    private final ScrapRepository scrapRepository;
-    private final SkillRepository skillRepository;
-    private final PostRepository postRepository;
-    private final MainRepository mainRepository;
-    private final ApplyRepository applyRepository;
-    private final OfferRepository offerRepository;
+
 
     //개인 채용 공고 스크랩
     @GetMapping("/person/scrap")
