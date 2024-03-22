@@ -1,7 +1,6 @@
 package com.many.miniproject1.backup.post;
 
 import com.many.miniproject1.backup.skill.Skill;
-import com.many.miniproject1.backup.skill.SkillRepository;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,15 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class PostController {
-    private final PostRepository postRepository;
-    private final SkillRepository skillRepository;
     private final HttpSession session;
 
     //회사 공고 관리

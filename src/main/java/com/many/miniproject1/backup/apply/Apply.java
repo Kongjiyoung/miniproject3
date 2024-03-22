@@ -16,9 +16,9 @@ public class Apply { // 지원 테이블
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
 
-=    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume; // 이력서 아이디
-=    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Post post; // 채용공고 아이디
 
 

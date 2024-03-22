@@ -1,8 +1,6 @@
 package com.many.miniproject1.backup.apply;
 
 
-import com.many.miniproject1.backup.skill.SkillRepository;
-import com.many.miniproject1.backup.post.PostRepository;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,8 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ApplyController {
     private final HttpSession session;
     private final ApplyRepository applyRepository;
-    private final SkillRepository skillRepository;
-    private final PostRepository postRepository;
+
     //기업에서 받은 이력서 관리
 
     @GetMapping("/company/resumes")
