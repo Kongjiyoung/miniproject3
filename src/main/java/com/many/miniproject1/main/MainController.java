@@ -84,14 +84,14 @@ public class MainController {
         Boolean isCompany = false;
         // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
         //기업인지 개인인지 구분
-//        if (sessionUser != null) {
-//            String role = sessionUser.getRole();
-//            System.out.println(role);
-//
-//            if (role.equals("company")) {
-//                isCompany = true;
-//            }
-//        }
+        if (sessionUser != null) {
+            String role = sessionUser.getRole();
+            System.out.println(role);
+
+            if (role.equals("company")) {
+                isCompany = true;
+            }
+        }
         request.setAttribute("isMatchingCompany", isCompany);
         request.setAttribute("sessionuser", sessionUser);
 

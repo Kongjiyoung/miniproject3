@@ -21,7 +21,7 @@ public class UserJPARepositoryTest {
         String username = "captain_kong";
         String password = "1234";
         // when
-        User user = userJPARepository.findByUsernameAndPassword(username, password);
+        User user = userJPARepository.findByUsernameAndPassword(username, password).get();
         System.out.println("findByUsernameAndPassword_test: " + user);
         // then
         Assertions.assertThat(user.getAddress()).isEqualTo("부산광역시");
