@@ -38,6 +38,7 @@ public class OfferController {
         request.setAttribute("skillList", skillList);
         User user=postRepository.findCompanyName(id);
         request.setAttribute("user", user);
+
         return "person/offer-post-detail";
     }
 
@@ -56,6 +57,27 @@ public class OfferController {
 
     // 🌆🌆🌆🌆🌆🌆🌆🌆🌆🌆🌆🌆🌆🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇
 
+    // company의 offers 관리
+    // skill 만 불러오면 되나.?
+    @GetMapping("/company/offers")
+    public String personPost(HttpServletRequest request) {
+        User sessionUser = (User)session.getAttribute("sessionUser");
+        List<OfferResponse.OfferResumeDTO> companyOfferList = offerRepository.personFindAllOffer(sessionUser.getId());
+
+        ArrayList<OfferResponse.OfferResumeSkillDTO> cResumeSkillList = new ArrayList<>();
+        for(int i =0 ; i<companyOfferList.size(); i++){
+            List<String> skills = skillRepository.findByResumeId(companyOfferList.get(i).getId());
+            System.out.println("🚆🎎"+skills);
+            OfferResponse.OfferResumeDTO resume = companyOfferList.get(i);
+            System.out.println("✨✨"+resume);
+
+            cResumeSkillList.add(new OfferResponse.OfferResumeSkillDTO(resume, skills));
+            System.out.println(cResumeSkillList.get(i));
+        }
+        request.setAttribute("cResumeSkillList", cResumeSkillList);
+
+        return "company/offers";
+    }
 
     @GetMapping("/company/offer/{id}/detail")
     public String companyOfferDetail(HttpServletRequest request, @PathVariable int id) {
@@ -74,8 +96,6 @@ public class OfferController {
         offerRepository.offerDelete(id, sessionUser.getId());
         return "redirect:/company/offers";
     }
-
-
 
     // 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 

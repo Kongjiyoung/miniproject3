@@ -107,7 +107,7 @@ public class MainController {
         }
         request.setAttribute("sessionuser", sessionUser);
         request.setAttribute("resume", detailDTO);
-        return "company/resumeDetail";
+        return "resume-detail";
     }
 
     @PostMapping("/resume/detail/{id}/offer")

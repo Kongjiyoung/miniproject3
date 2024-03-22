@@ -1,10 +1,18 @@
 package com.many.miniproject1.backup.post;
 
+import com.many.miniproject1.backup.skill.Skill;
+import com.many.miniproject1.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
+@NoArgsConstructor
 @Table(name = "post_tb")
 @Data
 @Entity // 테이블 생성하기 위해 필요한 어노테이션
@@ -12,7 +20,14 @@ public class Post { // 공고테이블
     @Id // PK 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
-    private Integer companyId;
+
+    @JoinColumn(name = "company_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Skill> skillList = new ArrayList<>();
+
     private String title;
     private String career;
     private String pay;
@@ -23,5 +38,24 @@ public class Post { // 공고테이블
     private String task;
     private String profile;
     private String workingArea;
+
+    @CreationTimestamp
     private Timestamp createdAt;
+
+    @Builder
+    public Post(Integer id, User user, String title, String career, String pay, String workCondition, String workStartTime, String workEndTime, String deadline, String task, String profile, String workingArea, Timestamp createdAt) {
+        this.id = id;
+        this.user = user;
+        this.title = title;
+        this.career = career;
+        this.pay = pay;
+        this.workCondition = workCondition;
+        this.workStartTime = workStartTime;
+        this.workEndTime = workEndTime;
+        this.deadline = deadline;
+        this.task = task;
+        this.profile = profile;
+        this.workingArea = workingArea;
+        this.createdAt = createdAt;
+    }
 }

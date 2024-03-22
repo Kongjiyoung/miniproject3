@@ -15,19 +15,19 @@
                 <div class="container w-50 mt-5 text ">
 
                     <form action="/person/info/update" method="post" enctype="multipart/form-data">
-                        <input type="hidden" id="id" name="id" value="{{sessionUser.id}}">
+                        <input type="hidden" id="id" name="id" value="1">
                         <div class="px-5 mt-5">
                             <!-- 이미지 업로드 시작 -->
                             <div class="upload d-flex justify-content-center mb-3">
                                 <div class=" d-flex d-flex justify-content-center align-items-center"
                                      style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"
-                                     id="profilePreview"><img src="/images/{{user.profile}}"
+                                     id="profilePreview"><img src="/images/person01.jpg"
                                                               style="width: 100%; height: 100%;">
                                 </div>
                             </div>
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control mt-2" accept="image/*" name="profile"
-                                       id="profile" value="{{user.profile}}" multiple required/>
+                                       id="profile" value="person01.jpg" multiple required/>
                                 <script>
                                     $('#profile').change(function () {
                                         let input = this;
@@ -53,28 +53,28 @@
                             <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">이름</span>
-                                <input type="text" class="form-control" value="{{user.username}}" name="username" id="" disabled>
+                                <input type="text" class="form-control" value="공지영" name="username" id="" disabled>
                             </div>
                             <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">생년월일</span>
-                                <input type="date" class="form-control" value="{{user.birth}}" name="birth" id="" disabled>
+                                <input type="date" class="form-control" value="1998-05-04" name="birth" id="" disabled>
                             </div>
                             <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">연락처</span>
-                                <input type="tel" class="form-control" maxlength="11" value="{{user.tel}}" name="tel"
+                                <input type="tel" class="form-control" maxlength="11" value="010-1234-5678" name="tel"
                                        id="">
                             </div>
                             <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">주소</span>
-                                <input type="text" class="form-control" value="{{user.address}}" name="address" id="">
+                                <input type="text" class="form-control" value="부산광역시" name="address" id="">
                             </div>
                             <div class="input-group mb-3">
                                 <span
                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">이메일</span>
-                                <input type="email" class="form-control" value="{{user.email}}" name="email" id=""
+                                <input type="email" class="form-control" value="captain_kong@nate.com" name="email" id=""
                                        disabled>
                             </div>
 
@@ -85,7 +85,7 @@
                             <div class="company-password">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text  justify-content-center hs_span_size init_color">비밀번호</span>
-                                    <input type="password" class="form-control" value="{{user.password}}" id="password"
+                                    <input type="password" class="form-control" value="1234" id="password"
                                            name="password" readonly>
                                 </div>
                                 <div class="input-group mb-3">
