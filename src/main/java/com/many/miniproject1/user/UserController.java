@@ -88,8 +88,8 @@ public class UserController {
     //개인 프로필 정보 및 수정
     @GetMapping("/person/info")
     public String personInfo(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userQueryRepository.findById(sessionUser.getId());
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userQueryRepository.findById(1);
         request.setAttribute("user", user);
         return "person/info";
     }
