@@ -5,7 +5,7 @@ import lombok.Data;
 public class UserRequest {
 
     @Data
-    public static class UpdateDTO {
+    public static class CompanyInfoUpdateDTO {
         private String address;
         private String tel;
         private String email;
