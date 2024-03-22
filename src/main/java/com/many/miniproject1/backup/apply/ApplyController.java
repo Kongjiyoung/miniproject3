@@ -22,25 +22,24 @@ public class ApplyController {
     private final ResumeRepository resumeRepository;
     //기업에서 받은 이력서 관리
 
-    @GetMapping("/company/resume")
+    @GetMapping("/company/resumes")
     public String companyResume(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        System.out.println(sessionUser.getId());
 
-        return "company/company-resumes";
+        return "company/applied-resumes";
     }
 
-    @GetMapping("/company/resume/{id}/detail")
+    @GetMapping("/company/resumes/{id}")
     public String companyResumeDetail(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        return "company/resume-apply-detail";
+        return "company/applied-resume-detail";
     }
 
-    @PostMapping("/company/resume/{id}/detail/ispass")
+    @PostMapping("/company/resumes/{id}/ispass")
     public String companyPass(@PathVariable int id, ApplyRequest.UpdateDTO request) {
 
-        return "redirect:/company/resume/{id}/detail";
+        return "redirect:/company/resumes/{id}";
     }
 
     //이력서 현황
@@ -62,7 +61,6 @@ public class ApplyController {
 
     @PostMapping("/person/apply/{id}/delete")
     public String appliedDelete(@PathVariable int id) {
-        System.out.println(id);
         applyRepository.applieddelete(id);
         return "redirect:/person/apply";
     }
