@@ -51,13 +51,13 @@
                         <div class="upload d-flex justify-content-center mb-3">
                             <div class=" d-flex d-flex justify-content-center align-items-center"
                                  style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"
-                                 id="profilePreview"><img src="/images/company01.jpg"
+                                 id="profilePreview"><img src="/images/{{user.profile}}"
                                                           style="width: 100%; height: 100%;">
                             </div>
                         </div>
                         <div class="input-group mb-3">
                             <input type="file" class="form-control mt-2" accept="image/*" name="profile"
-                                   id="profile" value="company01.jpg" multiple required/>
+                                   id="profile" value="{{user.profile}}" multiple required/>
                             <script>
                                 $('#profile').change(function () {
                                     let input = this;
@@ -87,18 +87,18 @@
 
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">회사명</span>
-                            <input type="text" class="form-control" value="SK(주) C&C" name="companyName"
+                            <input type="text" class="form-control" value="{{user.companyName}}" name="companyName"
                                    disabled>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업자번호</span>
-                            <input type="text" class="form-control" value="123-456-78910" name="companyNum"
+                            <input type="text" class="form-control" value="{{user.companyNum}}" name="companyNum"
                                    maxlength="10" disabled>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text justify-content-center hs_span_size init_color hs_span">주소</span>
-                            <input type="text" class="form-control" value="경기 성남시 분당구 성남대로343번길 9 에스케이유타워" id=""
+                            <input type="text" class="form-control" value="{{user.address}}" id=""
                                    name="address">
                         </div>
 
@@ -110,15 +110,15 @@
                         <br>
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">이름</span>
-                            <input type="text" class="form-control" value="sk_HR" id="" name="username">
+                            <input type="text" class="form-control" value="{{user.username}}" id="" name="username" disabled>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color hs_span">연락처</span>
-                            <input type="text" class="form-control" value="010-1234-5678" id="" name="tel">
+                            <input type="text" class="form-control" value="{{user.tel}}" id="" name="tel">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text  justify-content-center hs_span_size init_color">이메일</span>
-                            <input type="text" class="form-control" value="sk_cnc@sk.com" name="email" disabled>
+                            <input type="text" class="form-control" value="{{user.email}}" name="email">
                         </div>
 
                         <div id="checkAlertBox"></div>
@@ -132,7 +132,7 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text  justify-content-center hs_span_size init_color">비밀번호</span>
-                                <input type="password" class="form-control" value="1234" id="password"
+                                <input type="password" class="form-control" value="{{user.password}}" id="password"
                                        name="password" readonly>
                             </div>
                             <div class="input-group mb-3">
