@@ -6,6 +6,7 @@ public class UserRequest {
 
     @Data
     public static class CompanyInfoUpdateDTO {
+        private String profile;
         private String address;
         private String tel;
         private String email;
