@@ -16,7 +16,7 @@ public class UserService {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
-        user.setProfile(requestDTO.getProfile);
+        user.setProfile(requestDTO.getProfile());
         user.setAddress(requestDTO.getAddress());
         user.setTel(requestDTO.getTel());
         user.setEmail(requestDTO.getEmail());
