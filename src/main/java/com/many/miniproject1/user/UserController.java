@@ -1,29 +1,15 @@
 package com.many.miniproject1.user;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository;
-    private final HttpSession session;
-    private final Environment env;
-    private final UserFileService userFileService;
+
 
     // 회사 회원가입
     @GetMapping("/company/join-form")

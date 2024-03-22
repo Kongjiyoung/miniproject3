@@ -1,5 +1,8 @@
 package com.many.miniproject1.backup.scrap;
 
+import com.many.miniproject1.backup.post.Post;
+import com.many.miniproject1.backup.resume.Resume;
+import com.many.miniproject1.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,11 +18,14 @@ public class Scrap {
     private Integer id;
 
 
-    private Integer resumeId;
-    private Integer postId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Resume resume;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
 
-    private Integer personId;
-    private Integer companyId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     @CreationTimestamp
     private Timestamp createdAt;
 }

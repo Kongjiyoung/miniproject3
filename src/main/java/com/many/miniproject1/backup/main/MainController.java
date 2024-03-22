@@ -8,7 +8,6 @@ import com.many.miniproject1.backup.post.Post;
 import com.many.miniproject1.backup.post.PostRepository;
 import com.many.miniproject1.backup.post.PostResponse;
 import com.many.miniproject1.backup.resume.Resume;
-import com.many.miniproject1.backup.resume.ResumeRepository;
 import com.many.miniproject1.backup.resume.ResumeResponse;
 import com.many.miniproject1.backup.scrap.ScrapRepository;
 import com.many.miniproject1.backup.scrap.ScrapRequest;

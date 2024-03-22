@@ -1,5 +1,7 @@
 package com.many.miniproject1.backup.offer;
 
+import com.many.miniproject1.backup.post.Post;
+import com.many.miniproject1.backup.resume.Resume;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,10 +16,11 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;         // 제안 ID
 
-    private Integer resumeId;   // 이력서 ID
-    private Integer postId;     // 공고 ID
-    private Integer companyId;  // 회사 ID
-    private Integer personId;   // 구직자 ID
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Resume resume;   // &#xC774;&#xB825;&#xC11C; ID
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;     // 공고 ID
+
     //    private String content;
     @CreationTimestamp
     private Timestamp createdAt;

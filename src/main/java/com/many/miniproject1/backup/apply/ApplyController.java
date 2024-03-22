@@ -1,7 +1,6 @@
 package com.many.miniproject1.backup.apply;
 
 import com.many.miniproject1.backup.post.PostResponse;
-import com.many.miniproject1.backup.resume.ResumeRepository;
 import com.many.miniproject1.backup.skill.SkillRepository;
 import com.many.miniproject1.backup.post.PostRepository;
 import com.many.miniproject1.user.User;
