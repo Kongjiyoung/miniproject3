@@ -92,7 +92,7 @@ public class UserController {
     public String companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newsessionUser = userService.회원수정(sessionUser.getId(), requestDTO);
-        session.setAttribute("sessionuser", newsessionUser);
+        session.setAttribute("sessionUser", newsessionUser);
         return "redirect:/company/info";
     }
 
