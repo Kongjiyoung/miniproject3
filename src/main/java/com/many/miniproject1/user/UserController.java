@@ -84,6 +84,7 @@ public class UserController {
     //개인 프로필 정보 및 수정
     @GetMapping("/person/info")
     public String personal() {
+
         return "person/info";
     }
 

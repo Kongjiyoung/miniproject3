@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class UserQueryRepository {
     private final EntityManager em;
+
+    public User findById(int id){
+        User user = em.find(User.class,id);
+        return user;
+    }
 }
