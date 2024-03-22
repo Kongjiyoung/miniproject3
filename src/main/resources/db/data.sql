@@ -10,8 +10,8 @@ INSERT INTO user_tb(role, birth, email, password, username, tel, address, profil
 VALUES ('person', '2000-07-09', 'hahaha@nate.com', '1234', 'khh', '010-1234-5678 ', '부산광역시', 'person03.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
 VALUES ('person', '1993-01-14', 'hana@nate.com', '1234', 'ysh', '010-1234-5678 ', '부산광역시', 'person04.jpg', now());
-INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
-VALUES ('person', '1999-02-30', 'jhj@nate.com', '1234', 'jhj', '010-1234-5678 ', '부산광역시', 'person05.jpg', now());
+-- INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
+-- VALUES ('person', '1999-02-30', 'jhj@nate.com', '1234', 'jhj', '010-1234-5678 ', '부산광역시', 'person05.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
 VALUES ('person', '2002-04-22', 'ssar@nate.com', '1234', 'ssar', '010-1234-5678 ', '부산광역시', 'person06.jpg', now());
 INSERT INTO user_tb(role, birth, email, password, username, tel, address, profile, created_at)
