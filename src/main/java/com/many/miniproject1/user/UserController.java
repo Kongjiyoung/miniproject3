@@ -1,5 +1,6 @@
 package com.many.miniproject1.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -72,7 +73,10 @@ public class UserController {
     //회사 정보 및 수정
     //회사 정보 수정
     @GetMapping("/company/info")
-    public String companyInfo() {
+    public String companyInfo(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.회원조회(sessionUser.getId());
+        request.setAttribute("user", user);
         return "company/info";
     }
 
