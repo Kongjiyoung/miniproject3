@@ -59,7 +59,7 @@ public class OfferController {
         List<String> skills = skillRepository.findByResumeId(id);
         OfferResponse.OfferResumeDetailPlusSkillDTO resumeSkill = new OfferResponse.OfferResumeDetailPlusSkillDTO(resumeDTO, skills);
         request.setAttribute("resume", resumeSkill);
-        return "company/mypageResumeDetail";
+        return "resume-mypage-detail";
     }
     // company의 offers 관리
     // skill 만 불러오면 되나.?

@@ -46,7 +46,7 @@ public class ApplyController {
         request.setAttribute("company", sessionUser);
         request.setAttribute("resumeSkillList", resumeSkillList);
 
-        return "company/companyResumes";
+        return "resumes";
     }
 
     @GetMapping("/company/resume/{id}/detail")
@@ -56,7 +56,7 @@ public class ApplyController {
         List<String> skills = skillRepository.findByResumeId(id);
         ApplyResponse.ResumeIsPassDTO resumeSkill=new ApplyResponse.ResumeIsPassDTO(resume, skills);
         request.setAttribute("resume", resumeSkill);
-        return "company/ApplyResumeDetail";
+        return "resume-apply-detail";
     }
 
     @PostMapping("/company/resume/{id}/detail/ispass")
