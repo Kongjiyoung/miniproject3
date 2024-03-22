@@ -1,5 +1,6 @@
 package com.many.miniproject1.user;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-
+    private final HttpSession session;
+    private final UserService userService;
 
     // 회사 회원가입
     @GetMapping("/company/join-form")
@@ -29,7 +31,8 @@ public class UserController {
     }
 
     @PostMapping("/company/login")
-    public String companyLogin() {
+    public String companyLogin(UserRequest.LoginDTO requestDTO) {
+        session.setAttribute("sessionUser", userService.로그인(requestDTO));
         return "redirect:/company/main";
     }
 
@@ -52,7 +55,8 @@ public class UserController {
     }
 
     @PostMapping("/person/login")
-    public String personLogin() {
+    public String personLogin(UserRequest.LoginDTO requestDTO) {
+        session.setAttribute("sessionUser", userService.로그인(requestDTO));
         return "redirect:/person/main";
     }
 
@@ -60,6 +64,7 @@ public class UserController {
     //기업 개인 로그아웃
     @GetMapping("/logout")
     public String logout() {
+        session.invalidate();
         return "redirect:/";
     }
 
