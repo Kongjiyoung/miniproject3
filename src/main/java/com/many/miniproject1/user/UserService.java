@@ -1,6 +1,7 @@
 package com.many.miniproject1.user;
 
 import com.many.miniproject1._core.errors.exception.Exception401;
+import com.many.miniproject1._core.errors.exception.Exception404;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     public final UserJPARepository userJPARepository;
+
+    public User 회원조회(int id){
+        User user = userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+        return user;
+    }
 
     public User 로그인(UserRequest.LoginDTO reqestDTO){
         User sessionUser = userJPARepository.findByUsernameAndPassword(reqestDTO.getUsername(), reqestDTO.getPassword())
