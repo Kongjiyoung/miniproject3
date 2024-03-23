@@ -20,6 +20,12 @@ import java.util.UUID;
 public class UserService {
     public final UserJPARepository userJPARepository;
 
+    public User findByUser(int id){
+        User user = userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+        return user;
+    }
+
     @Transactional
     public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
         User user = userJPARepository.findById(id)
