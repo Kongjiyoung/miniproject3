@@ -1,17 +1,26 @@
 package com.many.miniproject1.user;
 
 import jakarta.persistence.EntityManager;
+<<<<<<< HEAD
+=======
 import org.assertj.core.api.Assertions;
+>>>>>>> master
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
+<<<<<<< HEAD
+import java.util.Optional;
+
+@Import(UserJPARepository.class)
+=======
 import java.sql.Date;
 
 import static org.assertj.core.api.Assertions.*;
 
 //@Import(UserJPARepository.class)
+>>>>>>> master
 @DataJpaTest
 public class UserJPARepositoryTest {
     @Autowired
@@ -20,6 +29,21 @@ public class UserJPARepositoryTest {
     private EntityManager em;
 
     @Test
+<<<<<<< HEAD
+    public void findById_test(){
+        // given
+        int id = 1;
+
+        // when
+        Optional<User> userOP = userJPARepository.findById(id);
+
+        if(userOP.isPresent()){
+            User user = userOP.get();
+            System.out.println("findById_test : "+user.getUsername());
+        }
+
+        // then
+=======
     public void findByUsernameAndPassword_test() {
         // given
         String username = "captain_kong";
@@ -51,5 +75,6 @@ public class UserJPARepositoryTest {
         // then
         System.out.println("save_test: " + user);
         assertThat(user.getRole()).isEqualTo("person");
+>>>>>>> master
     }
 }
