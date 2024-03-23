@@ -107,6 +107,7 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.회원조회(sessionUser.getId());
         request.setAttribute("user", newSessionUser);
+
         return "person/info";
     }
 
