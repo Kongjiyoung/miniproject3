@@ -92,8 +92,8 @@ public class UserController {
     @GetMapping("/person/info")
     public String personInfo(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Optional<User> user = userJPARepository.findById(sessionUser.getId());
-        request.setAttribute("user", user);
+        User newSessionUser = userService.findByUser(sessionUser.getId());
+        request.setAttribute("user", newSessionUser);
         return "person/info";
     }
 
