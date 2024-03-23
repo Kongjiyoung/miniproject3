@@ -57,32 +57,41 @@ public class UserService {
     }
 
     @Transactional
-    public User 회원수정(int id, UserRequest.CompanyInfoUpdateDTO requestDTO) {
+    public User CompanyInfoUpdate(int id, UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
-        if (!StringUtils.isEmpty(requestDTO.getProfileBase64())) {
-            // Base64로 인코딩된 이미지 문자열을 디코딩하여 바이트 배열로 변환
-            byte[] profileImageBytes = Base64.getDecoder().decode(requestDTO.getProfileBase64());
-            String profileImageBase64 = Base64.getEncoder().encodeToString(profileImageBytes); // 다시 Base64로 인코딩 (원하는 경우)
-            user.setProfile(profileImageBase64); // 이미지를 Base64로 인코딩한 문자열로 저장
+        MultipartFile profile = requestDTO.getProfile();
+        String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename();
+        Path profilePath = Paths.get("./images/" + profileFilename);
+        try {
+            Files.write(profilePath, profile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
+        // 비밀번호 업데이트
+        if (StringUtils.isNotEmpty(requestDTO.getNewPassword())) {
+            user.setPassword(requestDTO.getNewPassword());
+        }
+
+        user.setProfile(profileFilename);
         user.setAddress(requestDTO.getAddress());
         user.setTel(requestDTO.getTel());
         user.setEmail(requestDTO.getEmail());
-        user.setPassword(requestDTO.getPassword());
-        return user;
+
+        return userJPARepository.save(user);
+
     }
 
-    public User 회원조회(int id) {
+    public User findByUser(int id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return user;
     }
 
+    public User Login(UserRequest.LoginDTO reqestDTO) {
 
-    public User 로그인(UserRequest.LoginDTO reqestDTO) {
         User sessionUser = userJPARepository.findByUsernameAndPassword(reqestDTO.getUsername(), reqestDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
         return sessionUser;
