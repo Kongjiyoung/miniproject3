@@ -37,11 +37,13 @@ public class UserRequest {
 
     @Data
     public static class CompanyInfoUpdateDTO {
-        private String profileBase64;
+        private Integer id;
+        private MultipartFile profile;
         private String address;
         private String tel;
         private String email;
         private String password;
+        private String newPassword;
     }
 
     @Data
