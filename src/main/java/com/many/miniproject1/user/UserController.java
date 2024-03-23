@@ -36,7 +36,8 @@ public class UserController {
     }
 
     @PostMapping("/company/login")
-    public String companyLogin() {
+    public String companyLogin(UserRequest.LoginDTO requestDTO) {
+        session.setAttribute("sessionUser", userService.로그인(requestDTO));
         return "redirect:/company/main";
     }
 
@@ -48,7 +49,8 @@ public class UserController {
     }
 
     @PostMapping("/person/join")
-    public String personJoin() {
+    public String personJoin(UserRequest.PersonJoinDTO reqDTO) {
+        userService.personJoin(reqDTO);
         return "redirect:/person/login-form";
     }
 
@@ -59,7 +61,8 @@ public class UserController {
     }
 
     @PostMapping("/person/login")
-    public String personLogin() {
+    public String personLogin(UserRequest.LoginDTO requestDTO) {
+        session.setAttribute("sessionUser", userService.로그인(requestDTO));
         return "redirect:/person/main";
     }
 
@@ -67,6 +70,7 @@ public class UserController {
     //기업 개인 로그아웃
     @GetMapping("/logout")
     public String logout() {
+        session.invalidate();
         return "redirect:/";
     }
 
@@ -74,17 +78,26 @@ public class UserController {
     //회사 정보 및 수정
     //회사 정보 수정
     @GetMapping("/company/info")
-    public String companyInfo() {
+    public String companyInfo(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.회원조회(sessionUser.getId());
+        request.setAttribute("user", user);
         return "company/info";
     }
 
     @GetMapping("/company/info/update-form")
-    public String companyInfoUpdateForm() {
+    public String companyInfoUpdateForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.회원조회(sessionUser.getId());
+        request.setAttribute("user", user);
         return "company/info-update-form";
     }
 
     @PostMapping("/company/info/update")
-    public String companyInfoUpdate() {
+    public String companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User newsessionUser = userService.회원수정(sessionUser.getId(), requestDTO);
+        session.setAttribute("sessionUser", newsessionUser);
         return "redirect:/company/info";
     }
 
@@ -92,7 +105,7 @@ public class UserController {
     @GetMapping("/person/info")
     public String personInfo(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.findByUser(sessionUser.getId());
+        User newSessionUser = userService.회원조회(sessionUser.getId());
         request.setAttribute("user", newSessionUser);
         return "person/info";
     }

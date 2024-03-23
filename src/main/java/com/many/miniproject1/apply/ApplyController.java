@@ -23,7 +23,6 @@ public class ApplyController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         return "company/applied-resumes";
-
     }
 
     @GetMapping("/company/resumes/{id}")
@@ -31,35 +30,32 @@ public class ApplyController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         return "company/applied-resume-detail";
-
     }
 
     @PostMapping("/company/resumes/{id}/ispass")
     public String companyPass(@PathVariable int id, ApplyRequest.UpdateDTO request) {
-
+//        비행기 버튼 누르고 나서 어디로 가야하는지 잘 모르겠어서 현재 페이지로 남겨놓음.
         return "redirect:/company/resumes/{id}";
     }
 
     //이력서 현황
-    @GetMapping("/person/apply")
+    @GetMapping("/person/applies")
     public String personApply(HttpServletRequest request) {
         User sessionUser=(User) session.getAttribute("sessionUser");
 
         return "person/applies";
     }
-    @GetMapping("/person/apply/{id}/detail")
+    @GetMapping("/person/applies/{id}") // 내가 지원한 공고 디테일
     public String personApply(@PathVariable int id, HttpServletRequest request) {
-        // 목적: 포스트 디테일 페이지를 불러온다.(0)
-        // 1. 로그인 하지 않은 유저 로그인의 길로 인도
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         // 스킬 리스트 만들어서 돌리기
-        return "post-apply-detail";
+        return "person/post-apply-detail"; // 이것과 포스트 디테일과의 차이: 취소하기 버튼이 있냐, 스크랩 버튼이 있냐 차이
     }
 
-    @PostMapping("/person/apply/{id}/delete")
+    @PostMapping("/person/applies/{id}/delete")
     public String appliedDelete(@PathVariable int id) {
         applyRepository.applieddelete(id);
-        return "redirect:/person/apply";
+        return "redirect:/person/applies";
     }
 }
