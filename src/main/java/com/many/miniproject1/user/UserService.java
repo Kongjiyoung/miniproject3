@@ -32,10 +32,20 @@ public class UserService {
     }
 
     @Transactional
-    public User 회원수정(int id, UserRequest.CompanyInfoUpdateDTO requestDTO) {
+    public User CompanyInfoUpdate(int id, UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
+        MultipartFile profile = requestDTO.getProfile();
+        String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename();
+        Path profilePath = Paths.get("./images/" + profileFilename);
+        try {
+            Files.write(profilePath, profile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        user.setProfile(profileFilename);
         user.setAddress(requestDTO.getAddress());
         user.setTel(requestDTO.getTel());
         user.setEmail(requestDTO.getEmail());
@@ -43,13 +53,13 @@ public class UserService {
         return user;
     }
 
-    public User 회원조회(int id) {
+    public User findByUser(int id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return user;
     }
 
-    public User 로그인(UserRequest.LoginDTO reqestDTO) {
+    public User Login(UserRequest.LoginDTO reqestDTO) {
         User sessionUser = userJPARepository.findByUsernameAndPassword(reqestDTO.getUsername(), reqestDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
         return sessionUser;
