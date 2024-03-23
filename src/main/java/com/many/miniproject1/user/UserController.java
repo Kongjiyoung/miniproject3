@@ -105,7 +105,7 @@ public class UserController {
     @GetMapping("/person/info")
     public String personInfo(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.회원조회(sessionUser.getId());
+        User newSessionUser = userService.findByUser(sessionUser.getId());
         request.setAttribute("user", newSessionUser);
 
         return "person/info";

@@ -6,8 +6,14 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -20,6 +26,7 @@ public class UserService {
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return user;
     }
+
 
     @Transactional
     public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
@@ -84,11 +91,7 @@ public class UserService {
 
     }
 
-    public User findByUser(int id) {
-        User user = userJPARepository.findById(id)
-                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
-        return user;
-    }
+
 
     public User Login(UserRequest.LoginDTO reqestDTO) {
 
