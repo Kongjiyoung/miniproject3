@@ -45,12 +45,18 @@ public class UserService {
             throw new RuntimeException(e);
         }
 
+        // 비밀번호 업데이트
+        if (StringUtils.isNotEmpty(requestDTO.getNewPassword())) {
+            user.setPassword(requestDTO.getNewPassword());
+        }
+
         user.setProfile(profileFilename);
         user.setAddress(requestDTO.getAddress());
         user.setTel(requestDTO.getTel());
         user.setEmail(requestDTO.getEmail());
-        user.setPassword(requestDTO.getPassword());
-        return user;
+
+        return userJPARepository.save(user);
+
     }
 
     public User findByUser(int id) {
