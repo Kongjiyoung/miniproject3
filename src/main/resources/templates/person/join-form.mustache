@@ -10,6 +10,7 @@
     <div class="d-flex justify-content-center">
         <div class="border rounded p-3 m-3 shadow" style="width: 300px;">
             <form action="/person/join" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="role" value="person">
                 <div class="form-group form-floating m-3 mx-auto">
                     <div class="px-5 mt-5">
                         <!-- 이미지 업로드 시작 -->
@@ -44,10 +45,13 @@
                 </script>
 
                 <!-- 이미지 업로드 끝 -->
-
+                <div class="form-group form-floating m-3 mx-auto">
+                    <input type="text" name="name" class="form-control" value="이서현" id="" required>
+                    <label for="">사용자 이름</label>
+                </div>
                 <div class="form-group form-floating m-3 mx-auto">
                     <input type="text" name="username" class="form-control" value="hyeoon" id="" required>
-                    <label for="">사용자 이름</label>
+                    <label for="">ID</label>
                 </div>
                 <div class="form-group form-floating m-3 mx-auto">
                     <input type="email" name="email" class="form-control" value="hyeon@nate.com" id="" required>
