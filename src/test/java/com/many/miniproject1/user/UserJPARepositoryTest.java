@@ -17,11 +17,6 @@ public class UserJPARepositoryTest {
     private EntityManager em;
 
     @Test
-    public void findByUsername_test(){
-        String username = "captain_kong";
-        userJPARepository.findByUsername(username);
-    }
-    @Test
     public void findById_test(){
         // given
         int id = 1;
