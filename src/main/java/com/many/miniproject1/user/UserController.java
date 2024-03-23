@@ -91,6 +91,9 @@ public class UserController {
 
     @PostMapping("/company/info/update")
     public String companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User newSessionUser = userService.CompanyInfoUpdate(sessionUser.getId(), requestDTO);
+        session.setAttribute("sessionUser", newSessionUser);
         return "redirect:/company/info";
     }
 
