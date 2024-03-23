@@ -112,12 +112,18 @@ public class UserController {
     }
 
     @GetMapping("/person/info/update-form")
-    public String personInfoInfoUpdateForm() {
+    public String personInfoInfoUpdateForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.findByUser(sessionUser.getId());
+        request.setAttribute("user", user);
         return "person/info-update-form";
     }
 
     @PostMapping("/person/info/update")
-    public String personInfoUpdate() {
+    public String personInfoUpdate(UserRequest.PersonUpdateDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User newSessionUser = userService.personUpdate(sessionUser.getId(), reqDTO);
+        session.setAttribute("sessionUser", newSessionUser);
         return "redirect:/person/info";
     }
 }

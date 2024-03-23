@@ -15,6 +15,36 @@ public class UserService {
     public final UserJPARepository userJPARepository;
 
 
+    public User findByUser(int id){
+        User user = userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+        return user;
+    }
+
+    @Transactional
+    public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
+        User user = userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+
+        MultipartFile profile = reqDTO.getProfile();
+        String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename();
+        Path profilePath = Paths.get("./images/" + profileFilename);
+        try {
+            Files.write(profilePath, profile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        user.setProfile(profileFilename);
+        user.setAddress(reqDTO.getAddress());
+        user.setEmail(reqDTO.getEmail());
+        user.setTel(reqDTO.getTel());
+        user.setBirth(reqDTO.getBirth());
+        user.setName(reqDTO.getName());
+        user.setPassword(reqDTO.getPassword());
+        return user;
+    }
+
     @Transactional
     public void personJoin(UserRequest.PersonJoinDTO reqDTO) {
         // 이미지 저장
