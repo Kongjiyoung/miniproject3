@@ -1,19 +1,11 @@
 package com.many.miniproject1.user;
 
-import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 
 @Controller
@@ -21,7 +13,6 @@ import java.util.UUID;
 public class UserController {
     private final HttpSession session;
     private final UserService userService;
-    private final UserQueryRepository userQueryRepository;
 
     // 회사 회원가입
     @GetMapping("/company/join-form")
@@ -99,35 +90,7 @@ public class UserController {
     }
 
     @PostMapping("/company/info/update")
-    public String companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            return "redirect:/loginForm";
-        }
-
-        // 프로필 저장
-        MultipartFile profile = requestDTO.getProfile();
-        String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename();
-        Path profilePath = Paths.get("./images/" + profileFilename);
-        try {
-            Files.write(profilePath, profile.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        User user = userQueryRepository.findById(sessionUser.getId());
-        request.setAttribute("user", user);
-
-        // 새 비밀번호가 비어있으면 기존 비밀번호를 사용하도록 설정
-        if (StringUtils.isEmpty(requestDTO.getNewPassword())) {
-            requestDTO.setNewPassword(user.getPassword());
-        }
-
-        // requestDTO.setProfilePath(profilePath);
-        userQueryRepository.companyInfoUpdate(requestDTO, sessionUser.getId(), profileFilename);
-
-        System.out.println(requestDTO);
-
+    public String companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
         return "redirect:/company/info";
     }
 
