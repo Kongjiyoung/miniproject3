@@ -45,7 +45,8 @@ public class UserController {
     }
 
     @PostMapping("/person/join")
-    public String personJoin() {
+    public String personJoin(UserRequest.PersonJoinDTO reqDTO) {
+        userService.personJoin(reqDTO);
         return "redirect:/person/login-form";
     }
 
