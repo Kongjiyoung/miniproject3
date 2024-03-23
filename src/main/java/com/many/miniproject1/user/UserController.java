@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     private final HttpSession session;
-    private final UserQueryRepository userQueryRepository;
+    private final UserJPARepository userJPARepository;
+    private final UserService userService;
 
     // 회사 회원가입
     @GetMapping("/company/join-form")
@@ -89,8 +90,8 @@ public class UserController {
     @GetMapping("/person/info")
     public String personInfo(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userQueryRepository.findById(sessionUser.getId());
-        request.setAttribute("user", user);
+//        User user = userJPARepository.
+//        request.setAttribute("user", user);
         return "person/info";
     }
 

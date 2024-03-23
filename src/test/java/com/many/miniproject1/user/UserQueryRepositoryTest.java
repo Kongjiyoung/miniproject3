@@ -15,15 +15,4 @@ public class UserQueryRepositoryTest {
     @Autowired
     private EntityManager em;
 
-    @Test
-        public void findById_test(){
-            // given
-        int id = 1;
-            // when
-        User user = userQueryRepository.findById(id);
-        System.out.println("findById_test: "+ user);
-            // then
-        Assertions.assertThat(user.getUsername()).isEqualTo("captain_kong");
-        Assertions.assertThat(user.getName()).isEqualTo("공지영");
-        }
 }
