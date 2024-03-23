@@ -6,14 +6,42 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
     public final UserJPARepository userJPARepository;
 
+    @Transactional
+    public User personUpdate(UserRequest.PersonUpdateDTO reqDTO){
+
+        MultipartFile profile = reqDTO.getProfile();
+        String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename();
+        Path profilePath = Paths.get("./images/" + profileFilename);
+        try {
+            Files.write(profilePath, profile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        User user = reqDTO.toEntity();
+        user.setProfile(profileFilename);
+        user.setAddress(reqDTO.getAddress());
+        user.setEmail(reqDTO.getEmail());
+        user.setTel(reqDTO.getTel());
+        user.setBirth(reqDTO.getBirth());
+        user.setName(reqDTO.getName());
+        user.setPassword(reqDTO.getPassword());
+        return user;
+    }
     @Transactional
     public User 회원수정(int id, UserRequest.CompanyInfoUpdateDTO requestDTO){
         User user = userJPARepository.findById(id)
