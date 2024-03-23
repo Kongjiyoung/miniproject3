@@ -7,11 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
+
     private final HttpSession session;
+    private final UserJPARepository userJPARepository;
     private final UserService userService;
 
     // 회사 회원가입
@@ -99,7 +103,11 @@ public class UserController {
 
     //개인 프로필 정보 및 수정
     @GetMapping("/person/info")
-    public String personal() {
+    public String personInfo(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User newSessionUser = userService.회원조회(sessionUser.getId());
+        request.setAttribute("user", newSessionUser);
+
         return "person/info";
     }
 
