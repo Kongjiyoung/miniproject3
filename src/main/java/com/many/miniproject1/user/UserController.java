@@ -21,12 +21,15 @@ public class UserController {
     // 회사 회원가입
     @GetMapping("/company/join-form")
     public String companyJoinForm() {
+        session.setAttribute("role", "company");
+
         return "company/join-form";
     }
 
     @PostMapping("/company/join")
-    public String companyJoin(UserRequest.CompanyJoinDTO requestDTO ) {
+    public String companyJoin(UserRequest.CompanyJoinDTO requestDTO) {
         userService.기업가입(requestDTO);
+
         return "redirect:/company/login-form";
     }
 

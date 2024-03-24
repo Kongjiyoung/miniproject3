@@ -76,11 +76,12 @@ public class UserRequest {
     }
 
     @Data
-    public class CompanyJoinDTO {
+    public static class CompanyJoinDTO {
         private String role;        // 구직자 or 회사
         private MultipartFile profile;     // 사진
         private String companyName; // 회사명
         private String companyNum;  // 사업자번호
+        private String username;    // 로그인ID
         private String name;        // 담당자 이름
         private String tel;         // 전화번호
         private String address;     // 회사 주소
@@ -94,6 +95,7 @@ public class UserRequest {
                     .profile(profileImagePath)
                     .companyName(companyName)
                     .companyNum(companyNum)
+                    .username(username)
                     .name(name)
                     .tel(tel)
                     .address(address)

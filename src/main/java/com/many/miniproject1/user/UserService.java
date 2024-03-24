@@ -97,10 +97,12 @@ public class UserService {
         return sessionUser;
     }
 
+    @Transactional
     public void 기업가입(UserRequest.CompanyJoinDTO requestDTO){
         String profileFilename = ProfileImageService.saveProfile(requestDTO.getProfile());
 
         User user = requestDTO.toEntity();
+        user.setRole("company");
         user.setProfile(profileFilename);
         userJPARepository.save(user);
     }
