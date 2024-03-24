@@ -30,6 +30,8 @@ public class UserService {
 
     @Transactional
     public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
+        User user = userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
         MultipartFile profile = reqDTO.getProfile();
         String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename();
@@ -40,7 +42,6 @@ public class UserService {
             throw new RuntimeException(e);
         }
 
-        User user = reqDTO.toEntity();
         user.setProfile(profileFilename);
         user.setAddress(reqDTO.getAddress());
         user.setEmail(reqDTO.getEmail());
@@ -48,7 +49,7 @@ public class UserService {
         user.setBirth(reqDTO.getBirth());
         user.setName(reqDTO.getName());
         user.setPassword(reqDTO.getPassword());
-        return user;
+        return userJPARepository.save(user);
     }
 
     @Transactional

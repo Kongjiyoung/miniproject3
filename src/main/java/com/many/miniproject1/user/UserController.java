@@ -105,9 +105,8 @@ public class UserController {
     @GetMapping("/person/info")
     public String personInfo(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.findByUser(sessionUser.getId());
-        request.setAttribute("user", newSessionUser);
-
+        User user = userService.findByUser(sessionUser.getId());
+        request.setAttribute("user", user);
         return "person/info";
     }
 
@@ -123,7 +122,8 @@ public class UserController {
     public String personInfoUpdate(UserRequest.PersonUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.personUpdate(sessionUser.getId(), reqDTO);
-        session.setAttribute("sessionUser", newSessionUser);
+        System.out.println(newSessionUser);
+        session.setAttribute("newSessionUser", newSessionUser);
         return "redirect:/person/info";
     }
 }
