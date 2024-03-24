@@ -35,20 +35,20 @@ public class UserJPARepositoryTest {
         }
 
         // then
-        public void findByUsernameAndPassword_test () {
-            // given
-            String username = "captain_kong";
-            String password = "1234";
-            // when
-            User user = userJPARepository.findByUsernameAndPassword(username, password).get();
-            System.out.println("findByUsernameAndPassword_test: " + user);
-            // then
-            assertThat(user.getAddress()).isEqualTo("부산광역시");
-        }
+
 
 
     }
-
+    public void findByUsernameAndPassword_test () {
+        // given
+        String username = "captain_kong";
+        String password = "1234";
+        // when
+        User user = userJPARepository.findByUsernameAndPassword(username, password).get();
+        System.out.println("findByUsernameAndPassword_test: " + user);
+        // then
+        assertThat(user.getAddress()).isEqualTo("부산광역시");
+    }
     @Test
     public void save_test () {
         //given
