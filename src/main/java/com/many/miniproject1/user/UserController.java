@@ -25,7 +25,8 @@ public class UserController {
     }
 
     @PostMapping("/company/join")
-    public String companyJoin() {
+    public String companyJoin(UserRequest.CompanyJoinDTO requestDTO ) {
+        userService.기업가입(requestDTO);
         return "redirect:/company/login-form";
     }
 
