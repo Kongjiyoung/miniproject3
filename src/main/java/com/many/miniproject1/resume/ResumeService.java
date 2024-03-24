@@ -18,7 +18,7 @@ public class ResumeService {
     public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
 
         Resume resume=resumeJPARepository.save(requestDTO.toEntity());
-        Skill skill = skillJPARepository.saveAll()
+        //Skill skill = skillJPARepository.saveAll()
         return resume;
     }
 }
