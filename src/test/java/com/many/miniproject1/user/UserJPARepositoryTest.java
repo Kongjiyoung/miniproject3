@@ -46,26 +46,28 @@ public class UserJPARepositoryTest {
             assertThat(user.getAddress()).isEqualTo("부산광역시");
         }
 
-        @Test
-        public void save_test () {
-            //given
-            User user = User.builder()
-                    .role("person")
-                    .username("ssar2")
-                    .name("최주호")
-                    .email("ssar2@nate.com")
-                    .birth(Date.valueOf("1876-02-01"))
-                    .tel("010-1234-5678")
-                    .address("부산시 부산진구")
-                    .password("1234")
-                    .build();
 
-            // when
-            userJPARepository.save(user);
+    }
 
-            // then
-            System.out.println("save_test: " + user);
-            assertThat(user.getRole()).isEqualTo("person");
-        }
+    @Test
+    public void save_test () {
+        //given
+        User user = User.builder()
+                .role("person")
+                .username("ssar2")
+                .name("최주호")
+                .email("ssar2@nate.com")
+                .birth(Date.valueOf("1876-02-01"))
+                .tel("010-1234-5678")
+                .address("부산시 부산진구")
+                .password("1234")
+                .build();
+
+        // when
+        userJPARepository.save(user);
+
+        // then
+        System.out.println("save_test: " + user);
+        assertThat(user.getRole()).isEqualTo("person");
     }
 }

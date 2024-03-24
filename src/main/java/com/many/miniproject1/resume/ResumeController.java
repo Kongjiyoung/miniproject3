@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class ResumeController{
-
+    private final ResumeService resumeService;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
@@ -27,12 +27,12 @@ public class ResumeController{
     }
 
     @GetMapping("/person/resume/save-form")
-    public String personSaveResumeForm(ResumeRequest.SaveDTO requestDTO, HttpServletRequest request) {
+    public String personSaveResumeForm() {
         return "person/resume-save-form";
     }
 
     @PostMapping("/person/resume/save")
-    public String personSaveResume(ResumeRequest.SaveDTO requestDTO, HttpServletRequest request, @RequestParam("skills") List<String> skills) {
+    public String personSaveResume(ResumeRequest.SaveDTO requestDTO) {
         return "redirect:/person/resume";
     }
 
