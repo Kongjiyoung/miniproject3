@@ -75,4 +75,33 @@ public class UserRequest {
         private String password;
     }
 
+    @Data
+    public static class CompanyJoinDTO {
+        private String role;        // 구직자 or 회사
+        private MultipartFile profile;     // 사진
+        private String companyName; // 회사명
+        private String companyNum;  // 사업자번호
+        private String username;    // 로그인ID
+        private String name;        // 담당자 이름
+        private String tel;         // 전화번호
+        private String address;     // 회사 주소
+        private String email;       // 담당자 이메일
+        private String password;    // 비밀번호
+
+        public User toEntity(){
+            String profileImagePath = ProfileImageService.saveProfile(profile);
+            return User.builder()
+                    .role(role)
+                    .profile(profileImagePath)
+                    .companyName(companyName)
+                    .companyNum(companyNum)
+                    .username(username)
+                    .name(name)
+                    .tel(tel)
+                    .address(address)
+                    .email(email)
+                    .password(password)
+                    .build();
+        }
+    }
 }

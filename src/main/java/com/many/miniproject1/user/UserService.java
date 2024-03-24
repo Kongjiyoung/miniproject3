@@ -88,15 +88,22 @@ public class UserService {
         user.setEmail(requestDTO.getEmail());
 
         return userJPARepository.save(user);
-
     }
-
-
 
     public User Login(UserRequest.LoginDTO reqestDTO) {
 
         User sessionUser = userJPARepository.findByUsernameAndPassword(reqestDTO.getUsername(), reqestDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
         return sessionUser;
+    }
+
+    @Transactional
+    public void 기업가입(UserRequest.CompanyJoinDTO requestDTO){
+        String profileFilename = ProfileImageService.saveProfile(requestDTO.getProfile());
+
+        User user = requestDTO.toEntity();
+        user.setRole("company");
+        user.setProfile(profileFilename);
+        userJPARepository.save(user);
     }
 }
