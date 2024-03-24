@@ -7,11 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
+
     private final HttpSession session;
+    private final UserJPARepository userJPARepository;
     private final UserService userService;
 
     // 회사 회원가입
@@ -33,7 +37,7 @@ public class UserController {
 
     @PostMapping("/company/login")
     public String companyLogin(UserRequest.LoginDTO requestDTO) {
-        session.setAttribute("sessionUser", userService.로그인(requestDTO));
+        session.setAttribute("sessionUser", userService.Login(requestDTO));
         return "redirect:/company/main";
     }
 
@@ -58,7 +62,7 @@ public class UserController {
 
     @PostMapping("/person/login")
     public String personLogin(UserRequest.LoginDTO requestDTO) {
-        session.setAttribute("sessionUser", userService.로그인(requestDTO));
+        session.setAttribute("sessionUser", userService.Login(requestDTO));
         return "redirect:/person/main";
     }
 
@@ -76,7 +80,7 @@ public class UserController {
     @GetMapping("/company/info")
     public String companyInfo(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.회원조회(sessionUser.getId());
+        User user = userService.findByUser(sessionUser.getId());
         request.setAttribute("user", user);
         return "company/info";
     }
@@ -84,7 +88,7 @@ public class UserController {
     @GetMapping("/company/info/update-form")
     public String companyInfoUpdateForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.회원조회(sessionUser.getId());
+        User user = userService.findByUser(sessionUser.getId());
         request.setAttribute("user", user);
         return "company/info-update-form";
     }
@@ -92,14 +96,18 @@ public class UserController {
     @PostMapping("/company/info/update")
     public String companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newsessionUser = userService.회원수정(sessionUser.getId(), requestDTO);
-        session.setAttribute("sessionUser", newsessionUser);
+        User newSessionUser = userService.CompanyInfoUpdate(sessionUser.getId(), requestDTO);
+        session.setAttribute("sessionUser", newSessionUser);
         return "redirect:/company/info";
     }
 
     //개인 프로필 정보 및 수정
     @GetMapping("/person/info")
-    public String personal() {
+    public String personInfo(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User newSessionUser = userService.findByUser(sessionUser.getId());
+        request.setAttribute("user", newSessionUser);
+
         return "person/info";
     }
 
