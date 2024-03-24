@@ -16,18 +16,6 @@ public class UserRequest {
         private String address;
         private Date birth;
         private MultipartFile profile;
-
-        public User toEntity() {
-            return User.builder()
-                    .email(email)
-                    .name(name)
-                    .password(password)
-                    .tel(tel)
-                    .address(address)
-                    .birth(birth)
-                    .profile(profile.getOriginalFilename())
-                    .build();
-        }
     }
 
     @Data

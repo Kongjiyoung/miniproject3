@@ -49,7 +49,7 @@ public class UserService {
         user.setBirth(reqDTO.getBirth());
         user.setName(reqDTO.getName());
         user.setPassword(reqDTO.getPassword());
-        return user;
+        return userJPARepository.save(user);
     }
 
     @Transactional
