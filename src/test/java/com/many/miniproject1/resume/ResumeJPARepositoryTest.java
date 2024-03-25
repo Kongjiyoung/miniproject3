@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @DataJpaTest
@@ -22,7 +23,7 @@ public class ResumeJPARepositoryTest {
     private ResumeService resumeService;
     
     @Test
-    public void update_test(){
+    public void update_test() {
         // given
         // 업데이트할 이력서 정보를 가져옵니다.
         Optional<Resume> optionalResume = resumeJPARepository.findById(1);
@@ -37,13 +38,13 @@ public class ResumeJPARepositoryTest {
 
         // when
         resumeService.update(1, updateDTO); // 변경된 이력서를 저장하여 업데이트합니다.
-    
+
         // then
         // 저장된 이력서를 다시 가져와서 변경된 내용이 올바르게 반영되었는지 확인합니다.
         System.out.println("resume = " + resume);
 
 
-
+    }
     @Test
     public void findById_test() {
         // given
@@ -76,7 +77,7 @@ public class ResumeJPARepositoryTest {
         // then
         System.out.println("save_test = " + resume.getId());
 
-
+    }
     @Test
     public void findById_test() {
         // given
