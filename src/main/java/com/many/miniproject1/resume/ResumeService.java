@@ -68,7 +68,7 @@ public class ResumeService {
     @Transactional
     public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
 
-        Resume resume = resumeJPARepository.save(requestDTO.toEntity());
+        Resume resume = resumeJPARepository.save(requestDTO.toEntity(sessionUser));
 
         List<Skill> skills = new ArrayList<>();
         for (String skillName : requestDTO.getSkills()) {
