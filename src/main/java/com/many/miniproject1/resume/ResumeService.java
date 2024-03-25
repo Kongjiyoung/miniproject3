@@ -26,7 +26,7 @@ public class ResumeService {
         //Skill skill = skillJPARepository.saveAll()
         return resume;
     }
-    public Resume findByResumeDetail (int resumeId, User sessionUser){
+    public List<ResumeResponse.DetailDTO> findByResumeDetail (int resumeId, User sessionUser){
 
         List<ResumeResponse.DetailDTO> resumeList = (List<ResumeResponse.DetailDTO>) resumeJPARepository.findByIdJoinUser(resumeId)
                 .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
@@ -47,6 +47,6 @@ public class ResumeService {
         resume.setResumeOwner(isResumeOwner);
 
 
-        return (Resume) resumeList;
+        return resumeList;
     }
 }
