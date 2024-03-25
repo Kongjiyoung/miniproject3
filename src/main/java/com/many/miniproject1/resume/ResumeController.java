@@ -42,15 +42,16 @@ public class ResumeController{
 
     @GetMapping("/person/resume/detail/{id}/update-form")
     public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        Resume resume = resumeService.findByUser(id);
+        Resume resume = resumeService.findByResume(id);
         request.setAttribute("resume", resume);
         return "person/resume-update-form";
     }
 
     @PostMapping("/person/resume/{id}/detail/update")
     public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO) {
-        Resume updatedResume = resumeService.update(id, requestDTO);
+        System.out.println("requestDTO = " + requestDTO);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.update(id, requestDTO);
         return "redirect:/person/resume/" + id + "/detail";
     }
 

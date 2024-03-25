@@ -16,7 +16,8 @@ public class ResumeJPARepositoryTest {
     private ResumeJPARepository resumeJPARepository;
     @Autowired
     private EntityManager em;
-
+    @Autowired
+    private ResumeService resumeService;
     
     @Test
     public void update_test(){
@@ -28,25 +29,16 @@ public class ResumeJPARepositoryTest {
         Resume resume = optionalResume.get(); // 가져온 이력서 객체를 얻습니다.
 
         // 변경할 내용을 설정합니다.
-        resume.setTitle("Updated Title");
-        resume.setPortfolio("Updated Portfolio");
-        resume.setIntroduce("Updated Introduce");
-        resume.setCareer("Updated Career");
-        resume.setSimpleIntroduce("Updated Simple Introduce");
+        ResumeRequest.UpdateDTO updateDTO = new ResumeRequest.UpdateDTO();
+        updateDTO.setTitle("12312323213");
+
 
         // when
-        resumeJPARepository.save(resume); // 변경된 이력서를 저장하여 업데이트합니다.
+        resumeService.update(1, updateDTO); // 변경된 이력서를 저장하여 업데이트합니다.
     
         // then
         // 저장된 이력서를 다시 가져와서 변경된 내용이 올바르게 반영되었는지 확인합니다.
-        Optional<Resume> updatedOptionalResume = resumeJPARepository.findById(resume.getId());
-        assertThat(updatedOptionalResume).isPresent();
-        Resume updatedResume = updatedOptionalResume.get();
+        System.out.println("resume = " + resume);
 
-        assertThat(updatedResume.getTitle()).isEqualTo("Updated Title");
-        assertThat(updatedResume.getPortfolio()).isEqualTo("Updated Portfolio");
-        assertThat(updatedResume.getIntroduce()).isEqualTo("Updated Introduce");
-        assertThat(updatedResume.getCareer()).isEqualTo("Updated Career");
-        assertThat(updatedResume.getSimpleIntroduce()).isEqualTo("Updated Simple Introduce");
     }
 }

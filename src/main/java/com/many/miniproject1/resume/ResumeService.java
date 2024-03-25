@@ -1,5 +1,7 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1._core.common.ProfileImageService;
+import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
@@ -38,35 +40,24 @@ public class ResumeService {
     }
 
     @Transactional
-    public Resume update(int id, ResumeRequest.UpdateDTO requestDTO) {
+    public Resume update(int resumeId, ResumeRequest.UpdateDTO requestDTO) {
 
-        Resume resume = resumeJPARepository.findById(id)
-                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
 
         resume.setTitle(requestDTO.getTitle());
         resume.setPortfolio(requestDTO.getPortfolio());
         resume.setIntroduce(requestDTO.getIntroduce());
         resume.setCareer(requestDTO.getCareer());
         resume.setSimpleIntroduce(requestDTO.getSimpleIntroduce());
+        resume.setProfile(ProfileImageService.saveProfile(requestDTO.getProfile()));
 
-        // 사용자 ID를 사용하여 사용자 정보를 조회하고, Resume 엔티티에 설정
-        User user = userJPARepository.findById(requestDTO.getPersonId())
-                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
-        resume.setUser(user);
 
-        MultipartFile profile = requestDTO.getProfile();
-        String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename();
-        Path profilePath = Paths.get("./images/" + profileFilename);
-        try {
-            Files.write(profilePath, profile.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        return resumeJPARepository.save(resume);
+        return resume;
     }
 
-    public Resume findByUser(int id){
+    public Resume findByResume(int id){
         Resume resume = resumeJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return resume;
