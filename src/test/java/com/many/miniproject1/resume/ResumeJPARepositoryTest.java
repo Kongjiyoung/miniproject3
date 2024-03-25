@@ -1,18 +1,13 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1.user.User;
-import com.many.miniproject1.user.UserJPARepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Sort;
 
-import java.sql.Date;
-import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 
 @DataJpaTest
@@ -22,16 +17,6 @@ public class ResumeJPARepositoryTest {
     @Autowired
     private EntityManager em;
 
-    @Test
-    public void findByIdJoinUser_test() {
-        // given
-        int id = 1;
-        // when
-        Resume resume = resumeJPARepository.findByIdJoinUser(id).get();
-        // then
-        System.out.println("findByIdJoinUser_test: " + resume.getUser().getName());
-        System.out.println("findByIdJoinUser_test: " + resume.getTitle());
-    }
 
     @Test
     public void findById_test() {
@@ -44,5 +29,24 @@ public class ResumeJPARepositoryTest {
             System.out.println("findById_test: " + resume.getTitle());
         }
         // then
+    }
+
+    @Test
+    public void save_test(){
+        // given
+        User sessionUser = User.builder().id(1).build();
+        Resume resume = Resume.builder()
+                .user(sessionUser)
+                .title("title")
+                .profile("profilePath")
+                .introduce("introduce")
+                .career("career")
+                .simpleIntroduce("simpleIntroduce")
+                .build();
+        // when
+        resumeJPARepository.save(resume);
+
+        // then
+        System.out.println("save_test = " + resume.getId());
     }
 }
