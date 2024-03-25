@@ -1,5 +1,6 @@
 package com.many.miniproject1.user;
 
+import com.many.miniproject1._core.common.ProfileImageService;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1._core.errors.exception.Exception401;
 import io.micrometer.common.util.StringUtils;
