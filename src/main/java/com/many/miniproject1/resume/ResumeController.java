@@ -1,5 +1,7 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1._core.errors.exception.Exception404;
+
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -49,13 +51,17 @@ public class ResumeController {
 
     @GetMapping("/person/resume/detail/{id}/update-form")
     public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
+        Resume resume = resumeService.findByResume(id);
+        request.setAttribute("resume", resume);
         return "person/resume-update-form";
     }
 
     @PostMapping("/person/resume/{id}/detail/update")
-    public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request, @RequestParam("skill") List<String> skills) {
+    public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO) {
+        System.out.println("requestDTO = " + requestDTO);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.update(id, requestDTO);
         return "redirect:/person/resume/" + id + "/detail";
-
     }
 
     @PostMapping("/person/resume/{id}/delete")
