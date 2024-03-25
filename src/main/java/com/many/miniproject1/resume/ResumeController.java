@@ -23,9 +23,11 @@ public class ResumeController {
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
-    public String personResumeForm(HttpServletRequest request) {
+    public String personResumeForm(HttpServletRequest request, ResumeResponse.ResumeDetailDTO respDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
+        Resume resume = resumeService.getResumeSkill(respDTO);
+        request.setAttribute("resume", resume);
         request.setAttribute("resumeList",resumeList);
         return "person/resumes";
     }

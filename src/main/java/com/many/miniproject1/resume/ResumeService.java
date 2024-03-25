@@ -89,7 +89,9 @@ public class ResumeService {
         return resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
     }
 
-
+    public Resume getResumeSkill(ResumeResponse.ResumeDetailDTO respDTO){
+        return resumeJPARepository.findByIdJoinSkill(respDTO.getId());
+    }
     public List<Resume> findResumeList(Integer userId) {
         return resumeJPARepository.findByUserId(userId);
     }
