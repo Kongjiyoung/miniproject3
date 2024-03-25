@@ -11,16 +11,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-public class ResumeController{
+public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
+        request.setAttribute("resumeList",resumeList);
         return "person/resumes";
     }
 

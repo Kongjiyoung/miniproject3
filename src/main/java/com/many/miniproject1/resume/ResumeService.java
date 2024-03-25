@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 @RequiredArgsConstructor
 @Service
 public class ResumeService {
@@ -34,6 +35,11 @@ public class ResumeService {
         List<Skill> skillList = skillJPARepository.saveAll(skills);
 
         return resume;
+    }
+
+
+    public List<Resume> findResumeList(Integer userId) {
+        return resumeJPARepository.findByUserId(userId);
     }
 
     public void deleteResume(Integer id){
