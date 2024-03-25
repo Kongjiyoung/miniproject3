@@ -38,7 +38,7 @@ public class ResumeService {
     }
 
     @Transactional
-    public Resume update(int id, ResumeRequest.UpdateDTO requestDTO, @RequestParam("skill") List<String> skills) {
+    public Resume update(int id, ResumeRequest.UpdateDTO requestDTO) {
 
         Resume resume = resumeJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
@@ -64,5 +64,11 @@ public class ResumeService {
         }
 
         return resumeJPARepository.save(resume);
+    }
+
+    public Resume findByUser(int id){
+        Resume resume = resumeJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+        return resume;
     }
 }
