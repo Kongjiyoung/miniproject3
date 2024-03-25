@@ -22,10 +22,10 @@ public class ResumeRequest {
         private String simpleIntroduce;
         private List<String> skills;
 
-        public Resume toEntity(){
+        public Resume toEntity(User sessionUser){
             String profilePath= ProfileImageService.saveProfile(profile);
             return Resume.builder()
-                    .user(user)
+                    .user(sessionUser)
                     .title(title)
                     .profile(profilePath)
                     .introduce(introduce)
