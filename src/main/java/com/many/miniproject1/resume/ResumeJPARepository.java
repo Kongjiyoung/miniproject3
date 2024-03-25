@@ -8,18 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
-//    @Query("""
-//            select r, s
-//            from Resume r
-//            join fetch r.skillList s
-//            where r.id = :id
-//            """)
-////    @Query("""
-////            select r
-////            from Resume r
-////            where r.id = :id
-////            """)
-//    Optional<Resume> findByIdJoinSkill(@Param("id") int id);
-
-
+    @Query("""
+            select distinct r
+            from Resume r
+            join fetch r.skillList s
+            join fetch r.user u
+            where r.id = :id
+            """)
+    Resume findByIdJoinSkillAndUser(@Param("id") int id);
 }

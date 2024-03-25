@@ -100,9 +100,8 @@ public class ResumeResponse {
     }
 
     @Data
-    public static class ResumeDetailDTO { // DetailDTO가 이미 있어서 이렇게 함. 다른 코드랑 엮여서 수정하기 힘듦
+    public static class ResumeDetailDTO {
         private Integer id;
-        //        private Integer personId;
         private Integer userId;
         private String title;
         private String profile;
@@ -117,11 +116,7 @@ public class ResumeResponse {
         private List<ResumeSkillDTO> skills = new ArrayList<>();
         private String introduce;
 
-
-//        디테일디티오 생성자 만드는 자리
-
-        @Data
-        public class ResumeSkillDTO {
+        public static class ResumeSkillDTO {
             private Integer id;
             private String skill;
             private int resumeId;

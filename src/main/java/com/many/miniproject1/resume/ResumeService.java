@@ -22,10 +22,10 @@ public class ResumeService {
     @Transactional
     public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
 
-        Resume resume=resumeJPARepository.save(requestDTO.toEntity());
+        Resume resume = resumeJPARepository.save(requestDTO.toEntity());
 
         List<Skill> skills = new ArrayList<>();
-        for (String skillName : requestDTO.getSkills()){
+        for (String skillName : requestDTO.getSkills()) {
             SkillResponse.SaveDTO skill = new SkillResponse.SaveDTO();
             skill.setResume(resume);
             skill.setSkill(skillName);
@@ -39,9 +39,6 @@ public class ResumeService {
     }
 
     public Resume getResumeDetail(ResumeResponse.ResumeDetailDTO respDTO) {
-        // 이력서를 불러와라
-        resumeJPARepository.findById(respDTO.getId());
-        // 이력서 아이디와 연결된 스킬을 불러와라.
-        return null;
+        return resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
     }
 }
