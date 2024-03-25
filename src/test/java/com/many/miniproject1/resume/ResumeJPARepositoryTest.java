@@ -20,6 +20,7 @@ public class ResumeJPARepositoryTest {
     @Autowired
     private EntityManager em;
 
+
     @Test
     public void save_test(){
         // given
@@ -39,5 +40,34 @@ public class ResumeJPARepositoryTest {
         System.out.println("save_test = " + resume.getId());
     }
 
+
+
+//    @Test
+//    public void findByIdJoinSkill_test() {
+//        // given
+//        ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
+//        respDTO.setId(1);
+//
+//        // when
+//
+//
+//        // then
+//        Optional<Resume> resumeDetail = resumeJPARepository.findByIdJoinSkill(respDTO.getId());
+////        System.out.println(resumeDetail);
+//    }
+
+    @Test
+    public void findById_test() {
+        // given
+        ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
+        respDTO.setId(1);
+
+        // when
+        Optional<Resume> resume = resumeJPARepository.findById(respDTO.getId());
+
+        // then
+        System.out.println(resume);
+
+    }
 
 }
