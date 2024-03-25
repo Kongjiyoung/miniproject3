@@ -20,6 +20,24 @@ public class ResumeJPARepositoryTest {
     @Autowired
     private EntityManager em;
 
+    @Test
+    public void save_test(){
+        // given
+        User sessionUser = User.builder().id(1).build();
+        Resume resume = Resume.builder()
+                .user(sessionUser)
+                .title("title")
+                .profile("profilePath")
+                .introduce("introduce")
+                .career("career")
+                .simpleIntroduce("simpleIntroduce")
+                .build();
+        // when
+        resumeJPARepository.save(resume);
+
+        // then
+        System.out.println("save_test = " + resume.getId());
+    }
 
 
 }
