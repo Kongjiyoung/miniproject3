@@ -5,7 +5,11 @@ import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
+
 import com.many.miniproject1.skill.SkillRequest;
+
+import com.many.miniproject1.skill.SkillResponse;
+
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 @RequiredArgsConstructor
 @Service
@@ -29,15 +37,9 @@ public class ResumeService {
     private final ResumeJPARepository resumeJPARepository;
     private final ResumeQueryRepository resumeQueryRepository;
     private final SkillJPARepository skillJPARepository;
+
     private final UserJPARepository userJPARepository;
 
-    @Transactional
-    public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
-
-        Resume resume = resumeJPARepository.save(requestDTO.toEntity());
-        //Skill skill = skillJPARepository.saveAll()
-        return resume;
-    }
 
     @Transactional
     public Resume update(int resumeId, ResumeRequest.UpdateDTO requestDTO) {
@@ -61,5 +63,32 @@ public class ResumeService {
         Resume resume = resumeJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return resume;
+
+
+    @Transactional
+    public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
+        Resume resume=resumeJPARepository.save(requestDTO.toEntity());
+
+        List<Skill> skills = new ArrayList<>();
+        for (String skillName : requestDTO.getSkills()){
+            SkillResponse.SaveDTO skill = new SkillResponse.SaveDTO();
+            skill.setResume(resume);
+            skill.setSkill(skillName);
+            skills.add(skill.toEntity());
+        }
+
+        List<Skill> skillList = skillJPARepository.saveAll(skills);
+
+        return resume;
+    }
+
+
+    public List<Resume> findResumeList(Integer userId) {
+        return resumeJPARepository.findByUserId(userId);
+    }
+
+    public void deleteResume(Integer id){
+        resumeJPARepository.deleteById(id);
+
     }
 }

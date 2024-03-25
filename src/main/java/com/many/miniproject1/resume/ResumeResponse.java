@@ -75,7 +75,7 @@ public class ResumeResponse {
             this.skill = skill;
         }
 
-        public DetailSkillDTO() {
+        public DetailSkillDTO(Object[] resume, List<Resume> skills) {
 
         }
     }

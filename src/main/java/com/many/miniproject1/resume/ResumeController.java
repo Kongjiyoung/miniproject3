@@ -1,6 +1,7 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.errors.exception.Exception404;
+
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -12,16 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-public class ResumeController{
+public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
+        request.setAttribute("resumeList",resumeList);
         return "person/resumes";
     }
 
@@ -37,6 +42,10 @@ public class ResumeController{
 
     @PostMapping("/person/resume/save")
     public String personSaveResume(ResumeRequest.SaveDTO requestDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        //나중에 findById 해서 그 user 넣어야하는 거 아녀? 일단은 이렇게 둠
+        System.out.println("requestDTO = " + requestDTO);
+        Resume resume = resumeService.save(requestDTO, sessionUser);
         return "redirect:/person/resume";
     }
 
@@ -55,8 +64,9 @@ public class ResumeController{
         return "redirect:/person/resume/" + id + "/detail";
     }
 
-    @PostMapping("/person/resume/detail/{id}/delete")
-    public String personDeletePost(@PathVariable int id, HttpServletRequest request) {
+    @PostMapping("/person/resume/{id}/delete")
+    public String personDeleteResume(@PathVariable Integer id) {
+        resumeService.deleteResume(id);
         return "redirect:/person/resume";
     }
 }
