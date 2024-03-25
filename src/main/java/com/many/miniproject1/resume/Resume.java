@@ -29,6 +29,9 @@ public class Resume {
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Skill> skillList = new ArrayList<>();
 
+    @Transient
+    private boolean isResumeOwner;
+
     private String title;
     private String profile;
     private String portfolio;

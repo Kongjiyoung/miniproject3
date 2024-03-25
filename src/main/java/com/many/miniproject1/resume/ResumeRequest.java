@@ -63,6 +63,6 @@ public class ResumeRequest {
         private String introduce;
         private String career;
         private String simpleIntroduce;
-        private List<String> skill;
+        private List<String> skills;
     }
 }
