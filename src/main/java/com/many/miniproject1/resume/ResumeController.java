@@ -23,7 +23,7 @@ public class ResumeController {
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Resume> resumeList = resumeService.findResumesByUserId(sessionUser.getId());
+        List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
         request.setAttribute("resumeList",resumeList);
         return "person/resumes";
     }

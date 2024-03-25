@@ -29,7 +29,7 @@ public class ResumeService {
         return resume;
     }
 
-    public List<Resume> findResumesByUserId(Integer userId) {
+    public List<Resume> findResumeList(Integer userId) {
         return resumeJPARepository.findByUserId(userId);
     }
 }
