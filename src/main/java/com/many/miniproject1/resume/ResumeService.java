@@ -64,7 +64,7 @@ public class ResumeService {
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return resume;
 
-
+    }
     @Transactional
     public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
 
