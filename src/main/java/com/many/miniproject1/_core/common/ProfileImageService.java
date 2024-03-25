@@ -1,4 +1,4 @@
-package com.many.miniproject1.user;
+package com.many.miniproject1._core.common;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

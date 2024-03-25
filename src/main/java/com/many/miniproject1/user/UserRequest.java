@@ -1,5 +1,6 @@
 package com.many.miniproject1.user;
 
+import com.many.miniproject1._core.common.ProfileImageService;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 

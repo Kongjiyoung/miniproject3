@@ -1,18 +1,11 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1._core.common.ProfileImageService;
 import com.many.miniproject1.user.User;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import java.sql.Timestamp;
-import java.util.List;
-
-import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-
-
-import java.sql.Timestamp;
 import java.util.List;
 
 public class ResumeRequest {
@@ -29,11 +22,12 @@ public class ResumeRequest {
         private String simpleIntroduce;
         private List<String> skills;
 
-        public Resume toEntity(Resume resume, User user){
+        public Resume toEntity(){
+            String profilePath= ProfileImageService.saveProfile(profile);
             return Resume.builder()
                     .user(user)
                     .title(title)
-                    .profile()
+                    .profile(profilePath)
                     .introduce(introduce)
                     .career(career)
                     .simpleIntroduce(simpleIntroduce)

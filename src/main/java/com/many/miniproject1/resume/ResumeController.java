@@ -1,6 +1,8 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ResumeController{
     private final ResumeService resumeService;
+    private final HttpSession session;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
@@ -33,6 +36,10 @@ public class ResumeController{
 
     @PostMapping("/person/resume/save")
     public String personSaveResume(ResumeRequest.SaveDTO requestDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        //나중에 findById 해서 그 user 넣어야하는 거 아녀? 일단은 이렇게 둠
+        System.out.println("requestDTO = " + requestDTO);
+        Resume resume = resumeService.save(requestDTO, sessionUser);
         return "redirect:/person/resume";
     }
 
@@ -47,8 +54,9 @@ public class ResumeController{
 
     }
 
-    @PostMapping("/person/resume/detail/{id}/delete")
-    public String personDeletePost(@PathVariable int id, HttpServletRequest request) {
+    @PostMapping("/person/resume/{id}/delete")
+    public String personDeleteResume(@PathVariable Integer id) {
+        resumeService.deleteResume(id);
         return "redirect:/person/resume";
     }
 }

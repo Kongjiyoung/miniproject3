@@ -17,9 +17,10 @@ public class Scrap {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
 
-
+    @JoinColumn(nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
+    @JoinColumn(nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
