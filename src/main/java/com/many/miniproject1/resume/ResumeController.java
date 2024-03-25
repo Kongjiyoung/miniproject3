@@ -55,7 +55,8 @@ public class ResumeController{
     }
 
     @PostMapping("/person/resume/detail/{id}/delete")
-    public String personDeletePost(@PathVariable int id, HttpServletRequest request) {
+    public String personDeletePost(@PathVariable Integer id) {
+        resumeService.deleteResume(id);
         return "redirect:/person/resume";
     }
 }

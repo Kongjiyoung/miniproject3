@@ -18,6 +18,7 @@ public class ResumeService {
     private final ResumeJPARepository resumeJPARepository;
     private final ResumeQueryRepository resumeQueryRepository;
     private final SkillJPARepository skillJPARepository;
+
     @Transactional
     public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
         Resume resume=resumeJPARepository.save(requestDTO.toEntity());
@@ -33,5 +34,9 @@ public class ResumeService {
         List<Skill> skillList = skillJPARepository.saveAll(skills);
 
         return resume;
+    }
+
+    public void deleteResume(Integer id){
+        resumeJPARepository.deleteById(id);
     }
 }
