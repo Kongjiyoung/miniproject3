@@ -5,6 +5,7 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import com.many.miniproject1.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,22 +28,8 @@ public class ResumeService {
         //Skill skill = skillJPARepository.saveAll()
         return resume;
     }
-    public Resume findByResumeDetail (int resumeId, User sessionUser){
-        Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
-        List<Object[]> resumeList = resumeJPARepository.findByUserIdJoinUser(resume.getUser().getId());
-        List<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
-        List<Skill> skills = skillJPARepository.findSkillsByResumeId(resumeId); // 가정한 메서드
-        List<Resume> skillList = skills.stream().map(Skill::getResume).collect(Collectors.toList()).reversed();
 
-        for (Object[] resumeDTO : resumeList) {
-            ResumeResponse.DetailSkillDTO resumeSkillDTO = new ResumeResponse.DetailSkillDTO(resumeDTO, skillList);
-            resumeSkillList.add(resumeSkillDTO);
-        }
-
-        boolean isResumeOwner = (sessionUser != null && sessionUser.getId() == resume.getUser().getId());
-        resume.setResumeOwner(isResumeOwner);
-
-        return resume;
+    public List<Resume> findResumesByUserId(Integer userId) {
+        return resumeJPARepository.findByUserId(userId);
     }
 }

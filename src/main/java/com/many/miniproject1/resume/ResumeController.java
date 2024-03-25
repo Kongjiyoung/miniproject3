@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-public class ResumeController{
+public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
@@ -22,8 +23,8 @@ public class ResumeController{
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Resume resumeList = resumeService.findByResumeDetail(sessionUser.getId(), sessionUser);
-        request.setAttribute("resumeList", resumeList);
+        List<Resume> resumeList = resumeService.findResumesByUserId(sessionUser.getId());
+        request.setAttribute("resumeList",resumeList);
         return "person/resumes";
     }
 
