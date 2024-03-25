@@ -395,238 +395,238 @@ VALUES (22,
 -- entity수정 career데이터 varchar로 고치기
 --스킬
 -- Java, Spring HTML, JavaScript, SQL, Android, React, Node.js, Express, Flutter
---이력서에서(1~13)
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 1, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Spring', 1, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('SQL', 1, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Flutter', 1, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 2, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Spring', 2, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('SQL', 2, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Flutter', 2, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 3, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Spring', 3, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('SQL', 3, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Flutter', 3, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 4, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('HTML', 4, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Node.js', 4, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('React', 4, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 5, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('HTML', 5, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Node.js', 5, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('JavaScript', 5, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 6, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Spring', 6, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Node.js', 6, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('JavaScript', 6, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Flutter', 7, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Spring', 7, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Node.js', 7, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('JavaScript', 7, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('SQL', 8, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('HTML', 8, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Node.js', 8, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('JavaScript', 8, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('SQL', 9, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Express', 9, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Node.js', 9, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Android', 9, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('SQL', 10, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Express', 10, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Node.js', 10, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Android', 10, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('SQL', 11, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Spring', 11, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Express', 11, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('JavaScript', 11, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('SQL', 12, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Android', 12, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Express', 12, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('JavaScript', 12, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('React', 13, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Android', 13, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Express', 13, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 13, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('React', 14, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Android', 14, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Express', 14, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 14, now());
---
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('React', 15, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Android', 15, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Express', 15, now());
--- INSERT INTO skill_tb(skill, resume_id, created_at)
--- VALUES ('Java', 15, now());
---
+-- 이력서에서(1~13)
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 1, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Spring', 1, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('SQL', 1, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Flutter', 1, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 2, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Spring', 2, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('SQL', 2, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Flutter', 2, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 3, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Spring', 3, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('SQL', 3, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Flutter', 3, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 4, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('HTML', 4, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Node.js', 4, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('React', 4, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 5, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('HTML', 5, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Node.js', 5, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('JavaScript', 5, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 6, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Spring', 6, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Node.js', 6, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('JavaScript', 6, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Flutter', 7, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Spring', 7, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Node.js', 7, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('JavaScript', 7, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('SQL', 8, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('HTML', 8, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Node.js', 8, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('JavaScript', 8, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('SQL', 9, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 9, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Node.js', 9, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 9, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('SQL', 10, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 10, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Node.js', 10, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 10, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('SQL', 11, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Spring', 11, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 11, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('JavaScript', 11, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('SQL', 12, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 12, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 12, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('JavaScript', 12, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('React', 13, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 13, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 13, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 13, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('React', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 14, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 14, now());
+
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('React', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Android', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Express', 15, now());
+INSERT INTO skill_tb(skill, resume_id, created_at)
+VALUES ('Java', 15, now());
+
 -- --공고에서(1~13)
 -- -- Java, Spring HTML, JavaScript, SQL, Android, React, Node.js, Express, Flutter
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JAVA', 1, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('SQL', 1, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Spring', 1, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JAVA', 2, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JavaScript', 2, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Android', 2, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('React', 3, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Express', 3, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Flutter', 3, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JAVA', 4, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('SQL', 4, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Spring', 4, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Flutter', 5, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('HTML', 5, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Android', 5, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('HTML', 6, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('SQL', 6, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Spring', 6, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JAVA', 7, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('React', 7, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Spring', 7, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('HTML', 8, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('SQL', 8, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('React', 8, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Express', 9, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Flutter', 9, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Java', 9, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JAVA', 10, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('SQL', 10, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Spring', 10, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('React', 11, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('SQL', 11, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Spring', 11, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JAVA', 12, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('SQL', 12, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Spring', 12, now());
---
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JAVA', 13, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('JavaScript', 13, now());
--- INSERT INTO skill_tb(skill, post_id, created_at)
--- VALUES ('Node.js', 13, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JAVA', 1, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('SQL', 1, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Spring', 1, now());
 
---지원
--- resume_id(1~13), post_id(1~13), company_id(14~22), person_id(1~13), 합격, 불합격, 심사중
--- 14번 회사
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JAVA', 2, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JavaScript', 2, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Android', 2, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('React', 3, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Express', 3, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Flutter', 3, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JAVA', 4, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('SQL', 4, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Spring', 4, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Flutter', 5, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('HTML', 5, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Android', 5, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('HTML', 6, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('SQL', 6, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Spring', 6, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JAVA', 7, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('React', 7, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Spring', 7, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('HTML', 8, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('SQL', 8, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('React', 8, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Express', 9, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Flutter', 9, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Java', 9, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JAVA', 10, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('SQL', 10, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Spring', 10, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('React', 11, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('SQL', 11, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Spring', 11, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JAVA', 12, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('SQL', 12, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Spring', 12, now());
+
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JAVA', 13, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('JavaScript', 13, now());
+INSERT INTO skill_tb(skill, post_id, created_at)
+VALUES ('Node.js', 13, now());
+
+-- --지원
+-- -- resume_id(1~13), post_id(1~13), company_id(14~22), person_id(1~13), 합격, 불합격, 심사중
+-- -- 14번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (1, 1, 14, 1, '합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
@@ -636,7 +636,7 @@ VALUES (22,
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (8, 2, 14, 9, '불합격');
 --
--- -- 15번 회사
+-- -- -- 15번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (15, 3, 15, 13, '합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
@@ -644,7 +644,7 @@ VALUES (22,
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (9, 3, 15, 7, '합격');
 --
--- -- 16번 회사
+-- -- -- 16번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (5, 4, 16, 3, '불합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
@@ -652,13 +652,13 @@ VALUES (22,
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (12, 4, 16, 10, '합격');
 --
--- -- 17번 회사
+-- -- -- 17번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (5, 5, 17, 3, '합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (1, 6, 17, 1, '불합격');
 --
--- -- 18번 회사
+-- -- -- 18번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (6, 7, 18, 4, '합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
@@ -666,7 +666,7 @@ VALUES (22,
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (14, 7, 18, 12, '합격');
 --
--- -- 19번 회사
+-- -- -- 19번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (3, 8, 19, 1, '불합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
@@ -674,7 +674,7 @@ VALUES (22,
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (9, 8, 19, 7, '합격');
 --
--- -- 20번 회사
+-- -- -- 20번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (13, 9, 20, 11, '합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
@@ -682,7 +682,7 @@ VALUES (22,
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (2, 9, 20, 1, '불합격');
 --
--- -- 21번 회사
+-- -- -- 21번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (3, 10, 21, 1, '합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
@@ -692,7 +692,7 @@ VALUES (22,
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (4, 11, 21, 2, '합격');
 --
--- -- 22번 회사
+-- -- -- 22번 회사
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (10, 12, 22, 8, '불합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
@@ -701,13 +701,13 @@ VALUES (22,
 -- VALUES (5, 13, 22, 3, '불합격');
 -- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
 -- VALUES (1, 13, 22, 1, '합격');
+--
+--
 
-
-
---제안
---offer_tb content 삭제, 더미 추가
---post_id가 5개 뿐이라 3을 4번 넣음
--- 1번 이력서
+-- --제안
+-- --offer_tb content 삭제, 더미 추가
+-- --post_id가 5개 뿐이라 3을 4번 넣음
+-- -- 1번 이력서
 -- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
 -- VALUES (1, 1, 14, 1, now());
 -- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)

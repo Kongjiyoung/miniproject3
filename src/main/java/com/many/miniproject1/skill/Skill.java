@@ -20,11 +20,11 @@ public class Skill {
     private Integer id;
     private String skill;
 
-    @JoinColumn(name = "resume_id")
+    @JoinColumn(name = "resume_id", nullable = true)
     @ManyToOne(fetch =  FetchType.LAZY)
     private Resume resume; //null
 
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "post_id", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post; // null 허용 되어야 한다
     @CreationTimestamp
