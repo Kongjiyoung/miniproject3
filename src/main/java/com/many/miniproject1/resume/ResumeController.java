@@ -41,9 +41,9 @@ public class ResumeController{
     }
 
     @GetMapping("/person/resume/detail/{id}/update-form")
-    public String personUpdateResumeForm(HttpServletRequest request) {
+    public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Resume resume = resumeService.findByUser(sessionUser.getId());
+        Resume resume = resumeService.findByUser(id);
         request.setAttribute("resume", resume);
         return "person/resume-update-form";
     }
