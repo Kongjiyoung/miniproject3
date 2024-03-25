@@ -27,22 +27,22 @@ public class ResumeService {
         //Skill skill = skillJPARepository.saveAll()
         return resume;
     }
-//    public List<ResumeResponse.DetailDTO> findByResumeDetail (int resumeId, User sessionUser){
-//        Resume resume = resumeJPARepository.findById(resumeId)
-//                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
-//        List<ResumeResponse.DetailDTO> resumeList = resumeJPARepository.findByUserIdJoinUser(resume.getUser().getId());
-//        List<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
-//        List<Skill> skills = skillJPARepository.findSkillsByResumeId(resumeId); // 가정한 메서드
-//        List<String> skillNames = skills.stream().map(Skill::getName).collect(Collectors.toList());
-//
-//        for (ResumeResponse.DetailDTO resumeDTO : resumeList) {
-//            ResumeResponse.DetailSkillDTO resumeSkillDTO = new ResumeResponse.DetailSkillDTO(resumeDTO, skillNames);
-//            resumeSkillList.add(resumeSkillDTO);
-//        }
-//
-//        boolean isResumeOwner = (sessionUser != null && sessionUser.getId() == resume.getUser().getId());
-//        resume.setResumeOwner(isResumeOwner);
-//
-//        return resumeList;
-//    }
+    public Resume findByResumeDetail (int resumeId, User sessionUser){
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
+        List<Object[]> resumeList = resumeJPARepository.findByUserIdJoinUser(resume.getUser().getId());
+        List<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
+        List<Skill> skills = skillJPARepository.findSkillsByResumeId(resumeId); // 가정한 메서드
+        List<Resume> skillList = skills.stream().map(Skill::getResume).collect(Collectors.toList()).reversed();
+
+        for (Object[] resumeDTO : resumeList) {
+            ResumeResponse.DetailSkillDTO resumeSkillDTO = new ResumeResponse.DetailSkillDTO(resumeDTO, skillList);
+            resumeSkillList.add(resumeSkillDTO);
+        }
+
+        boolean isResumeOwner = (sessionUser != null && sessionUser.getId() == resume.getUser().getId());
+        resume.setResumeOwner(isResumeOwner);
+
+        return resume;
+    }
 }

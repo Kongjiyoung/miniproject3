@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
 
     @Query("select r from Resume r join fetch r.user u where u.id = :userId")
-    List<ResumeResponse.DetailDTO> findByUserIdJoinUser(@Param("userId") int userId);
+    List<Object[]> findByUserIdJoinUser(@Param("userId") int userId);
 }
