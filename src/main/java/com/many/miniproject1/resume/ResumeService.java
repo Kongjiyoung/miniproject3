@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -26,27 +27,22 @@ public class ResumeService {
         //Skill skill = skillJPARepository.saveAll()
         return resume;
     }
-    public List<ResumeResponse.DetailDTO> findByResumeDetail (int resumeId, User sessionUser){
-
-        List<ResumeResponse.DetailDTO> resumeList = (List<ResumeResponse.DetailDTO>) resumeJPARepository.findByIdJoinUser(resumeId)
-                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
-        ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
-        for (int i = 0; i <resumeList.size(); i++){
-            Optional<Skill> skills = skillJPARepository.findById(resumeList.get(i).getId());
-            ResumeResponse.DetailDTO resume = resumeList.get(i);
-            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume, skills));
-        }
-
-        Resume resume = new Resume();
-        boolean isResumeOwner = false;
-        if (sessionUser != null){
-            if (sessionUser.getId() == resume.getUser().getId()){
-                isResumeOwner = true;
-            }
-        }
-        resume.setResumeOwner(isResumeOwner);
-
-
-        return resumeList;
-    }
+//    public List<ResumeResponse.DetailDTO> findByResumeDetail (int resumeId, User sessionUser){
+//        Resume resume = resumeJPARepository.findById(resumeId)
+//                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
+//        List<ResumeResponse.DetailDTO> resumeList = resumeJPARepository.findByUserIdJoinUser(resume.getUser().getId());
+//        List<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
+//        List<Skill> skills = skillJPARepository.findSkillsByResumeId(resumeId); // 가정한 메서드
+//        List<String> skillNames = skills.stream().map(Skill::getName).collect(Collectors.toList());
+//
+//        for (ResumeResponse.DetailDTO resumeDTO : resumeList) {
+//            ResumeResponse.DetailSkillDTO resumeSkillDTO = new ResumeResponse.DetailSkillDTO(resumeDTO, skillNames);
+//            resumeSkillList.add(resumeSkillDTO);
+//        }
+//
+//        boolean isResumeOwner = (sessionUser != null && sessionUser.getId() == resume.getUser().getId());
+//        resume.setResumeOwner(isResumeOwner);
+//
+//        return resumeList;
+//    }
 }
