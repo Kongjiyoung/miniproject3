@@ -38,7 +38,12 @@ public class ResumeService {
         return resume;
     }
 
+
     public Resume getResumeDetail(ResumeResponse.ResumeDetailDTO respDTO) {
         return resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
+    }
+
+    public void deleteResume(Integer id) {
+        resumeJPARepository.deleteById(id);
     }
 }
