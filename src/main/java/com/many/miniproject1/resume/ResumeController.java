@@ -1,6 +1,8 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ResumeController{
     private final ResumeService resumeService;
+    private final HttpSession session;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
         return "person/resumes";
     }
 

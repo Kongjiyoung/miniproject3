@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
 
     @Query("select r from Resume r join fetch r.user u where r.id = :id")
-    Optional<Resume> findByIdJoinUser(@Param("id") int id);
+    Optional<ResumeResponse.DetailDTO> findByIdJoinUser(@Param("id") int id);
 }

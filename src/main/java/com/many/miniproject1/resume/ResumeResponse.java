@@ -1,9 +1,11 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.skill.Skill;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 public class ResumeResponse {
     //    @Data
@@ -75,7 +77,7 @@ public class ResumeResponse {
             this.skill = skill;
         }
 
-        public DetailSkillDTO() {
+        public DetailSkillDTO(DetailDTO resume, Optional<Skill> skills) {
 
         }
     }

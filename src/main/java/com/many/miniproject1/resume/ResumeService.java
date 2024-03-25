@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @Service
@@ -23,19 +27,26 @@ public class ResumeService {
         return resume;
     }
     public Resume findByResumeDetail (int resumeId, User sessionUser){
-        Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
-                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
 
+        List<ResumeResponse.DetailDTO> resumeList = (List<ResumeResponse.DetailDTO>) resumeJPARepository.findByIdJoinUser(resumeId)
+                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
+        ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
+        for (int i = 0; i <resumeList.size(); i++){
+            Optional<Skill> skills = skillJPARepository.findById(resumeList.get(i).getId());
+            ResumeResponse.DetailDTO resume = resumeList.get(i);
+            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume, skills));
+        }
+
+        Resume resume = new Resume();
         boolean isResumeOwner = false;
         if (sessionUser != null){
             if (sessionUser.getId() == resume.getUser().getId()){
                 isResumeOwner = true;
             }
         }
-
         resume.setResumeOwner(isResumeOwner);
 
 
-        return resume;
+        return (Resume) resumeList;
     }
 }
