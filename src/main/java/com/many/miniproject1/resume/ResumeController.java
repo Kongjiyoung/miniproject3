@@ -31,7 +31,9 @@ public class ResumeController {
     }
 
     @GetMapping("/person/resume/{id}/detail")
-    public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
+    public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request, ResumeResponse.ResumeDetailDTO respDTO) {
+        Resume resume = resumeService.getResumeDetail(respDTO);
+        request.setAttribute("resume", resume);
         return "person/resume-detail";
     }
 

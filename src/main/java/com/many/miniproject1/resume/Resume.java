@@ -55,4 +55,17 @@ public class Resume {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", profile='" + profile + '\'' +
+                ", portfolio='" + portfolio + '\'' +
+                ", introduce='" + introduce + '\'' +
+                ", career='" + career + '\'' +
+                ", simpleIntroduce='" + simpleIntroduce + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

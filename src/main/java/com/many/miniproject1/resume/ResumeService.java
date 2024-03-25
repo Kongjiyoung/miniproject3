@@ -67,10 +67,11 @@ public class ResumeService {
 
     @Transactional
     public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
-        Resume resume=resumeJPARepository.save(requestDTO.toEntity());
+
+        Resume resume = resumeJPARepository.save(requestDTO.toEntity());
 
         List<Skill> skills = new ArrayList<>();
-        for (String skillName : requestDTO.getSkills()){
+        for (String skillName : requestDTO.getSkills()) {
             SkillResponse.SaveDTO skill = new SkillResponse.SaveDTO();
             skill.setResume(resume);
             skill.setSkill(skillName);
@@ -79,7 +80,13 @@ public class ResumeService {
 
         List<Skill> skillList = skillJPARepository.saveAll(skills);
 
+
         return resume;
+    }
+
+
+    public Resume getResumeDetail(ResumeResponse.ResumeDetailDTO respDTO) {
+        return resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
     }
 
 
@@ -88,6 +95,7 @@ public class ResumeService {
     }
 
     public void deleteResume(Integer id){
+
         resumeJPARepository.deleteById(id);
 
     }

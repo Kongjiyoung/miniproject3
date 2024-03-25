@@ -57,8 +57,9 @@ public class ResumeJPARepositoryTest {
         // then
     }
 
+
     @Test
-    public void save_test(){
+    public void save_test() {
         // given
         User sessionUser = User.builder().id(1).build();
         Resume resume = Resume.builder()
@@ -74,6 +75,34 @@ public class ResumeJPARepositoryTest {
 
         // then
         System.out.println("save_test = " + resume.getId());
+
+
+    @Test
+    public void findById_test() {
+        // given
+        ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
+        respDTO.setId(1);
+
+        // when
+        Optional<Resume> resume = resumeJPARepository.findById(respDTO.getId());
+
+        // then
+        System.out.println("findById_test: " + resume);
+    }
+
+    @Test
+    public void findByIdJoinSkillAndUser_test() {
+        //given
+        ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
+        respDTO.setId(1);
+
+        // when
+        Resume resumeDetail = resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
+
+        // then
+        System.out.println("findByIdJoinSkillAndUser_test/resumeDetail: " + resumeDetail);
+        System.out.println("findByIdJoinSkillAndUser_test/resumeDetail.getUser(): " + resumeDetail.getUser());
+        System.out.println("findByIdJoinSkillAndUser_test/resumeDetail.getSkillList(): " + resumeDetail.getSkillList());
 
     }
 }
