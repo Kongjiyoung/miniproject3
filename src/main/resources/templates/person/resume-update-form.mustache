@@ -7,7 +7,7 @@
                 <label style="margin-left: 95px;" for="title">*이력서를 작성해 주세요.</label>
                 <h1 class="mx-5 mb-3">
                     <input type="text" style="width: 700px; border: none;"
-                           class="hs_input_title mx-5" name="title" value="제목" autofocus/>
+                           class="hs_input_title mx-5" name="title" value="{{resume.title}}" autofocus/>
                 </h1>
                 <!-- 이미지 업로드 시작 -->
 
@@ -15,7 +15,7 @@
                     <div class="upload d-flex justify-content-center mb-3">
                         <div class=" d-flex d-flex justify-content-center align-items-center"
                              style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"
-                             id="profilePreview"><img src="/images/person01.jpg" style="width: 100%; height: 100%;">
+                             id="profilePreview"><img src="/images/{{resume.profile}}" style="width: 100%; height: 100%;">
                         </div>
                     </div>
                 </div>
@@ -85,14 +85,14 @@
                         <div class="col-md-14 mx-auto">
                             <div class="mt-5">
                                 <h4>커리어</h4>
-                                <input type="text" name="career" class="w-100 opacity-50" value="1년 근무"
+                                <input type="text" name="career" class="w-100 opacity-50" value="{{resume.career}}"
                                        rows="10">
                                 <h4>간단 소개</h4>
                                 <input type="text" name="simpleIntroduce" class="w-100 opacity-50"
-                                       value="꾸준히 공부하는 개발자입니다" rows="10">
+                                       value="{{resume.simpleIntroduce}}" rows="10">
                                 <h4>포트폴리오 주소</h4>
                                 <input type="text" class="form-control mt-2" id="" name="portfolio"
-                                       value="http://qmfmqfqmf"
+                                       value="{{resume.portfolio}}"
                                        style="display: block;">
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                         <div>
                             <h4>자기소개</h4>
                             <textarea name="introduce" class="w-100 opacity-50" rows="10"
-                            >이력서소개</textarea>
+                            >{{resume.introduce}}</textarea>
 
                         </div>
                         <div class="d-flex justify-content-center">
