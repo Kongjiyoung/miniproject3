@@ -28,6 +28,7 @@ public class ResumeRequest {
                     .user(sessionUser)
                     .title(title)
                     .profile(profilePath)
+                    .portfolio(portfolio)
                     .introduce(introduce)
                     .career(career)
                     .simpleIntroduce(simpleIntroduce)
