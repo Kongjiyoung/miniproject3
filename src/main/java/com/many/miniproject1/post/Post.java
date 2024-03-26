@@ -58,4 +58,22 @@ public class Post { // 공고테이블
         this.workingArea = workingArea;
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", career='" + career + '\'' +
+                ", pay='" + pay + '\'' +
+                ", workCondition='" + workCondition + '\'' +
+                ", workStartTime='" + workStartTime + '\'' +
+                ", workEndTime='" + workEndTime + '\'' +
+                ", deadline='" + deadline + '\'' +
+                ", task='" + task + '\'' +
+                ", profile='" + profile + '\'' +
+                ", workingArea='" + workingArea + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

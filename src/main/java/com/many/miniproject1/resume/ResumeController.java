@@ -25,8 +25,8 @@ public class ResumeController {
     @GetMapping("/person/resume")
     public String personResumeForm(HttpServletRequest request, ResumeResponse.DetailDTO respDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Resume resume = resumeService.getResumeSkill(respDTO);
-        request.setAttribute("resumeList",resume);
+        List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
+        request.setAttribute("resumeList",resumeList);
         return "person/resumes";
     }
 
