@@ -7,7 +7,7 @@
                 <label style="margin-left: 95px;" for="title">*이력서를 작성해 주세요.</label>
                 <h1 class="mx-5 mb-3">
                     <input type="text" style="width: 700px; border: none;"
-                           class="hs_input_title mx-5" name="title" value="제목" autofocus/>
+                           class="hs_input_title mx-5" name="title" value="{{resume.title}}" autofocus/>
                 </h1>
                 <!-- 이미지 업로드 시작 -->
 
@@ -15,7 +15,7 @@
                     <div class="upload d-flex justify-content-center mb-3">
                         <div class=" d-flex d-flex justify-content-center align-items-center"
                              style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"
-                             id="profilePreview"><img src="/images/person01.jpg" style="width: 100%; height: 100%;">
+                             id="profilePreview"><img src="/images/{{resume.profile}}" style="width: 100%; height: 100%;">
                         </div>
                     </div>
                 </div>
@@ -85,14 +85,14 @@
                         <div class="col-md-14 mx-auto">
                             <div class="mt-5">
                                 <h4>커리어</h4>
-                                <input type="text" name="career" class="w-100 opacity-50" value="1년 근무"
+                                <input type="text" name="career" class="w-100 opacity-50" value="{{resume.career}}"
                                        rows="10">
                                 <h4>간단 소개</h4>
                                 <input type="text" name="simpleIntroduce" class="w-100 opacity-50"
-                                       value="꾸준히 공부하는 개발자입니다" rows="10">
+                                       value="{{resume.simpleIntroduce}}" rows="10">
                                 <h4>포트폴리오 주소</h4>
                                 <input type="text" class="form-control mt-2" id="" name="portfolio"
-                                       value="http://qmfmqfqmf"
+                                       value="{{resume.portfolio}}"
                                        style="display: block;">
                             </div>
                         </div>
@@ -100,44 +100,44 @@
                             <label for="skills"><b>기술/자격 조건</b></label>
                             <div class="p-3 d-inline-flex mb-3 w-100">
                                 <div class="row row-cols-auto gap-3 justify-content-center my-3">
-                                    <input type="checkbox" class="btn-check" id="java" value="java" name="skill"
+                                    <input type="checkbox" class="btn-check" id="java" value="java" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="java">Java</label>
 
-                                    <input type="checkbox" class="btn-check" id="spring" value="spring" name="skill"
+                                    <input type="checkbox" class="btn-check" id="spring" value="spring" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="spring">Spring</label>
 
-                                    <input type="checkbox" class="btn-check" id="html" value="html" name="skill"
+                                    <input type="checkbox" class="btn-check" id="html" value="html" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="html">HTML</label>
 
                                     <input type="checkbox" class="btn-check" id="javaScript" value="javaScript"
-                                           name="skill"
+                                           name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="javaScript">JavaScript</label>
 
-                                    <input type="checkbox" class="btn-check" id="sql" value="sql" name="skill"
+                                    <input type="checkbox" class="btn-check" id="sql" value="sql" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="sql">SQL</label>
 
-                                    <input type="checkbox" class="btn-check" id="android" value="android" name="skill"
+                                    <input type="checkbox" class="btn-check" id="android" value="android" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="android">Android</label>
 
-                                    <input type="checkbox" class="btn-check" id="react" value="react" name="skill"
+                                    <input type="checkbox" class="btn-check" id="react" value="react" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="react">React</label>
 
-                                    <input type="checkbox" class="btn-check" id="nodeJs" value="nodeJs" name="skill"
+                                    <input type="checkbox" class="btn-check" id="nodeJs" value="nodeJs" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="nodeJs">Node.js</label>
 
-                                    <input type="checkbox" class="btn-check" id="express" value="express" name="skill"
+                                    <input type="checkbox" class="btn-check" id="express" value="express" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="express">Express</label>
 
-                                    <input type="checkbox" class="btn-check" id="flutter" value="flutter" name="skill"
+                                    <input type="checkbox" class="btn-check" id="flutter" value="flutter" name="skills"
                                            autocomplete="off"/>
                                     <label class="btn btn-outline-primary" for="flutter">Flutter</label>
                                 </div>
@@ -156,7 +156,7 @@
                         <div>
                             <h4>자기소개</h4>
                             <textarea name="introduce" class="w-100 opacity-50" rows="10"
-                            >이력서소개</textarea>
+                            >{{resume.introduce}}</textarea>
 
                         </div>
                         <div class="d-flex justify-content-center">

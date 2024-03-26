@@ -1,8 +1,10 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.skill.Skill;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeResponse {
@@ -75,7 +77,7 @@ public class ResumeResponse {
             this.skill = skill;
         }
 
-        public DetailSkillDTO() {
+        public DetailSkillDTO(Resume resume, List<Skill> skills) {
 
         }
     }
@@ -96,6 +98,30 @@ public class ResumeResponse {
         private String tel;
         private String address;
         private String birth;
+    }
+
+    @Data
+    public static class ResumeDetailDTO {
+        private Integer id;
+        private Integer userId;
+        private String title;
+        private String profile;
+        private String name;
+        private String birth;
+        private String tel;
+        private String address;
+        private String email;
+        private String career;
+        private String simpleIntroduce;
+        private String portfolio;
+        private List<ResumeSkillDTO> skills = new ArrayList<>();
+        private String introduce;
+
+        public static class ResumeSkillDTO {
+            private Integer id;
+            private String skill;
+            private int resumeId;
+        }
     }
 
     @Data

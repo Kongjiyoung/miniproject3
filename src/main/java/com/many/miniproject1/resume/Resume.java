@@ -29,6 +29,9 @@ public class Resume {
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Skill> skillList = new ArrayList<>();
 
+    @Transient
+    private boolean isResumeOwner;
+
     private String title;
     private String profile;
     private String portfolio;
@@ -52,4 +55,17 @@ public class Resume {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", profile='" + profile + '\'' +
+                ", portfolio='" + portfolio + '\'' +
+                ", introduce='" + introduce + '\'' +
+                ", career='" + career + '\'' +
+                ", simpleIntroduce='" + simpleIntroduce + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

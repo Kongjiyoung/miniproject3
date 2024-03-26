@@ -1,5 +1,7 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1._core.errors.exception.Exception404;
+
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -11,21 +13,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-public class ResumeController{
+public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
-    public String personResumeForm(HttpServletRequest request) {
+    public String personResumeForm(HttpServletRequest request, ResumeResponse.DetailDTO respDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
+        request.setAttribute("resumeList",resumeList);
         return "person/resumes";
     }
 
     @GetMapping("/person/resume/{id}/detail")
-    public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
+    public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request, ResumeResponse.ResumeDetailDTO respDTO) {
+        Resume resume = resumeService.getResumeDetail(respDTO);
+        request.setAttribute("resume", resume);
         return "person/resume-detail";
     }
 
@@ -45,13 +53,17 @@ public class ResumeController{
 
     @GetMapping("/person/resume/detail/{id}/update-form")
     public String personUpdateResumeForm(@PathVariable int id, HttpServletRequest request) {
+        Resume resume = resumeService.findByResume(id);
+        request.setAttribute("resume", resume);
         return "person/resume-update-form";
     }
 
     @PostMapping("/person/resume/{id}/detail/update")
-    public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO, HttpServletRequest request, @RequestParam("skill") List<String> skills) {
+    public String personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO) {
+        System.out.println("requestDTO = " + requestDTO);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.update(id, requestDTO);
         return "redirect:/person/resume/" + id + "/detail";
-
     }
 
     @PostMapping("/person/resume/{id}/delete")
