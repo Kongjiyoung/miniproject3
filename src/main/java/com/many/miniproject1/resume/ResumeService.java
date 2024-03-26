@@ -1,12 +1,9 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.common.ProfileImageService;
-import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
-
-import com.many.miniproject1.skill.SkillRequest;
 
 import com.many.miniproject1.skill.SkillResponse;
 
@@ -15,20 +12,9 @@ import com.many.miniproject1.user.UserJPARepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 @RequiredArgsConstructor
@@ -54,8 +40,19 @@ public class ResumeService {
         resume.setSimpleIntroduce(requestDTO.getSimpleIntroduce());
         resume.setProfile(ProfileImageService.saveProfile(requestDTO.getProfile()));
 
+        List<Skill> skills=skillJPARepository.findSkillsByResumeId(resume.getId());
+        for (Skill skill:skills) {
+            skillJPARepository.deleteSkillsByResumeId(resume.getId());
+        }
+        List<Skill> skills1 = new ArrayList<>();
+        for (String skillName : requestDTO.getSkills()) {
+            SkillResponse.SaveDTO skill = new SkillResponse.SaveDTO();
+            skill.setResume(resume);
+            skill.setSkill(skillName);
+            skills1.add(skill.toEntity());
+        }
 
-
+        List<Skill> skillList = skillJPARepository.saveAll(skills1);
         return resume;
     }
 
@@ -63,8 +60,8 @@ public class ResumeService {
         Resume resume = resumeJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return resume;
-
     }
+
     @Transactional
     public Resume save(ResumeRequest.SaveDTO requestDTO, User sessionUser) {
 
