@@ -20,6 +20,9 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             """)
     Resume findByIdJoinSkillAndUser(@Param("id") int id);
 
+    @Query("select r from Resume r join fetch r.skillList s where r.id = :id")
+    Resume findByIdJoinSkill(@Param("id") int id);
+
     List<Resume> findByUserId(Integer userId);
 
 }
