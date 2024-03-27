@@ -61,8 +61,9 @@ public class PostController {
     }
 
     @PostMapping("/company/posts/{id}/delete")
-    public String companyDeletePost(@PathVariable int id, HttpServletRequest request) {
+    public String companyDeletePost(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        postService.postDelete(id, sessionUser.getId());
         return "redirect:/company/posts";
     }
 }
