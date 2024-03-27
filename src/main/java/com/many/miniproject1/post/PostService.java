@@ -1,5 +1,6 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1._core.common.ProfileImageService;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
@@ -24,6 +25,8 @@ public class PostService {
     @Transactional
     public Post save(PostRequest.PostSaveDTO reqDTO, User sessionUser){
         Post post = postJPARepository.save(reqDTO.toEntity(sessionUser));
+        String profileFilename = ProfileImageService.saveProfile(reqDTO.getProfile());
+        post.setProfile(profileFilename);
 
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkill()) {
@@ -31,8 +34,6 @@ public class PostService {
             skill.setSkill(skillName);
             skills.add(skill.toEntity());
         }
-
-        List<Skill> skillList = skillJPARepository.saveAll(skills);
         return post;
     }
     public List<Post> getResumeList(Integer userId){

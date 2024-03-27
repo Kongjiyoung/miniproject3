@@ -4,14 +4,49 @@
         <div class="border border-tertiary p-5 rounded shadow">
             <h1 class="d-inline-flex">공고 등록하기</h1>
             <hr>
-            <form action="/company/posts/save" method="post">
-                <input type="hidden" id="companyId" name="companyId" value="sessionUser.id">
+            <form action="/company/posts/save" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="companyId" name="companyId" value="{{sessionUser.id}}">
 
                 <div class="px-5 mt-5">
                     <!-- 이미지 업로드 시작 -->
-                    <input type="hidden" id="profile" name="profile" value="sessionUser.profile"/>
-                    <div class="view-profile"><img src="/images/" id="viewProfile"
-                                                   class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25">
+                    <div>
+                        <div class="upload d-flex justify-content-center mb-5">
+                            <div class=" d-flex d-flex justify-content-center align-items-center"
+                                 style="width: 200px; height: 150px; border: 1px solid #e6e6e6; color: #e6e6e6;"
+                                 id="profilePreview"><b>사진을 등록해 주세요.</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" style="width: 85%;">
+                        <div class="d-flex row justify-content-center">
+                            <div class="jh_post_flexbox mt-3">
+                                <div class="jh_post_company">
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control mt-2" accept="image/*"
+                                               name="profile" id="profile" multiple required/>
+                                        <script>
+                                            $('#profile').change(function () {
+                                                let input = this;
+                                                if (input.files && input.files[0]) {
+                                                    let reader = new FileReader();
+
+                                                    reader.onload = function (e) {
+                                                        $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
+                                                    };
+
+                                                    reader.readAsDataURL(input.files[0]);
+
+                                                    // 파일명 출력
+                                                    let fileName = input.files[0].name;
+                                                    $('#profile').val(fileName);
+                                                    console.log(fileName);
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- 이미지 업로드 끝 -->
                 </div>
