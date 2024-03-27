@@ -70,7 +70,7 @@
                            style="width: 100%">수정하기
                         </a>
                     </div>
-                    <form action="/company/posts/1/delete" method="post">
+                    <form action="/company/posts/{{id}}/delete" method="post">
                         <button class="btn btn-outline-danger mb-3"
                                 style="width: 100%">삭제하기
                         </button>
@@ -83,7 +83,7 @@
     <div class="list-group mx-2">
         <a href="/company/info" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
         <a href="/company/posts" class="list-group-item shadow">공고 관리</a>
-        <a href="/company/resume" class="list-group-item hs_list_effect shadow">받은 이력서</a>
+        <a href="/company/resumes" class="list-group-item hs_list_effect shadow">받은 이력서</a>
         <a href="/company/scrap" class="list-group-item shadow">스크랩한 이력서</a>
         <a href="/company/offers" class="list-group-item shadow">제안한 이력서</a>
     </div>
