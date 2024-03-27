@@ -25,15 +25,14 @@ public class PostService {
     @Transactional
     public Post save(PostRequest.PostSaveDTO reqDTO, User sessionUser){
         Post post = postJPARepository.save(reqDTO.toEntity(sessionUser));
-        String profileFilename = ProfileImageService.saveProfile(reqDTO.getProfile());
-        post.setProfile(profileFilename);
-
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkill()) {
-            SkillResponse.SaveDTO skill = new SkillResponse.SaveDTO();
+            SkillResponse.PostSaveDTO skill = new SkillResponse.PostSaveDTO();
             skill.setSkill(skillName);
+            skill.setPost(post);
             skills.add(skill.toEntity());
         }
+        skillJPARepository.saveAll(skills);
         return post;
     }
     public List<Post> getResumeList(Integer userId){
