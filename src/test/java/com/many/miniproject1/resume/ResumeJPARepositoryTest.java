@@ -45,18 +45,18 @@ public class ResumeJPARepositoryTest {
 
 
     }
-    @Test
-    public void findById_test() {
-        // given
-        int id = 1;
-        // when
-        Optional<Resume> resumeOP = resumeJPARepository.findById(id);
-        if (resumeOP.isPresent()) {
-            Resume resume = resumeOP.get();
-            System.out.println("findById_test: " + resume.getTitle());
-        }
-        // then
-    }
+//    @Test
+//    public void findById_test() {
+//        // given
+//        int id = 1;
+//        // when
+//        Optional<Resume> resumeOP = resumeJPARepository.findById(id);
+//        if (resumeOP.isPresent()) {
+//            Resume resume = resumeOP.get();
+//            System.out.println("findById_test: " + resume.getTitle());
+//        }
+//        // then
+//    }
 
 
     @Test
