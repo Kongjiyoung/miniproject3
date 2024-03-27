@@ -11,7 +11,7 @@
         <br>
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
-            {{#postList}}
+            {{#postlist}}
                 <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
                     <a href="/company/posts/detail/{{id}}" style="text-decoration: none; color: black">
                         <div style="width: 240px; height:125px; overflow: hidden">
@@ -19,6 +19,13 @@
                             <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
                         </div>
                         <div class="card-body">
+                            <h5 class="card-text" style="
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          ">{{user.companyName}}</h5>
                             <h5 class="card-text" style="
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
@@ -38,9 +45,9 @@
                                 <span class="btn btn-outline-primary disabled">Flutter</span>
                             </div>
                             <!-- TODO: 나중에 꼭 할게요!!! -->
-                            {{#skillList}}
-                                <div class="btn btn-outline-primary disabled">{{.}}</div>
-                            {{/skillList}}
+                            {{#skills}}
+                                <div class="btn btn-outline-primary disabled">{{skill}}</div>
+                            {{/skills}}
                             <p style="  margin: 5px;
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
@@ -56,7 +63,7 @@
                         <button type="submit" class="btn btn-outline-danger mb-3" style="width: 100%">삭제하기</button>
                     </form>
                 </li>
-            {{/postList}}
+            {{/postlist}}
         </ul>
     </section>
     <!-- list-group( 오른쪽 바로가기) 시작 -->

@@ -9,7 +9,7 @@ public class PostResponse {
     @Data static class PostListDTO{
         private Integer id;
         private Integer userId;
-        private String name;
+        private String companyName;
         private String career;
         private String workingArea;
         private List<String> skills=new ArrayList<>();
