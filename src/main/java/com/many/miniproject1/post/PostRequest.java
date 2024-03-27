@@ -25,6 +25,7 @@ public class PostRequest {
         public Post toEntity(User user){
             String profilePath= ProfileImageService.saveProfile(profile);
             return Post.builder()
+                    .user(user)
                     .title(title)
                     .career(career)
                     .pay(pay)
