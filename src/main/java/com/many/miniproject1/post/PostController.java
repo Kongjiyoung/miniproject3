@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class PostController {
@@ -18,8 +20,10 @@ public class PostController {
 
     //회사 공고 관리
     @GetMapping("/company/posts")
-    public String companyPosts(HttpServletRequest request, Skill skill) { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
+    public String companyPosts(HttpServletRequest request) { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
         User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Post> postList =postService.getResumeList(sessionUser.getId());
+        request.setAttribute("postlist", postList);
         return "company/posts";
     }
 

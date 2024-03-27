@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -33,5 +34,8 @@ public class PostService {
 
         List<Skill> skillList = skillJPARepository.saveAll(skills);
         return post;
+    }
+    public List<Post> getResumeList(Integer userId){
+        return postJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 }
