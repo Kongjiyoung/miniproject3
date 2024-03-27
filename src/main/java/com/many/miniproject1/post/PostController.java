@@ -17,6 +17,7 @@ import java.util.List;
 public class PostController {
     private final HttpSession session;
     private final PostService postService;
+
     //회사 공고 관리
     @GetMapping("/company/posts")
     public String companyPosts(HttpServletRequest request) { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
@@ -33,15 +34,14 @@ public class PostController {
     }
 
     @GetMapping("/company/posts/save-form")
-    public String companyPostForm(PostRequest.SaveDTO requestDTO, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        // request.setAttribute("company", sessionUser);
+    public String companyPostForm() {
         return "company/post-save-form";
     }
 
     @PostMapping("/company/posts/save")
-    public String companySavePost(HttpServletRequest request) {
+    public String companySavePost(PostRequest.PostSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        postService.save(reqDTO, sessionUser);
         return "redirect:/company/posts";
     }
 
