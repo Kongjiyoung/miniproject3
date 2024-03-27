@@ -11,7 +11,6 @@ import java.util.List;
 public class PostService {
     private final PostJPARepository postJPARepository;
     private final PostQueryRepository postQueryRepository;
-
     public List<Post> getResumeList(Integer userId){
         return postJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
