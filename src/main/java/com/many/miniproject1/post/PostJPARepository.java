@@ -13,7 +13,7 @@ public interface PostJPARepository extends JpaRepository<Post, Integer> {
             """)
     List<Post> findByUserIdJoinSkillAndUser(@Param("id") int id);
 
-    // 공고에 스킬 유저(기업) 쪼인
+    // 공고에 스킬 유저(기업) 쪼인 YSH
     @Query("""
             SELECT DISTINCT p
             FROM Post p

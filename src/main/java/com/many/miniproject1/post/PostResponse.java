@@ -95,21 +95,20 @@ public class PostResponse {
     // 공고 상세보기 YSH
     @Data
     public static class PostDetailDTO {
-        private Integer id;
-        private String title;
-        private String career;
-        private String pay;
-        private String deadline;
-        private String task;
-        private String workStartTime;
-        private String workEndTime;
-        private String workingArea;
-        private String workCondition;
+        private Integer id;             // postId
+        private String title;           // 공고 제목
+        private String career;          // 경력
+        private String pay;             // 최소 연봉
+        private String deadline;        // 마감일
+        private String task;            // 주요 업무
+        private String workStartTime;   // 근무 시간 Start
+        private String workEndTime;     // 근무 시간 End
+        private String workingArea;     // 근무 지역
+        private String workCondition;   // 혜택 및 복지
         // companyName Join
-        private String companyName;
+        private String companyName;     // 회사명 JOIN User
 
-        private List<PostSkillDTO> skills = new ArrayList<>();
-        private String introduce;
+        private List<PostSkillDTO> skills = new ArrayList<>();  // 필요 스킬
 
         public static class PostSkillDTO {
             private Integer id;
