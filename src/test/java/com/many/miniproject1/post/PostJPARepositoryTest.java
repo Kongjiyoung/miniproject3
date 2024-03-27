@@ -33,4 +33,15 @@ public class PostJPARepositoryTest {
         assertThat(postList.get(1).getId()).isEqualTo(1);
     }
 
+    @Test
+    public void postDetail_test(){
+        // given
+        int id = 1;
+        
+        // when
+        Post post = postJPARepository.findByIdJoinSkillAndCompany(id);
+        
+        // then
+        assertThat(post.getId()).isEqualTo(1);
+    }
 }
