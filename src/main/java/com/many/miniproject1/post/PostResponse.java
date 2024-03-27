@@ -91,4 +91,30 @@ public class PostResponse {
         private List<String> skill;
         private String workingArea;
     }
+
+    // 공고 상세보기 YSH
+    @Data
+    public static class PostDetailDTO {
+        private Integer id;
+        private String title;
+        private String career;
+        private String pay;
+        private String deadline;
+        private String task;
+        private String workStartTime;
+        private String workEndTime;
+        private String workingArea;
+        private String workCondition;
+        // companyName Join
+        private String companyName;
+
+        private List<PostSkillDTO> skills = new ArrayList<>();
+        private String introduce;
+
+        public static class PostSkillDTO {
+            private Integer id;
+            private String skill;
+            private int resumeId;
+        }
+    }
 }

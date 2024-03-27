@@ -6,6 +6,7 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import com.many.miniproject1.skill.SkillResponse;
 import com.many.miniproject1.user.User;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,11 @@ public class PostService {
     }
     public List<Post> getResumeList(Integer userId){
         return postJPARepository.findByUserIdJoinSkillAndUser(userId);
+    }
+
+    // 공고 상세보기 YSH
+    public Post postDetail (PostResponse.PostDetailDTO responseDTO){
+        Post post = postJPARepository.findByIdJoinSkillAndCompany(responseDTO.getId());
+        return post;
     }
 }
