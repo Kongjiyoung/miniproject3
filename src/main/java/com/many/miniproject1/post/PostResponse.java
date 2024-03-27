@@ -2,9 +2,24 @@ package com.many.miniproject1.post;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostResponse {
+    @Data static class PostListDTO{
+        private Integer id;
+        private Integer userId;
+        private String name;
+        private String career;
+        private String workingArea;
+        private List<String> skills=new ArrayList<>();
+
+        public static class PostSkillDTO{
+            private Integer id;
+            private String skill;
+            private int postId;
+        }
+    }
     @Data
     public static class DetailDTO{
         private Integer id;
