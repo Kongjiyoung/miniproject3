@@ -1,10 +1,6 @@
-package com.many.miniproject1.Skill;
+package com.many.miniproject1.skill;
 
 import com.many.miniproject1.resume.Resume;
-import com.many.miniproject1.resume.ResumeJPARepository;
-import com.many.miniproject1.skill.Skill;
-import com.many.miniproject1.skill.SkillJPARepository;
-import com.many.miniproject1.user.User;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
