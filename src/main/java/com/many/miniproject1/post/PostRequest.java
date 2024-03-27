@@ -34,6 +34,7 @@ public class PostRequest {
                     .deadline(deadline)
                     .task(task)
                     .workingArea(workingArea)
+                    .profile(profilePath)
                     .build();
         }
     }

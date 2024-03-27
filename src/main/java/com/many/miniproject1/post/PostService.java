@@ -30,7 +30,8 @@ public class PostService {
             skill.setSkill(skillName);
             skills.add(skill.toEntity());
         }
-        skillJPARepository.saveAll(skills);
+
+        List<Skill> skillList = skillJPARepository.saveAll(skills);
         return post;
     }
 }
