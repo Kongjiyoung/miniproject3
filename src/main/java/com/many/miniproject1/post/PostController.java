@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class PostController {
     private final HttpSession session;
+    private final PostService postService;
 
     //회사 공고 관리
     @GetMapping("/company/posts")
@@ -55,8 +56,9 @@ public class PostController {
     }
 
     @PostMapping("/company/posts/{id}/delete")
-    public String companyDeletePost(@PathVariable int id, HttpServletRequest request) {
+    public String companyDeletePost(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        postService.postDelete(id, sessionUser.getId());
         return "redirect:/company/posts";
     }
 }
