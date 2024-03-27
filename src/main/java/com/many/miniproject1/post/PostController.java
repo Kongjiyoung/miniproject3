@@ -27,9 +27,9 @@ public class PostController {
         return "company/posts";
     }
 
-    @GetMapping("/company/posts/{id}") // 포스트 디테일 페이지 보기
-    public String companyPostDetailForm(@PathVariable int id, HttpServletRequest request , PostResponse.PostDetailDTO responseDTO) {
-//        User sessionUser = (User) session.getAttribute("sessionUser");
+    // 공고 상세보기 YSH
+    @GetMapping("/company/posts/{id}")
+    public String companyPostDetailForm(HttpServletRequest request , PostResponse.PostDetailDTO responseDTO) {
         Post post = postService.postDetail(responseDTO);
         request.setAttribute("post",post);
         return "company/post-detail";
