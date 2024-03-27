@@ -28,8 +28,10 @@ public class PostController {
     }
 
     @GetMapping("/company/posts/{id}") // 포스트 디테일 페이지 보기
-    public String companyPostDetailForm(@PathVariable int id, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+    public String companyPostDetailForm(@PathVariable int id, HttpServletRequest request , PostResponse.PostDetailDTO responseDTO) {
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+        Post post = postService.postDetail(responseDTO);
+        request.setAttribute("post",post);
         return "company/post-detail";
     }
 
