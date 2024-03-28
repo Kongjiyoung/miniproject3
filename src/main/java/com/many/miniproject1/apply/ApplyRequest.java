@@ -1,17 +1,27 @@
 package com.many.miniproject1.apply;
 
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.resume.Resume;
 import lombok.Data;
 
 
 public class ApplyRequest {
     @Data
     public static class SaveDTO {
-        private Integer resumeId;
-        private Integer postId; // 채용공고 아이디
-        private Integer companyId; // 채용공고 작성자 아이디
-        private Integer personId; // 이력서 작성자 아이디
-        private String isPass; // 불합격, 합격, 검토중
+        private Resume resume;
+        private Post post; // 채용공고 아이디
 
+        public SaveDTO(Resume resume, Post post) {
+            this.resume = resume;
+            this.post = post;
+        }
+
+        public Apply toEntity(){
+            return Apply.builder()
+                    .resume(resume)
+                    .post(post)
+                    .build();
+        }
     }
 
     @Data

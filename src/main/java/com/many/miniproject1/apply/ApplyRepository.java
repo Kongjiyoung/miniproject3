@@ -16,18 +16,6 @@ public class ApplyRepository {
     private final EntityManager em;
 
 
-    @Transactional
-    public void save(ApplyRequest.SaveDTO requestDTO) {
-        Query query = em.createNativeQuery("INSERT INTO Apply_tb(resume_id, post_id, company_id, person_id, is_pass, created_at) VALUES (?,?,?,?,?,now())");
-        query.setParameter(1, requestDTO.getResumeId());
-        query.setParameter(2, requestDTO.getPostId());
-        query.setParameter(3, requestDTO.getCompanyId());
-        query.setParameter(4, requestDTO.getPersonId());
-        query.setParameter(5, requestDTO.getIsPass());
-
-
-        query.executeUpdate();
-    }
 
     @Transactional
     public void update(ApplyRequest.UpdateDTO requestDTO, int id) {
