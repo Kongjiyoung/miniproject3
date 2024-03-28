@@ -1,6 +1,18 @@
 package com.many.miniproject1.apply;
 
+
+
+import com.many.miniproject1._core.common.ProfileImageService;
+import com.many.miniproject1.post.Post;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.criteria.CriteriaBuilder;
+
+import com.many.miniproject1.skill.Skill;
+import com.many.miniproject1.user.User;
+
+
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -104,6 +116,7 @@ public class ApplyResponse {
             this.skills = skills;
         }
     }
+
     @Data
     public static class CompanyResumeDTO { // 회사에서 받은 이력서
         private Integer resumeId;
@@ -126,6 +139,23 @@ public class ApplyResponse {
         private List<ApplySkillDTO> skills = new ArrayList<>();  // 필요 스킬
 
         public static class ApplySkillDTO {
+
+
+    //  Person이 Apply한  📑Post 목록보기 YSH
+    @Data
+    public static class PersonAppliesDTO {
+        private Integer id;             // 지원 Id
+        private Integer postId;         // 공고 Id
+        private MultipartFile profile;         // 공고 사진
+        private String title;           // 공고 제목
+        private String task;            // 주요 업무
+        private String career;          // 경력
+        private String workingArea;     // 근무 지역
+
+        private List<PostSkillDTO> skills = new ArrayList<>();  // 필요 스킬
+
+        public static class PostSkillDTO {
+
             private Integer id;
             private String skill;
             private int resumeId;
