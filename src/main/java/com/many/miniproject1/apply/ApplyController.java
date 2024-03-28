@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ApplyController {
     private final HttpSession session;
     private final ApplyRepository applyRepository;
+    private final ApplyService applyService;
 
     //기업에서 받은 이력서 관리
 
@@ -27,8 +28,9 @@ public class ApplyController {
 
     @GetMapping("/company/resumes/{id}")
     public String companyResumeDetail(@PathVariable int id, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+        ApplyResponse.CompanyResumeDTO respDTO = new ApplyResponse.CompanyResumeDTO();
+        Apply apply = applyService.companyResumeDetail(respDTO);
+        request.setAttribute("apply",apply);
         return "company/applied-resume-detail";
     }
 
