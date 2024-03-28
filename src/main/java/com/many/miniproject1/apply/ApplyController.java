@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ApplyController {
     private final HttpSession session;
     private final ApplyRepository applyRepository;
+    private final ApplyService applyService;
 
     //기업에서 받은 이력서 관리
 
@@ -38,10 +41,13 @@ public class ApplyController {
         return "redirect:/company/resumes/{id}";
     }
 
-    //이력서 현황
+    // 개인이 지원한 이력서 목록 YSH
     @GetMapping("/person/applies")
     public String personApply(HttpServletRequest request) {
         User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Apply> applyList = applyService.getApplyList(sessionUser.getId());
+        request.setAttribute("applyList", applyList);
+        System.out.println(applyList);
 
         return "person/applies";
     }

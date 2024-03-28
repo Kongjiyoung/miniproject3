@@ -9,5 +9,13 @@ import java.util.List;
 
 public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 
+    @Query("""
+        SELECT a
+        FROM Apply a
+        JOIN FETCH a.post p
+        JOIN FETCH p.skillList s
+        WHERE a.resume.user.id = :userId
+        """)
+    List<Apply> findAllAppliesWithPostsAndSkills(@Param("userId") Integer userId);
 
 }
