@@ -19,12 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApplyController {
     private final HttpSession session;
-    //    private final ApplyRepository applyRepository;
     private final SkillRepository skillRepository;
-    //private final ApplyJPARepository applyJPARepository;
     private final PostJPARepository postJPARepository;
     private final ResumeJPARepository resumeJPARepository;
     private final ApplyService applyService;
+
     //기업에서 받은 이력서 관리
 
     @GetMapping("/company/resumes")
@@ -61,7 +60,8 @@ public class ApplyController {
     @GetMapping("/person/applies/{id}") // 내가 지원한 공고 디테일
     public String personApply(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        Apply apply=applyService.getPostDetail(sessionUser.getId(), id);
+        request.setAttribute("apply", apply);
         // 스킬 리스트 만들어서 돌리기
         return "person/post-apply-detail"; // 이것과 포스트 디테일과의 차이: 취소하기 버튼이 있냐, 스크랩 버튼이 있냐 차이
     }
