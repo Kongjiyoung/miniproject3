@@ -4,14 +4,49 @@
         <div class="border border-tertiary p-5 rounded shadow">
             <h1 class="d-inline-flex">공고 등록하기</h1>
             <hr>
-            <form action="/company/posts/save" method="post">
-                <input type="hidden" id="companyId" name="companyId" value="sessionUser.id">
+            <form action="/company/posts/save" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="companyId" name="companyId" value="{{sessionUser.id}}">
 
                 <div class="px-5 mt-5">
                     <!-- 이미지 업로드 시작 -->
-                    <input type="hidden" id="profile" name="profile" value="sessionUser.profile"/>
-                    <div class="view-profile"><img src="/images/sessionUser.profile" id="viewProfile"
-                                                   class="rounded mx-auto d-block rounded-4 mt-5 my-3 w-25">
+                    <div>
+                        <div class="upload d-flex justify-content-center mb-5">
+                            <div class=" d-flex d-flex justify-content-center align-items-center"
+                                 style="width: 200px; height: 150px; border: 1px solid #e6e6e6; color: #e6e6e6;"
+                                 id="profilePreview"><b>사진을 등록해 주세요.</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" style="width: 85%;">
+                        <div class="d-flex row justify-content-center">
+                            <div class="jh_post_flexbox mt-3">
+                                <div class="jh_post_company">
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control mt-2" accept="image/*"
+                                               name="profile" id="profile" multiple required/>
+                                        <script>
+                                            $('#profile').change(function () {
+                                                let input = this;
+                                                if (input.files && input.files[0]) {
+                                                    let reader = new FileReader();
+
+                                                    reader.onload = function (e) {
+                                                        $('#profilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
+                                                    };
+
+                                                    reader.readAsDataURL(input.files[0]);
+
+                                                    // 파일명 출력
+                                                    let fileName = input.files[0].name;
+                                                    $('#profile').val(fileName);
+                                                    console.log(fileName);
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- 이미지 업로드 끝 -->
                 </div>
@@ -103,46 +138,46 @@
                         <label for="skills"><b>기술/자격 조건</b></label>
                         <div class="p-3 d-inline-flex mb-3 w-100">
                             <div class="row row-cols-auto gap-3 justify-content-center my-3">
-                                <input type="checkbox" class="btn-check" id="java" value="java" name="skill"
+                                <input type="checkbox" class="btn-check" id="Java" value="Java" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="java">Java</label>
+                                <label class="btn btn-outline-primary" for="Java">Java</label>
 
-                                <input type="checkbox" class="btn-check" id="spring" value="spring" name="skill"
+                                <input type="checkbox" class="btn-check" id="Spring" value="Spring" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="spring">Spring</label>
+                                <label class="btn btn-outline-primary" for="Spring">Spring</label>
 
-                                <input type="checkbox" class="btn-check" id="html" value="html" name="skill"
+                                <input type="checkbox" class="btn-check" id="Html" value="Html" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="html">HTML</label>
+                                <label class="btn btn-outline-primary" for="Html">HTML</label>
 
-                                <input type="checkbox" class="btn-check" id="javaScript" value="javaScript"
+                                <input type="checkbox" class="btn-check" id="JavaScript" value="JavaScript"
                                        name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="javaScript">JavaScript</label>
+                                <label class="btn btn-outline-primary" for="JavaScript">JavaScript</label>
 
-                                <input type="checkbox" class="btn-check" id="sql" value="sql" name="skill"
+                                <input type="checkbox" class="btn-check" id="SQL" value="SQL" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="sql">SQL</label>
+                                <label class="btn btn-outline-primary" for="SQL">SQL</label>
 
-                                <input type="checkbox" class="btn-check" id="android" value="android" name="skill"
+                                <input type="checkbox" class="btn-check" id="Android" value="Android" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="android">Android</label>
+                                <label class="btn btn-outline-primary" for="Android">Android</label>
 
-                                <input type="checkbox" class="btn-check" id="react" value="react" name="skill"
+                                <input type="checkbox" class="btn-check" id="React" value="React" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="react">React</label>
+                                <label class="btn btn-outline-primary" for="React">React</label>
 
-                                <input type="checkbox" class="btn-check" id="nodeJs" value="nodeJs" name="skill"
+                                <input type="checkbox" class="btn-check" id="Node.js" value="Node.js" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="nodeJs">Node.js</label>
+                                <label class="btn btn-outline-primary" for="Node.js">Node.js</label>
 
-                                <input type="checkbox" class="btn-check" id="express" value="express" name="skill"
+                                <input type="checkbox" class="btn-check" id="Express" value="Express" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="express">Express</label>
+                                <label class="btn btn-outline-primary" for="Express">Express</label>
 
-                                <input type="checkbox" class="btn-check" id="flutter" value="flutter" name="skill"
+                                <input type="checkbox" class="btn-check" id="Flutter" value="Flutter" name="skill"
                                        autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="flutter">Flutter</label>
+                                <label class="btn btn-outline-primary" for="Flutter">Flutter</label>
                             </div>
                         </div>
                         <!--                        <script>-->

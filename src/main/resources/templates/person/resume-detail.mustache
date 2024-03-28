@@ -2,7 +2,7 @@
 <div class="container d-flex">
     <div class=" mx-2 pb-4 w-100">
         <div class="border border-tertiary p-5 rounded shadow">
-            <h1>이력서 제목</h1>
+            <h1>{{resume.title}}</h1>
             <div class="d-flex justify-content-start mx-2">
             </div>
             <hr>
@@ -15,7 +15,7 @@
                         <table class="resume_table">
                             <tr>
                                 <td>이름</td>
-                                <td>{{resume.title}}</td>
+                                <td>{{resume.user.name}}</td>
                             </tr>
                             <tr>
                                 <td>생년월일</td>
@@ -79,7 +79,7 @@
         <a href="/person/resume" class="list-group-item shadow">이력서관리</a>
         <a href="/person/scrap" class="list-group-item hs_list_effect shadow">스크랩한 공고</a>
         <a href="/person/offers" class="list-group-item shadow">받은 제안</a>
-        <a href="/person/apply" class="list-group-item shadow">지원 현황</a>
+        <a href="/person/applies" class="list-group-item shadow">지원 현황</a>
     </div>
     <!-- list-group( 오른쪽 바로가기) 끝 -->
 </div>

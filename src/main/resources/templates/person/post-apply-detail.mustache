@@ -8,7 +8,7 @@
             <input style="display: none" id="companyId">
             <div class="d-flex justify-content-start align-items-center">
                 <h3 class="title mx-4">공고제목</h3>
-                <form action="/person/applies/1/delete" method="post">
+                <form action="/person/applies/{{apply.post.id}}/delete" method="post">
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-outline-success" type="submit">취소하기</button>
                     </div>
@@ -18,24 +18,24 @@
             <div class="pt-2 mt-3">
                 <div class="border border-tertiary px-3 py-3 pt-3 d-inline-flex ms-2 me-3 mb-3 w-100">
                     <div>
-                        <img src="/images/사진경로" alt="이력서 사진" style="width: 100%; height: 226px;">
+                        <img src="/images/{{apply.post.profile}}" alt="이력서 사진" style="width: 100%; height: 226px;">
                     </div>
                     <table class="mx-4">
                         <tr>
                             <td>경력</td>
-                            <td>커리어</td>
+                            <td>{{apply.post.career}}</td>
                         </tr>
                         <tr>
                             <td>최소 연봉</td>
-                            <td>연봉</td>
+                            <td>{{apply.post.pay}}</td>
                         </tr>
                         <tr>
                             <td>마감일</td>
-                            <td>공고마감일</td>
+                            <td>{{apply.post.deadline}}</td>
                         </tr>
                         <tr>
                             <td>회사명</td>
-                            <td><a href="#" style=" color: black; font-weight: bold;">회사이름</a></td>
+                            <td><a href="#" style=" color: black; font-weight: bold;">{{apply.post.user.companyName}}</a></td>
                             <!-- TODO: 가능하다면 이 회사의 진행 중인 채용 공고 모음을 만들어보자 -->
                         </tr>
                     </table>
@@ -44,26 +44,28 @@
                 </div>
                 <div class="mt-5 task">
                     <h4>주요 업무</h4>
-                    <div>업무</div>
+                    <div>{{apply.post.task}}</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>근무 시간</h4>
-                    <div>업무시작시간 ~ 업무끝나는 시간</div>
+                    <div>{{apply.post.workStartTime}} ~ {{apply.post.workEndTime}}</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>근무 지역</h4>
-                    <div>근무지역</div>
+                    <div>{{apply.post.workingArea}}</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>혜택 및 복지</h4>
-                    <div>복지</div>
+                    <div>{{apply.post.workCondition}}</div>
                 </div>
                 <div class="mt-5 qualification">
                     <h4>필요 스킬</h4>
                     <div class="d-flex justify-content-start">
+                        {{#apply.post.skillList}}
                         <div class="row row-cols-auto gap-3 justify-content-start my-3" style="width: 70%;">
-                            <div class="btn btn-outline-primary mx-3 disabled">Java</div>
+                            <div class="btn btn-outline-primary mx-3 disabled">{{skill}}</div>
                         </div>
+                        {{/apply.post.skillList}}
                     </div>
                 </div>
             </div>
@@ -81,7 +83,7 @@
         <a href="/person/resume" class="list-group-item shadow">이력서관리</a>
         <a href="/person/scrap" class="list-group-item hs_list_effect shadow">스크랩한 공고</a>
         <a href="/person/offers" class="list-group-item shadow">받은 제안</a>
-        <a href="/person/apply" class="list-group-item shadow">지원 현황</a>
+        <a href="/person/applies" class="list-group-item shadow">지원 현황</a>
     </div>
     <!-- list-group( 오른쪽 바로가기) 끝 -->
 </div>

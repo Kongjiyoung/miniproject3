@@ -8,38 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeResponse {
-    //    @Data
-//    public static class resumeDTO {
-//        private Integer id;
-//        private Integer personId;
-//        private String title;
-//        private String profile;
-//        private String portfolio;
-//        private String introduce;
-//        private String career;
-//        private String simpleIntroduce;
-//        private String email;
-//        private String password;
-//        private String username;
-//        private String tel;
-//        private String address;
-//        private Timestamp createdAt;
-//        private List<String> skill;
-//
-//        public resumeDTO(ResumeRequest.ResumeDTO, List<String> skill) {
-//            this.id = resume.getId();
-//            this.personId = resume.getPersonId();
-//            this.title = resume.getTitle();
-//            this.profile = resume.getProfile();
-//            this.portfolio = resume.getPortfolio();
-//            this.introduce = resume.getIntroduce();
-//            this.career = resume.getCareer();
-//            this.simpleIntroduce = resume.getSimpleIntroduce();
-//            this.createdAt = resume.getCreatedAt();
-//
-//            this.skill=skill;
-//        }
-//    }
 
     @Data
     public static class DetailSkillDTO {

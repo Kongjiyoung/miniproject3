@@ -11,14 +11,21 @@
         <br>
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
-            {{#postList}}
+            {{#postlist}}
                 <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                    <a href="/company/posts/detail/{{id}}" style="text-decoration: none; color: black">
+                    <a href="/company/posts/{{id}}" style="text-decoration: none; color: black">
                         <div style="width: 240px; height:125px; overflow: hidden">
                             <!--                        이미지 에스알씨를 디비에서 받아오게 해야 한다. -->
                             <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
                         </div>
                         <div class="card-body">
+                            <h5 class="card-text" style="
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          ">{{user.companyName}}</h5>
                             <h5 class="card-text" style="
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
@@ -33,13 +40,10 @@
                             overflow: hidden;
                             text-overflow: ellipsis;
                           ">
-                                <span class="btn btn-outline-primary disabled">Java</span>
-                                <span class="btn btn-outline-primary disabled">Spring</span>
-                                <span class="btn btn-outline-primary disabled">Flutter</span>
                             </div>
                             <!-- TODO: 나중에 꼭 할게요!!! -->
                             {{#skillList}}
-                                <div class="btn btn-outline-primary disabled">{{.}}</div>
+                                <div class="btn btn-outline-primary disabled">{{skill}}</div>
                             {{/skillList}}
                             <p style="  margin: 5px;
                             display: -webkit-box;
@@ -51,19 +55,19 @@
                         </div>
                     </a>
                     <!-- 삭제하기 버튼 아직 안 됨(디테일에서는 됨) -->
-                    <form action="/company/post/detail/{{id}}/delete" method="post"
+                    <form action="/company/posts/{{id}}/delete" method="post"
                           class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-outline-danger mb-3" style="width: 100%">삭제하기</button>
                     </form>
                 </li>
-            {{/postList}}
+            {{/postlist}}
         </ul>
     </section>
     <!-- list-group( 오른쪽 바로가기) 시작 -->
     <div class="list-group mx-2">
         <a href="/company/info" class="list-group-item shadow " style="width: 180px;">회사 정보 관리</a>
-        <a href="/company/post" class="list-group-item shadow">공고 관리</a>
-        <a href="/company/resume" class="list-group-item hs_list_effect shadow">받은 이력서</a>
+        <a href="/company/posts" class="list-group-item shadow">공고 관리</a>
+        <a href="/company/resumes" class="list-group-item hs_list_effect shadow">받은 이력서</a>
         <a href="/company/scrap" class="list-group-item shadow">스크랩한 이력서</a>
         <a href="/company/offers" class="list-group-item shadow">제안한 이력서</a>
     </div>
