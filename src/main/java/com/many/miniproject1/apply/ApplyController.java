@@ -1,6 +1,9 @@
 package com.many.miniproject1.apply;
 
 
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeRequest;
+import com.many.miniproject1.resume.ResumeResponse;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,9 +33,11 @@ public class ApplyController {
     }
 
     @GetMapping("/company/resumes/{id}")
-    public String companyResumeDetail(@PathVariable int id, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+    public String companyResumeDetail(@PathVariable int id, HttpServletRequest request, ApplyResponse.CompanyResumeDTO respDTO) {
+        Apply apply = applyService.findById(id);
+        applyService.companyResumeDetail(respDTO);
+        System.out.println("test:: " + apply);
+        request.setAttribute("apply",apply);
         return "company/applied-resume-detail";
     }
 

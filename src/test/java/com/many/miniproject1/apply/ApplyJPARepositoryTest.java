@@ -19,7 +19,8 @@ public class ApplyJPARepositoryTest {
     private ApplyJPARepository applyJPARepository;
     @Autowired
     private EntityManager em;
-    
+
+
     @Test
     public void findAllAppliesWithPostsAndSkills_test(){
         // given
@@ -33,13 +34,25 @@ public class ApplyJPARepositoryTest {
     }
     public void findByPostIdJoinPostAndSkillAndUser_test(){
         // given
-        int postid=1;
-        int resumeUserId=1;
+        int resumeid = 1;
+        int userid = 14;
         // when
-        Apply apply=applyJPARepository.findByPostIdJoinPostAndSkillAndUser(postid,resumeUserId).get();
-
+        Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(resumeid, userid);
+        System.out.println("test: " + apply);
         // then
+
         Assertions.assertThat(apply.getIsPass()).isEqualTo("불합격");
 
     }
+        @Test
+        public void findByPostIdJoinPostAndSkillAndUser_test () {
+            // given
+            int postid = 1;
+            int resumeUserId = 1;
+            // when
+            Apply apply = applyJPARepository.findByPostIdJoinPostAndSkillAndUser(postid, resumeUserId).get();
+
+            // then
+            Assertions.assertThat(apply.getIsPass()).isEqualTo("불합격");
+        }
 }

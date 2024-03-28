@@ -11,7 +11,19 @@ import java.util.Optional;
 public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 
     @Query("""
+            SELECT DISTINCT a
+            FROM Apply a
+            JOIN FETCH a.resume r
+            JOIN FETCH r.skillList s
+            JOIN FETCH r.user ru
+            JOIN FETCH a.post p
+            JOIN p.user pu
+            WHERE r.id = :resume_id and pu.id = :user_id
+            """)
+    Apply findByResumeIdJoinSkillAndCompany(@Param("resume_id") Integer resumeId, @Param("user_id") Integer userId );
 
+
+    @Query("""
         SELECT a
         FROM Apply a
         JOIN FETCH a.post p
