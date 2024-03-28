@@ -18,4 +18,10 @@ public class ApplyRequest {
     public static class UpdateDTO {
         private String isPass;
     }
+
+    @Data
+    public static class UpdateIsPass {
+        private Integer id;
+        private String isPass;
+    }
 }
