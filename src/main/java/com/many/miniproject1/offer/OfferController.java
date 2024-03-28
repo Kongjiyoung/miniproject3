@@ -19,9 +19,8 @@ public class OfferController {
     // 제안한 이력서 상세보기
     @GetMapping("/person/offer/post/detail/{id}")
     public String personOfferDetail(HttpServletRequest request, @PathVariable int id) {
-
-
-
+        Offer offer = offerService.offerDetail(id);
+        request.setAttribute("offer",offer);
         return "person/offer-post-detail";
     }
 

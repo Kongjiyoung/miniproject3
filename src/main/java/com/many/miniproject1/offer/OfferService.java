@@ -19,4 +19,8 @@ public class OfferService {
     public void deleteOffer(int sessionUserId,int id){
         offerJPARepository.deleteOfferByPostId(sessionUserId,id);
     }
+
+    public Offer offerDetail (Integer id){
+        return offerJPARepository.findByPostId(id);
+    }
 }
