@@ -9,11 +9,19 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class OfferService {
     private final OfferJPARepository offerJPARepository;
     private final OfferQueryRepository offerQueryRepository;
+
+    public List<Offer> personPost(Integer userId) {
+        offerJPARepository.findByUserId(userId);
+        System.out.println(offerJPARepository.findByUserId(userId));
+        return offerJPARepository.findByUserId(userId);
+    }
 
     @Transactional
     public void deleteOffer(int id){

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -37,7 +39,10 @@ public class OfferController {
     // skill 만 불러오면 되나.?
     @GetMapping("/company/offers")
     public String personPost(HttpServletRequest request) {
-
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Offer> offerList = offerService.personPost(sessionUser.getId());
+        System.out.println(offerList);
+        request.setAttribute("offerList", offerList);
         return "company/offers";
     }
 

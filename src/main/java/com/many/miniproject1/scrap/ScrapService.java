@@ -11,8 +11,13 @@ public class ScrapService {
     private final ScrapJPARepository scrapJPARepository;
     private final ScrapQueryRepository scrapQueryRepository;
 
+
     @Transactional
     public void deleteScrapPost(int sessionUserId,int id){
         scrapJPARepository.deleteScrapByPostId(id,sessionUserId);
+
+    }
+    public void deleteScrap(Integer id) {
+        scrapJPARepository.deleteById(id);
     }
 }
