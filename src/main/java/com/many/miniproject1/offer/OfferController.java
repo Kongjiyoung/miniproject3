@@ -1,6 +1,8 @@
 package com.many.miniproject1.offer;
 
+import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequiredArgsConstructor
 public class OfferController {
-
-
+    private final HttpSession session;
+    private final OfferService offerService;
 
     // 제안한 이력서 상세보기
     @GetMapping("/person/offer/post/detail/{id}")
     public String personOfferDetail(HttpServletRequest request, @PathVariable int id) {
-
-
-
+        Offer offer = offerService.offerDetail(id);
+        request.setAttribute("offer",offer);
         return "person/offer-post-detail";
     }
 
@@ -48,9 +49,9 @@ public class OfferController {
 
     // 제안한 이력서 DELETE (취소)
     @PostMapping("/company/offer/{id}/detail/delete")
-    public String companyOfferDetailDelete(@PathVariable int id, HttpServletRequest request){
-
-
+    public String companyOfferDetailDelete(@PathVariable int id){
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        offerService.deleteOffer(sessionUser.getId(),id);
         return "redirect:/company/offers";
     }
 

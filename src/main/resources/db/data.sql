@@ -830,185 +830,185 @@ INSERT INTO offer_tb(resume_id, post_id, created_at)
 VALUES (15, 5, now());
 
 
--- --ispass varchar타입에서 int로 바꾸기
--- --스크랩
--- --회사 이력서스크랩
--- -- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- -- VALUES (1, 2, now()); -- 원래 있던 데이터인데 숫자가 너무 차이나서 혹시 틀렸나 싶어서 주석처리함
--- -- 14번 회사
+--ispass varchar타입에서 int로 바꾸기
+--스크랩
+--회사 이력서스크랩
 -- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (1, 14, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (3, 14, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (5, 14, now());
---
--- -- 15번 회사
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (7, 15, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (9, 15, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (11, 15, now());
---
--- -- 16번 회사
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (13, 16, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (15, 16, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (2, 16, now());
---
--- -- 17번 회사
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (4, 17, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (6, 17, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (8, 17, now());
---
--- -- 18번 회사
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (10, 18, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (12, 18, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (14, 18, now());
---
--- -- 19번 회사
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (1, 19, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (7, 19, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (5, 19, now());
---
--- -- 20번 회사
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (2, 20, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (6, 20, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (10, 20, now());
---
--- -- 21번 회사
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (15, 21, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (12, 21, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (9, 21, now());
---
--- -- 22번 회사
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (4, 22, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (8, 22, now());
--- INSERT INTO  scrap_tb(resume_id, company_id, created_at)
--- VALUES (13, 22, now());
---
---
--- --개인 채용공고스크랩
--- -- 1번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (1, 1, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (3, 1, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (5, 1, now());
---
--- -- 2번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (7, 2, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (9, 2, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (11, 2, now());
---
--- -- 3번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (13, 3, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (2, 3, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (4, 3, now());
---
--- -- 4번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (6, 4, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (8, 4, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (10, 4, now());
---
--- -- 5번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (12, 5, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (1, 5, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (7, 5, now());
---
--- -- 6번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (8, 6, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (4, 6, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (1, 6, now());
---
--- -- 17번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (9, 7, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (10, 7, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (11, 7, now());
---
--- -- 8번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (2, 8, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (7, 8, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (8, 8, now());
---
--- -- 9번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (3, 9, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (4, 9, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (9, 9, now());
---
--- -- 10번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (3, 10, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (9, 10, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (10, 10, now());
---
--- -- 11번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (5, 11, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (2, 11, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (1, 11, now());
---
--- -- 12번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (5, 12, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (7, 12, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (9, 12, now());
---
--- -- 13번 구직자
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (10, 13, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (12, 13, now());
--- INSERT INTO scrap_tb(post_id, person_id, created_at)
--- VALUES (13, 13, now());
+-- VALUES (1, 2, now()); -- 원래 있던 데이터인데 숫자가 너무 차이나서 혹시 틀렸나 싶어서 주석처리함
+-- 14번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (1, 14, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (3, 14, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (5, 14, now());
+
+-- 15번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (7, 15, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (9, 15, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (11, 15, now());
+
+-- 16번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (13, 16, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (15, 16, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (2, 16, now());
+
+-- 17번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (4, 17, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (6, 17, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (8, 17, now());
+
+-- 18번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (10, 18, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (12, 18, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (14, 18, now());
+
+-- 19번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (1, 19, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (7, 19, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (5, 19, now());
+
+-- 20번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (2, 20, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (6, 20, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (10, 20, now());
+
+-- 21번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (15, 21, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (12, 21, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (9, 21, now());
+
+-- 22번 회사
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (4, 22, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (8, 22, now());
+INSERT INTO  scrap_tb(resume_id, user_id, created_at)
+VALUES (13, 22, now());
+
+
+--개인 채용공고스크랩
+-- 1번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (1, 1, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (3, 1, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (5, 1, now());
+
+-- 2번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (7, 2, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (9, 2, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (11, 2, now());
+
+-- 3번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (13, 3, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (2, 3, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (4, 3, now());
+
+-- 4번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (6, 4, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (8, 4, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (10, 4, now());
+
+-- 5번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (12, 5, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (1, 5, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (7, 5, now());
+
+-- 6번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (8, 6, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (4, 6, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (1, 6, now());
+
+-- 17번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (9, 7, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (10, 7, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (11, 7, now());
+
+-- 8번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (2, 8, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (7, 8, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (8, 8, now());
+
+-- 9번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (3, 9, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (4, 9, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (9, 9, now());
+
+-- 10번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (3, 10, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (9, 10, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (10, 10, now());
+
+-- 11번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (5, 11, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (2, 11, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (1, 11, now());
+
+-- 12번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (5, 12, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (7, 12, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (9, 12, now());
+
+-- 13번 구직자
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (10, 13, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (12, 13, now());
+INSERT INTO scrap_tb(post_id, user_id, created_at)
+VALUES (13, 13, now());
