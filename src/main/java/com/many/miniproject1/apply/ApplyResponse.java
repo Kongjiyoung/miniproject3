@@ -1,8 +1,10 @@
 package com.many.miniproject1.apply;
 
+import com.many.miniproject1.post.PostResponse;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApplyResponse {
@@ -117,6 +119,31 @@ public class ApplyResponse {
             this.birth = resumeDTO.getBirth();
             this.isPass = resumeDTO.getIsPass();
             this.skills = skills;
+        }
+    }
+    @Data
+    public static class CompanyResumeDTO {
+        private Integer id;
+        private Integer personId;
+        private String title;
+        private String profile;
+        private String portfolio;
+        private String introduce;
+        private String career;
+        private String simpleIntroduce;
+        private Timestamp createdAt;
+        private String email;
+        private String name;
+        private String tel;
+        private String address;
+        private String birth;
+        private String isPass;
+        private List<ApplySkillDTO> skills = new ArrayList<>();  // 필요 스킬
+
+        public static class ApplySkillDTO {
+            private Integer id;
+            private String skill;
+            private int resumeId;
         }
     }
 }
