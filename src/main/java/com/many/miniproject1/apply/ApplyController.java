@@ -1,6 +1,10 @@
 package com.many.miniproject1.apply;
 
 
+
+import com.many.miniproject1.post.PostJPARepository;
+import com.many.miniproject1.resume.ResumeJPARepository;
+import com.many.miniproject1.skill.SkillRepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeRequest;
 import com.many.miniproject1.resume.ResumeResponse;
@@ -19,6 +23,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApplyController {
     private final HttpSession session;
+    private final SkillRepository skillRepository;
+    private final PostJPARepository postJPARepository;
+    private final ResumeJPARepository resumeJPARepository;
+
     private final ApplyRepository applyRepository;
 
     private final ApplyService applyService;
@@ -28,7 +36,10 @@ public class ApplyController {
     @GetMapping("/company/resumes")
     public String companyResume(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        List<Apply> applyList = applyService.companyResumes(sessionUser.getId());
+        System.out.println(applyList);
+        request.setAttribute("applyList", applyList);
+        request.setAttribute("company", sessionUser);
         return "company/applied-resumes";
     }
 
@@ -55,8 +66,10 @@ public class ApplyController {
         request.setAttribute("applyList", applyList);
         System.out.println(applyList);
 
+
         return "person/applies";
     }
+
     @GetMapping("/person/applies/{id}") // 내가 지원한 공고 디테일
     public String personApply(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
