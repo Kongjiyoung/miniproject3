@@ -27,8 +27,7 @@ public class ApplyController {
     }
 
     @GetMapping("/company/resumes/{id}")
-    public String companyResumeDetail(@PathVariable int id, HttpServletRequest request) {
-        ApplyResponse.CompanyResumeDTO respDTO = new ApplyResponse.CompanyResumeDTO();
+    public String companyResumeDetail(@PathVariable int id, HttpServletRequest request, ApplyResponse.CompanyResumeDTO respDTO) {
         Apply apply = applyService.companyResumeDetail(respDTO);
         request.setAttribute("apply",apply);
         return "company/applied-resume-detail";
