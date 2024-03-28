@@ -33,14 +33,14 @@ public class ScrapController {
     @PostMapping("/person/scrap/{id}/detail/delete")
     public String personScrapDelete(@PathVariable int id) {
         User sessionUser=(User) session.getAttribute("sessionUser");
-
+        scrapService.deleteScrapPost(sessionUser.getId(), id);
         return "redirect:/person/scrap";
     }
 
     @PostMapping("/person/scrap/{id}/detail/apply")
     public String personPostApply(@PathVariable int id, @RequestParam("resumeChoice") Integer resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        
         return "redirect:/person/scrap/{id}/detail";
     }
     //기업 이력서 스크랩

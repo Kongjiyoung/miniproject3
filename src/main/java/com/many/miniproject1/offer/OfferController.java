@@ -56,7 +56,7 @@ public class OfferController {
     @PostMapping("/company/offer/{id}/detail/delete")
     public String companyOfferDetailDelete(@PathVariable int id){
         User sessionUser = (User) session.getAttribute("sessionUser");
-        offerService.deleteOffer(sessionUser.getId(),id);
+        offerService.deleteOffer(id);
         return "redirect:/company/offers";
     }
 
