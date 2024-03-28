@@ -35,4 +35,9 @@ public class ApplyService {
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         return apply;
     }
+
+    @Transactional
+    public void deleteApplyResume(int id) {
+        applyJPARepository.deleteApplyResumeById(id);
+    }
 }

@@ -61,8 +61,10 @@ public class ApplyController {
     }
 
     @PostMapping("/person/applies/{id}/delete")
-    public String appliedDelete(@PathVariable int id) {
-        applyRepository.applieddelete(id);
+    public String appliedDelete(@PathVariable int id, HttpServletRequest request) {
+        Apply apply = applyService.findById(id);
+        applyService.deleteApplyResume(id);
+        request.setAttribute("apply", apply);
         return "redirect:/person/applies";
     }
 }
