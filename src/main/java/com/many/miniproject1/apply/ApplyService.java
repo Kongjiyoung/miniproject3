@@ -64,8 +64,8 @@ public class ApplyService {
 
 
     @Transactional
-    public void deleteApplyResume(int id) {
-        applyJPARepository.deleteApplyResumeById(id);
+    public void deleteApplyPost(int id) {
+        applyJPARepository.deleteApplyPostById(id);
     }
 
     // 개인이 지원한 이력서 목록 YSH
