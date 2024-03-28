@@ -10,18 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ApplyController {
     private final HttpSession session;
     private final ApplyRepository applyRepository;
+    private final ApplyService applyService;
 
     //기업에서 받은 이력서 관리
 
     @GetMapping("/company/resumes")
     public String companyResume(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+        List<Apply> applyList = applyService.companyResumes();
+        request.setAttribute("applyList", applyList);
         return "company/applied-resumes";
     }
 
