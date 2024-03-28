@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 
+
 }

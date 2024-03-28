@@ -627,82 +627,82 @@ VALUES ('Node.js', 13, now());
 -- --지원
 -- -- resume_id(1~13), post_id(1~13), company_id(14~22), person_id(1~13), 합격, 불합격, 심사중
 -- -- 14번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (1, 1, 14, 1, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (4, 1, 14, 2, '불합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (6, 2, 14, 4, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (8, 2, 14, 9, '불합격');
---
--- -- -- 15번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (15, 3, 15, 13, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (14, 3, 15, 12, '불합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (9, 3, 15, 7, '합격');
---
--- -- -- 16번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (5, 4, 16, 3, '불합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (10, 4, 16, 8, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (12, 4, 16, 10, '합격');
---
--- -- -- 17번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (5, 5, 17, 3, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (1, 6, 17, 1, '불합격');
---
--- -- -- 18번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (6, 7, 18, 4, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (13, 7, 18, 11, '불합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (14, 7, 18, 12, '합격');
---
--- -- -- 19번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (3, 8, 19, 1, '불합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (6, 8, 19, 4, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (9, 8, 19, 7, '합격');
---
--- -- -- 20번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (13, 9, 20, 11, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (7, 9, 20, 5, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (2, 9, 20, 1, '불합격');
---
--- -- -- 21번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (3, 10, 21, 1, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (6, 10, 21, 4, '불합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (9, 11, 21, 7, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (4, 11, 21, 2, '합격');
---
--- -- -- 22번 회사
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (10, 12, 22, 8, '불합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (11, 12, 22, 9, '합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (5, 13, 22, 3, '불합격');
--- INSERT INTO apply_tb(resume_id, post_id, company_id, person_id, is_pass)
--- VALUES (1, 13, 22, 1, '합격');
---
---
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (1, 1, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (4, 1, '불합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (6, 2, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (8, 2, '불합격', now());
+
+-- -- 15번 회사
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (15, 3, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (14, 3, '불합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (9, 3, '합격', now());
+
+-- -- 16번 회사
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (5, 4, '불합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (10, 4, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (12, 4, '합격', now());
+
+-- -- 17번 회사
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (5, 5, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (1, 6, '불합격', now());
+
+-- -- 18번 회사
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (6, 7, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (13, 7, '불합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (14, 7, '합격', now());
+
+-- -- 19번 회사
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (3, 8, '불합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (6, 8, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (9, 8, '합격', now());
+
+-- -- 20번 회사
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (13, 9, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (7, 9, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (2, 9, '불합격', now());
+
+-- -- 21번 회사
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (3, 10, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (6, 10, '불합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (9, 11, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (4, 11, '합격', now());
+
+-- -- 22번 회사
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (10, 12, '불합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (11, 12, '합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (5, 13, '불합격', now());
+INSERT INTO apply_tb(resume_id, post_id, is_pass, created_at)
+VALUES (1, 13, '합격', now());
+
+
 
 -- --제안
 -- --offer_tb content 삭제, 더미 추가
