@@ -1,6 +1,9 @@
 package com.many.miniproject1.apply;
 
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostResponse;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeResponse;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -65,7 +68,7 @@ public class ApplyResponse {
     }
 
     @Data
-    public static class ApplyResumeDTO {
+    public static class ApplyResumeDTO { // 내가 쓴 이력서
         private Integer id;
         private Integer personId;
         private String title;
@@ -122,7 +125,9 @@ public class ApplyResponse {
         }
     }
     @Data
-    public static class CompanyResumeDTO {
+    public static class CompanyResumeDTO { // 회사에서 받은 이력서
+        private Integer resumeId;
+        private Integer postId;
         private Integer id;
         private Integer personId;
         private String title;
