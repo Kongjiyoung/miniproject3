@@ -14,7 +14,6 @@ public class OfferController {
 
 
 
-    // 👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻👩‍💻👨‍💻
     // 제안한 이력서 상세보기
     @GetMapping("/person/offer/post/detail/{id}")
     public String personOfferDetail(HttpServletRequest request, @PathVariable int id) {
@@ -32,7 +31,6 @@ public class OfferController {
         return "person/offers";
     }
 
-    // 🌆🌆🌆🌆🌆🌆🌆🌆🌆🌆🌆🌆🌆🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇🌇
 
     // company의 offers 관리
     // skill 만 불러오면 되나.?
@@ -68,16 +66,5 @@ public class OfferController {
         return "company/offer-form";
     }
 
-    // email대신 공고 보내기로 수정
-//    @GetMapping("/person/offer/detail/{id}")
-//    public String personPostDetail(@PathVariable int id) {
-//        return "company/offerEmailDetail";
-//    }
 
-    // 상세보기에서 삭제할 것이므로 필요 ❌
-//    @PostMapping("/company/offers/delete")
-//    public void delete(@RequestParam int id,HttpServletRequest request){
-//             offerRepository.delete(id);
-//             request.setAttribute("offerId",id);
-//    }
 }

@@ -1,6 +1,7 @@
 package com.many.miniproject1.apply;
 
 
+import com.many.miniproject1._core.errors.exception.Exception400;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.post.PostService;
 import jakarta.persistence.EntityManager;
@@ -12,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-
 
 @DataJpaTest
 public class ApplyJPARepositoryTest {
@@ -34,5 +34,17 @@ public class ApplyJPARepositoryTest {
         // System.out.println("findById_test: " + apply);
         assertThat(apply.get().getResume().getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
         assertThat(apply.get().getIsPass()).isEqualTo("합격");
+    }
+
+    @Test
+    public void findByPostIdJoinPostAndSkillAndUser_test() {
+        // given
+        int postid = 1;
+        int resumeUserId = 1;
+        // when
+        Apply apply = applyJPARepository.findByPostIdJoinPostAndSkillAndUser(postid, resumeUserId).get();
+
+        // then
+        Assertions.assertThat(apply.getIsPass()).isEqualTo("불합격");
     }
 }
