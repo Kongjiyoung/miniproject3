@@ -8,12 +8,14 @@
                     <h3 style="font-weight: bold">이력서제목</h3>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <!-- 이 버튼 무언가를 전송하기 위한 것인가요? -->
-                    <button class="btn btn-outline-success" type="submit">이력서합격불합격</button>
+                    <!-- 이 버튼 합격 불합격 여부를 나타내기 위한 것인 듯 -->
+                    <button class="btn btn-outline-success" type="submit" disabled>{{apply.isPass}}</button>
                 </div>
             </div>
             <hr class="d-inline-flex w-100">
-            <form class="row d-flex justify-content-end g-3 align-items-center" action="/company/resumes/1/ispass" method="post">
+            <form class="row d-flex justify-content-end g-3 align-items-center"
+                  action="/company/resumes/{{apply.id}}/is-pass"
+                  method="post">
                 <div class="col-auto">
                     <select class="form-select form-select-sm" aria-label="Default select example" id="isPass"
                             name="isPass">
@@ -24,6 +26,7 @@
                     </select>
                 </div>
                 <div class="col-auto">
+                    <!-- 이 버튼을 누르면 is-pass 업데이트 -->
                     <button class="btn btn-outline-success btn-sm" type="submit"><i class="far fa-paper-plane"></i>
                     </button>
                 </div>
