@@ -14,6 +14,6 @@ public class ApplyService {
     private final SkillJPARepository skillJPARepository;
 
     public Apply companyResumeDetail(ApplyResponse.CompanyResumeDTO respDTO){
-        return applyJPARepository.findByResumeIdJoinSkillAndCompany(respDTO.getId());
+        return applyJPARepository.findByResumeIdJoinSkillAndCompany(respDTO.getPersonId());
     }
 }

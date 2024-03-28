@@ -1,6 +1,9 @@
 package com.many.miniproject1.apply;
 
 
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeRequest;
+import com.many.miniproject1.resume.ResumeResponse;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

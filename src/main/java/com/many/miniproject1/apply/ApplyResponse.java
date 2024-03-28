@@ -145,5 +145,6 @@ public class ApplyResponse {
             private String skill;
             private int resumeId;
         }
+
     }
 }
