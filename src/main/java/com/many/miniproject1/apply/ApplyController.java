@@ -1,6 +1,9 @@
 package com.many.miniproject1.apply;
 
 
+import com.many.miniproject1.post.PostJPARepository;
+import com.many.miniproject1.resume.ResumeJPARepository;
+import com.many.miniproject1.skill.SkillRepository;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -16,15 +19,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApplyController {
     private final HttpSession session;
-    private final ApplyRepository applyRepository;
+    //    private final ApplyRepository applyRepository;
+    private final SkillRepository skillRepository;
+    //private final ApplyJPARepository applyJPARepository;
+    private final PostJPARepository postJPARepository;
+    private final ResumeJPARepository resumeJPARepository;
     private final ApplyService applyService;
-
     //기업에서 받은 이력서 관리
 
     @GetMapping("/company/resumes")
     public String companyResume(HttpServletRequest request) {
-        List<Apply> applyList = applyService.companyResumes();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Apply> applyList = applyService.companyResumes(sessionUser.getId());
+        System.out.println(applyList);
         request.setAttribute("applyList", applyList);
+        request.setAttribute("company", sessionUser);
         return "company/applied-resumes";
     }
 
@@ -44,10 +53,11 @@ public class ApplyController {
     //이력서 현황
     @GetMapping("/person/applies")
     public String personApply(HttpServletRequest request) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
+        User sessionUser = (User) session.getAttribute("sessionUser");
 
         return "person/applies";
     }
+
     @GetMapping("/person/applies/{id}") // 내가 지원한 공고 디테일
     public String personApply(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -58,7 +68,6 @@ public class ApplyController {
 
     @PostMapping("/person/applies/{id}/delete")
     public String appliedDelete(@PathVariable int id) {
-        applyRepository.applieddelete(id);
         return "redirect:/person/applies";
     }
 }
