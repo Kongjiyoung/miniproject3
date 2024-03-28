@@ -90,7 +90,7 @@ public class ApplyController {
     @PostMapping("/person/applies/{id}/delete")
     public String appliedDelete(@PathVariable int id, HttpServletRequest request) {
         Apply apply = applyService.findById(id);
-        applyService.deleteApplyResume(id);
+        applyService.deleteApplyPost(id);
         request.setAttribute("apply", apply);
 
         return "redirect:/person/applies";
