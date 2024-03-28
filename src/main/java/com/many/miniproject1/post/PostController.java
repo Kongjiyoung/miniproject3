@@ -50,13 +50,18 @@ public class PostController {
     @GetMapping("/company/posts/{id}/update-form")
     public String companyUpdatePostForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        Post post = postService.findByPost(id);
+        request.setAttribute("post", post);
+
         return "company/post-update-form";
     }
 
     @PostMapping("/company/posts/{id}/update")
-    public String companyUpdatePost(@PathVariable int id, HttpServletRequest request) {
+    public String companyUpdatePost(@PathVariable int id, PostRequest.UpdatePostDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-//        return "redirect:/company/posts" + id;
+        System.out.println(reqDTO);
+        postService.updatePost(id, sessionUser.getId(), reqDTO);
+
         return "redirect:/company/posts/" + id;
     }
 

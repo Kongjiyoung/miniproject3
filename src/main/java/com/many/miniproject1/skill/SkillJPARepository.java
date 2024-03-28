@@ -17,4 +17,10 @@ public interface SkillJPARepository extends JpaRepository<Skill, Integer> {
     @Query("DELETE FROM Skill s WHERE s.resume.id = :resumeId")
     void deleteSkillsByResumeId(@Param("resumeId") Integer resumeId);
 
+    @Query("select s from Skill s where s.post.id=:postId")
+    List<Skill> findSkillsByPostId(@Param("postId") Integer postId);
+
+    @Modifying
+    @Query("delete from Skill s where s.post.id = :postId")
+    void deleteSkillsByPostId(@Param("postId") Integer postId);
 }
