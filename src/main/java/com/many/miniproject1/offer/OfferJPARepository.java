@@ -13,8 +13,10 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
             select o
             from Offer o
             join fetch o.resume r
-            join fetch r.user u
-            where r.user.id = :user_id
+            join fetch o.post p
+            join fetch r.user ru
+            join fetch p.user pu
+            where pu.id = :user_id
             """)
     List<Offer> findByUserId(@Param("user_id") int userId);
 
