@@ -2,6 +2,7 @@ package com.many.miniproject1.post;
 
 
 import jakarta.persistence.EntityManager;
+import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,5 +45,18 @@ public class PostJPARepositoryTest {
         
         // then
         assertThat(post.getId()).isEqualTo(1);
+    }
+
+    @Test
+    public void findById_test() {
+        // given
+        PostRequest.UpdateDTO reqDTO = new PostRequest.UpdateDTO();
+        reqDTO.setId(1);
+
+        // when
+        Optional<Post> post = postJPARepository.findById(reqDTO.getId());
+
+        // then
+        post.ifPresent(value -> Assertions.assertThat(value.getTitle()).isEqualTo("데이터 분석가"));
     }
 }
