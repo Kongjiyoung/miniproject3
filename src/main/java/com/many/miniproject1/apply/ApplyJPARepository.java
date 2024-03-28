@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 
@@ -21,9 +22,16 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             """)
     Apply findByResumeIdJoinSkillAndCompany(@Param("resume_id") Integer resumeId, @Param("user_id") Integer userId );
 
-    // 1. 어플리 디테일
-    // 지원받은 이력서에 띄워져 있는 이력서의 디테일에 가서(어플라이드레저미디테일)
-    // 개인정보 가져오고
-    // 이력서 가져와야 하구요
-    // 이력서 가져오면서 스킬도 가져오구요
+
+    @Query("""
+            select distinct a 
+            from Apply a 
+            join fetch a.post p 
+            join fetch p.user pu 
+            join fetch p.skillList 
+            join fetch a.resume r 
+            join fetch r.user ru 
+            where p.id= :postId and ru.id=:resumeUserId
+            """)
+    Optional<Apply> findByPostIdJoinPostAndSkillAndUser(@Param("postId") Integer postId, @Param("resumeUserId") Integer resumeUserId);
 }
