@@ -10,4 +10,7 @@ public class ScrapService {
     private final ScrapJPARepository scrapJPARepository;
     private final ScrapQueryRepository scrapQueryRepository;
 
+    public void deleteScrap(Integer id) {
+        scrapJPARepository.deleteById(id);
+    }
 }

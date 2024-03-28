@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class ScrapController {
     private final HttpSession session;
-
+    private final ScrapService scrapService;
 
     //개인 채용 공고 스크랩
     @GetMapping("/person/scrap")
@@ -55,13 +55,12 @@ public class ScrapController {
     public String companyScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        return "resume-scrap-detail";
+        return "company/resume-scrap-detail";
     }
 
     @PostMapping("/company/scrap/{id}/detail/delete")
-    public String companyScrapDelete(@PathVariable int id) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
-
+    public String companyScrapDelete(@PathVariable Integer id) {
+        scrapService.deleteScrap(id);
         return "redirect:/company/scrap";
     }
 
