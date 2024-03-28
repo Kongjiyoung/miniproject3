@@ -19,9 +19,10 @@ public class ApplyJPARepositoryTest {
     @Test
     public void findByResume_test() {
         // given
-        int id = 1;
+        int resumeid = 1;
+        int userid= 14;
         // when
-        Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id);
+        Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(resumeid,userid);
         System.out.println("test: "+apply);
         // then
     }

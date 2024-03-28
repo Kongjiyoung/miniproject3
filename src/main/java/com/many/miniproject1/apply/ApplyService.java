@@ -13,7 +13,7 @@ public class ApplyService {
     private final ApplyQueryRepository applyQueryRepository;
     private final SkillJPARepository skillJPARepository;
 
-    public Apply companyResumeDetail(ApplyResponse.CompanyResumeDTO respDTO){
-        return applyJPARepository.findByResumeIdJoinSkillAndCompany(respDTO.getPersonId());
-    }
+//    public Apply companyResumeDetail(ApplyResponse.CompanyResumeDTO respDTO){
+//        return applyJPARepository.findByResumeIdJoinSkillAndCompany();
+//    }
 }
