@@ -17,6 +17,6 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             JOIN FETCH r.user u
             WHERE a.id = :id
             """)
-    Post findByResumeIdJoinSkillAndCompany(@Param("id") Integer id);
+    Apply findByResumeIdJoinSkillAndCompany(@Param("id") Integer id);
 
 }
