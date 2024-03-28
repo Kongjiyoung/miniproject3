@@ -16,8 +16,8 @@ public class OfferService {
     private final OfferQueryRepository offerQueryRepository;
 
     @Transactional
-    public void deleteOffer(int sessionUserId,int id){
-        offerJPARepository.deleteOfferByPostId(sessionUserId,id);
+    public void deleteOffer(int id){
+        offerJPARepository.deleteById(id);
     }
 
     public Offer offerDetail (Integer id){
