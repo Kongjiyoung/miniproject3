@@ -704,132 +704,132 @@ VALUES (1, 13, '합격', now());
 
 
 
--- --제안
--- --offer_tb content 삭제, 더미 추가
--- --post_id가 5개 뿐이라 3을 4번 넣음
--- -- 1번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (1, 1, 14, 1, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (1, 3, 15, 1, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (1, 11, 21, 1, now());
---
--- -- 2번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (2, 6, 17, 1, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (2, 11, 21, 1, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (2, 7, 18, 1, now());
---
---
---
--- -- 3번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (3, 9, 20, 1, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (3, 4, 16, 1, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (3, 13, 22, 1, now());
---
--- -- 4번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (4, 1, 14, 2, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (4, 7, 18, 2, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (4, 13, 22, 2, now());
---
--- -- 5번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (5, 6, 17, 3, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (5, 8, 19, 3, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (5, 10, 21, 3, now());
---
--- -- 6번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (6, 12, 22, 4, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (6, 4, 16, 4, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (6, 5, 17, 4, now());
---
--- -- 7번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (7, 12, 22, 5, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (7, 11, 21, 5, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (7, 2, 14, 5, now());
---
--- -- 8번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (8, 9, 20, 6, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (8, 8, 19, 6, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (8, 10, 21, 6, now());
---
--- -- 9번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (9, 5, 17, 7, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (9, 7, 18, 7, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (9, 12, 22, 7, now());
---
--- -- 10번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (10, 7, 18, 8, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (10, 9, 20, 8, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (10, 3, 15, 8, now());
---
--- -- 11번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (111, 1, 14, 9, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (111, 3, 15, 9, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (111, 5, 17, 9, now());
---
--- -- 12번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (12, 6, 17, 10, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (12, 7, 18, 10, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (12, 8, 19, 10, now());
---
--- -- 13번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (13, 3, 15, 11, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (13, 4, 16, 11, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (13, 5, 17, 11, now());
---
--- -- 14번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (14, 5, 17, 12, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (14, 1, 14, 12, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (14, 11, 21, 12, now());
---
--- -- 15번 이력서
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (15, 13, 22, 13, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (15, 10, 21, 13, now());
--- INSERT INTO offer_tb(resume_id, post_id, company_id, person_id, created_at)
--- VALUES (15, 5, 17, 13, now());
---
---
+--제안
+--offer_tb content 삭제, 더미 추가
+--post_id가 5개 뿐이라 3을 4번 넣음
+-- 1번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (1, 1, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (1, 3, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (1, 11, now());
+
+-- 2번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (2, 6, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (2, 11, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (2, 7, now());
+
+
+
+-- 3번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (3, 9, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (3, 4, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (3, 13, now());
+
+-- 4번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (4, 1, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (4, 7, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (4, 13, now());
+
+-- 5번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (5, 6, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (5, 8, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (5, 10, now());
+
+-- 6번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (6, 12, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (6, 4, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (6, 5, now());
+
+-- 7번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (7, 12, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (7, 11, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (7, 2, now());
+
+-- 8번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (8, 9, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (8, 8, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (8, 10, now());
+
+-- 9번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (9, 5, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (9, 7, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (9, 12, now());
+
+-- 10번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (10, 7, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (10, 9, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (10, 3, now());
+
+-- 11번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (11, 1, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (11, 3, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (11, 5, now());
+
+-- 12번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (12, 6, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (12, 7, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (12, 8, now());
+
+-- 13번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (13, 3, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (13, 4, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (13, 5, now());
+
+-- 14번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (14, 5, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (14, 1, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (14, 11, now());
+
+-- 15번 이력서
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (15, 13, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (15, 10, now());
+INSERT INTO offer_tb(resume_id, post_id, created_at)
+VALUES (15, 5, now());
+
+
 -- --ispass varchar타입에서 int로 바꾸기
 -- --스크랩
 -- --회사 이력서스크랩

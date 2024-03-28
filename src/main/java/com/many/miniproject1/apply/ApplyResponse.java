@@ -139,7 +139,9 @@ public class ApplyResponse {
         private List<ApplySkillDTO> skills = new ArrayList<>();  // 필요 스킬
 
         public static class ApplySkillDTO {
+        }
 
+    }
 
     //  Person이 Apply한  📑Post 목록보기 YSH
     @Data
