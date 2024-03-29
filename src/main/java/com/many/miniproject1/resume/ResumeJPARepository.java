@@ -27,8 +27,8 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
     @Query("""
             SELECT r
             FROM Resume r
-            JOIN FETCH r.user
-            WHERE r.id = :id
+            JOIN FETCH r.user ru
+            WHERE ru.id = :id
             """)
     List<Resume> findByUserId(@Param("id") int userId);
 

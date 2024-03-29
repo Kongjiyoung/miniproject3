@@ -61,7 +61,7 @@ public class MainService {
         return apply;
     }
 
-    public List<Resume> personResumeList(int id) {
+    public List<Resume> getResumeId(int id) {
         List<Resume> resumeList = resumeJPARepository.findByUserId(id);
         return resumeList;
     }
