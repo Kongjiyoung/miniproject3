@@ -1,8 +1,9 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.post.Post;
-
 import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.scrap.Scrap;
 
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -144,11 +145,10 @@ public class MainController {
 
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
-    public String personPostApply(@PathVariable int id, @RequestParam("resumeChoice") Integer resumeChoice) {
+    public String personPostApply(@PathVariable int id, Integer resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
-//        Integer personId = sessionUser.getId();
-
+        Integer personId = sessionUser.getId();
+        Apply apply = mainService.personPostApply(id,resumeChoice);
         return "redirect:/posts/" + id;
     }
 
@@ -157,7 +157,7 @@ public class MainController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
 //        Integer personId = sessionUser.getId();
-
+        Scrap scrap = mainService.personPostScrap(sessionUser.getId(), id);
         return "redirect:/posts/" + id;
     }
 

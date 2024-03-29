@@ -1,5 +1,8 @@
 package com.many.miniproject1.scrap;
 
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.user.User;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -13,9 +16,19 @@ public class ScrapRequest {
     }
     @Data
     public static class SavePostDTO {
-        private Integer postId;
-        private Integer personId;
-        private Timestamp createdAt;
+        private Post post;
+        private User user;
+        public SavePostDTO(User user, Post post) {
+            this.user = user;
+            this.post = post;
+        }
+        public Scrap toEntity(){
+            return Scrap.builder()
+                    .user(user)
+                    .post(post)
+                    .build();
+        }
+
     }
 
     @Data
