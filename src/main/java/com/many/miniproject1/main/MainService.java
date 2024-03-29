@@ -11,7 +11,9 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
+import com.many.miniproject1.resume.ResumeResponse;
 import com.many.miniproject1.scrap.Scrap;
+
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.scrap.ScrapRequest;
 import com.many.miniproject1.user.User;
@@ -20,9 +22,12 @@ import com.sun.tools.javac.Main;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import java.util.List;
 
 import java.util.List;
 
@@ -45,6 +50,7 @@ public class MainService {
         Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
         return scrap;
     }
+  
     public Apply personPostApply(Integer postId, Integer resumeId){
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(()->new Exception401("공고를 찾을 수 없습니다."));
@@ -59,6 +65,7 @@ public class MainService {
         List<Resume> resumeList = resumeJPARepository.findByUserId(id);
         return resumeList;
     }
+  
     public List<Post> findByUserIdPost(int userId){
         List<Post> postList=postJPARepository.findByUserIdJoinSkillAndUser(userId);
         return postList;
@@ -140,6 +147,19 @@ public class MainService {
         return postList;
     }
 
+    public List<Resume> resumeForm(){
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        return resumeJPARepository.findAll(sort);
+    }
+
+    public Resume resumeDetailForm(Integer resumeId){
+        return resumeJPARepository.findById(resumeId).orElse(null);
+    }
+
+    public List<Post> getPostsByCompanyId(Integer companyId) {
+        return postJPARepository.findByUserIdJoinSkillAndUser(companyId);
+    }
+  
     public Post getPostDetail(int postId) {
         Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
         return post;
