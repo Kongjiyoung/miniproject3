@@ -2,6 +2,7 @@ package com.many.miniproject1.main;
 
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.offer.OfferJPARepository;
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
@@ -29,5 +30,9 @@ public class MainService {
 
     public Resume resumeDetailForm(Integer resumeId){
         return resumeJPARepository.findById(resumeId).orElse(null);
+    }
+
+    public List<Post> getPostsByCompanyId(Integer companyId) {
+        return postJPARepository.findByUserIdJoinSkillAndUser(companyId);
     }
 }
