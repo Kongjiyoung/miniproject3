@@ -6,7 +6,7 @@
         {{#scrapList}}
             <ul class="row row-cols-4 gap-3">
                 <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                    <a href="/company/scrap/{{resuem.user.id}}/detail" style="text-decoration: none; color: black">
+                    <a href="/company/scrap/{{resume.id}}/detail" style="text-decoration: none; color: black">
                         <div style="width: 100%; height: 15rem; overflow: hidden">
                             <img src="/images/{{resume.user.profile}}" class="card-img-top" alt="이력서 사진"/>
                         </div>
@@ -37,7 +37,7 @@
                         ">
                                 <h6><span>{{#skillList}}
                                     <button class="btn btn-outline-warning btn-sm disabled">
-                                        {{resume.skill}}
+                                        {{skill}}
                                     </button>
                                 {{/skillList}}
                                  </span></h6>

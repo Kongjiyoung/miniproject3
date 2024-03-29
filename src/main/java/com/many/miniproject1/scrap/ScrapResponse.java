@@ -117,16 +117,6 @@ public class ScrapResponse {
             this.skills = skills;
         }
     }
-    @Data
-    public static class PersonResumeDTO {
-        private Integer id;
-        private Integer personId;
-        private String title;
-        private String profile;
-        private String career;
-        private String simpleIntroduce;
-        private Timestamp createdAt;
-    }
 }
 
 

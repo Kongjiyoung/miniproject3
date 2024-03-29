@@ -48,8 +48,9 @@ public class ScrapController {
     }
     //기업 이력서 스크랩
     @GetMapping("/company/scrap")
-    public String companyScrapForm(HttpServletRequest request, ScrapResponse.PersonResumeDTO respDTO) {
-        List<Scrap> scrapList = scrapService.companyScrapList(respDTO);
+    public String companyScrapForm(HttpServletRequest request) {
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Scrap> scrapList = scrapService.companyScrapList(sessionUser.getId());
         request.setAttribute("scrapList", scrapList);
         return "company/scrap";
     }

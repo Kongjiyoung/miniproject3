@@ -2,6 +2,7 @@ package com.many.miniproject1.scrap;
 
 
 import com.many.miniproject1._core.errors.exception.Exception401;
+import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
@@ -35,7 +36,12 @@ public class ScrapService {
         scrapJPARepository.deleteById(id);
     }
 
-    public List<Scrap> companyScrapList(ScrapResponse.PersonResumeDTO respDTO){
-        return scrapJPARepository.findByUserIdJoinSkillAndResume(respDTO.getPersonId());
+    public Scrap findById(int id) {
+        Scrap scrap = scrapJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+        return scrap;
+    }
+    public List<Scrap> companyScrapList(Integer resumeId){
+        return scrapJPARepository.findByUserIdJoinSkillAndResume(resumeId);
     }
 }

@@ -21,9 +21,9 @@ public class ScrapJPARepositoryTest {
     @Test
         public void findByUserIdJoinSkill_test(){
             // given
-        int id = 1;
+        int resumeId = 1;
             // when
-        List<Scrap> scrapList = scrapJPARepository.findByUserIdJoinSkillAndResume(id);
+        List<Scrap> scrapList = scrapJPARepository.findByUserIdJoinSkillAndResume(resumeId);
         System.out.println("test:::" + scrapList);
             // then
         }
