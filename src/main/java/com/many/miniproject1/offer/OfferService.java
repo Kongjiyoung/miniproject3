@@ -4,6 +4,7 @@ package com.many.miniproject1.offer;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
+import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.SkillJPARepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,16 @@ public class OfferService {
     }
 
     @Transactional
-    public void deleteOffer(int id){
+    public void deleteOffer(int id) {
         offerJPARepository.deleteById(id);
     }
 
-    public Offer offerDetail (Integer id){
+    public Offer offerDetail(Integer id) {
         return offerJPARepository.findByPostId(id);
+    }
+
+    public Offer companyOfferDetail(OfferResponse.OfferedResumeDetailDTO reqDTO) {
+        Offer offer = offerJPARepository.findByIdJoinResumeAndSkillAndUser(reqDTO.getId());
+        return offer;
     }
 }

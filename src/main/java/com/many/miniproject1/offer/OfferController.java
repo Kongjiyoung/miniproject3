@@ -22,13 +22,13 @@ public class OfferController {
     @GetMapping("/person/offer/post/detail/{id}")
     public String personOfferDetail(HttpServletRequest request, @PathVariable int id) {
         Offer offer = offerService.offerDetail(id);
-        request.setAttribute("offer",offer);
+        request.setAttribute("offer", offer);
         return "person/offer-post-detail";
     }
 
     // person의 offers 관리
     @GetMapping("/person/offers")
-    public String personOffers( HttpServletRequest request) {
+    public String personOffers(HttpServletRequest request) {
 
 
         return "person/offers";
@@ -47,19 +47,19 @@ public class OfferController {
     }
 
     @GetMapping("/company/offer/{id}/detail")
-    public String companyOfferDetail(HttpServletRequest request, @PathVariable int id) {
-
+    public String companyOfferDetail(HttpServletRequest request, @PathVariable int id, OfferResponse.OfferedResumeDetailDTO reqDTO) {
+        Offer offer = offerService.companyOfferDetail(reqDTO);
+        request.setAttribute("offer", offer);
         return "company/mypage-resume-detail";
     }
 
     // 제안한 이력서 DELETE (취소)
     @PostMapping("/company/offer/{id}/detail/delete")
-    public String companyOfferDetailDelete(@PathVariable int id){
+    public String companyOfferDetailDelete(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         offerService.deleteOffer(id);
         return "redirect:/company/offers";
     }
-
 
 
     @GetMapping("/company/update-info-form")
