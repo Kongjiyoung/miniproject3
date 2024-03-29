@@ -16,11 +16,13 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
     @Query("""
             select distinct s
             from Scrap s
+            JOIN FETCH s.post p
+            JOIN FETCH p.user pu
             JOIN FETCH s.resume r
             JOIN FETCH r.skillList rs
             join FETCH r.user ru
             where ru.id = :user_id
             """)
-    List<Scrap> findByUserIdJoinSkill (@Param("user_id") Integer userId);
+    List<Scrap> findByUserIdJoinSkillAndResume (@Param("user_id") Integer userId);
 
 }
