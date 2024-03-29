@@ -1,6 +1,9 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.post.Post;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 
 @Controller
@@ -126,6 +131,7 @@ public class MainController {
     public String personPostApply(@PathVariable int id, Integer resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Integer personId = sessionUser.getId();
+        Apply apply = mainService.personPostApply(id,resumeChoice);
         return "redirect:/posts/" + id;
     }
 
@@ -134,7 +140,7 @@ public class MainController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
 //        Integer personId = sessionUser.getId();
-        Post post = mainService.personPostScrap(sessionUser.getId());
+        Scrap scrap = mainService.personPostScrap(sessionUser.getId(), id);
         return "redirect:/posts/" + id;
     }
 
