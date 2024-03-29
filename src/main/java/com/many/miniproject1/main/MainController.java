@@ -1,5 +1,6 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.resume.ResumeService;
@@ -67,6 +68,16 @@ public class MainController {
 
         Resume resume = mainService.resumeDetailForm(resumeId);
         request.setAttribute("resume", resume);
+
+        // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
+        if (sessionUser != null && sessionUser.getRole().equals("company")) {
+            // 로그인한 회사의 아이디를 가져옴
+            Integer companyId = sessionUser.getId();
+
+            // 회사가 작성한 채용 공고 목록 가져오기
+            List<Post> postList = mainService.getPostsByCompanyId(companyId);
+            request.setAttribute("postList", postList);
+        }
 
         request.setAttribute("sessionuser", sessionUser);
         return "company/resume-detail";
@@ -155,11 +166,11 @@ public class MainController {
 
     //맞춤 공고 - 기업이 보는 매칭 이력서
 
-/**
- *  TODO: company/matching의 검색 버튼을 누르면 스트링을 인터저로 변환하지 못 해서 생기는 에러가 뜨는데 로직을 날려서 그런 것인지 원래 있던 문제인지 몰라서 남겨둠.
- *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
- *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
- */
+    /**
+     * TODO: company/matching의 검색 버튼을 누르면 스트링을 인터저로 변환하지 못 해서 생기는 에러가 뜨는데 로직을 날려서 그런 것인지 원래 있던 문제인지 몰라서 남겨둠.
+     *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
+     *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
+     */
     @GetMapping("/company/matching")
     public String matchingResumeForm(HttpServletRequest request) {
         //공고 가져오기
