@@ -32,8 +32,9 @@
                 <div style="width: 100%;">
                     <select class="form-select" aria-label="Default select example" id="postChoice" name="postChoice">
                         <option selected>채용 공고 선택</option>
-                        반복문
-                        <option value="postId">공고이름</option>
+                        {{#posts}}
+                            <option value="{{id}}">{{title}}</option>
+                        {{/posts}}
                     </select>
                 </div>
             </div>
@@ -46,38 +47,41 @@
     <ul class="row row-cols-4 gap-3">
 
         <!-- 이력서 시작 -->
-        반복문
-        <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-            <a href="/resumes/1" style="text-decoration: none; color: black">
-                <div style="width: 100%; height: 15rem; overflow: hidden">
-                    <img src="/images/이미지경로" class="card-img-top" alt="이력서 사진"/>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><b>지원자 이름</b></h5>
-                    <h6><span>커리어</span>|<span>커리어</span></h6>
-                    <p class="card-text" style="
+        {{#resumeList}}
+            <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
+                <a href="/resumes/{{id}}" style="text-decoration: none; color: black">
+                    <div style="width: 100%; height: 15rem; overflow: hidden">
+                        <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>{{user.name}}</b></h5>
+                        <h6><span>커리어</span>|<span>{{career}}</span></h6>
+                        <p class="card-text" style="
                   display: -webkit-box;
                   -webkit-line-clamp: 1;
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   text-overflow: ellipsis;
-                ">간단 자기소개</p>
-                    <div class="d-flex justify-content-start" style="
+                ">{{simpleIntroduce}}</p>
+                        <div class="d-flex justify-content-start" style="
                   display: -webkit-box;
                   -webkit-line-clamp: 1;
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   text-overflow: ellipsis;
                 ">
-                        <h6>
-                            <span>스킬반복문
-                                <button class="btn btn-outline-warning btn-sm disabled"></button>
+                            <h6>
+                            <span>
+                                {{#skillList}}
+                                <button class="btn btn-outline-warning btn-sm disabled">{{skill}}</button>
+                                {{/skillList}}
                             </span>
-                        </h6>
+                            </h6>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </li>
+                </a>
+            </li>
+        {{/resumeList}}
         <!-- 이력서 시작 -->
     </ul>
 </section>

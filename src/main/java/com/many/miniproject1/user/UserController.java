@@ -15,7 +15,6 @@ import java.util.Optional;
 public class UserController {
 
     private final HttpSession session;
-    private final UserJPARepository userJPARepository;
     private final UserService userService;
 
     // 회사 회원가입
@@ -28,7 +27,7 @@ public class UserController {
 
     @PostMapping("/company/join")
     public String companyJoin(UserRequest.CompanyJoinDTO requestDTO) {
-        userService.기업가입(requestDTO);
+        userService.compJoin(requestDTO);
 
         return "redirect:/company/login-form";
     }
@@ -41,7 +40,7 @@ public class UserController {
 
     @PostMapping("/company/login")
     public String companyLogin(UserRequest.LoginDTO requestDTO) {
-        session.setAttribute("sessionUser", userService.Login(requestDTO));
+        session.setAttribute("sessionUser", userService.login(requestDTO));
         return "redirect:/company/main";
     }
 
@@ -66,7 +65,7 @@ public class UserController {
 
     @PostMapping("/person/login")
     public String personLogin(UserRequest.LoginDTO requestDTO) {
-        session.setAttribute("sessionUser", userService.Login(requestDTO));
+        session.setAttribute("sessionUser", userService.login(requestDTO));
         return "redirect:/person/main";
     }
 
@@ -100,7 +99,7 @@ public class UserController {
     @PostMapping("/company/info/update")
     public String companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.CompanyInfoUpdate(sessionUser.getId(), requestDTO);
+        User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), requestDTO);
         session.setAttribute("sessionUser", newSessionUser);
         return "redirect:/company/info";
     }

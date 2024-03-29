@@ -94,7 +94,7 @@
 <section class="container grid-gap: 50px; mt-5">
     <ul class="row row-cols-4 gap-3">
         <!-- 이력서 시작 -->
-        {{#resumeSkillList}}
+        {{#resumeList}}
             <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
                 <a href="/resume/detail/{{id}}" style="text-decoration: none; color: black">
                     <div style="width: 100%; height: 15rem; overflow: hidden">
@@ -126,16 +126,16 @@
                   overflow: hidden;
                   text-overflow: ellipsis;
                 ">
-                            <h6><span>{{#skill}}
+                            <h6><span>{{#skillList}}
                                 <button class="btn btn-outline-warning btn-sm disabled">
-                                    {{.}}
-                                </button>{{/skill}}</span></h6>
+                                    {{skill}}
+                                </button>{{/skillList}}</span></h6>
                         </div>
                     </div>
                 </a>
 
             </li>
-        {{/resumeSkillList}}
+        {{/resumeList}}
 
     </ul>
 

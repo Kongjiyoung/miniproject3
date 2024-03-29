@@ -1,6 +1,6 @@
 package com.many.miniproject1.post;
 
-import com.many.miniproject1._core.common.ProfileImageService;
+import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1.user.User;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +23,7 @@ public class PostRequest {
         private String workingArea;
         private List<String> skill;
         public Post toEntity(User user){
-            String profilePath= ProfileImageService.saveProfile(profile);
+            String profilePath= ProfileImageSaveUtil.save(profile);
             return Post.builder()
                     .user(user)
                     .title(title)

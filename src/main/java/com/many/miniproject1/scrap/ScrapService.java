@@ -6,11 +6,15 @@ import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
+<<<<<<< HEAD
+=======
+import com.many.miniproject1.offer.Offer;
+import com.many.miniproject1.offer.OfferJPARepository;
+import com.many.miniproject1.offer.OfferRequest;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +29,12 @@ public class ScrapService {
     private final ApplyJPARepository applyJPARepository;
     private final ResumeJPARepository resumeJPARepository;
     private final PostJPARepository postJPARepository;
+    private final OfferJPARepository offerJPARepository;
+
+    public List<Scrap> personScrapForm (Integer userId){
+        return scrapJPARepository.findByPostIdJoinSkills(userId);
+    }
+
     @Transactional
     public Apply saveApply(int id, int  resumeId){
        Scrap scrap =scrapJPARepository.findById(id).orElseThrow(() -> new Exception401(""));
@@ -57,7 +67,19 @@ public class ScrapService {
         return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
     }
 
-    public List<Post> companyPostList(int id){
+
+    public List<Post> companyPostList(int id) {
         return postJPARepository.findByPostId(id);
+    }
+    @Transactional
+    public Offer sendPostToResume(int id, Integer postId){
+        Scrap scrap = scrapJPARepository.findById(id)
+                .orElseThrow(() -> new Exception401("++"));
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception401("++"));
+        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(scrap.getResume(), post);
+        Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
+
+        return offer;
     }
 }

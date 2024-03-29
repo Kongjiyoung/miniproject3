@@ -28,7 +28,7 @@ public class OfferController {
 
     // person의 offers 관리
     @GetMapping("/person/offers")
-    public String personOffers( HttpServletRequest request) {
+    public String personOffers(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Offer> offerList = offerService.personOffers(sessionUser.getId());
         request.setAttribute("offerList", offerList);
@@ -48,8 +48,8 @@ public class OfferController {
     }
 
     @GetMapping("/company/offer/{id}/detail")
-    public String companyOfferDetail(HttpServletRequest request, @PathVariable int id, OfferResponse.OfferedResumeDetailDTO reqDTO) {
-        Offer offer = offerService.companyOfferDetail(reqDTO);
+    public String companyOfferDetail(HttpServletRequest request, @PathVariable int id) {
+        Offer offer = offerService.companyOfferDetail(id);
         request.setAttribute("offer", offer);
         return "company/mypage-resume-detail";
     }
