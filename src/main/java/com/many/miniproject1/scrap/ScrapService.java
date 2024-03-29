@@ -6,8 +6,6 @@ import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
-<<<<<<< HEAD
-=======
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
