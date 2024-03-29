@@ -52,7 +52,7 @@ public class MainController {
         return "company/main";
     }
 
-    @GetMapping("/resumes/{id}")
+    @GetMapping("/resume/detail/{resumeId}")
     public String resumeDetailForm(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
