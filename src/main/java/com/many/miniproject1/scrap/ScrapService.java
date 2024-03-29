@@ -22,6 +22,11 @@ public class ScrapService {
     private final ScrapQueryRepository scrapQueryRepository;
     private final ApplyJPARepository applyJPARepository;
     private final ResumeJPARepository resumeJPARepository;
+
+    public List<Scrap> personScrapForm (Integer userId){
+        return scrapJPARepository.findByPostIdJoinskills(userId);
+    }
+
     @Transactional
     public Apply saveApply(int id, int  resumeId){
        Scrap scrap =scrapJPARepository.findById(id).orElseThrow(() -> new Exception401(""));

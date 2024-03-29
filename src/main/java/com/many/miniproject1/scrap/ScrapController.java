@@ -24,6 +24,9 @@ public class ScrapController {
     @GetMapping("/person/scrap")
     public String personScrapForm(HttpServletRequest request) {
         User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Scrap> scrapList = scrapService.personScrapForm(sessionUser.getId());
+        request.setAttribute("scrapList", scrapList);
+        System.out.println(scrapList);
 
         return "person/scrap";
     }
