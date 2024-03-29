@@ -6,6 +6,7 @@ import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
 import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeJPARepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,11 @@ public class ScrapService {
     private final ScrapJPARepository scrapJPARepository;
     private final ScrapQueryRepository scrapQueryRepository;
     private final ApplyJPARepository applyJPARepository;
+    private final ResumeJPARepository resumeJPARepository;
     @Transactional
-    public Apply saveApply(int id, Resume resume){
+    public Apply saveApply(int id, int  resumeId){
        Scrap scrap =scrapJPARepository.findById(id).orElseThrow(() -> new Exception401(""));
+       Resume resume = resumeJPARepository.findById(resumeId).orElseThrow(()-> new Exception401(""));
        ApplyRequest.SaveDTO saveApply=new ApplyRequest.SaveDTO(resume, scrap.getPost());
        Apply apply=applyJPARepository.save(saveApply.toEntity());
        return apply;
