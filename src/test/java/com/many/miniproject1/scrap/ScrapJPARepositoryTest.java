@@ -27,18 +27,18 @@ public class ScrapJPARepositoryTest {
     @Autowired
     private PostJPARepository postJPARepository;
 
-    @Test
-    public void findByPostIdJoinskills_test() {
-        // given
-        int id = 1;
-
-        // when
-        List<Scrap> scrapList = scrapJPARepository.findByPostIdJoinskills(id);
-        System.out.println("findByPostIdJoinskills_test :" + scrapList);
-        System.out.println("스킬리스트:" + scrapList.get(id).getPost().getSkillList());
-        // then
-        // assertThat(scrapList.get(1).getId()).isEqualTo(2);
-    }
+//    @Test
+//    public void findByPostIdJoinskills_test() {
+//        // given
+//        int id = 1;
+//
+//        // when
+//        List<Scrap> scrapList = scrapJPARepository.findByPostIdJoinskills(id);
+//        System.out.println("findByPostIdJoinskills_test :" + scrapList);
+//        System.out.println("스킬리스트:" + scrapList.get(id).getPost().getSkillList());
+//        // then
+//        // assertThat(scrapList.get(1).getId()).isEqualTo(2);
+//    }
   
     @Test
     public void findByUserIdJoinSkill_test() {

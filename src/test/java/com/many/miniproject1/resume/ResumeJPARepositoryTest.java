@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -114,4 +115,14 @@ public class ResumeJPARepositoryTest {
         System.out.println("findByIdJoinSkillAndUser_test/resumeDetail.getSkillList(): " + resumeDetail.getSkillList());
 
     }
+
+    @Test
+        public void findByUser_test(){
+            // given
+        int id = 1;
+            // when
+        List<Resume> resumeList = resumeJPARepository.findByUserId(id);
+        System.out.println("test:: "+resumeList);
+            // then
+        }
 }

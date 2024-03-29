@@ -143,7 +143,8 @@ public class MainController {
     @GetMapping("/posts/{id}")
     public String postDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        List<Resume> resumeList = mainService.getResumeId(sessionUser.getId());
+        request.setAttribute("resumeList",resumeList);
         // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
         Post post = mainService.getPostDetail(id);
         request.setAttribute("post", post);
