@@ -25,8 +25,8 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             where p.user.id = :user_id
             """)
     List<Apply> findByUserIdJoinPost(@Param("user_id") int userId);
-           
-  @Query("""
+
+    @Query("""
             SELECT DISTINCT a
             FROM Apply a
             JOIN FETCH a.resume r
@@ -36,23 +36,29 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             JOIN p.user pu
             WHERE r.id = :resume_id and pu.id = :user_id
             """)
-    Apply findByResumeIdJoinSkillAndCompany(@Param("resume_id") Integer resumeId, @Param("user_id") Integer userId );
+    Apply findByResumeIdJoinSkillAndCompany(@Param("resume_id") Integer resumeId, @Param("user_id") Integer userId);
 
 
     @Query("""
-        SELECT a
-        FROM Apply a
-        JOIN FETCH a.post p
-        JOIN FETCH p.skillList s
-        WHERE a.resume.user.id = :userId
-        """)
+            SELECT a
+            FROM Apply a
+            JOIN FETCH a.post p
+            JOIN FETCH p.skillList s
+            WHERE a.resume.user.id = :userId
+            """)
     List<Apply> findAllAppliesWithPostsAndSkills(@Param("userId") Integer userId);
 
 
-           @Query("""
+    @Query("""
 
             select distinct a from Apply a join fetch a.post p join fetch p.user pu join fetch p.skillList join fetch a.resume r join fetch r.user ru where p.id= :postId and ru.id=:resumeUserId
             """)
     Optional<Apply> findByPostIdJoinPostAndSkillAndUser(@Param("postId") Integer postId, @Param("resumeUserId") Integer resumeUserId);
 
+    @Modifying
+    @Query("""
+            delete from Apply a 
+            where a.resume.id = :resume_id
+                    """)
+    void deleteByResumeId(@Param("resume_id") Integer resumeId);
 }

@@ -2,6 +2,10 @@ package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1._core.errors.exception.Exception404;
+import com.many.miniproject1.apply.ApplyJPARepository;
+import com.many.miniproject1.offer.OfferJPARepository;
+import com.many.miniproject1.scrap.Scrap;
+import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 
@@ -23,6 +27,9 @@ public class ResumeService {
     private final ResumeJPARepository resumeJPARepository;
     private final ResumeQueryRepository resumeQueryRepository;
     private final SkillJPARepository skillJPARepository;
+    private final ApplyJPARepository applyJPARepository;
+    private final OfferJPARepository offerJPARepository;
+    private final ScrapJPARepository scrapJPARepository;
 
     private final UserJPARepository userJPARepository;
 
@@ -40,8 +47,8 @@ public class ResumeService {
         resume.setSimpleIntroduce(requestDTO.getSimpleIntroduce());
         resume.setProfile(ProfileImageSaveUtil.save(requestDTO.getProfile()));
 
-        List<Skill> skills=skillJPARepository.findSkillsByResumeId(resume.getId());
-        for (Skill skill:skills) {
+        List<Skill> skills = skillJPARepository.findSkillsByResumeId(resume.getId());
+        for (Skill skill : skills) {
             skillJPARepository.deleteSkillsByResumeId(resume.getId());
         }
         List<Skill> skills1 = new ArrayList<>();
@@ -56,7 +63,7 @@ public class ResumeService {
         return resume;
     }
 
-    public Resume findByResume(int id){
+    public Resume findByResume(int id) {
         Resume resume = resumeJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return resume;
@@ -86,25 +93,28 @@ public class ResumeService {
         return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
     }
 
-    public Resume getResumeSkill(ResumeResponse.DetailDTO respDTO){
+    public Resume getResumeSkill(ResumeResponse.DetailDTO respDTO) {
         ResumeRequest.ResumeDTO resumeDTO = new ResumeRequest.ResumeDTO();
         List<Resume> resumeList = findResumeList(resumeDTO.getId());
         ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
         for (int i = 0; i < resumeList.size(); i++) {
             List<Skill> skills = skillJPARepository.findSkillsByResumeId(resumeList.get(i).getId());
             Resume resume = resumeList.get(i);
-            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume,skills));
+            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume, skills));
         }
         return resumeJPARepository.findByIdJoinSkill(respDTO.getId());
     }
+
     public List<Resume> findResumeList(Integer userId) {
 
         return resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 
-    public void deleteResume(Integer id){
-
-        resumeJPARepository.deleteById(id);
-
+    @Transactional
+    public void deleteResume(Integer resumeId) {
+        applyJPARepository.deleteByResumeId(resumeId);
+        resumeJPARepository.deleteById(resumeId);
+        offerJPARepository.deleteByResumeId(resumeId);
+        scrapJPARepository.deleteByResumeId(resumeId);
     }
 }
