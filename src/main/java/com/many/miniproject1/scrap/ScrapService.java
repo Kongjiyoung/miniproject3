@@ -10,12 +10,19 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ScrapService {
     private final ScrapJPARepository scrapJPARepository;
     private final ScrapQueryRepository scrapQueryRepository;
     private final ApplyJPARepository applyJPARepository;
+
+    public List<Scrap> personScrapForm (Integer userId){
+        return scrapJPARepository.findByPostIdJoinskills(userId);
+    }
+
     @Transactional
     public Apply saveApply(int id, Resume resume){
        Scrap scrap =scrapJPARepository.findById(id).orElseThrow(() -> new Exception401(""));
