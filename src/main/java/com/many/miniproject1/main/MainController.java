@@ -4,7 +4,7 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.resume.ResumeService;
-import com.many.miniproject1.apply.Apply
+import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,8 +27,7 @@ public class MainController {
     private final HttpSession session;
     private final MainService mainService;
 
-    private Integer postChoose = 0;
-    private Integer resumeChoose = 0;
+
 
     //맞춤 공고 - 기업이 보는 매칭 이력서
 
@@ -37,19 +36,7 @@ public class MainController {
      *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
      *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
      */
-    @GetMapping("/company/matching")
-    public String matchingResumeForm(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Post> posts =mainService.findByUserIdPost(sessionUser.getId());
-        request.setAttribute("posts", posts);
-        // TODO: session 저장
-        session.setAttribute("postChoose", 0);
-        if (postChoose!=null){
-            List<Resume> resumeList=mainService.matchingResume(postChoose);
-            request.setAttribute("resumeList", resumeList);
-        }
-        return "company/matching";
-    }
+
 
     //메인 구직 공고
     @GetMapping("/company/main")
@@ -189,18 +176,21 @@ public class MainController {
      */
     @GetMapping("/company/matching")
     public String matchingResumeForm(HttpServletRequest request) {
-        //공고 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
-//        Integer userId = sessionUser.getId();
-
-        //Boolean isCompany
+        List<Post> posts =mainService.findByUserIdPost(sessionUser.getId());
+        request.setAttribute("posts", posts);
+        Integer postChoice=(Integer) session.getAttribute("postChoice");
+        // TODO: session 저장
+        if (postChoice!=null){
+            List<Resume> resumeList=mainService.matchingResume(postChoice);
+            request.setAttribute("resumeList", resumeList);
+        }
         return "company/matching";
     }
 
     @PostMapping("/company/match")
     public String matchingPost(int postChoice) {
-        postChoose = postChoice;
+        session.setAttribute("postChoice", postChoice);
         return "redirect:/company/matching";
     }
 
@@ -216,7 +206,6 @@ public class MainController {
     @PostMapping("/person/match")
     public String matchingResume(@RequestParam("resumeChoice") Integer resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        resumeChoose = resumeChoice;
         return "redirect:/person/matching";
     }
 }
