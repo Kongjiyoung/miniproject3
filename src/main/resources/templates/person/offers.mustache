@@ -34,10 +34,10 @@
                     <!-- 그 외 -->
                     {{#offerList}}
                         <tr class="table-info">
-                            <td><img src="/images/{{profile}}" style="width: 100%; max-width: 100px"></td>
-                            <td>{{companyName}}</td>
-                            <td><a href="/person/offer/post/detail/{{postId}}" class="text-decoration-none">{{title}}</td>
-                            <td>{{createdAt}}</td>
+                            <td><img src="/images/{{post.profile}}" style="width: 100%; max-width: 100px"></td>
+                            <td>{{post.user.companyName}}</td>
+                            <td><a href="/person/offer/post/detail/{{post.id}}" class="text-decoration-none">{{post.title}}</td>
+                            <td>{{post.createdAt}}</td>
                         </tr>
                     {{/offerList}}
                     <!-- <tr class="table-secondary">

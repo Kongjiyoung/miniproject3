@@ -34,4 +34,5 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             """)
     List<Resume> findByuserIdJoinSkillAndUser(@Param("id") int id);
 
+
 }

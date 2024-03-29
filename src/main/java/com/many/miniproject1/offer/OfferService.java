@@ -33,6 +33,10 @@ public class OfferService {
         return offerJPARepository.findByPostId(id);
     }
 
+
+    public List<Offer> personOffers(Integer postId) {
+        return offerJPARepository.findByPostIdJoinPost(postId);
+    }
     public Offer companyOfferDetail(OfferResponse.OfferedResumeDetailDTO reqDTO) {
         Offer offer = offerJPARepository.findByIdJoinResumeAndSkillAndUser(reqDTO.getId());
         return offer;

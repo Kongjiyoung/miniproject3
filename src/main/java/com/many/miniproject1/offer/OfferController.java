@@ -28,9 +28,10 @@ public class OfferController {
 
     // person의 offers 관리
     @GetMapping("/person/offers")
-    public String personOffers(HttpServletRequest request) {
-
-
+    public String personOffers( HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Offer> offerList = offerService.personOffers(sessionUser.getId());
+        request.setAttribute("offerList", offerList);
         return "person/offers";
     }
 
