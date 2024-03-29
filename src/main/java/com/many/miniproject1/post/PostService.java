@@ -3,15 +3,12 @@ package com.many.miniproject1.post;
 
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
-import com.many.miniproject1._core.common.ProfileImageService;
-import com.many.miniproject1.resume.Resume;
 
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import com.many.miniproject1.skill.SkillRequest;
 import com.many.miniproject1.skill.SkillResponse;
 import com.many.miniproject1.user.User;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,6 +40,7 @@ public class PostService {
     @Transactional
     public Post save(PostRequest.PostSaveDTO reqDTO, User sessionUser){
         Post post = postJPARepository.save(reqDTO.toEntity(sessionUser));
+
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkill()) {
             SkillResponse.PostSaveDTO skill = new SkillResponse.PostSaveDTO();
@@ -59,8 +57,8 @@ public class PostService {
     }
 
     // 공고 상세보기 YSH
-    public Post postDetail (PostResponse.PostDetailDTO responseDTO){
-        Post post = postJPARepository.findByIdJoinSkillAndCompany(responseDTO.getId());
+    public Post postDetail (int postId){
+        Post post = postJPARepository.findByIdJoinSkillAndCompany(postId);
         return post;
     }
 

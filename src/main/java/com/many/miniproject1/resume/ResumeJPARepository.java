@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
 
+    // TODO: 이유 없으면 삭제하기 distinct
     @Query("""
             select distinct r
             from Resume r
@@ -25,6 +26,7 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
 
     List<Resume> findByUserId(Integer userId);
 
+    // TODO: 이유 없으면 삭제하기 distinct
     @Query("""
             select distinct r
             from Resume r
@@ -32,7 +34,7 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             join fetch r.user u
             where u.id = :id
             """)
-    List<Resume> findByuserIdJoinSkillAndUser(@Param("id") int id);
+    List<Resume> findByUserIdJoinSkillAndUser(@Param("id") int id);
 
 
 }

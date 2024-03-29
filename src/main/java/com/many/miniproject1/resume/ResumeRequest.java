@@ -1,6 +1,6 @@
 package com.many.miniproject1.resume;
 
-import com.many.miniproject1._core.common.ProfileImageService;
+import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1.user.User;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +23,7 @@ public class ResumeRequest {
         private List<String> skills;
 
         public Resume toEntity(User sessionUser){
-            String profilePath= ProfileImageService.saveProfile(profile);
+            String profilePath= ProfileImageSaveUtil.save(profile);
             return Resume.builder()
                     .user(sessionUser)
                     .title(title)

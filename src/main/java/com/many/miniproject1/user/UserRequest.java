@@ -1,6 +1,6 @@
 package com.many.miniproject1.user;
 
-import com.many.miniproject1._core.common.ProfileImageService;
+import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,7 +32,7 @@ public class UserRequest {
         private String password;
 
         public User toEntity() {
-            String profileImagePath = ProfileImageService.saveProfile(profile);
+            String profileImagePath = ProfileImageSaveUtil.save(profile);
             return User.builder()
                     .role(role)
                     .profile(profileImagePath)
@@ -78,7 +78,7 @@ public class UserRequest {
         private String password;    // 비밀번호
 
         public User toEntity(){
-            String profileImagePath = ProfileImageService.saveProfile(profile);
+            String profileImagePath = ProfileImageSaveUtil.save(profile);
             return User.builder()
                     .role(role)
                     .profile(profileImagePath)

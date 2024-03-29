@@ -29,8 +29,8 @@ public class PostController {
 
     // 공고 상세보기 YSH
     @GetMapping("/company/posts/{id}")
-    public String companyPostDetailForm(HttpServletRequest request , PostResponse.PostDetailDTO responseDTO) {
-        Post post = postService.postDetail(responseDTO);
+    public String companyPostDetailForm(HttpServletRequest request, @PathVariable Integer id) {
+        Post post = postService.postDetail(id);
         request.setAttribute("post",post);
         return "company/post-detail";
     }
