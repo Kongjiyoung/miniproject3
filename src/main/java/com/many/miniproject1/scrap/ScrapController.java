@@ -1,6 +1,7 @@
 package com.many.miniproject1.scrap;
 
 import com.many.miniproject1.apply.Apply;
+import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ScrapController {
@@ -22,6 +25,9 @@ public class ScrapController {
     @GetMapping("/person/scrap")
     public String personScrapForm(HttpServletRequest request) {
         User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Scrap> scrapList = scrapService.personScrapForm(sessionUser.getId());
+        request.setAttribute("scrapList", scrapList);
+        System.out.println(scrapList);
 
         return "person/scrap";
     }
@@ -47,15 +53,17 @@ public class ScrapController {
     //기업 이력서 스크랩
     @GetMapping("/company/scrap")
     public String companyScrapForm(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Scrap> scrapList = scrapService.companyScrapList(sessionUser.getId());
+        request.setAttribute("scrapList", scrapList);
         return "company/scrap";
     }
 
     @GetMapping("/company/scrap/{id}/detail")
     public String companyScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        Scrap scrap = scrapService.getResumeDetail(sessionUser.getId(), id);
+        request.setAttribute("scrap", scrap);
         return "company/resume-scrap-detail";
     }
 
@@ -66,9 +74,8 @@ public class ScrapController {
     }
 
     @PostMapping("/company/scrap/{id}/detail/offer")
-    public String companyResumeOffer(@PathVariable int id, @RequestParam("postChoice") Integer postChoice) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+    public String companyResumeOffer(@PathVariable Integer id, Integer postChoice) {
+        Offer offer = scrapService.sendPostToResume(id, postChoice);
         return "redirect:/company/scrap/{id}/detail";
     }
 

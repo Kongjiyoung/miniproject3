@@ -3,6 +3,7 @@ package com.many.miniproject1.offer;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -24,4 +25,13 @@ public class Offer {
     //    private String content;
     @CreationTimestamp
     private Timestamp createdAt;
+
+    @Builder
+    public Offer(Integer id, Resume resume, Post post, Timestamp createdAt) {
+
+        this.id = id;
+        this.post = post;
+        this.resume = resume;
+        this.createdAt = createdAt;
+    }
 }

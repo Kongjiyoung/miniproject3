@@ -5,10 +5,12 @@ import com.many.miniproject1.resume.Resume;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@NoArgsConstructor
 @Table(name = "apply_tb")
 @Data
 @Entity // 테이블 생성하기 위해 필요한 어노테이션

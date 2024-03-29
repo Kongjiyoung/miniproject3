@@ -12,9 +12,9 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Collections;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -96,5 +96,16 @@ public class MainService {
             matchingResumeList.add(resumeJPARepository.findById(resumeId).orElseThrow(() -> new Exception401("이력서없음")));
         }
         return matchingResumeList;
+
+
+    public List<Post> getPostList() {
+        List<Post> postList = postJPARepository.findAllPost();
+        return postList;
+    }
+
+    public Post getPostDetail(int postId) {
+        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
+        return post;
+
     }
 }
