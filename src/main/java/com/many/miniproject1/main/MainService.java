@@ -36,6 +36,7 @@ public class MainService {
         List<Skill> postSkills = skillJPARepository.findSkillsByPostId(postchoice);
         List<String> postSkill = postSkills.stream().map(skill -> skill.getSkill()).toList();
         System.out.println(postSkill);
+
         //전체 이력서 새로운 이력서점수리스트에 담기, 점수는 0으로 시작
         List<MainResponse.ResumeSkillDTO> resumeSkillScore = new ArrayList<>();
         for (int i = 0; i < resumeJPARepository.findAll().size(); i++) {
@@ -44,6 +45,7 @@ public class MainService {
             System.out.println("추가" + resumeSkillScore);
         }
         System.out.println(resumeSkillScore);
+
         //공고스킬만큼 반복문 돌리기
         for (int i = 0; i < postSkill.size(); i++) {
             System.out.println(i);
