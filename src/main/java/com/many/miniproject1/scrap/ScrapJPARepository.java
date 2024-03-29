@@ -21,11 +21,10 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             JOIN FETCH s.resume r
             JOIN FETCH r.user ru
             JOIN FETCH r.skillList rs
-            JOIN FETCH s.post p
-            JOIN FETCH p.user pu
-            WHERE r.id = :resume_id AND pu.id = :company_id
+            JOIN FETCH s.user u
+            WHERE u.id = :user_id and r.id=:resume_id
             """)
-    Optional<Scrap> findByResumeIdAndSkillAndUser(@Param("resume_id") Integer resumeId, @Param("company_id") Integer companyId);
+    Optional<Scrap> findByResumeIdAndSkillAndUser(@Param("user_id") Integer userId, @Param("resume_id") Integer resumeId);
     @Query("""
             select s
             from Scrap s
