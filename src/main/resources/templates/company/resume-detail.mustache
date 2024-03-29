@@ -21,23 +21,27 @@
             </div>
             <hr class="d-inline-flex w-100">
             <!-- 제안, 스크랩 버튼 -->
-<!--            로그인 유무-->
-<!--            회사유저인지-->
-            <form class="row d-flex justify-content-end g-3" action="/resumes/{{resume.id}}/offer" method="post">
-                <div class="col-auto">
-                    <select class="form-select" aria-label="Default select example" id="postChoice" name="postChoice">
-                        <option selected>채용 공고 선택</option>
-                        {{#postList}}
-                            <option value="{{id}}">{{title}}</option>
-                        {{/postList}}
-                    </select>
+            {{#sessionUser}}
+                {{#isMatchingCompany}}
+                    <form class="row d-flex justify-content-end g-3" action="/resumes/{{resume.id}}/offer"
+                          method="post">
+                        <div class="col-auto">
+                            <select class="form-select" aria-label="Default select example" id="postChoice"
+                                    name="postChoice">
+                                <option selected>채용 공고 선택</option>
+                                {{#postList}}
+                                    <option value="{{id}}">{{title}}</option>
+                                {{/postList}}
+                            </select>
 
-                </div>
-                <div class="col-auto">
-                    <button class=" btn btn-outline-success" type="submit"><i class="far fa-paper-plane"></i></button>
-                </div>
-            </form>
-
+                        </div>
+                        <div class="col-auto">
+                            <button class=" btn btn-outline-success" type="submit"><i class="far fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                {{/isMatchingCompany}}
+            {{/sessionUser}}
             <div class="pt-5 mt-3">
                 <div class="border border-tertiary px-3 py-3 pt-3 d-inline-flex ms-2 me-3 mb-3 w-100">
                     <div><!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
@@ -88,7 +92,8 @@
                 </div>
                 <div class="mt-5 w-100">
                     <h4>자기소개</h4>
-                    <textarea style="max-height: 150px; overflow-y: auto;" class="w-100 opacity-80" rows="10" readOnly>{{resume.introduce}}
+                    <textarea style="max-height: 150px; overflow-y: auto;" class="w-100 opacity-80" rows="10"
+                              readOnly>{{resume.introduce}}
                     </textarea>
                 </div>
             </div>
