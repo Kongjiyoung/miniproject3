@@ -6,6 +6,8 @@ import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -22,6 +24,7 @@ public class ScrapService {
     private final ScrapQueryRepository scrapQueryRepository;
     private final ApplyJPARepository applyJPARepository;
     private final ResumeJPARepository resumeJPARepository;
+    private final PostJPARepository postJPARepository;
     @Transactional
     public Apply saveApply(int id, int  resumeId){
        Scrap scrap =scrapJPARepository.findById(id).orElseThrow(() -> new Exception401(""));
@@ -52,5 +55,9 @@ public class ScrapService {
     }
     public List<Scrap> companyScrapList(Integer userId){
         return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
+    }
+
+    public List<Post> companyPostList(int id){
+        return postJPARepository.findByPostId(id);
     }
 }
