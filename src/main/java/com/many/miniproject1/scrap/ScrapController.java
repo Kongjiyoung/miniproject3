@@ -52,15 +52,17 @@ public class ScrapController {
     //기업 이력서 스크랩
     @GetMapping("/company/scrap")
     public String companyScrapForm(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Scrap> scrapList = scrapService.companyScrapList(sessionUser.getId());
+        request.setAttribute("scrapList", scrapList);
         return "company/scrap";
     }
 
     @GetMapping("/company/scrap/{id}/detail")
     public String companyScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        Scrap scrap = scrapService.getResumeDetail(sessionUser.getId(), id);
+        request.setAttribute("scrap", scrap);
         return "company/resume-scrap-detail";
     }
 

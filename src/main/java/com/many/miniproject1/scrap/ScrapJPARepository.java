@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
+import java.util.Optional;
 import java.util.List;
 
 public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
@@ -22,4 +22,26 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             where s.user.id = :user_id
             """)
     List<Scrap> findByPostIdJoinskills(@Param("user_id") Integer userId);
+
+    @Query("""
+            SELECT DISTINCT s
+            from Scrap s
+            JOIN FETCH s.resume r
+            JOIN FETCH r.user ru
+            JOIN FETCH r.skillList rs
+            JOIN FETCH s.user u
+            WHERE u.id = :user_id and r.id=:resume_id
+            """)
+    Optional<Scrap> findByResumeIdAndSkillAndUser(@Param("user_id") Integer userId, @Param("resume_id") Integer resumeId);
+    
+    @Query("""
+            select s
+            from Scrap s
+            JOIN FETCH s.resume r
+            JOIN FETCH r.skillList rs
+            join FETCH r.user ru
+            JOIN FETCH s.user u
+            where u.id = :user_id
+            """)
+    List<Scrap> findByUserIdJoinSkillAndResume (@Param("user_id") Integer userId);
 }
