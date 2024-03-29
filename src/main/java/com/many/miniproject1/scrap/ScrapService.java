@@ -6,6 +6,11 @@ import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
+import com.many.miniproject1.offer.Offer;
+import com.many.miniproject1.offer.OfferJPARepository;
+import com.many.miniproject1.offer.OfferRequest;
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -22,6 +27,8 @@ public class ScrapService {
     private final ScrapQueryRepository scrapQueryRepository;
     private final ApplyJPARepository applyJPARepository;
     private final ResumeJPARepository resumeJPARepository;
+    private final PostJPARepository postJPARepository;
+    private final OfferJPARepository offerJPARepository;
 
     public List<Scrap> personScrapForm (Integer userId){
         return scrapJPARepository.findByPostIdJoinskills(userId);
@@ -57,5 +64,17 @@ public class ScrapService {
     }
     public List<Scrap> companyScrapList(Integer userId){
         return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
+    }
+
+    @Transactional
+    public Offer sendPostToResume(int id, Integer postId){
+        Scrap scrap = scrapJPARepository.findById(id)
+                .orElseThrow(() -> new Exception401("++"));
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception401("++"));
+        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(scrap.getResume(), post);
+        Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
+
+        return offer;
     }
 }
