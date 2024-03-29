@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ScrapService {
@@ -40,5 +42,14 @@ public class ScrapService {
     public Scrap getResumeDetail(Integer resumeId, Integer companyId){
         return scrapJPARepository.findByResumeIdAndSkillAndUser(resumeId,companyId)
                 .orElseThrow(()-> new Exception404("이력서를 찾을 수 없습니다."));
+    }
+
+    public Scrap findById(int id) {
+        Scrap scrap = scrapJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+        return scrap;
+    }
+    public List<Scrap> companyScrapList(Integer resumeId){
+        return scrapJPARepository.findByUserIdJoinSkillAndResume(resumeId);
     }
 }

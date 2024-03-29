@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
+import java.util.List;
+
 public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
 
 //    @Modifying
@@ -24,4 +26,14 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             WHERE r.id = :resume_id AND pu.id = :company_id
             """)
     Optional<Scrap> findByResumeIdAndSkillAndUser(@Param("resume_id") Integer resumeId, @Param("company_id") Integer companyId);
+    @Query("""
+            select s
+            from Scrap s
+            JOIN FETCH s.resume r
+            JOIN FETCH r.skillList rs
+            join FETCH r.user ru
+            where r.id = :resume_id
+            """)
+    List<Scrap> findByUserIdJoinSkillAndResume (@Param("resume_id") Integer resumeId);
+
 }
