@@ -4,6 +4,7 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -29,4 +30,13 @@ public class Scrap {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    // user(company)
+    @Builder
+    public Scrap(Integer id, Resume resume, User user, Timestamp createdAt) {
+        this.id = id;
+        this.resume = resume;
+        this.user = user;
+        this.createdAt = createdAt;
+    }
 }

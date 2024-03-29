@@ -1,7 +1,6 @@
 package com.many.miniproject1.main;
 
 import com.many.miniproject1._core.errors.exception.Exception401;
-import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
@@ -14,34 +13,31 @@ import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.scrap.ScrapRequest;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.List;
+@DataJpaTest
+public class mainJPARepositoryTest {
 
-@RequiredArgsConstructor
-@Service
-public class MainService {
-    private final ApplyJPARepository applyJPARepository;
-    private final OfferJPARepository offerJPARepository;
-    private final ScrapJPARepository scrapJPARepository;
-    private final ResumeJPARepository resumeJPARepository;
-    private final PostJPARepository postJPARepository;
-    private final UserJPARepository userJPARepository;
+    @Autowired
+    private ScrapJPARepository scrapJPARepository;
+    @Autowired
+    private PostJPARepository postJPARepository;
+    @Autowired
+    private OfferJPARepository offerJPARepository;
+    @Autowired
+    private ResumeJPARepository resumeJPARepository;
+    @Autowired
+    private UserJPARepository userJPARepository;
 
-    public List<Post> getPostList() {
-        List<Post> postList = postJPARepository.findAllPost();
-        return postList;
-    }
+    @Test
+    public void sendPostToResume_test(){
+        // given
+        int id = 1;
+        int postId = 1;
 
-    public Post getPostDetail(int postId) {
-        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
-        return post;
-    }
-
-    @Transactional
-    public Offer sendPostToResume(int id, Integer postId){
+        // when
         Scrap scrap = scrapJPARepository.findById(id)
                 .orElseThrow(() -> new Exception401("존재하지 않는 이력서..." + id));
         Post post = postJPARepository.findById(postId)
@@ -49,17 +45,25 @@ public class MainService {
         OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(scrap.getResume(), post);
         Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
 
-        return offer;
+        // then
+        System.out.println("승호 : "+ offer);
     }
 
-    @Transactional
-    public Scrap companyScrap(int id, Integer userId) {
+    @Test
+    public void companyScrap_test(){
+        // given
+        int id = 1;
+        int userId = 1;
+
+        // when
         Resume resume = resumeJPARepository.findById(id)
                 .orElseThrow(() -> new Exception401("존재하지 않는 이력서입니다...!" + id));
         User user = userJPARepository.findById(userId)
                 .orElseThrow(() -> new Exception401("띠용~?" + userId));
         ScrapRequest.MainScrapDTO mainScrapDTO = new ScrapRequest.MainScrapDTO(resume, user);
         Scrap scrap = scrapJPARepository.save(mainScrapDTO.toEntity());
-        return scrap;
+
+        // then
+        System.out.println("승호 : " + scrap);
     }
 }
