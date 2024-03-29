@@ -1,6 +1,9 @@
 package com.many.miniproject1.main;
 
 import com.many.miniproject1.post.Post;
+
+import com.many.miniproject1.resume.Resume;
+
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -146,17 +149,18 @@ public class MainController {
      */
     @GetMapping("/company/matching")
     public String matchingResumeForm(HttpServletRequest request) {
-        //공고 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
-//        Integer userId = sessionUser.getId();
-
-        //Boolean isCompany
+        List<Post> posts =mainService.findByUserIdPost(sessionUser.getId());
+        request.setAttribute("posts", posts);
+        if (postChoose!=null){
+            List<Resume> resumeList=mainService.matchingResume(postChoose);
+            request.setAttribute("resumeList", resumeList);
+        }
         return "company/matching";
     }
 
     @PostMapping("/company/match")
-    public String matchingPost(@RequestParam("postChoice") Integer postChoice) {
+    public String matchingPost(int postChoice) {
         postChoose = postChoice;
         return "redirect:/company/matching";
     }
