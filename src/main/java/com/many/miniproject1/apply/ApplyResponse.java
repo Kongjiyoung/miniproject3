@@ -2,15 +2,6 @@ package com.many.miniproject1.apply;
 
 
 
-import com.many.miniproject1._core.common.ProfileImageService;
-import com.many.miniproject1.post.Post;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.criteria.CriteriaBuilder;
-
-import com.many.miniproject1.skill.Skill;
-import com.many.miniproject1.user.User;
-
-
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 

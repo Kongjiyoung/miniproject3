@@ -21,7 +21,7 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             join fetch p.skillList ps
             where s.user.id = :user_id
             """)
-    List<Scrap> findByPostIdJoinskills(@Param("user_id") Integer userId);
+    List<Scrap> findByPostIdJoinSkills(@Param("user_id") Integer userId);
 
     @Query("""
             SELECT DISTINCT s

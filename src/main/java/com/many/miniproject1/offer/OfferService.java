@@ -37,8 +37,8 @@ public class OfferService {
     public List<Offer> personOffers(Integer postId) {
         return offerJPARepository.findByPostIdJoinPost(postId);
     }
-    public Offer companyOfferDetail(OfferResponse.OfferedResumeDetailDTO reqDTO) {
-        Offer offer = offerJPARepository.findByIdJoinResumeAndSkillAndUser(reqDTO.getId());
+    public Offer companyOfferDetail(int id) {
+        Offer offer = offerJPARepository.findByIdJoinResumeAndSkillAndUser(id);
         return offer;
     }
 }

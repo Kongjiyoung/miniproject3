@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+
 @NoArgsConstructor
 @Table(name = "apply_tb")
 @Data

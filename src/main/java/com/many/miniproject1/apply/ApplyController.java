@@ -46,10 +46,10 @@ public class ApplyController {
     }
 
     @GetMapping("/company/resumes/{id}")
-    public String companyResumeDetail(@PathVariable int id, HttpServletRequest request, ApplyResponse.CompanyResumeDTO respDTO) {
+    public String companyResumeDetail(@PathVariable int id, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
         Apply apply = applyService.findById(id);
-        applyService.companyResumeDetail(respDTO);
-        System.out.println("test:: " + apply);
+        applyService.companyResumeDetail(id, sessionUser.getId());
         request.setAttribute("apply",apply);
 
         return "company/applied-resume-detail";

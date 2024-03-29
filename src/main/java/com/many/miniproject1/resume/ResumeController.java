@@ -23,7 +23,7 @@ public class ResumeController {
 
     //개인 이력서 관리
     @GetMapping("/person/resume")
-    public String personResumeForm(HttpServletRequest request, ResumeResponse.DetailDTO respDTO) {
+    public String personResumeForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
         request.setAttribute("resumeList",resumeList);
@@ -31,8 +31,8 @@ public class ResumeController {
     }
 
     @GetMapping("/person/resume/{id}/detail")
-    public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request, ResumeResponse.ResumeDetailDTO respDTO) {
-        Resume resume = resumeService.getResumeDetail(respDTO);
+    public String personResumeDetailForm(@PathVariable int id, HttpServletRequest request) {
+        Resume resume = resumeService.getResumeDetail(id);
         request.setAttribute("resume", resume);
         return "person/resume-detail";
     }

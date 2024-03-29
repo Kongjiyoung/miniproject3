@@ -31,7 +31,7 @@ public class ScrapService {
     private final OfferJPARepository offerJPARepository;
 
     public List<Scrap> personScrapForm (Integer userId){
-        return scrapJPARepository.findByPostIdJoinskills(userId);
+        return scrapJPARepository.findByPostIdJoinSkills(userId);
     }
 
     @Transactional

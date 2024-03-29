@@ -28,6 +28,27 @@ public class MainController {
     private Integer postChoose = 0;
     private Integer resumeChoose = 0;
 
+    //맞춤 공고 - 기업이 보는 매칭 이력서
+
+    /**
+     * TODO: company/matching의 검색 버튼을 누르면 스트링을 인터저로 변환하지 못 해서 생기는 에러가 뜨는데 로직을 날려서 그런 것인지 원래 있던 문제인지 몰라서 남겨둠.
+     *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
+     *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
+     */
+    @GetMapping("/company/matching")
+    public String matchingResumeForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Post> posts =mainService.findByUserIdPost(sessionUser.getId());
+        request.setAttribute("posts", posts);
+        // TODO: session 저장
+        session.setAttribute("postChoose", 0);
+        if (postChoose!=null){
+            List<Resume> resumeList=mainService.matchingResume(postChoose);
+            request.setAttribute("resumeList", resumeList);
+        }
+        return "company/matching";
+    }
+
     //메인 구직 공고
     @GetMapping("/company/main")
     public String resumeForm(HttpServletRequest request) {
@@ -140,24 +161,7 @@ public class MainController {
         return "redirect:/posts/" + id;
     }
 
-    //맞춤 공고 - 기업이 보는 매칭 이력서
 
-    /**
-     * TODO: company/matching의 검색 버튼을 누르면 스트링을 인터저로 변환하지 못 해서 생기는 에러가 뜨는데 로직을 날려서 그런 것인지 원래 있던 문제인지 몰라서 남겨둠.
-     *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
-     *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
-     */
-    @GetMapping("/company/matching")
-    public String matchingResumeForm(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Post> posts =mainService.findByUserIdPost(sessionUser.getId());
-        request.setAttribute("posts", posts);
-        if (postChoose!=null){
-            List<Resume> resumeList=mainService.matchingResume(postChoose);
-            request.setAttribute("resumeList", resumeList);
-        }
-        return "company/matching";
-    }
 
     @PostMapping("/company/match")
     public String matchingPost(int postChoice) {

@@ -1,5 +1,6 @@
 package com.many.miniproject1._core.common;
 
+import com.many.miniproject1._core.errors.exception.Exception500;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,8 +13,8 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class ProfileImageService {
-    public static String saveProfile(MultipartFile profile) {
+public class ProfileImageSaveUtil {
+    public static String save(MultipartFile profile) {
 
         String profileFilename = UUID.randomUUID() + "_" + profile.getOriginalFilename();
         Path profilePath = Paths.get("./images/" + profileFilename);
@@ -24,4 +25,5 @@ public class ProfileImageService {
         }
         return profileFilename;
     }
+
 }
