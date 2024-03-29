@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ScrapService {
@@ -31,5 +33,9 @@ public class ScrapService {
     }
     public void deleteScrap(Integer id) {
         scrapJPARepository.deleteById(id);
+    }
+
+    public List<Scrap> companyScrapList(int userId){
+        return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
     }
 }

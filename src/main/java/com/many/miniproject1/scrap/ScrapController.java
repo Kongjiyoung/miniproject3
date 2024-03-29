@@ -48,7 +48,6 @@ public class ScrapController {
     @GetMapping("/company/scrap")
     public String companyScrapForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
         return "company/scrap";
     }
 
