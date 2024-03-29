@@ -8,6 +8,7 @@ import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,12 +40,17 @@ public class ScrapService {
         scrapJPARepository.deleteById(id);
     }
 
+    public Scrap getResumeDetail(Integer userId, Integer resumeId){
+        return scrapJPARepository.findByResumeIdAndSkillAndUser(userId, resumeId)
+                .orElseThrow(()-> new Exception404("이력서를 찾을 수 없습니다."));
+    }
+
     public Scrap findById(int id) {
         Scrap scrap = scrapJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         return scrap;
     }
-    public List<Scrap> companyScrapList(Integer resumeId){
-        return scrapJPARepository.findByUserIdJoinSkillAndResume(resumeId);
+    public List<Scrap> companyScrapList(Integer userId){
+        return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
     }
 }

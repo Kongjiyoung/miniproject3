@@ -1,8 +1,10 @@
 package com.many.miniproject1.scrap;
 
+import com.many.miniproject1.offer.OfferResponse;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScrapResponse {
@@ -117,6 +119,7 @@ public class ScrapResponse {
             this.skills = skills;
         }
     }
+
 }
 
 
