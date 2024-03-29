@@ -28,11 +28,9 @@
                         <div class="col-auto">
                             <select class="form-select form-select-sm" aria-label="Default select example" id="resumeChoice" name="resumeChoice">
                                 <option selected>이력서 선택</option>
-                                {{#resume}}
-                                    <option value="postId">{{title}}</option>
-                                {{/resume}}
-
-
+                                {{#resumeList}}
+                                    <option value="{{id}}">{{title}}</option>
+                                {{/resumeList}}
                             </select>
                         </div>
                         <div class="col-auto">
