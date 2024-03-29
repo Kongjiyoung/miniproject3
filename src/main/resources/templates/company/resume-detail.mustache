@@ -11,17 +11,21 @@
                 </div>
                 <!-- 스크랩 -->
                 <div class="col-auto">
-                    <form action="/resumes/{{resume.id}}/scrap" method="post">
+                    {{#sessionuser}}
+                        {{#isMatchingCompany}}
+                            <form action="/resumes/{{resume.id}}/scrap" method="post">
 
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-outline-success" type="submit">스크랩하기</button>
-                        </div>
-                    </form>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-outline-success" type="submit">스크랩하기</button>
+                                </div>
+                            </form>
+                        {{/isMatchingCompany}}
+                    {{/sessionuser}}
                 </div>
             </div>
             <hr class="d-inline-flex w-100">
             <!-- 제안, 스크랩 버튼 -->
-            {{#sessionUser}}
+            {{#sessionuser}}
                 {{#isMatchingCompany}}
                     <form class="row d-flex justify-content-end g-3" action="/resumes/{{resume.id}}/offer"
                           method="post">
@@ -41,7 +45,7 @@
                         </div>
                     </form>
                 {{/isMatchingCompany}}
-            {{/sessionUser}}
+            {{/sessionuser}}
             <div class="pt-5 mt-3">
                 <div class="border border-tertiary px-3 py-3 pt-3 d-inline-flex ms-2 me-3 mb-3 w-100">
                     <div><!-- 이미지를 올리면 그게 올라가고 올리지 않으면 기본 프로필이 올라감 -->
