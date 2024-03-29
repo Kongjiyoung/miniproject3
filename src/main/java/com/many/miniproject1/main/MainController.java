@@ -1,14 +1,20 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeJPARepository;
+import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 
 @Controller
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
 
     private final HttpSession session;
+    private final MainService mainService;
 
     private Integer postChoose = 0;
     private Integer resumeChoose = 0;
@@ -35,8 +42,12 @@ public class MainController {
                 isCompany = true;
             }
         }
+
         request.setAttribute("isMatchingCompany", isCompany);
         request.setAttribute("sessionuser", sessionUser);
+
+        List<Resume> resumeList = mainService.resumeForm();
+        request.setAttribute("resumeList", resumeList);
 
         return "company/main";
     }
