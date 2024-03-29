@@ -12,7 +12,7 @@
                 </div>
                 <!-- 스트랩 -->
                 <div class="col-auto">
-                    <form action="/posts/1/scrap" method="post">
+                    <form action="/posts/{{id}}/scrap" method="post">
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-outline-success" type="submit">스크랩하기</button>
                         </div>
@@ -24,13 +24,13 @@
             {{#sessionuser}}
                 {{^isMatchingCompany}}
                     <!-- 이력서 선택/보내기 -->
-                    <form class="row d-flex justify-content-end g-3 align-items-center" action="/posts/1/apply" method="post">
+                    <form class="row d-flex justify-content-end g-3 align-items-center" action="/posts/{{id}}/apply" method="post">
                         <div class="col-auto">
                             <select class="form-select form-select-sm" aria-label="Default select example" id="resumeChoice" name="resumeChoice">
                                 <option selected>이력서 선택</option>
-                                {{#resumeList}}
-                                    <option value="{{id}}">{{title}}</option>
-                                {{/resumeList}}
+
+                                    <option value=""></option>
+
                             </select>
                         </div>
                         <div class="col-auto">

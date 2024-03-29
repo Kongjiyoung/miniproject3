@@ -1,5 +1,6 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
 
     private final HttpSession session;
+    private final MainService mainService;
 
     private Integer postChoose = 0;
     private Integer resumeChoose = 0;
@@ -121,11 +123,9 @@ public class MainController {
 
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
-    public String personPostApply(@PathVariable int id, @RequestParam("resumeChoice") Integer resumeChoice) {
+    public String personPostApply(@PathVariable int id, Integer resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
-//        Integer personId = sessionUser.getId();
-
+        Integer personId = sessionUser.getId();
         return "redirect:/posts/" + id;
     }
 
@@ -134,7 +134,7 @@ public class MainController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
 //        Integer personId = sessionUser.getId();
-
+        Post post = mainService.personPostScrap(sessionUser.getId());
         return "redirect:/posts/" + id;
     }
 
