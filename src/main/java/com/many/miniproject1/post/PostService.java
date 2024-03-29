@@ -4,6 +4,9 @@ package com.many.miniproject1.post;
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 
+import com.many.miniproject1.apply.ApplyJPARepository;
+import com.many.miniproject1.offer.OfferJPARepository;
+import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import com.many.miniproject1.skill.SkillRequest;
@@ -24,7 +27,9 @@ public class PostService {
     private final PostJPARepository postJPARepository;
     private final PostQueryRepository postQueryRepository;
     private final SkillJPARepository skillJPARepository;
-
+    private final ApplyJPARepository applyJPARepository;
+    private final OfferJPARepository offerJPARepository;
+    private final ScrapJPARepository scrapJPARepository;
     @Transactional
     public void postDelete(int postId, int sessionUserId) {
         Post post = postJPARepository.findById(postId)
@@ -33,7 +38,9 @@ public class PostService {
         if (sessionUserId != post.getUser().getId()) {
             throw new Exception403("공고글을 삭제할 권한이 없습니다");
         }
-
+        applyJPARepository.deleteByPostId(postId);
+        offerJPARepository.deleteByPostId(postId);
+        scrapJPARepository.deleteByPostId(postId);
         postJPARepository.deleteById(postId);
     }
 
