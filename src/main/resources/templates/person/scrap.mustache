@@ -1,4 +1,3 @@
-
 {{> layout/header}}
 <div class="container d-flex">
     <section class="container grid-gap: 50px; mt-5">
@@ -8,21 +7,21 @@
 
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
-            공고반복문
-            <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                <a href="/person/scrap/1/detail" style="text-decoration: none; color: black">
-                    <div style="width: 100%; height: 15rem; overflow: hidden">
-                        <img src="/images/파일경로" class="card-img-top" alt="이력서 사진"/>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><b style="
+            {{#scrapList}}
+                    <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
+                        <a href="/person/scrap/{{id}}/detail" style="text-decoration: none; color: black">
+                            <div style="width: 100%; height: 15rem; overflow: hidden">
+                                <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><b style="
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                          ">공고제목</b></h5>
-                        <p class="card-text" style="
+                          ">{{title}}</b></h5>
+                                <p class="card-text" style="
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
@@ -30,25 +29,27 @@
       text-overflow: ellipsis;
       margin-bottom:5px!important;
     ">
-                            일
-                        </p>
-                        <h6><span>커리어</span></h6>
-                        <h6><span>근무지</span></h6>
-                        <div class="d-flex justify-content-start" style="
+                                    {{task}}
+                                </p>
+                                <h6><span>{{career}}</span></h6>
+                                <h6><span>{{workingArea}}</span></h6>
+                                <div class="d-flex justify-content-start" style="
                   display: -webkit-box;
                   -webkit-line-clamp: 1;
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   text-overflow: ellipsis;
                 ">
-                            <h6><span>스킬반복문
+                                    <h6><span>{{#skillList}}
                                     <button class="btn btn-outline-warning btn-sm disabled">
-                                        스킬
+                                        {{skill}}
                                     </button></span></h6>
-                        </div>
-                    </div>
-                </a>
-            </li>
+                                    {{/skillList}}
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+            {{/scrapList}}
         </ul>
     </section>
 
