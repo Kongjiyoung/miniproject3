@@ -35,7 +35,7 @@ public class ScrapService {
         scrapJPARepository.deleteById(id);
     }
 
-    public List<Scrap> companyScrapList(int userId){
-        return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
+    public List<Scrap> companyScrapList(ScrapResponse.PersonResumeDTO respDTO){
+        return scrapJPARepository.findByUserIdJoinSkillAndResume(respDTO.getPersonId());
     }
 }
