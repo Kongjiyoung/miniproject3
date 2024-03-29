@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @DataJpaTest
@@ -27,4 +28,14 @@ public class ScrapJPARepositoryTest {
         System.out.println("test:::" + scrapList);
             // then
         }
+        @Test
+            public void resumeDetail_test(){
+                // given
+            int resumeId = 1;
+            int companyId = 14;
+                // when
+           Optional<Scrap> scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(resumeId,companyId);
+            System.out.println("test::: "+scrap);
+                // then
+            }
 }

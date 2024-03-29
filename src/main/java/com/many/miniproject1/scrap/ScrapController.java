@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ScrapController {
@@ -56,7 +58,7 @@ public class ScrapController {
     @GetMapping("/company/scrap/{id}/detail")
     public String companyScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Scrap scrap = scrapService.getResumeDetail(id, sessionUser.getId());
+        Scrap scrap = scrapService.getResumeDetail(sessionUser.getId(), id);
         request.setAttribute("scrap", scrap);
         return "company/resume-scrap-detail";
     }
