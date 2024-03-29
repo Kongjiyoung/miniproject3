@@ -31,7 +31,7 @@ public class MainService {
         return postList;
     }
 
-    public List<Resume> matchingResume(int postchoice){
+    public List<Resume> matchingResume(int postchoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
         List<Skill> postSkills = skillJPARepository.findSkillsByPostId(postchoice);
         List<String> postSkill = postSkills.stream().map(skill -> skill.getSkill()).toList();
@@ -52,7 +52,7 @@ public class MainService {
             for (int j = 0; j < skillJPARepository.findAll().size(); j++) {
                 System.out.println(j);
                 System.out.println("스킬테이블 : " + j);
-                if (skillJPARepository.findAll().get(j).getResume()==null){
+                if (skillJPARepository.findAll().get(j).getResume() == null) {
                     break;
                 }
                 //스킬테이블과 공고스킬 비교하기
@@ -67,7 +67,8 @@ public class MainService {
                         if (resumeSkillScore.get(k).resumeId == resumeId) {
                             System.out.println(resumeSkillScore.get(k));
                             //이력서점수 1점 추가하기
-                            resumeSkillScore.get(k).setScore(resumeSkillScore.get(k).getScore()+1);;
+                            resumeSkillScore.get(k).setScore(resumeSkillScore.get(k).getScore() + 1);
+                            ;
                             System.out.println(resumeSkillScore);
                             break;
                         }
@@ -84,10 +85,10 @@ public class MainService {
                 finalResumeSkillScore.add(two);
             }
         }
-        System.out.println("2점이상 이력서 아이디"+finalResumeSkillScore);
+        System.out.println("2점이상 이력서 아이디" + finalResumeSkillScore);
 
         Collections.sort(finalResumeSkillScore, Collections.reverseOrder());
-        System.out.println("2점이상 이력서 아이디 정렬 : "+finalResumeSkillScore);
+        System.out.println("2점이상 이력서 아이디 정렬 : " + finalResumeSkillScore);
 
         List<Resume> matchingResumeList = new ArrayList<>();
 
@@ -96,6 +97,7 @@ public class MainService {
             matchingResumeList.add(resumeJPARepository.findById(resumeId).orElseThrow(() -> new Exception401("이력서없음")));
         }
         return matchingResumeList;
+    }
 
 
     public List<Post> getPostList() {
