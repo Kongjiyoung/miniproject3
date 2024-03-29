@@ -34,4 +34,8 @@ public class Offer {
         this.resume = resume;
         this.createdAt = createdAt;
     }
+
+    public Offer() {
+        
+    }
 }
