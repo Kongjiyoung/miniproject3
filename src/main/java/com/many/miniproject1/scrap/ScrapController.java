@@ -45,8 +45,8 @@ public class ScrapController {
     }
 
     @PostMapping("/person/scrap/{id}/detail/apply")
-    public String personPostApply(@PathVariable int id, Resume reusme) {
-        Apply apply=scrapService.saveApply(id,reusme);
+    public String personPostApply(@PathVariable int id, int reusmeId) {
+        Apply apply=scrapService.saveApply(id,reusmeId);
         return "redirect:/person/scrap/{id}/detail";
     }
     //기업 이력서 스크랩
