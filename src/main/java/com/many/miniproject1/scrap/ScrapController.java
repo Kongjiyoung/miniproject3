@@ -48,14 +48,14 @@ public class ScrapController {
     @GetMapping("/company/scrap")
     public String companyScrapForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
         return "company/scrap";
     }
 
     @GetMapping("/company/scrap/{id}/detail")
     public String companyScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        Scrap scrap = scrapService.getResumeDetail(id, sessionUser.getId());
+        request.setAttribute("scrap", scrap);
         return "company/resume-scrap-detail";
     }
 
