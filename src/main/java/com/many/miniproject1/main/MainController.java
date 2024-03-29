@@ -88,7 +88,9 @@ public class MainController {
             List<Post> postList = mainService.getPostsByCompanyId(companyId);
             request.setAttribute("postList", postList);
         }
-
+        Boolean isMatchingCompany;
+        isMatchingCompany=true;
+        request.setAttribute("isMatchingCompany", isMatchingCompany);
         request.setAttribute("sessionuser", sessionUser);
         return "company/resume-detail";
     }
