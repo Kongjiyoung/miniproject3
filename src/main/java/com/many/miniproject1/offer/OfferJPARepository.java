@@ -35,4 +35,13 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
             WHERE o.id = :id
         """)
     Offer findByPostId(@Param("id") Integer id);
+
+    @Query("""
+            select o
+            from Offer o
+            join fetch o.resume r
+            join fetch o.post p
+            where p.id = :post_id
+            """)
+    List<Offer> findByPostIdJoinPost(@Param("post_id") int postId);
 }

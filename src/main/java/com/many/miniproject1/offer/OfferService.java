@@ -31,4 +31,8 @@ public class OfferService {
     public Offer offerDetail (Integer id){
         return offerJPARepository.findByPostId(id);
     }
+
+    public List<Offer> personOffers(Integer postId) {
+        return offerJPARepository.findByPostIdJoinPost(postId);
+    }
 }
