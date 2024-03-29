@@ -38,14 +38,14 @@ public class ScrapRepository {
 
         query.executeUpdate();
     }
-    @Transactional
-    public void savePost(ScrapRequest.SavePostDTO requestDTO) {
-        Query query = em.createNativeQuery("insert into scrap_tb(post_id, person_id, created_at) values(?,?,now())");
-        query.setParameter(1, requestDTO.getPostId());
-        query.setParameter(2, requestDTO.getPersonId());
-
-        query.executeUpdate();
-    }
+//    @Transactional
+//    public void savePost(ScrapRequest.SavePostDTO requestDTO) {
+//        Query query = em.createNativeQuery("insert into scrap_tb(post_id, person_id, created_at) values(?,?,now())");
+//        query.setParameter(1, requestDTO.getPostId());
+//        query.setParameter(2, requestDTO.getPersonId());
+//
+//        query.executeUpdate();
+//    }
 
     @Transactional
     public void update(ScrapRequest.UpdateDTO requestDTO, int id) {

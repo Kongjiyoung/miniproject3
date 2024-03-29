@@ -8,11 +8,11 @@
             <div class="row align-items-center">
                 <!-- title -->
                 <div class="col">
-                    <h3 style="font-weight: bold">post.title</h3>
+                    <h3 style="font-weight: bold">{{post.title}}</h3>
                 </div>
                 <!-- 스트랩 -->
                 <div class="col-auto">
-                    <form action="/posts/1/scrap" method="post">
+                    <form action="/posts/{{id}}/scrap" method="post">
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-outline-success" type="submit">스크랩하기</button>
                         </div>
@@ -24,7 +24,7 @@
             {{#sessionuser}}
                 {{^isMatchingCompany}}
                     <!-- 이력서 선택/보내기 -->
-                    <form class="row d-flex justify-content-end g-3 align-items-center" action="/posts/1/apply" method="post">
+                    <form class="row d-flex justify-content-end g-3 align-items-center" action="/posts/{{id}}/apply" method="post">
                         <div class="col-auto">
                             <select class="form-select form-select-sm" aria-label="Default select example" id="resumeChoice" name="resumeChoice">
                                 <option selected>이력서 선택</option>
@@ -43,25 +43,25 @@
             <div class="pt-5 mt-3">
                 <div class="border border-tertiary px-3 py-3 pt-3 d-inline-flex ms-2 me-3 mb-3 w-100">
                     <div>
-                        <img src="/images/post.profile" alt="이력서 사진" style="width: 100%; height: 226px;">
+                        <img src="/images/{{post.profile}}" alt="이력서 사진" style="width: 100%; height: 226px;">
                     </div>
                     <table class="mx-4">
                         <tr>
                             <td>경력</td>
-                            <td>post.career</td>
+                            <td>{{post.career}}</td>
                         </tr>
                         <tr>
                             <td>최소 연봉</td>
-                            <td>post.pay</td>
+                            <td>{{post.pay}}</td>
                         </tr>
                         <tr>
                             <td>마감일</td>
-                            <td>post.deadline</td>
+                            <td>{{post.deadline}}</td>
                         </tr>
                         <tr>
                             <td>회사명</td>
 
-                            <td><a href="#" style=" color: black; font-weight: bold;">user.companyName</a></td>
+                            <td><a href="#" style=" color: black; font-weight: bold;">{{post.user.companyName}}</a></td>
                             <!-- TODO: 가능하다면 이 회사의 진행 중인 채용 공고 모음을 만들어보자 -->
 
                         </tr>
@@ -71,25 +71,27 @@
                 </div>
                 <div class="mt-5 task">
                     <h4>주요 업무</h4>
-                    <div>post.task</div>
+                    <div>{{post.task}}</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>근무 시간</h4>
-                    <div>post.workStartTime ~ post.workEndTime</div>
+                    <div>{{post.workStartTime}} ~ {{post.workEndTime}}</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>근무 지역</h4>
-                    <div>post.workingArea</div>
+                    <div>{{post.workingArea}}</div>
                 </div>
                 <div class="mt-5 working-time">
                     <h4>혜택 및 복지</h4>
-                    <div>post.workCondition</div>
+                    <div>{{post.workCondition}}</div>
                 </div>
                 <div class="mt-5 qualification">
                     <h4>필요 스킬</h4>
                     <div class="d-flex justify-content-start">
                         <div class="row row-cols-auto gap-3 justify-content-start my-3" style="width: 70%;">
-                            <div class="btn btn-outline-primary mx-3 disabled">Java</div>
+                            {{#post.skillList}}
+                                <div class="btn btn-outline-primary mx-3 disabled">{{skill}}</div>
+                            {{/post.skillList}}
                         </div>
                     </div>
                 </div>

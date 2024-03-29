@@ -1,6 +1,6 @@
 package com.many.miniproject1.resume;
 
-import com.many.miniproject1._core.common.ProfileImageService;
+import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
@@ -38,7 +38,7 @@ public class ResumeService {
         resume.setIntroduce(requestDTO.getIntroduce());
         resume.setCareer(requestDTO.getCareer());
         resume.setSimpleIntroduce(requestDTO.getSimpleIntroduce());
-        resume.setProfile(ProfileImageService.saveProfile(requestDTO.getProfile()));
+        resume.setProfile(ProfileImageSaveUtil.save(requestDTO.getProfile()));
 
         List<Skill> skills=skillJPARepository.findSkillsByResumeId(resume.getId());
         for (Skill skill:skills) {
@@ -82,8 +82,8 @@ public class ResumeService {
     }
 
 
-    public Resume getResumeDetail(ResumeResponse.ResumeDetailDTO respDTO) {
-        return resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
+    public Resume getResumeDetail(int resumeId) {
+        return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
     }
 
     public Resume getResumeSkill(ResumeResponse.DetailDTO respDTO){
@@ -99,7 +99,7 @@ public class ResumeService {
     }
     public List<Resume> findResumeList(Integer userId) {
 
-        return resumeJPARepository.findByuserIdJoinSkillAndUser(userId);
+        return resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 
     public void deleteResume(Integer id){
