@@ -53,7 +53,7 @@ public class MainController {
     }
 
     @GetMapping("/resumes/{id}")
-    public String resumeDetailForm(@PathVariable int id, HttpServletRequest request) {
+    public String resumeDetailForm(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
 //        if (sessionUser != null) {
@@ -64,6 +64,10 @@ public class MainController {
 //            }
 //            request.setAttribute("isMatchingCompany", isCompany);
 //        }
+
+        Resume resume = mainService.resumeDetailForm(resumeId);
+        request.setAttribute("resume", resume);
+
         request.setAttribute("sessionuser", sessionUser);
         return "company/resume-detail";
     }
