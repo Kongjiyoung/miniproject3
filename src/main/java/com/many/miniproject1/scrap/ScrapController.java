@@ -1,8 +1,8 @@
 package com.many.miniproject1.scrap;
 
 import com.many.miniproject1.apply.Apply;
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.offer.Offer;
-import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -63,6 +62,8 @@ public class ScrapController {
     public String companyScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Scrap scrap = scrapService.getResumeDetail(sessionUser.getId(), id);
+        List<Post> postList = scrapService.companyPostList(sessionUser.getId());
+        request.setAttribute("postList",postList);
         request.setAttribute("scrap", scrap);
         return "company/resume-scrap-detail";
     }

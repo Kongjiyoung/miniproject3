@@ -13,7 +13,6 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -66,6 +65,10 @@ public class ScrapService {
         return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
     }
 
+
+    public List<Post> companyPostList(int id) {
+        return postJPARepository.findByPostId(id);
+    }
     @Transactional
     public Offer sendPostToResume(int id, Integer postId){
         Scrap scrap = scrapJPARepository.findById(id)

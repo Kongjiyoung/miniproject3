@@ -24,9 +24,9 @@
                                     id="postChoice"
                                     name="postChoice">
                                 <option selected>채용 공고 선택</option>
-                                {{#post}}
-                                    <option value="postId">{{title}}</option>
-                                {{/post}}
+                                {{#postList}}
+                                    <option value="{{id}}">{{title}}</option>
+                                {{/postList}}
 
                             </select>
                         </div>
