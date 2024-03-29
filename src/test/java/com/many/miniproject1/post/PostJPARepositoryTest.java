@@ -73,4 +73,21 @@ public class PostJPARepositoryTest {
         System.out.println("findAllPost_test: " + postList);
         assertThat(postList.size()).isEqualTo(13);
     }
+
+    @Test
+    public void findByPostIdJoinUserAndSkill_test() {
+        // given
+        int id = 1;
+
+        // when
+        Post post = postJPARepository.findByPostIdJoinUserAndSkill(id);
+
+        // then
+        System.out.println("findByPostIdJoinUserAndSkill_test: " + post);
+        System.out.println("유저: " + post.getUser());
+        System.out.println("스킬리스트: " + post.getSkillList());
+        assertThat(post.getTitle()).isEqualTo("데이터 분석가");
+        assertThat(post.getUser().getName()).isEqualTo("김인사");
+        assertThat(post.getSkillList().size()).isEqualTo(3);
+    }
 }

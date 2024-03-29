@@ -25,4 +25,9 @@ public class MainService {
         List<Post> postList = postJPARepository.findAllPost();
         return postList;
     }
+
+    public Post getPostDetail(int postId) {
+        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
+        return post;
+    }
 }
