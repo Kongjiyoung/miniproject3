@@ -22,4 +22,11 @@ public interface PostJPARepository extends JpaRepository<Post, Integer> {
             WHERE p.id = :id
             """)
     Post findByIdJoinSkillAndCompany(@Param("id") Integer id);
+
+    @Query("""
+            select p
+            from Post p
+            join fetch p.skillList s
+            """)
+    List<Post> findAllPost();
 }
