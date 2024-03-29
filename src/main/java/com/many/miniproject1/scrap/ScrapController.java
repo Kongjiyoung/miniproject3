@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ScrapController {
@@ -22,6 +24,9 @@ public class ScrapController {
     @GetMapping("/person/scrap")
     public String personScrapForm(HttpServletRequest request) {
         User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Scrap> scrapList = scrapService.personScrapForm(sessionUser.getId());
+        request.setAttribute("scrapList", scrapList);
+        System.out.println(scrapList);
 
         return "person/scrap";
     }
@@ -40,22 +45,24 @@ public class ScrapController {
     }
 
     @PostMapping("/person/scrap/{id}/detail/apply")
-    public String personPostApply(@PathVariable int id, Resume reusme) {
-        Apply apply=scrapService.saveApply(id,reusme);
+    public String personPostApply(@PathVariable int id, int reusmeId) {
+        Apply apply=scrapService.saveApply(id,reusmeId);
         return "redirect:/person/scrap/{id}/detail";
     }
     //기업 이력서 스크랩
     @GetMapping("/company/scrap")
     public String companyScrapForm(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+        User sessionUser=(User) session.getAttribute("sessionUser");
+        List<Scrap> scrapList = scrapService.companyScrapList(sessionUser.getId());
+        request.setAttribute("scrapList", scrapList);
         return "company/scrap";
     }
 
     @GetMapping("/company/scrap/{id}/detail")
     public String companyScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        Scrap scrap = scrapService.getResumeDetail(sessionUser.getId(), id);
+        request.setAttribute("scrap", scrap);
         return "company/resume-scrap-detail";
     }
 
