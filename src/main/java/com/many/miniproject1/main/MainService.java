@@ -7,6 +7,7 @@ import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public class MainService {
     private final ResumeJPARepository resumeJPARepository;
     private final PostJPARepository postJPARepository;
 
-    public List<Resume> resumeForm (Integer userId){
-        return resumeJPARepository.findByuserIdJoinSkillAndUser(userId);
+    public List<Resume> resumeForm(){
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        return resumeJPARepository.findAll(sort);
     }
 }
