@@ -1,6 +1,7 @@
 package com.many.miniproject1.scrap;
 
 import com.many.miniproject1.apply.Apply;
+import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -73,9 +74,8 @@ public class ScrapController {
     }
 
     @PostMapping("/company/scrap/{id}/detail/offer")
-    public String companyResumeOffer(@PathVariable int id, @RequestParam("postChoice") Integer postChoice) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+    public String companyResumeOffer(@PathVariable Integer id, Integer postChoice) {
+        Offer offer = scrapService.sendPostToResume(id, postChoice);
         return "redirect:/company/scrap/{id}/detail";
     }
 

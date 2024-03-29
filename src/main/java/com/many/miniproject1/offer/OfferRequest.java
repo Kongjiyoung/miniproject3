@@ -1,5 +1,7 @@
 package com.many.miniproject1.offer;
 
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.resume.Resume;
 import lombok.Data;
 
 import java.sql.Date;
@@ -18,5 +20,23 @@ public class OfferRequest {
     @Data
     public static class UpdateDTO {
         private Integer id;
+    }
+
+    @Data
+    public static class ScrapOfferDTO{
+        private Resume resume;
+        private Post post;
+
+        public ScrapOfferDTO(Resume resume, Post post) {
+            this.post = post;
+            this.resume = resume;
+        }
+
+        public Offer toEntity(){
+            return Offer.builder()
+                    .post(post)
+                    .resume(resume)
+                    .build();
+        }
     }
 }
