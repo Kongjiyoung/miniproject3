@@ -61,4 +61,11 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             where a.resume.id = :resume_id
                     """)
     void deleteByResumeId(@Param("resume_id") Integer resumeId);
+
+    @Modifying
+    @Query("""
+            delete from Apply a 
+            where a.post.id = :post_id
+                    """)
+    void deleteByPostId(@Param("post_id") Integer postId);
 }

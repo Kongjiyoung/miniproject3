@@ -51,4 +51,11 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             where s.resume.id = :resume_id
                     """)
     void deleteByResumeId(@Param("resume_id") Integer resumeId);
+
+    @Modifying
+    @Query("""
+            delete from Scrap s
+            where s.post.id = :post_id
+                    """)
+    void deleteByPostId(@Param("post_id") Integer postId);
 }
