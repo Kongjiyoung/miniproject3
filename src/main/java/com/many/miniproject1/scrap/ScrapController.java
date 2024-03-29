@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ScrapController {
@@ -46,8 +48,9 @@ public class ScrapController {
     }
     //기업 이력서 스크랩
     @GetMapping("/company/scrap")
-    public String companyScrapForm(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+    public String companyScrapForm(HttpServletRequest request, ScrapResponse.PersonResumeDTO respDTO) {
+        List<Scrap> scrapList = scrapService.companyScrapList(respDTO);
+        request.setAttribute("scrapList", scrapList);
         return "company/scrap";
     }
 
