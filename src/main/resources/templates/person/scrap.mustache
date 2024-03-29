@@ -8,6 +8,7 @@
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
             {{#scrapList}}
+                {{#post}}
                     <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
                         <a href="/person/scrap/{{id}}/detail" style="text-decoration: none; color: black">
                             <div style="width: 100%; height: 15rem; overflow: hidden">
@@ -40,15 +41,16 @@
                   overflow: hidden;
                   text-overflow: ellipsis;
                 ">
-                                    <h6><span>{{#skillList}}
+                                <h6><span>{{#skillList}}
                                     <button class="btn btn-outline-warning btn-sm disabled">
                                         {{skill}}
                                     </button></span></h6>
-                                    {{/skillList}}
+                                {{/skillList}}
                                 </div>
                             </div>
                         </a>
                     </li>
+                {{/post}}
             {{/scrapList}}
         </ul>
     </section>
