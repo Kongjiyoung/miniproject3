@@ -15,4 +15,15 @@ public class MainResponse {
         }
 
     }
+
+    @Data
+    public static class PostSkillDTO {
+        int postId;
+        int score;
+        public PostSkillDTO(int postId, int i) {
+            this.postId = postId;
+            this.score = i;
+        }
+
+    }
 }
