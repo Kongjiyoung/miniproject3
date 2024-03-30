@@ -25,7 +25,6 @@ import java.util.List;
 @Service
 public class ResumeService {
     private final ResumeJPARepository resumeJPARepository;
-    private final ResumeQueryRepository resumeQueryRepository;
     private final SkillJPARepository skillJPARepository;
     private final ApplyJPARepository applyJPARepository;
     private final OfferJPARepository offerJPARepository;
@@ -116,5 +115,6 @@ public class ResumeService {
         resumeJPARepository.deleteById(resumeId);
         offerJPARepository.deleteByResumeId(resumeId);
         scrapJPARepository.deleteByResumeId(resumeId);
+        skillJPARepository.deleteSkillsByResumeId(resumeId);
     }
 }

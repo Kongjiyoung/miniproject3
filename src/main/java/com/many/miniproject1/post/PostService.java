@@ -25,7 +25,6 @@ import java.util.List;
 @Service
 public class PostService {
     private final PostJPARepository postJPARepository;
-    private final PostQueryRepository postQueryRepository;
     private final SkillJPARepository skillJPARepository;
     private final ApplyJPARepository applyJPARepository;
     private final OfferJPARepository offerJPARepository;
@@ -42,6 +41,7 @@ public class PostService {
         offerJPARepository.deleteByPostId(postId);
         scrapJPARepository.deleteByPostId(postId);
         postJPARepository.deleteById(postId);
+        skillJPARepository.deleteSkillsByPostId(postId);
     }
 
     @Transactional

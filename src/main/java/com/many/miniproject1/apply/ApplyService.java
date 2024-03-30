@@ -23,7 +23,6 @@ import java.util.List;
 @Service
 public class ApplyService {
     private final ApplyJPARepository applyJPARepository;
-    private final ApplyQueryRepository applyQueryRepository;
     private final SkillJPARepository skillJPARepository;
 
 
