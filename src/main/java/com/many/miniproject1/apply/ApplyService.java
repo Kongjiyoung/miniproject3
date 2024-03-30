@@ -51,8 +51,8 @@ public class ApplyService {
 
 
 
-    public Apply companyResumeDetail(int id, int userId){
-        Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id, userId);
+    public Apply companyResumeDetail(int id){
+        Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id);
         return apply;
     }
     public Apply findById(int id) {
