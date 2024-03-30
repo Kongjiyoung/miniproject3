@@ -95,16 +95,15 @@ public class MainController {
 
     // (╯°□°）╯︵ ┻━┻ HSㅅ
     @PostMapping("/resumes/{id}/offer")
-    public String companyResumeOffer(@PathVariable int id) {
-//        Offer offer = mainService.sendPostToResume(id, postChoose);
-
-        return "redirect:/resumes/" + id;
+    public String companyResumeOffer(@PathVariable int id,int postChoice) {
+        Offer offer = mainService.sendPostToResume(id, postChoice);
+        return "redirect:/resume/detail/" + id;
     }
     @PostMapping("/resumes/{id}/scrap")
     public String companyResumeScrap(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Scrap scrap = mainService.companyScrap(id,sessionUser.getId());
-        return "redirect:/resumes/" + id;
+        return "redirect:/resume/detail/" + id;
     }
     // YSH
     // ┳━┳ ノ( ゜-゜ノ)
