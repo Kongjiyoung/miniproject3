@@ -37,6 +37,7 @@ public class ScrapController {
     @GetMapping("/person/scrap/{id}/detail")
     public String personScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+
         //뷰내용 뿌리기
         Scrap scrap = scrapService.getScrapPostDetail(id);
 
