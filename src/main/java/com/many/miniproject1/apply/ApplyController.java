@@ -49,7 +49,7 @@ public class ApplyController {
     public String companyResumeDetail(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Apply apply = applyService.findById(id);
-        applyService.companyResumeDetail(id, sessionUser.getId());
+        applyService.companyResumeDetail(id);
         request.setAttribute("apply",apply);
 
         return "company/applied-resume-detail";
