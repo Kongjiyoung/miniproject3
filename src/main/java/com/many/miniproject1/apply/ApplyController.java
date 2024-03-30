@@ -4,10 +4,6 @@ package com.many.miniproject1.apply;
 
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.ResumeJPARepository;
-import com.many.miniproject1.skill.SkillRepository;
-import com.many.miniproject1.resume.Resume;
-import com.many.miniproject1.resume.ResumeRequest;
-import com.many.miniproject1.resume.ResumeResponse;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -23,13 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApplyController {
     private final HttpSession session;
-
-    private final SkillRepository skillRepository;
-    private final PostJPARepository postJPARepository;
-    private final ResumeJPARepository resumeJPARepository;
-
-
-
 
     private final ApplyService applyService;
 
