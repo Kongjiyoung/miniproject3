@@ -117,4 +117,9 @@ public class ResumeService {
         scrapJPARepository.deleteByResumeId(resumeId);
         skillJPARepository.deleteSkillsByResumeId(resumeId);
     }
+
+    public List<Resume> getResumeFindBySessionUserId(Integer sessionUserId) {
+        List<Resume> resumeList = resumeJPARepository.findBySessionUserId(sessionUserId);
+        return resumeList;
+    }
 }

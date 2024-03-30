@@ -10,16 +10,18 @@ public class ApplyRequest {
     public static class SaveDTO {
         private Resume resume;
         private Post post; // 채용공고 아이디
+        private String isPass = "검토중";
 
         public SaveDTO(Resume resume, Post post) {
             this.resume = resume;
             this.post = post;
         }
 
-        public Apply toEntity(){
+        public Apply toEntity() {
             return Apply.builder()
                     .resume(resume)
                     .post(post)
+                    .isPass(isPass)
                     .build();
         }
     }

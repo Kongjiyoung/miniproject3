@@ -79,4 +79,18 @@ public class ScrapJPARepositoryTest {
 //        assertThat(offer.);
         System.out.println("👩👴🧓👱‍♀️👼🎅👸🤴승호" + offer);
     }
+
+    @Test
+    public void findByIdJoinPostAndSkill_test() {
+        // given
+        int scrapId = 28;
+
+        // when
+        Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId);
+
+        // then
+        assertThat(scrap.getId()).isEqualTo(28);
+        assertThat(scrap.getPost().getTitle()).isEqualTo("데이터 분석가");
+        assertThat(scrap.getPost().getSkillList().size()).isEqualTo(3);
+    }
 }

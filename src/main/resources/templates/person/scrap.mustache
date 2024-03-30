@@ -8,21 +8,20 @@
         <ul class="row row-cols-4 gap-3">
             <!-- 구인공고 시작 -->
             {{#scrapList}}
-                {{#post}}
-                    <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-                        <a href="/person/scrap/{{id}}/detail" style="text-decoration: none; color: black">
-                            <div style="width: 100%; height: 15rem; overflow: hidden">
-                                <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><b style="
+                <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
+                    <a href="/person/scrap/{{id}}/detail" style="text-decoration: none; color: black">
+                        <div style="width: 100%; height: 15rem; overflow: hidden">
+                            <img src="/images/{{post.profile}}" class="card-img-top" alt="이력서 사진"/>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"><b style="
                             display: -webkit-box;
                             -webkit-line-clamp: 1;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                          ">{{title}}</b></h5>
-                                <p class="card-text" style="
+                          ">{{post.title}}</b></h5>
+                            <p class="card-text" style="
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
@@ -30,27 +29,26 @@
       text-overflow: ellipsis;
       margin-bottom:5px!important;
     ">
-                                    {{task}}
-                                </p>
-                                <h6><span>{{career}}</span></h6>
-                                <h6><span>{{workingArea}}</span></h6>
-                                <div class="d-flex justify-content-start" style="
+                                {{post.task}}
+                            </p>
+                            <h6><span>{{post.career}}</span></h6>
+                            <h6><span>{{post.workingArea}}</span></h6>
+                            <div class="d-flex justify-content-start" style="
                   display: -webkit-box;
                   -webkit-line-clamp: 1;
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   text-overflow: ellipsis;
                 ">
-                                <h6><span>{{#skillList}}
-                                    <button class="btn btn-outline-warning btn-sm disabled">
-                                        {{skill}}
-                                    </button></span></h6>
-                                {{/skillList}}
-                                </div>
+                            <h6><span>{{#post.skillList}}
+                                <button class="btn btn-outline-warning btn-sm disabled">
+                                    {{skill}}
+                                </button></span></h6>
+                            {{/post.skillList}}
                             </div>
-                        </a>
-                    </li>
-                {{/post}}
+                        </div>
+                    </a>
+                </li>
             {{/scrapList}}
         </ul>
     </section>

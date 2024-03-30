@@ -58,4 +58,13 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             where s.post.id = :post_id
                     """)
     void deleteByPostId(@Param("post_id") Integer postId);
+
+    @Query("""
+            select s
+            from Scrap s
+            join fetch s.post p
+            join fetch p.skillList ps
+            where s.id = :scrap_id
+                        """)
+    Scrap findByScrapIdJoinPostAndSkill(@Param("scrap_id") Integer scrapId);
 }
