@@ -34,9 +34,9 @@ public class ScrapService {
     }
 
     @Transactional
-    public Apply saveApply(int id, int  resumeId){
-       Scrap scrap =scrapJPARepository.findById(id).orElseThrow(() -> new Exception401(""));
-       Resume resume = resumeJPARepository.findById(resumeId).orElseThrow(()-> new Exception401(""));
+    public Apply saveApply(int id, int  resumeChoice){
+       Scrap scrap =scrapJPARepository.findById(id).orElseThrow(() -> new Exception404(""));
+       Resume resume = resumeJPARepository.findById(resumeChoice).orElseThrow(()-> new Exception404(""));
        ApplyRequest.SaveDTO saveApply=new ApplyRequest.SaveDTO(resume, scrap.getPost());
        Apply apply=applyJPARepository.save(saveApply.toEntity());
        return apply;

@@ -57,8 +57,7 @@ public class MainService {
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(()->new Exception401(""));
         ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume,post);
-        Apply apply = applyJPARepository.save(saveApply.toEntity());
-        return apply;
+        return applyJPARepository.save(saveApply.toEntity());
     }
 
     public List<Resume> getResumeId(int id) {
