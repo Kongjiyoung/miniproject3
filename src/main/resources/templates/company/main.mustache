@@ -1,6 +1,5 @@
 {{> layout/header}}
 <!-- header -->
-<!-- 탭 구현 할 것! 지금은 안된 상황-->
 <div class="container grid-gap: 50px;">
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -15,8 +14,6 @@
                    href="{{#isMatchingCompany}}/company/matching{{/isMatchingCompany}}{{^isMatchingCompany}}/person/matching{{/isMatchingCompany}}">맞춤공고</a>
             </li>
         {{/sessionuser}}
-
-
     </ul>
 </div>
 <!-- 유형별 공고 탭 끝 -->
@@ -91,9 +88,9 @@
     </form>
 </div>
 
+<!-- 이력서 시작 -->
 <section class="container grid-gap: 50px; mt-5">
     <ul class="row row-cols-4 gap-3">
-        <!-- 이력서 시작 -->
         {{#resumeList}}
             <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
                 <a href="/resumes/{{id}}" style="text-decoration: none; color: black">
@@ -101,7 +98,7 @@
                         <img src="/images/{{profile}}" class="card-img-top" alt="이력서 사진"/>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"  style="
+                        <h5 class="card-title" style="
                   display: -webkit-box;
                   -webkit-line-clamp: 1;
                   -webkit-box-orient: vertical;
@@ -133,12 +130,9 @@
                         </div>
                     </div>
                 </a>
-
             </li>
         {{/resumeList}}
-
     </ul>
-
 </section>
 <!-- 이력서들 -->
 <div class="container mt-5 mb-5">
