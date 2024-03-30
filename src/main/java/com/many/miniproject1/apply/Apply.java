@@ -26,7 +26,6 @@ public class Apply { // 지원 테이블
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post; // 채용공고 아이디
 
-    @ColumnDefault("검토중")
     private String isPass; // 불합격, 합격, 검토중
     @CreationTimestamp
     private Timestamp createdAt;
