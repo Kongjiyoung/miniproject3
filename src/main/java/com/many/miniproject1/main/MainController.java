@@ -60,8 +60,8 @@ public class MainController {
         return "company/main";
     }
 
-    @GetMapping("/resume/detail/{resumeId}")
-    public String resumeDetailForm(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
+    @GetMapping("/resumes/{id}")
+    public String resumeDetailForm(@PathVariable Integer id, HttpServletRequest request) {
 
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -77,7 +77,7 @@ public class MainController {
             request.setAttribute("postList", postList);
         }
 
-        Resume resume = mainService.resumeDetailForm(resumeId);
+        Resume resume = mainService.resumeDetailForm(id);
         request.setAttribute("resume", resume);
 
 
