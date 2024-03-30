@@ -97,6 +97,7 @@ public class MainController {
     @PostMapping("/resumes/{id}/offer")
     public String companyResumeOffer(@PathVariable int id) {
 //        Offer offer = mainService.sendPostToResume(id, postChoose);
+
         return "redirect:/resumes/" + id;
     }
     @PostMapping("/resumes/{id}/scrap")
