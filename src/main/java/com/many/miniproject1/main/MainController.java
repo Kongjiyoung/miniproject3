@@ -26,7 +26,6 @@ public class MainController {
     private final MainService mainService;
 
 
-
     //맞춤 공고 - 기업이 보는 매칭 이력서
 
     /**
@@ -61,49 +60,44 @@ public class MainController {
         return "company/main";
     }
 
-    @GetMapping("/resume/detail/{resumeId}")
-    public String resumeDetailForm(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
-//        if (sessionUser != null) {
-//            String role = sessionUser.getRole();
-//            Boolean isCompany = false;
-//            if (role.equals("company")) {
-//                isCompany = true;
-//            }
-//            request.setAttribute("isMatchingCompany", isCompany);
-//        }
-
-        Resume resume = mainService.resumeDetailForm(resumeId);
-        request.setAttribute("resume", resume);
+    @GetMapping("/resumes/{id}")
+    public String resumeDetailForm(@PathVariable Integer id, HttpServletRequest request) {
 
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
-        if (sessionUser != null && sessionUser.getRole().equals("company")) {
-            // 로그인한 회사의 아이디를 가져옴
-            Integer companyId = sessionUser.getId();
+        User sessionUser = (User) session.getAttribute("sessionUser");
 
-            // 회사가 작성한 채용 공고 목록 가져오기
+        boolean isCompany = false;
+        if (sessionUser != null) {
+            String role = sessionUser.getRole();
+            if (role.equals("company")) {
+                isCompany = true;
+            }
+            Integer companyId = sessionUser.getId();
             List<Post> postList = mainService.getPostsByCompanyId(companyId);
             request.setAttribute("postList", postList);
         }
-        Boolean isMatchingCompany;
-        isMatchingCompany=true;
-        request.setAttribute("isMatchingCompany", isMatchingCompany);
+
+        Resume resume = mainService.resumeDetailForm(id);
+        request.setAttribute("resume", resume);
+
+
+        request.setAttribute("isMatchingCompany", isCompany);
         request.setAttribute("sessionuser", sessionUser);
+
         return "company/resume-detail";
     }
 
-    // (╯°□°）╯︵ ┻━┻ HSㅅ
     @PostMapping("/resumes/{id}/offer")
     public String companyResumeOffer(@PathVariable int id,int postChoice) {
         Offer offer = mainService.sendPostToResume(id, postChoice);
         return "redirect:/resume/detail/" + id;
     }
+
     @PostMapping("/resumes/{id}/scrap")
     public String companyResumeScrap(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Scrap scrap = mainService.companyScrap(id,sessionUser.getId());
-        return "redirect:/resume/detail/" + id;
+        Scrap scrap = mainService.companyScrap(id, sessionUser.getId());
+        return "redirect:/resumes/" + id;
     }
     // YSH
     // ┳━┳ ノ( ゜-゜ノ)
@@ -117,9 +111,8 @@ public class MainController {
         // 목적: 개인 회원 로그인/비회원 로그인 시 공고들이 보임
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        Boolean isCompany = false;
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
         //기업인지 개인인지 구분
+        Boolean isCompany = false;
         if (sessionUser != null) {
             String role = sessionUser.getRole();
             System.out.println(role);
@@ -139,11 +132,27 @@ public class MainController {
     @GetMapping("/posts/{id}")
     public String postDetailForm(@PathVariable int id, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Resume> resumeList = mainService.getResumeId(sessionUser.getId());
-        request.setAttribute("resumeList",resumeList);
+
+        if (sessionUser != null) {
+            List<Resume> resumeList = mainService.getResumeId(sessionUser.getId());
+            request.setAttribute("resumeList", resumeList);
+        }
+
+        //기업인지 개인인지 구분
+        Boolean isCompany = false;
+        if (sessionUser != null) {
+            String role = sessionUser.getRole();
+            System.out.println(role);
+
+            if (role.equals("company")) {
+                isCompany = true;
+            }
+        }
         // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
         Post post = mainService.getPostDetail(id);
         request.setAttribute("post", post);
+        request.setAttribute("isMatchingCompany", isCompany);
+        request.setAttribute("sessionuser", sessionUser);
         return "person/post-detail";
     }
 
@@ -151,8 +160,9 @@ public class MainController {
     @PostMapping("/posts/{id}/apply")
     public String personPostApply(@PathVariable int id, Integer resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Integer personId = sessionUser.getId();
-        Apply apply = mainService.personPostApply(id,resumeChoice);
+        //Integer personId = sessionUser.getId();
+//        Apply apply = mainService.personPostApply(id, resumeChoice);
+        mainService.personPostApply(id, resumeChoice);
         return "redirect:/posts/" + id;
     }
 
@@ -174,12 +184,12 @@ public class MainController {
     @GetMapping("/company/matching")
     public String matchingResumeForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Post> posts =mainService.findByUserIdPost(sessionUser.getId());
+        List<Post> posts = mainService.findByUserIdPost(sessionUser.getId());
         request.setAttribute("posts", posts);
-        Integer postChoice=(Integer) session.getAttribute("postChoice");
+        Integer postChoice = (Integer) session.getAttribute("postChoice");
         // TODO: session 저장
-        if (postChoice!=null){
-            List<Resume> resumeList=mainService.matchingResume(postChoice);
+        if (postChoice != null) {
+            List<Resume> resumeList = mainService.matchingResume(postChoice);
             request.setAttribute("resumeList", resumeList);
         }
         return "company/matching";

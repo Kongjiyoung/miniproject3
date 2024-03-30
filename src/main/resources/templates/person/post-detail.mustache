@@ -10,14 +10,18 @@
                 <div class="col">
                     <h3 style="font-weight: bold">{{post.title}}</h3>
                 </div>
-                <!-- 스트랩 -->
-                <div class="col-auto">
-                    <form action="/posts/{{id}}/scrap" method="post">
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-outline-success" type="submit">스크랩하기</button>
+                {{#sessionuser}}
+                    {{^isMatchingCompany}}
+                        <!-- 스크랩 -->
+                        <div class="col-auto">
+                            <form action="/posts/{{id}}/scrap" method="post">
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-outline-success" type="submit">스크랩하기</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
+                    {{/isMatchingCompany}}
+                {{/sessionuser}}
             </div>
             <hr class="d-inline-flex w-100">
             <!--  지원, 스크랩 버튼-->
@@ -35,7 +39,8 @@
                             </select>
                         </div>
                         <div class="col-auto">
-                            <button class=" btn btn-outline-success" type="submit"><i class="far fa-paper-plane"></i></button>
+                            <button class=" btn btn-outline-success" type="submit"><i class="far fa-paper-plane"></i>
+                            </button>
                         </div>
                     </form>
                 {{/isMatchingCompany}}

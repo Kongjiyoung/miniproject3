@@ -16,12 +16,11 @@
 </div>
 <!-- 검색 -->
 <div class="container align-items-center mt-3 border p-3" style="border-radius: 10px;">
-    <form action="/person/match" method="post">
+    <form id="searchForm"  action="/person/match" method="post">
         <div class="d-flex justify-content-start align-items-center ">
             <h5 class="pb-2">이력서별 인재 찾기</h5>
             <div class="search-top mx-3 mb-3 d-flex justify-content-between">
-
-                <button class="btn btn-outline-success" type="submit">
+                <button id="searchButton"  class="btn btn-outline-success" type="submit">
                     <!-- 검색 -->
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -30,17 +29,29 @@
         <div class="search-mid">
             <div class="d-flex justify-content-between">
                 <div style="width: 100%;">
-
                     <select class="form-select" aria-label="Default select example" id="resumeChoice" name="resumeChoice">
-                        <option selected>이력서 선택</option>
+                        <option selected disabled>이력서를 선택해 주세요.</option>
                         이력서반복문
                         <option value="이력서아이디">이력서제목</option>
                     </select>
-
                 </div>
             </div>
         </div>
     </form>
+    <script>
+        $("#searchForm").submit(function () {
+            let selectedOption = $("#resumeChoice").val();
+            if (!selectedOption) {
+                alert("이력서를 선택해 주세요.");
+                return false;
+            }
+        });
+        $("#resumeChoice").change(function () {
+            let selectedOption = $(this).val();
+            let searchButton = $("#searchButton");
+            searchButton.prop("disabled", !selectedOption);
+        });
+    </script>
 </div>
 <section class="container grid-gap: 50px; mt-5">
     <h1>회사추천</h1>
