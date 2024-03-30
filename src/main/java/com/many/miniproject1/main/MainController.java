@@ -103,7 +103,7 @@ public class MainController {
     public String companyResumeScrap(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Scrap scrap = mainService.companyScrap(id,sessionUser.getId());
-        return "redirect:/resumes/" + id;
+        return "redirect:/resume/detail/" + id;
     }
     // YSH
     // ┳━┳ ノ( ゜-゜ノ)

@@ -169,12 +169,12 @@ public class MainService {
     }
 
     @Transactional
-    public Offer sendPostToResume(int id, Integer postId){
-        Scrap scrap = scrapJPARepository.findById(id)
+    public Offer sendPostToResume(int id, int postId){
+        Resume resume= resumeJPARepository.findById(id)
                 .orElseThrow(() -> new Exception401("존재하지 않는 이력서..." + id));
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + postId));
-        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(scrap.getResume(), post);
+        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
         Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
 
         return offer;
