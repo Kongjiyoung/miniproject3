@@ -1,10 +1,14 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.Post;
+<<<<<<< HEAD
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.apply.Apply;
+=======
+>>>>>>> faaae07d75c873bf5089e369bbf2386873d31815
 import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -95,24 +99,19 @@ public class MainController {
         return "company/resume-detail";
     }
 
+    // (╯°□°）╯︵ ┻━┻ HSㅅ
     @PostMapping("/resumes/{id}/offer")
-    public String companyResumeOffer(@PathVariable int id, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
-//        Integer companyId = sessionUser.getId();
-        request.setAttribute("sessionuser", sessionUser);
-
+    public String companyResumeOffer(@PathVariable int id) {
+        Offer offer = mainService.sendPostToResume(id, postChoose);
         return "redirect:/resumes/" + id;
     }
-
     @PostMapping("/resumes/{id}/scrap")
     public String companyResumeScrap(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
-//        Integer companyId = sessionUser.getId();
-
+        Scrap scrap = mainService.companyScrap(id,sessionUser.getId());
         return "redirect:/resumes/" + id;
     }
+    // YSH ┳━┳ ノ( ゜-゜ノ)
 
     //메인 채용 공고
     @GetMapping({"/person/main", "/"})
