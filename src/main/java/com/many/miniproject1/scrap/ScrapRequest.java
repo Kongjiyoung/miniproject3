@@ -35,4 +35,22 @@ public class ScrapRequest {
     public static class UpdateDTO {
         private Integer id;
     }
+
+    @Data
+    public static class MainScrapDTO{
+        private Resume resume;
+        private User user;
+
+        public MainScrapDTO(Resume resume, User user) {
+            this.resume = resume;
+            this.user = user;
+        }
+
+        public Scrap toEntity(){
+            return Scrap.builder()
+                    .resume(resume)
+                    .user(user)
+                    .build();
+        }
+    }
 }
