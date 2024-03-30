@@ -90,7 +90,7 @@ public class MainController {
     @PostMapping("/resumes/{id}/offer")
     public String companyResumeOffer(@PathVariable int id,int postChoice) {
         Offer offer = mainService.sendPostToResume(id, postChoice);
-        return "redirect:/resume/" + id;
+        return "redirect:/resumes/" + id;
     }
 
     @PostMapping("/resumes/{id}/scrap")
