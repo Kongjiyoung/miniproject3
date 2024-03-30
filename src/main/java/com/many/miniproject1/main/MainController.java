@@ -26,7 +26,7 @@ public class MainController {
     private final MainService mainService;
 
 
-    //맞춤 공고 - 기업이 보는 매칭 이력서
+    //맞춤 공고 - 기업이 보는 매칭이력서
 
     /**
      * TODO: company/matching의 검색 버튼을 누르면 스트링을 인터저로 변환하지 못 해서 생기는 에러가 뜨는데 로직을 날려서 그런 것인지 원래 있던 문제인지 몰라서 남겨둠.
