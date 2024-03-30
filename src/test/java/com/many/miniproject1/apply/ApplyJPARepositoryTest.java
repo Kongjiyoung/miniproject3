@@ -77,20 +77,19 @@ public class ApplyJPARepositoryTest {
         // then
         System.out.println("findAllAppliesWithPostsAndSkills_test ❤ : " + applyJPARepository.findAllAppliesWithPostsAndSkills(id));
     }
-//    @Test
-//    public void findByPostIdJoinPostAndSkillAndUser_test(){
-//        // given
-//        int resumeid = 1;
-//        int userid = 14;
-//        // when
-//        Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(resumeid, userid);
-//        System.out.println("test: " + apply);
-//
-//        // then
-//
-//        Assertions.assertThat(apply.getIsPass()).isEqualTo("불합격");
-//
-//    }
+    @Test
+    public void findByApply_test(){
+        // given
+        int id = 1;
+        // when
+        Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id);
+        System.out.println("test: " + apply);
+
+        // then
+
+        Assertions.assertThat(apply.getIsPass()).isEqualTo("합격");
+
+    }
 //        @Test
 //        public void findByPostIdJoinPostAndSkillAndUser_test () {
 //            // given
