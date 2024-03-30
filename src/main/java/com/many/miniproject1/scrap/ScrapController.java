@@ -91,7 +91,7 @@ public class ScrapController {
     @PostMapping("/company/scrap/{id}/detail/offer")
     public String companyResumeOffer(@PathVariable Integer id, Integer postChoice) {
         Offer offer = scrapService.sendPostToResume(id, postChoice);
-        return "redirect:/company/scrap/{id}/detail";
+        return "redirect:/company/scrap/"+id+"/detail";
     }
 
 }
