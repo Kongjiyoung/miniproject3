@@ -161,8 +161,9 @@ public class MainController {
     @PostMapping("/posts/{id}/apply")
     public String personPostApply(@PathVariable int id, Integer resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Integer personId = sessionUser.getId();
-        Apply apply = mainService.personPostApply(id, resumeChoice);
+        //Integer personId = sessionUser.getId();
+//        Apply apply = mainService.personPostApply(id, resumeChoice);
+        mainService.personPostApply(id, resumeChoice);
         return "redirect:/posts/" + id;
     }
 
