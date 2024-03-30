@@ -16,7 +16,6 @@ import java.util.List;
 @Service
 public class OfferService {
     private final OfferJPARepository offerJPARepository;
-    private final OfferQueryRepository offerQueryRepository;
 
     public List<Offer> personPost(Integer userId) {
         offerJPARepository.findByUserId(userId);

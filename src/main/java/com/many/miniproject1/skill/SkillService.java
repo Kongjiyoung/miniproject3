@@ -8,5 +8,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class SkillService {
     private final SkillJPARepository skillJPARepository;
-    private final SkillQueryRepository skillQueryRepository;
 }
