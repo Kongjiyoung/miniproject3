@@ -42,5 +42,11 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             """)
     List<Resume> findByUserIdJoinSkillAndUser(@Param("id") int id);
 
-
+    @Query("""
+            select r
+            from  Resume r
+            join User u on r.user.id = u.id
+            where u.id=:user_id
+            """)
+    List<Resume> findBySessionUserId(@Param("user_id") Integer userId);
 }

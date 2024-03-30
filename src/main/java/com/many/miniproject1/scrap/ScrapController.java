@@ -3,6 +3,8 @@ package com.many.miniproject1.scrap;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.offer.Offer;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,21 +21,30 @@ import java.util.List;
 public class ScrapController {
     private final HttpSession session;
     private final ScrapService scrapService;
+    private final ResumeService resumeService;
 
     //개인 채용 공고 스크랩
     @GetMapping("/person/scrap")
     public String personScrapForm(HttpServletRequest request) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
+        User sessionUser = (User) session.getAttribute("sessionUser");
         List<Scrap> scrapList = scrapService.personScrapForm(sessionUser.getId());
         request.setAttribute("scrapList", scrapList);
         System.out.println(scrapList);
 
         return "person/scrap";
     }
+
     @GetMapping("/person/scrap/{id}/detail")
     public String personScrapDetailForm(@PathVariable int id, HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
         //뷰내용 뿌리기
+        Scrap scrap = scrapService.getScrapPostDetail(id);
+
         //이력서 선택
+        List<Resume> resumeList = resumeService.getResumeFindBySessionUserId(sessionUser.getId());
+        request.setAttribute("scrap", scrap);
+        request.setAttribute("resumeList", resumeList);
+
         return "person/post-scrap-detail";
     }
 
@@ -45,8 +56,8 @@ public class ScrapController {
     }
 
     @PostMapping("/person/scrap/{id}/detail/apply")
-    public String personPostApply(@PathVariable int id, int reusmeId) {
-        Apply apply=scrapService.saveApply(id,reusmeId);
+    public String personPostApply(@PathVariable int id, int resumeId) {
+        Apply apply=scrapService.saveApply(id,resumeId);
         return "redirect:/person/scrap/{id}/detail";
     }
     //기업 이력서 스크랩

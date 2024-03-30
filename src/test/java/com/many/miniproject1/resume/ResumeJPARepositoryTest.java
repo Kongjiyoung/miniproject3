@@ -20,8 +20,6 @@ public class ResumeJPARepositoryTest {
     private ResumeJPARepository resumeJPARepository;
     @Autowired
     private EntityManager em;
-//    @Autowired
-//    private ResumeService resumeService;
 
     @Test
     public void update_test() {
@@ -88,19 +86,6 @@ public class ResumeJPARepositoryTest {
     }
 
     @Test
-    public void findById_test() {
-        // given
-        ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
-        respDTO.setId(1);
-
-        // when
-        Optional<Resume> resume = resumeJPARepository.findById(respDTO.getId());
-
-        // then
-        System.out.println("findById_test: " + resume);
-    }
-
-    @Test
     public void findByIdJoinSkillAndUser_test() {
         //given
         ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
@@ -110,10 +95,7 @@ public class ResumeJPARepositoryTest {
         Resume resumeDetail = resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
 
         // then
-        System.out.println("findByIdJoinSkillAndUser_test/resumeDetail: " + resumeDetail);
-        System.out.println("findByIdJoinSkillAndUser_test/resumeDetail.getUser(): " + resumeDetail.getUser());
-        System.out.println("findByIdJoinSkillAndUser_test/resumeDetail.getSkillList(): " + resumeDetail.getSkillList());
-
+        assertThat(resumeDetail.getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
     }
 
     @Test
@@ -125,4 +107,16 @@ public class ResumeJPARepositoryTest {
         System.out.println("test:: "+resumeList);
             // then
         }
+
+    @Test
+    public void findByResumeUserIdAndSessionUserId_test() {
+        // given
+        int id = 1;
+
+        // when
+        List<Resume> resumeList = resumeJPARepository.findBySessionUserId(1);
+
+        // then
+        assertThat(resumeList.size()).isEqualTo(3);
+    }
 }

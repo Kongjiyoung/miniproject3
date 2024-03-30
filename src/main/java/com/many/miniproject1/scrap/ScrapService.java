@@ -80,4 +80,9 @@ public class ScrapService {
 
         return offer;
     }
+
+    public Scrap getScrapPostDetail(Integer scrapId) {
+        Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId);
+        return scrap;
+    }
 }
