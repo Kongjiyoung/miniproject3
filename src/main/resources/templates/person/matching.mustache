@@ -31,8 +31,9 @@
                 <div style="width: 100%;">
                     <select class="form-select" aria-label="Default select example" id="resumeChoice" name="resumeChoice">
                         <option selected disabled>이력서를 선택해 주세요.</option>
-                        이력서반복문
-                        <option value="이력서아이디">이력서제목</option>
+                        {{#resumeList}}
+                        <option value="{{id}}">{{title}}</option>
+                        {{/resumeList}}
                     </select>
                 </div>
             </div>
@@ -58,11 +59,11 @@
     <br>
     <ul class="row row-cols-4 gap-3">
         <!-- 구인공고 시작 -->
-        공고반복문
+        {{#postList}}
         <li class="card col" style="width: 15rem; padding: 0px !important; border: 0">
-            <a href="/post/detail/1" style="text-decoration: none; color: black">
-                <div style="width: 100%; height: 15rem; overflow: hidden">
-                    <img src="/images/사진경로" class="card-img-top" alt="이력서 사진"/>
+            <a href="/post/detail/{{id}}" style="text-decoration: none; color: black">
+                <div style="width: 100%; height: 10rem; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                    <img src="/images/{{profile}}" class="card-img-top" style="width: auto; height: 100%;" alt="이력서 사진"/>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title"><b style="
@@ -71,24 +72,36 @@
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                          ">공고제목</b></h5>
+                          ">{{title}}</b></h5>
                     <p class="card-text" style="
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-bottom:5px!important;
     ">
-                        일
+                        {{task}}
                     </p>
-                    <h6><span>커리어</span>|<span>근무지</span></h6>
-                    <h6><span>스택</span>|<span>스킬</span></h6>
+                    <h6><span>{{career}}</span></h6>
+                    <h6><span>{{workingArea}}</span></h6>
+                    <div class="d-flex justify-content-start" style="
+                  display: -webkit-box;
+                  -webkit-line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                ">
+                        <h6><span>{{#skillList}}
+                            <button class="btn btn-outline-warning btn-sm disabled">
+                                {{skill}}
+                            </button>{{/skillList}}</span></h6>
+                    </div>
+
                 </div>
             </a>
-            <div class="d-flex justify-content-center">
-                <a href="#" class="btn btn-outline-primary mb-3" style="width: 100%">스크랩하기</a>
-            </div>
         </li>
+        {{/postList}}
         <!-- 구인공고 끝 -->
     </ul>
 </section>

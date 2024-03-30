@@ -187,7 +187,6 @@ public class MainController {
         List<Post> posts = mainService.findByUserIdPost(sessionUser.getId());
         request.setAttribute("posts", posts);
         Integer postChoice = (Integer) session.getAttribute("postChoice");
-        // TODO: session 저장
         if (postChoice != null) {
             List<Resume> resumeList = mainService.matchingResume(postChoice);
             request.setAttribute("resumeList", resumeList);
@@ -206,13 +205,20 @@ public class MainController {
     public String matchingPostForm(HttpServletRequest request) {
         //공고 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Resume> resumeList = mainService.findByUserIdResume(sessionUser.getId());
+        request.setAttribute("resumeList", resumeList);
+        Integer resumeChoice = (Integer) session.getAttribute("resumeChoice");
+        if (resumeChoice != null) {
+            List<Post> postList = mainService.matchingPost(resumeChoice);
+            request.setAttribute("postList", postList);
+        }
 
         return "person/matching";
     }
 
     @PostMapping("/person/match")
-    public String matchingResume(@RequestParam("resumeChoice") Integer resumeChoice) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+    public String matchingResume(int resumeChoice) {
+        session.setAttribute("resumeChoice", resumeChoice);
         return "redirect:/person/matching";
     }
 }

@@ -534,14 +534,14 @@ VALUES ('Java', 15, now());
 -- --공고에서(1~13)
 -- -- Java, Spring HTML, JavaScript, SQL, Android, React, Node.js, Express, Flutter
 INSERT INTO skill_tb(skill, post_id, created_at)
-VALUES ('JAVA', 1, now());
+VALUES ('Java', 1, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('SQL', 1, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('Spring', 1, now());
 
 INSERT INTO skill_tb(skill, post_id, created_at)
-VALUES ('JAVA', 2, now());
+VALUES ('Java', 2, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('JavaScript', 2, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
@@ -555,7 +555,7 @@ INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('Flutter', 3, now());
 
 INSERT INTO skill_tb(skill, post_id, created_at)
-VALUES ('JAVA', 4, now());
+VALUES ('Java', 4, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('SQL', 4, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
@@ -576,7 +576,7 @@ INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('Spring', 6, now());
 
 INSERT INTO skill_tb(skill, post_id, created_at)
-VALUES ('JAVA', 7, now());
+VALUES ('Java', 7, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('React', 7, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
@@ -597,7 +597,7 @@ INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('Java', 9, now());
 
 INSERT INTO skill_tb(skill, post_id, created_at)
-VALUES ('JAVA', 10, now());
+VALUES ('Java', 10, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('SQL', 10, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
@@ -611,14 +611,14 @@ INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('Spring', 11, now());
 
 INSERT INTO skill_tb(skill, post_id, created_at)
-VALUES ('JAVA', 12, now());
+VALUES ('Java', 12, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('SQL', 12, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('Spring', 12, now());
 
 INSERT INTO skill_tb(skill, post_id, created_at)
-VALUES ('JAVA', 13, now());
+VALUES ('Java', 13, now());
 INSERT INTO skill_tb(skill, post_id, created_at)
 VALUES ('JavaScript', 13, now());
 INSERT INTO skill_tb(skill, post_id, created_at)

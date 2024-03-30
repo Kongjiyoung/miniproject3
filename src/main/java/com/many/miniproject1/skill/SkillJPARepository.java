@@ -26,4 +26,7 @@ public interface SkillJPARepository extends JpaRepository<Skill, Integer> {
 
     @Query("select s from Skill s WHERE s.resume IS NOT NULL")
     List<Skill> findSkillsByResume();
+
+    @Query("select s from Skill s WHERE s.post IS NOT NULL")
+    List<Skill> findSkillsByPost();
 }
