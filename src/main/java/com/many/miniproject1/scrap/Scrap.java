@@ -33,19 +33,11 @@ public class Scrap {
     @CreationTimestamp
     private Timestamp createdAt;
 
-<<<<<<< HEAD
     @Builder
     public Scrap(Integer id, Resume resume, Post post, User user, Timestamp createdAt) {
         this.id = id;
         this.resume = resume;
         this.post = post;
-=======
-    // user(company)
-    @Builder
-    public Scrap(Integer id, Resume resume, User user, Timestamp createdAt) {
-        this.id = id;
-        this.resume = resume;
->>>>>>> faaae07d75c873bf5089e369bbf2386873d31815
         this.user = user;
         this.createdAt = createdAt;
     }

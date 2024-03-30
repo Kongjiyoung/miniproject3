@@ -2,19 +2,13 @@ package com.many.miniproject1.main;
 
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.Post;
-<<<<<<< HEAD
 import com.many.miniproject1.resume.Resume;
-import com.many.miniproject1.resume.ResumeJPARepository;
-import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.apply.Apply;
-=======
->>>>>>> faaae07d75c873bf5089e369bbf2386873d31815
 import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -102,7 +96,7 @@ public class MainController {
     // (╯°□°）╯︵ ┻━┻ HSㅅ
     @PostMapping("/resumes/{id}/offer")
     public String companyResumeOffer(@PathVariable int id) {
-        Offer offer = mainService.sendPostToResume(id, postChoose);
+//        Offer offer = mainService.sendPostToResume(id, postChoose);
         return "redirect:/resumes/" + id;
     }
     @PostMapping("/resumes/{id}/scrap")
@@ -111,7 +105,8 @@ public class MainController {
         Scrap scrap = mainService.companyScrap(id,sessionUser.getId());
         return "redirect:/resumes/" + id;
     }
-    // YSH ┳━┳ ノ( ゜-゜ノ)
+    // YSH
+    // ┳━┳ ノ( ゜-゜ノ)
 
     //메인 채용 공고
     @GetMapping({"/person/main", "/"})
