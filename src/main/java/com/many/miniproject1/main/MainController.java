@@ -1,5 +1,6 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
@@ -9,6 +10,7 @@ import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +38,8 @@ public class MainController {
 
 
     //메인 구직 공고
-    @GetMapping("/company/main")
-    public String resumeForm(HttpServletRequest request) {
+    @GetMapping("/resumes")
+    public ResponseEntity<?> resumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         Boolean isCompany = false;
@@ -50,18 +52,13 @@ public class MainController {
                 isCompany = true;
             }
         }
-
-        request.setAttribute("isMatchingCompany", isCompany);
-        request.setAttribute("sessionuser", sessionUser);
-
         List<Resume> resumeList = mainService.resumeForm();
-        request.setAttribute("resumeList", resumeList);
 
-        return "company/main";
+        return ResponseEntity.ok(new ApiUtil<>(resumeList));
     }
 
     @GetMapping("/resumes/{id}")
-    public String resumeDetailForm(@PathVariable Integer id, HttpServletRequest request) {
+    public ResponseEntity<?> resumeDetailForm(@PathVariable Integer id) {
 
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -74,40 +71,35 @@ public class MainController {
             }
             Integer companyId = sessionUser.getId();
             List<Post> postList = mainService.getPostsByCompanyId(companyId);
-            request.setAttribute("postList", postList);
         }
 
         Resume resume = mainService.resumeDetailForm(id);
-        request.setAttribute("resume", resume);
 
+        //resume만 아니라 postList도 같이 넘겨야함
+        return ResponseEntity.ok(new ApiUtil<>(resume));
 
-        request.setAttribute("isMatchingCompany", isCompany);
-        request.setAttribute("sessionuser", sessionUser);
-
-        return "company/resume-detail";
     }
 
     @PostMapping("/resumes/{id}/offer")
-    public String companyResumeOffer(@PathVariable int id,int postChoice) {
+    public ResponseEntity<?> companyResumeOffer(@PathVariable int id,int postChoice) {
         Offer offer = mainService.sendPostToResume(id, postChoice);
-        return "redirect:/resumes/" + id;
+        return ResponseEntity.ok(new ApiUtil<>(offer));
     }
 
     @PostMapping("/resumes/{id}/scrap")
-    public String companyResumeScrap(@PathVariable int id) {
+    public ResponseEntity<?> companyResumeScrap(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Scrap scrap = mainService.companyScrap(id, sessionUser.getId());
-        return "redirect:/resumes/" + id;
+        return ResponseEntity.ok(new ApiUtil<>(scrap));
     }
     // YSH
     // ┳━┳ ノ( ゜-゜ノ)
 
     //메인 채용 공고
-    @GetMapping({"/person/main", "/"})
-    public String postForm(HttpServletRequest request) {
+    @GetMapping({"/posts", "/"})
+    public ResponseEntity<?> posts() {
         List<Post> postList = mainService.getPostList();
 
-        request.setAttribute("postList", postList);
         // 목적: 개인 회원 로그인/비회원 로그인 시 공고들이 보임
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -123,19 +115,17 @@ public class MainController {
         }
 
 
-        request.setAttribute("isMatchingCompany", isCompany);
-        request.setAttribute("sessionuser", sessionUser);
 
-        return "person/main";
+        return ResponseEntity.ok(new ApiUtil<>(postList));
+
     }
 
     @GetMapping("/posts/{id}")
-    public String postDetailForm(@PathVariable int id, HttpServletRequest request) {
+    public ResponseEntity<?> postDetail(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser != null) {
             List<Resume> resumeList = mainService.getResumeId(sessionUser.getId());
-            request.setAttribute("resumeList", resumeList);
         }
 
         //기업인지 개인인지 구분
@@ -150,29 +140,29 @@ public class MainController {
         }
         // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
         Post post = mainService.getPostDetail(id);
-        request.setAttribute("post", post);
-        request.setAttribute("isMatchingCompany", isCompany);
-        request.setAttribute("sessionuser", sessionUser);
-        return "person/post-detail";
+
+        //resumeList도 같이 dto에 담아서 넘길 예정
+        return ResponseEntity.ok(new ApiUtil<>(post));
+
     }
 
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
-    public String personPostApply(@PathVariable int id, Integer resumeChoice) {
+    public ResponseEntity<?> personPostApply(@PathVariable int id, Integer resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        //Integer personId = sessionUser.getId();
-//        Apply apply = mainService.personPostApply(id, resumeChoice);
-        mainService.personPostApply(id, resumeChoice);
-        return "redirect:/posts/" + id;
+
+        Apply apply=mainService.personPostApply(id, resumeChoice);
+        return ResponseEntity.ok(new ApiUtil<>(apply));
+
     }
 
     @PostMapping("/posts/{id}/scrap")
-    public String personPostScrap(@PathVariable int id) {
+    public ResponseEntity<?> personPostScrap(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        // 로그인을 하지 않으면 세션유저가 없어서 주석을 걸어놓음
-//        Integer personId = sessionUser.getId();
+
         Scrap scrap = mainService.personPostScrap(sessionUser.getId(), id);
-        return "redirect:/posts/" + id;
+        return ResponseEntity.ok(new ApiUtil<>(scrap));
+
     }
 
 
@@ -181,45 +171,52 @@ public class MainController {
      *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
      *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
      */
-    @GetMapping("/company/matching")
-    public String matchingResumeForm(HttpServletRequest request) {
+    @GetMapping("/posts/matching")
+    public ResponseEntity<?> matchingPosts() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Post> posts = mainService.findByUserIdPost(sessionUser.getId());
-        request.setAttribute("posts", posts);
         Integer postChoice = (Integer) session.getAttribute("postChoice");
         if (postChoice != null) {
             List<Resume> resumeList = mainService.matchingResume(postChoice);
-            request.setAttribute("resumeList", resumeList);
+            //resumeList와 posts 와 DTO담아서 넘ㄱ기기
+            return ResponseEntity.ok(new ApiUtil<>(resumeList));
         }
-        return "company/matching";
+        //
+        return ResponseEntity.ok(new ApiUtil<>(posts));
+
+
     }
 
-    @PostMapping("/company/match")
-    public String matchingPost(int postChoice) {
+    @PostMapping("/posts/match")
+    public ResponseEntity<?> matchingPost(int postChoice) {
         session.setAttribute("postChoice", postChoice);
-        return "redirect:/company/matching";
+
+        return ResponseEntity.ok(new ApiUtil<>(postChoice));
+
     }
 
     //맞춤 공고 - 개인이 보는 매칭 공고
-    @GetMapping("/person/matching")
-    public String matchingPostForm(HttpServletRequest request) {
+    @GetMapping("/resumes/matching")
+    public ResponseEntity<?> matchingResumes() {
         //공고 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Resume> resumeList = mainService.findByUserIdResume(sessionUser.getId());
-        request.setAttribute("resumeList", resumeList);
         Integer resumeChoice = (Integer) session.getAttribute("resumeChoice");
         if (resumeChoice != null) {
             List<Post> postList = mainService.matchingPost(resumeChoice);
-            request.setAttribute("postList", postList);
+            //resumeList와 함께 DTO에 담기
+            return ResponseEntity.ok(new ApiUtil<>(postList));
         }
 
-        return "person/matching";
+        return ResponseEntity.ok(new ApiUtil<>(resumeList));
+
     }
 
-    @PostMapping("/person/match")
-    public String matchingResume(int resumeChoice) {
+    @PostMapping("/resumes/match")
+    public ResponseEntity<?> matchingResume(int resumeChoice) {
         session.setAttribute("resumeChoice", resumeChoice);
-        return "redirect:/person/matching";
+        return ResponseEntity.ok(new ApiUtil<>(resumeChoice));
+
     }
 }
 
