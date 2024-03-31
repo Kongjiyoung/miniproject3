@@ -1,5 +1,6 @@
 package com.many.miniproject1.scrap;
 
+import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.offer.Offer;
@@ -9,7 +10,9 @@ import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,74 +27,68 @@ public class ScrapController {
     private final ResumeService resumeService;
 
     //개인 채용 공고 스크랩
-    @GetMapping("/person/scrap")
-    public String personScrapForm(HttpServletRequest request) {
+    @GetMapping("/person/scraps")
+    public ResponseEntity<?> personScrap() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Scrap> scrapList = scrapService.personScrapForm(sessionUser.getId());
-        request.setAttribute("scrapList", scrapList);
-        System.out.println(scrapList);
 
-        return "person/scrap";
+        return ResponseEntity.ok(new ApiUtil<>(scrapList));
     }
 
-    @GetMapping("/person/scrap/{id}/detail")
-    public String personScrapDetailForm(@PathVariable Integer id, HttpServletRequest request) {
+    @GetMapping("/person/scraps/{id}/detail")
+    public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         //뷰내용 뿌리기
         Scrap scrap = scrapService.getScrapPostDetail(id);
-        System.out.println("스큷: " + scrap);
+
         //이력서 선택
         List<Resume> resumeList = resumeService.getResumeFindBySessionUserId(sessionUser.getId());
-        System.out.println("이력서: "+resumeList);
-        request.setAttribute("scrap", scrap);
-        request.setAttribute("resumeList", resumeList);
 
-        return "person/post-scrap-detail";
+        //resumeList도 같이 DTO에 담기
+        return ResponseEntity.ok(new ApiUtil<>(scrap));
     }
 
-    @PostMapping("/person/scrap/{id}/detail/delete")
-    public String personScrapDelete(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+    @PostMapping("/person/scraps/{id}/detail/delete")
+    public ResponseEntity<?> personScrapDelete(@PathVariable Integer id) {
         scrapService.deleteScrapPost(id);
-        return "redirect:/person/scrap";
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    @PostMapping("/person/scrap/{id}/detail/apply")
-    public String personPostApply(@PathVariable Integer id, Integer resumeChoice) { // 스크랩 아이디와 이력서 아이디를 받아서
-        scrapService.saveApply(id, resumeChoice);
-        return "redirect:/person/scrap/"+id+"/detail";
-    }
+    @PostMapping("/person/scraps/{id}/detail/apply")
+    public ResponseEntity<?> personPostApply(@PathVariable Integer id, Integer resumeChoice) { // 스크랩 아이디와 이력서 아이디를 받아서
+        Apply apply=scrapService.saveApply(id, resumeChoice);
+        return ResponseEntity.ok(new ApiUtil<>(apply));    }
 
     //기업 이력서 스크랩
-    @GetMapping("/company/scrap")
-    public String companyScrapForm(HttpServletRequest request) {
+    @GetMapping("/company/scraps")
+    public ResponseEntity<?> companyScrapForm() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Scrap> scrapList = scrapService.companyScrapList(sessionUser.getId());
-        request.setAttribute("scrapList", scrapList);
-        return "company/scrap";
+
+        return ResponseEntity.ok(new ApiUtil<>(scrapList));
     }
 
-    @GetMapping("/company/scrap/{id}/detail")
-    public String companyScrapDetailForm(@PathVariable Integer id, HttpServletRequest request) {
+    @GetMapping("/company/scraps/{id}")
+    public ResponseEntity<?> companyScrapDetailForm(@PathVariable Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Scrap scrap = scrapService.getResumeDetail(sessionUser.getId(), id);
         List<Post> postList = scrapService.companyPostList(sessionUser.getId());
-        request.setAttribute("postList", postList);
-        request.setAttribute("scrap", scrap);
-        return "company/resume-scrap-detail";
+
+        //postList도 같이 DTO에 담아서 넘기기
+        return ResponseEntity.ok(new ApiUtil<>(scrap));
     }
 
-    @PostMapping("/company/scrap/{id}/detail/delete")
-    public String companyScrapDelete(@PathVariable Integer id) {
+    @DeleteMapping("/company/scraps/{id}")
+    public ResponseEntity<?> companyScrapDelete(@PathVariable Integer id) {
         scrapService.deleteScrap(id);
-        return "redirect:/company/scrap";
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    @PostMapping("/company/scrap/{id}/detail/offer")
-    public String companyResumeOffer(@PathVariable Integer id, Integer postChoice) {
+    @PostMapping("/company/scraps/{id}")
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, Integer postChoice) {
         Offer offer = scrapService.sendPostToResume(id, postChoice);
-        return "redirect:/company/scrap/"+id+"/detail";
+        return ResponseEntity.ok(new ApiUtil<>(offer));
     }
 
 }
