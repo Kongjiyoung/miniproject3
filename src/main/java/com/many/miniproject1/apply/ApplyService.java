@@ -5,7 +5,6 @@ import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.skill.SkillJPARepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,20 +30,8 @@ public class ApplyService {
         return apply;
     }
 
-
-//    public List<Apply> companyResumes(Integer userId) {
-//
-//        applyJPARepository.findByUserIdJoinPost(userId);
-//
-//        System.out.println(applyJPARepository.findByUserIdJoinPost(userId));
-//
-//        return applyJPARepository.findByUserIdJoinPost(userId);
-//    }
-
     public List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOs(Integer companyId) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
         List<Apply> applyList = applyJPARepository.findByUserIdJoinPost(companyId);
-
         List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = new ArrayList<>();
 
         applyList.stream().map(apply -> {
@@ -57,7 +44,6 @@ public class ApplyService {
 
         return appliedResumeSkillDTOList;
     }
-
 
     public Apply companyResumeDetail(int id) {
         Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id);

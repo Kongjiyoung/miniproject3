@@ -20,7 +20,6 @@ public class ApplyController {
     @GetMapping("/api/company/resumes")
     public ResponseEntity<?> companyResumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        //List<Apply> applyList = applyService.companyResumes(sessionUser.getId());
         List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.appliedResumeSkillDTOs(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
     }
