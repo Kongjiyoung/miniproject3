@@ -1,8 +1,10 @@
 package com.many.miniproject1.user;
 
+import com.many.miniproject1._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,116 +19,89 @@ public class UserController {
     private final HttpSession session;
     private final UserService userService;
 
-    // 회사 회원가입
-    @GetMapping("/company/join-form")
-    public String companyJoinForm() {
-        session.setAttribute("role", "company");
 
-        return "company/join-form";
-    }
+    @PostMapping("/company")
+    public ResponseEntity<?> companyJoin(UserRequest.CompanyJoinDTO requestDTO) {
+        User user=userService.compJoin(requestDTO);
 
-    @PostMapping("/company/join")
-    public String companyJoin(UserRequest.CompanyJoinDTO requestDTO) {
-        userService.compJoin(requestDTO);
-
-        return "redirect:/company/login-form";
-    }
-
-    // 회사 로그인
-    @GetMapping("/company/login-form")
-    public String companyLoginForm() {
-        return "company/login-form";
+        return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
     @PostMapping("/company/login")
-    public String companyLogin(UserRequest.LoginDTO requestDTO) {
+    public ResponseEntity<?> companyLogin(UserRequest.LoginDTO requestDTO) {
         session.setAttribute("sessionUser", userService.login(requestDTO));
-        return "redirect:/company/main";
+        User user=userService.login(requestDTO);
+        return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
-
-    // 개인 로그인 회원가입
-    @GetMapping("/person/join-form")
-    public String personJoinForm() {
-        return "person/join-form";
-    }
 
     @PostMapping("/person/join")
-    public String personJoin(UserRequest.PersonJoinDTO reqDTO) {
-        userService.personJoin(reqDTO);
-        return "redirect:/person/login-form";
-    }
-
-    // 개인 로그인 회원가입
-    @GetMapping("/person/login-form")
-    public String personLoginForm() {
-        return "person/login-form";
+    public ResponseEntity<?> personJoin(UserRequest.PersonJoinDTO reqDTO) {
+        User user=userService.personJoin(reqDTO);
+        return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
     @PostMapping("/person/login")
-    public String personLogin(UserRequest.LoginDTO requestDTO) {
+    public ResponseEntity<?> personLogin(UserRequest.LoginDTO requestDTO) {
         session.setAttribute("sessionUser", userService.login(requestDTO));
-        return "redirect:/person/main";
+        User user=userService.login(requestDTO);
+        return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
 
     //기업 개인 로그아웃
     @GetMapping("/logout")
-    public String logout() {
+    public ResponseEntity<?> logout() {
         session.invalidate();
-        return "redirect:/";
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
 
     //회사 정보 및 수정
     //회사 정보 수정
     @GetMapping("/company/info")
-    public String companyInfo(HttpServletRequest request) {
+    public ResponseEntity<?> companyInfo() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.findByUser(sessionUser.getId());
-        request.setAttribute("user", user);
-        return "company/info";
+        return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
     @GetMapping("/company/info/update-form")
-    public String companyInfoUpdateForm(HttpServletRequest request) {
+    public ResponseEntity<?> companyInfoUpdateForm() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.findByUser(sessionUser.getId());
-        request.setAttribute("user", user);
-        return "company/info-update-form";
+        return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
     @PostMapping("/company/info/update")
-    public String companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
+    public ResponseEntity<?> companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), requestDTO);
         session.setAttribute("sessionUser", newSessionUser);
-        return "redirect:/company/info";
+        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 
     //개인 프로필 정보 및 수정
     @GetMapping("/person/info")
-    public String personInfo(HttpServletRequest request) {
+    public ResponseEntity<?> personInfo() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.findByUser(sessionUser.getId());
-        request.setAttribute("user", user);
-        return "person/info";
+
+        return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
     @GetMapping("/person/info/update-form")
-    public String personInfoInfoUpdateForm(HttpServletRequest request) {
+    public ResponseEntity<?> personInfoInfoUpdateForm() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.findByUser(sessionUser.getId());
-        request.setAttribute("user", user);
-        return "person/info-update-form";
+        return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
     @PostMapping("/person/info/update")
-    public String personInfoUpdate(UserRequest.PersonUpdateDTO reqDTO) {
+    public ResponseEntity<?> personInfoUpdate(UserRequest.PersonUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.personUpdate(sessionUser.getId(), reqDTO);
-        System.out.println(newSessionUser);
         session.setAttribute("newSessionUser", newSessionUser);
-        return "redirect:/person/info";
+        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 }
