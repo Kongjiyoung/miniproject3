@@ -49,4 +49,15 @@ public class User {
         this.birth = birth;
         this.createdAt = createdAt;
     }
+
+    //    public void update(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO, String profileFilename) {
+    public void update(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
+        // this.profile = profileFilename;
+        this.name = reqDTO.getName();
+        // this.birth = Date.valueOf(reqDTO.getName());
+        this.tel = reqDTO.getTel();
+        this.address = reqDTO.getAddress();
+        this.email = reqDTO.getEmail();
+        this.password = reqDTO.getPassword();
+    }
 }

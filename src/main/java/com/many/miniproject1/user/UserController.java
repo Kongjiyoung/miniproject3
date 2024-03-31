@@ -4,10 +4,7 @@ import com.many.miniproject1._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -19,7 +16,7 @@ public class UserController {
 
     @PostMapping("/company/join")
     public ResponseEntity<?> companyJoin(UserRequest.CompanyJoinDTO requestDTO) {
-        User user=userService.compJoin(requestDTO);
+        User user = userService.compJoin(requestDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
@@ -27,21 +24,21 @@ public class UserController {
     @PostMapping("/company/login")
     public ResponseEntity<?> companyLogin(UserRequest.LoginDTO requestDTO) {
         session.setAttribute("sessionUser", userService.login(requestDTO));
-        User user=userService.login(requestDTO);
+        User user = userService.login(requestDTO);
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
 
     @PostMapping("/person/join")
     public ResponseEntity<?> personJoin(UserRequest.PersonJoinDTO reqDTO) {
-        User user=userService.personJoin(reqDTO);
+        User user = userService.personJoin(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
     @PostMapping("/person/login")
     public ResponseEntity<?> personLogin(UserRequest.LoginDTO requestDTO) {
         session.setAttribute("sessionUser", userService.login(requestDTO));
-        User user=userService.login(requestDTO);
+        User user = userService.login(requestDTO);
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
@@ -79,11 +76,13 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
-    @PutMapping("/person/info")
-    public ResponseEntity<?> personInfoUpdate(UserRequest.PersonUpdateDTO reqDTO) {
+    @PutMapping("/people/{id}/info")
+    public ResponseEntity<?> personInfoUpdate(@PathVariable Integer id, @RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.personUpdate(sessionUser.getId(), reqDTO);
-        session.setAttribute("newSessionUser", newSessionUser);
+        User newSessionUser = userService.findByPersonId(1);
+        newSessionUser.update(1, reqDTO);
+        session.setAttribute("sessionUser", newSessionUser);
+
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 }
