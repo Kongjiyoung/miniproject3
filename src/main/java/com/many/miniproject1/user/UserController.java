@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class UserController {
 
@@ -73,7 +75,7 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
-    @PostMapping("/company/info/update")
+    @PutMapping("/company/info/update")
     public ResponseEntity<?> companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), requestDTO);
@@ -97,7 +99,7 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
-    @PostMapping("/person/info/update")
+    @PutMapping("/person/info/update")
     public ResponseEntity<?> personInfoUpdate(UserRequest.PersonUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.personUpdate(sessionUser.getId(), reqDTO);
