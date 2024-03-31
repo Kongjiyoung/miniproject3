@@ -1,17 +1,13 @@
 package com.many.miniproject1.user;
 
 import com.many.miniproject1._core.utils.ApiUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 
 @RestController
@@ -21,8 +17,7 @@ public class UserController {
     private final HttpSession session;
     private final UserService userService;
 
-
-    @PostMapping("/company")
+    @PostMapping("/company/join")
     public ResponseEntity<?> companyJoin(UserRequest.CompanyJoinDTO requestDTO) {
         User user=userService.compJoin(requestDTO);
 
@@ -58,7 +53,6 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-
     //회사 정보 및 수정
     //회사 정보 수정
     @GetMapping("/company/info")
@@ -68,14 +62,7 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
-    @GetMapping("/company/info/update-form")
-    public ResponseEntity<?> companyInfoUpdateForm() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.findByUser(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(user));
-    }
-
-    @PutMapping("/company/info/update")
+    @PutMapping("/company/info")
     public ResponseEntity<?> companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), requestDTO);
@@ -92,14 +79,7 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
 
-    @GetMapping("/person/info/update-form")
-    public ResponseEntity<?> personInfoInfoUpdateForm() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.findByUser(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(user));
-    }
-
-    @PutMapping("/person/info/update")
+    @PutMapping("/person/info")
     public ResponseEntity<?> personInfoUpdate(UserRequest.PersonUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.personUpdate(sessionUser.getId(), reqDTO);
