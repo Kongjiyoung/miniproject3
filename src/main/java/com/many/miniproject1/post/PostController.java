@@ -18,32 +18,34 @@ public class PostController {
     private final HttpSession session;
     private final PostService postService;
 
+    // TODO : 이력서 조회 API 필요. update-form < findByPost(id)
+
+
     //회사 공고 관리
-    @GetMapping("/company/posts")
-    public ResponseEntity<?> companyPosts(HttpServletRequest request) { // 이 페이지는 포스트들을 확인할 수 있는 페이지라 이름 변경했습니다.
+    @GetMapping("/api/company/posts")
+    public ResponseEntity<?> companyPosts() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Post> postList =postService.getResumeList(sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(postList));
     }
 
-    @GetMapping("/company/posts/{id}")
-    public ResponseEntity<?> companyPostDetailForm(HttpServletRequest request, @PathVariable Integer id) {
+    @GetMapping("/api/company/posts/{id}")
+    public ResponseEntity<?> companyPostDetailForm(@PathVariable Integer id) {
         Post post = postService.postDetail(id);
-        request.setAttribute("post",post);
+
         return ResponseEntity.ok(new ApiUtil<>(post));
     }
 
     // 이력서 저장
-    @PostMapping("/company/posts/save")
+    @PostMapping("/api/company/posts/save")
     public ResponseEntity<?> companySavePost(PostRequest.PostSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         postService.save(reqDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 
-
-    @PostMapping("/company/posts/{id}/update")
+    @PutMapping("/api/company/posts/{id}/update")
     public ResponseEntity<?> companyUpdatePost(@PathVariable int id, PostRequest.UpdatePostDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(reqDTO);
@@ -52,10 +54,11 @@ public class PostController {
         return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 
-    @DeleteMapping("/company/posts/{id}/delete")
+    @DeleteMapping("/api/company/posts/{id}/delete")
     public ResponseEntity<?> companyDeletePost(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         postService.postDelete(id, sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }
