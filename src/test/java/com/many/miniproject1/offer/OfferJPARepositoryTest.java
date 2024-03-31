@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @DataJpaTest
 public class OfferJPARepositoryTest {
@@ -40,4 +42,15 @@ public class OfferJPARepositoryTest {
         // then
     }
 
+    @Test
+    public void findByIdWithPostAndSkillList_test() {
+        //given
+        int id = 1;
+
+        // when
+        Offer offer = offerJPARepository.findByIdWithPostAndSkillList(id);
+
+        // then
+        assertThat(offer.getResume().getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
+    }
 }
