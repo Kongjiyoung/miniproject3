@@ -34,7 +34,7 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
             JOIN FETCH p.skillList
             WHERE o.id = :id
         """)
-    Offer findByPostId(@Param("id") Integer id);
+    Offer findByIdWithPostAndSkillList(@Param("id") Integer id);
 
     @Query("""
             select o
