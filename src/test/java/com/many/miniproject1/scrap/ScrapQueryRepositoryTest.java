@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-@Import(ScrapQueryRepository.class)
+//@Import(ScrapQueryRepository.class)
 @DataJpaTest
 public class ScrapQueryRepositoryTest {
-    @Autowired
-    ScrapQueryRepository scrapQueryRepository;
+//    @Autowired
+//    ScrapQueryRepository scrapQueryRepository;
     @Autowired
     private EntityManager em;
 

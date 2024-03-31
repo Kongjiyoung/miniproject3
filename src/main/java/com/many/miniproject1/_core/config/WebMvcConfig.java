@@ -15,6 +15,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/board/{id:\\d+}");
+        // 우리는 board가 없어서 이런 예외를 줄 필요가 없지만 다른 예외를 줄 때 참고하기 위해 남겨둠
 
     }
 
