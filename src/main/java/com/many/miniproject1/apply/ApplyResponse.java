@@ -158,23 +158,24 @@ public class ApplyResponse {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-
     @Data
-    public static class ResumeSkillDTO {
+    public static class AppliedResumeSkillDTO {
         private Integer id;
+        private String profile;
         private String title;
         private String career;
         private String simpleIntroduce;
-        private List<SkillDTO> skillList;
+        private List<SkillDTO> skllList;
         private String isPass;
 
         @Builder
-        public ResumeSkillDTO(Resume resume, List<Skill> skillList, Apply apply) {
-            this.id = resume.getId();
+        public AppliedResumeSkillDTO(Apply apply, Resume resume, List<Skill> skllList) {
+            this.id = apply.getId();
+            this.profile = resume.getProfile();
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
-            this.skillList = skillList.stream().map(skill -> {
+            this.skllList = skllList.stream().map(skill -> {
                 return new SkillDTO(skill);
             }).collect(Collectors.toList());
             this.isPass = apply.getIsPass();

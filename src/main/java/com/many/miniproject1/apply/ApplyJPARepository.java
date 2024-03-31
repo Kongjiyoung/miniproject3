@@ -15,7 +15,6 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 //    void deleteApplyPostById(@Param("applyId") Integer applyId);
 
     @Query("""
-
             select a 
             from Apply a 
             join fetch a.resume r 

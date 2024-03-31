@@ -1,22 +1,16 @@
 package com.many.miniproject1.apply;
 
 
-import com.many.miniproject1.post.Post;
 import com.many.miniproject1._core.errors.exception.Exception404;
-
-
-import jakarta.transaction.Transactional;
-
-
-import java.util.Optional;
-
-
 import com.many.miniproject1.skill.SkillJPARepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -27,7 +21,7 @@ public class ApplyService {
 
 
     @Transactional
-    public Apply isPassResume(Integer resumeId,ApplyRequest.UpdateIsPass reqDTO) {
+    public Apply isPassResume(Integer resumeId, ApplyRequest.UpdateIsPass reqDTO) {
         // 1. 이력서 찾기
         Apply apply = applyJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
@@ -38,23 +32,38 @@ public class ApplyService {
     }
 
 
-  
-    public List<Apply> companyResumes(Integer userId) {
+//    public List<Apply> companyResumes(Integer userId) {
+//
+//        applyJPARepository.findByUserIdJoinPost(userId);
+//
+//        System.out.println(applyJPARepository.findByUserIdJoinPost(userId));
+//
+//        return applyJPARepository.findByUserIdJoinPost(userId);
+//    }
 
-        applyJPARepository.findByUserIdJoinPost(userId);
+    public List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOs(Integer companyId) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        List<Apply> applyList = applyJPARepository.findByUserIdJoinPost(companyId);
 
-        System.out.println(applyJPARepository.findByUserIdJoinPost(userId));
+        List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = new ArrayList<>();
 
-        return applyJPARepository.findByUserIdJoinPost(userId);
+        applyList.stream().map(apply -> {
+            return appliedResumeSkillDTOList.add(ApplyResponse.AppliedResumeSkillDTO.builder()
+                    .apply(apply)
+                    .resume(apply.getResume())
+                    .skllList(apply.getResume().getSkillList())
+                    .build());
+        }).collect(Collectors.toList());
+
+        return appliedResumeSkillDTOList;
     }
 
 
-
-
-    public Apply companyResumeDetail(int id){
+    public Apply companyResumeDetail(int id) {
         Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id);
         return apply;
     }
+
     public Apply findById(int id) {
         Apply apply = applyJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
@@ -69,12 +78,12 @@ public class ApplyService {
     }
 
     // 개인이 지원한 이력서 목록 YSH
-    public List<Apply> getApplyList (Integer userId){
+    public List<Apply> getApplyList(Integer userId) {
         return applyJPARepository.findAllAppliesWithPostsAndSkills(userId);
-}
+    }
 
-    public Apply getPostDetail(Integer userId, Integer postId){
-        Apply apply = applyJPARepository.findByPostIdJoinPostAndSkillAndUser(postId,userId).orElseThrow(() -> new Exception404("없음"));
+    public Apply getPostDetail(Integer userId, Integer postId) {
+        Apply apply = applyJPARepository.findByPostIdJoinPostAndSkillAndUser(postId, userId).orElseThrow(() -> new Exception404("없음"));
         return apply;
     }
 
