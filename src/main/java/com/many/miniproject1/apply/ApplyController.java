@@ -49,7 +49,7 @@ public class ApplyController {
 
     // 개인이 지원한 이력서 목록
     // TODO: 개인이 지원한 이력서 목록 조회 API 필요 -> @GetMapping("/person/applies")
-    @GetMapping("/person/applies")
+    @GetMapping("/api/person/applies")
     public ResponseEntity<?> personApply() {
         User sessionUser=(User) session.getAttribute("sessionUser");
         List<Apply> applyList = applyService.getApplyList(sessionUser.getId());
@@ -58,7 +58,7 @@ public class ApplyController {
     }
 
     // TODO: 개인이 지원한 이력서 상세 보기 API 필요 -> @GetMapping("/person/applies/{id}")
-    @GetMapping("/person/applies/{id}") // 내가 지원한 공고 디테일
+    @GetMapping("/api/person/applies/{id}") // 내가 지원한 공고 디테일
     public ResponseEntity<?> personApply(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Apply apply = applyService.getPostDetail(sessionUser.getId(), id);
@@ -67,7 +67,6 @@ public class ApplyController {
     }
 
     // TODO: 개인이 지원한 이력서 조회 API 필요 -> @GetMapping("/person/applies/{id}")
-
 
     @DeleteMapping("/api/person/applies/{id}")
     public ResponseEntity<?> appliedDelete(@PathVariable int id) {
