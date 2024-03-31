@@ -86,13 +86,8 @@ public class UserService {
     }
 
     @Transactional
-    public User compJoin(UserRequest.CompanyJoinDTO reqDTO){
-        String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
-
-        User user = reqDTO.toEntity();
-        user.setRole("company");
-        user.setProfile(profileFilename);
-        userJPARepository.save(user);
+    public User companyJoin(UserRequest.CompanyJoinDTO reqestDTO){
+        User user=userJPARepository.save(reqestDTO.toEntity());
         return user;
     }
 }

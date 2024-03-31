@@ -6,10 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -22,9 +19,9 @@ public class UserController {
     private final UserService userService;
 
 
-    @PostMapping("/company")
-    public ResponseEntity<?> companyJoin(UserRequest.CompanyJoinDTO requestDTO) {
-        User user=userService.compJoin(requestDTO);
+    @PostMapping("/company/join")
+    public ResponseEntity<?> companyJoin(@RequestBody UserRequest.CompanyJoinDTO requestDTO) {
+        User user=userService.companyJoin(requestDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(user));
     }
