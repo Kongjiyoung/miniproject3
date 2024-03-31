@@ -47,15 +47,9 @@ public class UserService {
     }
 
     @Transactional
-    public User personJoin(UserRequest.PersonJoinDTO reqDTO) {
-        // 이미지 저장
-        String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
-
-        // 사용자 정보 저장
-        User user = reqDTO.toEntity();
-        user.setProfile(profileFilename);
-        userJPARepository.save(user);
-        return user;
+    public UserResponse.PersonDTO personJoin(UserRequest.PersonJoinDTO reqDTO) {
+        User user=userJPARepository.save(reqDTO.toEntity());
+        return new UserResponse.PersonDTO(user);
     }
 
     @Transactional
@@ -86,8 +80,8 @@ public class UserService {
     }
 
     @Transactional
-    public User companyJoin(UserRequest.CompanyJoinDTO reqestDTO){
-        User user=userJPARepository.save(reqestDTO.toEntity());
-        return user;
+    public UserResponse.CompanyDTO companyJoin(UserRequest.CompanyJoinDTO reqDTO){
+        User user=userJPARepository.save(reqDTO.toEntity());
+        return new UserResponse.CompanyDTO(user);
     }
 }
