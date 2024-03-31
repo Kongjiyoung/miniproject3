@@ -1,87 +1,74 @@
 package com.many.miniproject1.apply;
 
 
-
+import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class ApplyController {
     private final HttpSession session;
-
     private final ApplyService applyService;
 
-    //기업에서 받은 이력서 관리
-
-    @GetMapping("/company/resumes")
-    public String companyResume(HttpServletRequest request) {
+    // 기업에서 받은 이력서 관리
+    @GetMapping("/api/company/resumes")
+    public ResponseEntity<?> companyResumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Apply> applyList = applyService.companyResumes(sessionUser.getId());
-        System.out.println(applyList);
-        request.setAttribute("applyList", applyList);
-        request.setAttribute("company", sessionUser);
-        return "company/applied-resumes";
+
+        return ResponseEntity.ok(new ApiUtil<>(applyList));
     }
 
-    @GetMapping("/company/resumes/{id}")
-    public String companyResumeDetail(@PathVariable int id, HttpServletRequest request) {
+    @GetMapping("/api/company/resumes/{id}")
+    public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Apply apply = applyService.findById(id);
         applyService.companyResumeDetail(id);
-        request.setAttribute("apply",apply);
 
-        return "company/applied-resume-detail";
+        return ResponseEntity.ok(new ApiUtil<>(apply));
     }
 
-    @PostMapping("/company/resumes/{id}/is-pass")
-    public String companyPass(@PathVariable int id, ApplyRequest.UpdateIsPass reqDTO) {
+    // TODO: 테스트 다시 하기
+    @PutMapping("/api/company/resumes/{id}/is-pass")
+    public ResponseEntity<?> companyPass(@PathVariable int id, @RequestBody ApplyRequest.UpdateIsPass reqDTO) {
+        Apply apply = applyService.isPassResume(id, reqDTO);
 
-//        비행기 버튼 누르고 나서 어디로 가야하는지 잘 모르겠어서 현재 페이지로 남겨놓음(번복 가능)
-        // 목적: 합격/불합격 버튼을 누르면 받은 지원받은 이력서 디테일 페이지에 합격/불합격 상태가 뜨고
-        // 지원자의 지원 현황에도 합격 불합격이 뜸
-        applyService.isPassResume(reqDTO);
-        return "redirect:/company/resumes/" + id;
+        return ResponseEntity.ok(new ApiUtil<>(apply));
     }
 
-    // 개인이 지원한 이력서 목록 YSH
-    @GetMapping("/person/applies")
-    public String personApply(HttpServletRequest request) {
-        User sessionUser=(User) session.getAttribute("sessionUser");
-        List<Apply> applyList = applyService.getApplyList(sessionUser.getId());
-        request.setAttribute("applyList", applyList);
-        System.out.println(applyList);
+    // 개인이 지원한 이력서 목록
+    // TODO: InvalidDefinitionException 이런 것이 뜸, 객체직렬화, @transient
+    @GetMapping("/api/person/applies")
+    public ResponseEntity<?> personApply() {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Apply> applyList = applyService.getApplyList(1);
 
-
-
-        return "person/applies";
+        return ResponseEntity.ok(new ApiUtil<>(applyList));
     }
 
-    @GetMapping("/person/applies/{id}") // 내가 지원한 공고 디테일
-    public String personApply(@PathVariable int id, HttpServletRequest request) {
+    @GetMapping("/api/person/applies/{id}") // 내가 지원한 공고 디테일
+    public ResponseEntity<?> personApply(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Apply apply = applyService.getPostDetail(sessionUser.getId(), id);
-        request.setAttribute("apply", apply);
-        // 스킬 리스트 만들어서 돌리기
-        return "person/post-apply-detail"; // 이것과 포스트 디테일과의 차이: 취소하기 버튼이 있냐, 스크랩 버튼이 있냐 차이
+
+        return ResponseEntity.ok(new ApiUtil<>(apply));
     }
 
-    @PostMapping("/person/applies/{id}/delete")
-    public String appliedDelete(@PathVariable int id, HttpServletRequest request) {
-        Apply apply = applyService.findById(id);
-        applyService.deleteApplyPost(id);
-        request.setAttribute("apply", apply);
+    @DeleteMapping("/api/person/applies/{id}")
+    public ResponseEntity<?> appliedDelete(@PathVariable int id) {
+        // applyService.findById(id); // 이걸 적었던 그때의 내가 이해가지 않지만 일단 주석처리해놓음
+        applyService.deleteApply(id);
 
-        return "redirect:/person/applies";
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }

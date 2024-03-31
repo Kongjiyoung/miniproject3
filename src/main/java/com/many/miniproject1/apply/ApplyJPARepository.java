@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 
-    @Modifying
-    @Query("delete from Apply a where a.id = :applyId")
-    void deleteApplyPostById(@Param("applyId") Integer applyId);
+//    @Modifying
+//    @Query("delete from Apply a where a.id = :applyId")
+//    void deleteApplyPostById(@Param("applyId") Integer applyId);
 
     @Query("""
 

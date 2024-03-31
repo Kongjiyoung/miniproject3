@@ -27,9 +27,9 @@ public class ApplyService {
 
 
     @Transactional
-    public Apply isPassResume(ApplyRequest.UpdateIsPass reqDTO) {
+    public Apply isPassResume(Integer resumeId,ApplyRequest.UpdateIsPass reqDTO) {
         // 1. 이력서 찾기
-        Apply apply = applyJPARepository.findById(reqDTO.getId())
+        Apply apply = applyJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         System.out.println(apply);
 
@@ -63,8 +63,9 @@ public class ApplyService {
 
 
     @Transactional
-    public void deleteApplyPost(int id) {
-        applyJPARepository.deleteApplyPostById(id);
+    public void deleteApply(int id) {
+        // applyJPARepository.deleteApplyPostById(id);
+        applyJPARepository.deleteById(id);
     }
 
     // 개인이 지원한 이력서 목록 YSH
