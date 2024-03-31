@@ -16,7 +16,7 @@ public class ResumeController {
     private final HttpSession session;
 
     //개인 이력서 관리
-    @GetMapping("/person/resumes")
+    @GetMapping("/api/person/resumes")
     public ResponseEntity<?> personResumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
@@ -25,14 +25,14 @@ public class ResumeController {
     }
 
     // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서
-    @GetMapping("/person/resumes/{id}/detail")
+    @GetMapping("/api/person/resumes/{id}/detail")
     public ResponseEntity<?> personResume(@PathVariable int id) {
         Resume resume = resumeService.getResumeDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(resume));
     }
 
-    @PostMapping("/person/resumes")
+    @PostMapping("/api/person/resumes")
     public ResponseEntity<?> personSaveResume(ResumeRequest.SaveDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         //나중에 findById 해서 그 user 넣어야하는 거 아녀? 일단은 이렇게 둠
@@ -41,7 +41,7 @@ public class ResumeController {
         return ResponseEntity.ok(new ApiUtil<>(resume));
     }
 
-    @PutMapping("/person/resumes/{id}")
+    @PutMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Resume resume = resumeService.update(id, requestDTO);
@@ -49,7 +49,7 @@ public class ResumeController {
         return ResponseEntity.ok(new ApiUtil<>(resume));
     }
 
-    @DeleteMapping("/person/resumes/{id}")
+    @DeleteMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personDeleteResume(@PathVariable Integer id) {
         resumeService.deleteResume(id);
 
