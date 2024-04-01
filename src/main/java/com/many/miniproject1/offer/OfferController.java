@@ -35,11 +35,11 @@ public class OfferController {
 
     // company의 offers 관리
     // skill 만 불러오면 되나.?
-//    @GetMapping("/api/company/offers")
-//    public ResponseEntity<?> companyOffers() {
-//        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers();
-//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-//    }
+    @GetMapping("/api/company/offers")
+    public ResponseEntity<?> companyOffers() {
+        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers();
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
 
     @GetMapping("/api/company/offers/{id}")
     public ResponseEntity<?> companyOfferDetail(@PathVariable int id) {

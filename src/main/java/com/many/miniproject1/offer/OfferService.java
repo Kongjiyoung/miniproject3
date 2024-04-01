@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 public class OfferService {
     private final OfferJPARepository offerJPARepository;
 
-    public List<Offer> companyOffers(Integer userId) {
-        offerJPARepository.findByUserId(userId);
-        System.out.println(offerJPARepository.findByUserId(userId));
-        return offerJPARepository.findByUserId(userId);
+    public List<OfferResponse.companyOffersDTO> companyOffers() {
+        List<Offer> companyOffers = offerJPARepository.companyFindAllOffers();
+
+        return companyOffers.stream().map(offer -> new OfferResponse.companyOffersDTO(offer)).toList();
     }
 
     @Transactional

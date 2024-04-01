@@ -14,16 +14,16 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
 //    @Query("delete from Offer o where o.post.user.id = :post_user_id and o.resume.id= :resume_id")
 //    void deleteOfferByPostId(@Param("post_user_id") Integer postCompanyId, @Param("resume_id") Integer resumeId);
 
+    // 04-01 YSH
     @Query("""
-            select o
-            from Offer o
-            join fetch o.resume r
-            join fetch o.post p
-            join fetch r.user ru
-            join fetch p.user pu
-            where pu.id = :user_id
+            SELECT o
+            FROM Offer o
+            JOIN FETCH o.resume r
+            JOIN FETCH r.user u
+            JOIN FETCH r.skillList s
+            JOIN FETCH o.post p
             """)
-    List<Offer> findByUserId(@Param("user_id") int userId);
+    List<Offer> companyFindAllOffers();
 
 
 
