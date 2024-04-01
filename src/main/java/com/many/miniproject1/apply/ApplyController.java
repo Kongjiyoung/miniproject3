@@ -36,10 +36,10 @@ public class ApplyController {
     @PutMapping("/api/company/resumes/{id}/is-pass")
     public ResponseEntity<?> companyPass(@PathVariable int id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
         Apply apply = applyService.getApplyById(id);
-        //ApplyRequest.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
+        ApplyRequest.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
         apply.updateIsPass(reqDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        return ResponseEntity.ok(new ApiUtil<>(updateIsPassDTO));
     } // 체크 완
 
     // 개인이 지원한 이력서 목록
@@ -61,9 +61,8 @@ public class ApplyController {
 
     @DeleteMapping("/api/person/applies/{id}")
     public ResponseEntity<?> appliedDelete(@PathVariable int id) {
-        // applyService.findById(id); // 이걸 적었던 그때의 내가 이해가지 않지만 일단 주석처리해놓음
         applyService.deleteApply(id);
 
         return ResponseEntity.ok(new ApiUtil<>(null));
-    }
+    }  // 체크 완
 }
