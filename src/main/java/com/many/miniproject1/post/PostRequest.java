@@ -19,11 +19,11 @@ public class PostRequest {
         private String workEndTime;
         private String deadline;
         private String task;
-        private MultipartFile profile;
+        private String profile;
         private String workingArea;
         private List<String> skill;
         public Post toEntity(User user){
-            String profilePath= ProfileImageSaveUtil.save(profile);
+//            String profilePath= ProfileImageSaveUtil.save(profile);
             return Post.builder()
                     .user(user)
                     .title(title)
@@ -35,7 +35,7 @@ public class PostRequest {
                     .deadline(deadline)
                     .task(task)
                     .workingArea(workingArea)
-                    .profile(profilePath)
+                    .profile(profile)
                     .build();
         }
     }
