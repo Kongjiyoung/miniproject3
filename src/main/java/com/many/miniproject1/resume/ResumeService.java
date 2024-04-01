@@ -1,6 +1,7 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
+import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.offer.OfferJPARepository;
@@ -87,9 +88,14 @@ public class ResumeService {
         return resume;
     }
 
-
     public Resume getResumeDetail(int resumeId) {
         return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
+    }
+
+    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, User sessionUser) {
+        Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+        return new ResumeResponse.resumeDetailDTO(resume, sessionUser);
     }
 
     public Resume getResumeSkill(ResumeResponse.DetailDTO respDTO) {
@@ -109,14 +115,26 @@ public class ResumeService {
         return resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 
+    public List<ResumeResponse.resumeListDTO> getResumeList(int userId) {
+        List<Resume> resumeList = resumeJPARepository.findAllResume(userId);
+        return resumeList.stream().map(resume -> new ResumeResponse.resumeListDTO(resume)).toList();
+    }
+
     @Transactional
-    public void deleteResume(Integer resumeId) {
+    public void deleteResumeId(Integer resumeId, int sessionUserId) {
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+        if(sessionUserId != resume.getUser().getId()){
+            throw new Exception403("이력서를 삭제할 권한이 없습니다");
+        }
+        resumeJPARepository.deleteById(resumeId);
         applyJPARepository.deleteByResumeId(resumeId);
         resumeJPARepository.deleteById(resumeId);
         offerJPARepository.deleteByResumeId(resumeId);
         scrapJPARepository.deleteByResumeId(resumeId);
         skillJPARepository.deleteSkillsByResumeId(resumeId);
     }
+
 
     public List<Resume> getResumeFindBySessionUserId(Integer sessionUserId) {
         List<Resume> resumeList = resumeJPARepository.findBySessionUserId(sessionUserId);
