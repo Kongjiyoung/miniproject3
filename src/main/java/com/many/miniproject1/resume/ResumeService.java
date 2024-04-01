@@ -121,7 +121,13 @@ public class ResumeService {
     }
 
     @Transactional
-    public void deleteResume(Integer resumeId) {
+    public void deleteResumeId(Integer resumeId, int sessionUserId) {
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+        if(sessionUserId != resume.getUser().getId()){
+            throw new Exception403("이력서를 삭제할 권한이 없습니다");
+        }
+        resumeJPARepository.deleteById(resumeId);
         applyJPARepository.deleteByResumeId(resumeId);
         resumeJPARepository.deleteById(resumeId);
         offerJPARepository.deleteByResumeId(resumeId);
@@ -129,15 +135,6 @@ public class ResumeService {
         skillJPARepository.deleteSkillsByResumeId(resumeId);
     }
 
-    @Transactional
-    public void deleteResumeId(int resumeId, int sessionUserId) {
-        Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
-        if(sessionUserId != resume.getUser().getId()){
-            throw new Exception403("이력서를 삭제할 권한이 없습니다");
-        }
-        resumeJPARepository.deleteById(resumeId);
-    }
 
     public List<Resume> getResumeFindBySessionUserId(Integer sessionUserId) {
         List<Resume> resumeList = resumeJPARepository.findBySessionUserId(sessionUserId);
