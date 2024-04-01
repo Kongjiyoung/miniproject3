@@ -25,7 +25,7 @@ public class UserService {
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
     }
 
-//    @Transactional
+    //    @Transactional
 //    public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
 //        User user = userJPARepository.findById(id)
 //                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
@@ -41,6 +41,17 @@ public class UserService {
 //        user.setPassword(reqDTO.getPassword());
 //        return userJPARepository.save(user);
 //    }
+    public UserResponse.PersonDTO findByPerson(int id) {
+        User user = userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+        return new UserResponse.PersonDTO(user);
+    }
+
+    public UserResponse.CompanyDTO findByCompany(int id) {
+        User user = userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+        return new UserResponse.CompanyDTO(user);
+    }
 
     @Transactional
     public User updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
@@ -62,15 +73,9 @@ public class UserService {
     }
 
     @Transactional
-    public User personJoin(UserRequest.PersonJoinDTO reqDTO) {
-        // 이미지 저장
-        String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
-
-        // 사용자 정보 저장
-        User user = reqDTO.toEntity();
-        user.setProfile(profileFilename);
-        userJPARepository.save(user);
-        return user;
+    public UserResponse.PersonDTO personJoin(UserRequest.PersonJoinDTO reqDTO) {
+        User user = userJPARepository.save(reqDTO.toEntity());
+        return new UserResponse.PersonDTO(user);
     }
 
     @Transactional
@@ -109,5 +114,10 @@ public class UserService {
         user.setProfile(profileFilename);
         userJPARepository.save(user);
         return user;
+    }
+
+    public UserResponse.CompanyDTO companyJoin(UserRequest.CompanyJoinDTO reqDTO) {
+        User user = userJPARepository.save(reqDTO.toEntity());
+        return new UserResponse.CompanyDTO(user);
     }
 }

@@ -34,7 +34,7 @@ public class UserRequest {
         public User toEntity() {
             String profileImagePath = ProfileImageSaveUtil.save(profile);
             return User.builder()
-                    .role(role)
+                    .role("person")
                     .profile(profileImagePath)
                     .username(username)
                     .name(name)
@@ -80,7 +80,7 @@ public class UserRequest {
         public User toEntity() {
             String profileImagePath = ProfileImageSaveUtil.save(profile);
             return User.builder()
-                    .role(role)
+                    .role("company")
                     .profile(profileImagePath)
                     .companyName(companyName)
                     .companyNum(companyNum)
