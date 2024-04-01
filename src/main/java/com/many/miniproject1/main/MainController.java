@@ -5,16 +5,16 @@ import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
-import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.scrap.ScrapResponse;
 import com.many.miniproject1.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -46,8 +46,9 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(resumeList));
     }
 
+    //////////////////////////////////////// 현정
     @GetMapping("/resumes/{id}")
-    public ResponseEntity<?> resumeDetailForm(@PathVariable Integer id) {
+    public ResponseEntity<?> resumeDetail(@PathVariable Integer id) {
 
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -69,8 +70,9 @@ public class MainController {
 
     }
 
+    //////////////////////////////////////// 현정
     @PostMapping("/resumes/{id}/offer")
-    public ResponseEntity<?> companyResumeOffer(@PathVariable int id,int postChoice) {
+    public ResponseEntity<?> companyResumeOffer(@PathVariable int id, int postChoice) {
         Offer offer = mainService.sendPostToResume(id, postChoice);
         return ResponseEntity.ok(new ApiUtil<>(offer));
     }
@@ -99,7 +101,7 @@ public class MainController {
         // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
         MainResponse.PostDetailDTO respDTO = mainService.getPostDetail(id);
         if (sessionUser != null) {
-            if(sessionUser.getRole().equals("person")) {
+            if (sessionUser.getRole().equals("person")) {
                 List<MainResponse.ApplyListDTO> resumeList = mainService.getResumeId(sessionUser.getId());
                 return ResponseEntity.ok(new ApiUtil<>(respDTO, resumeList));
             }
@@ -113,7 +115,7 @@ public class MainController {
     @PostMapping("/posts/{id}/apply")
     public ResponseEntity<?> personPostApply(@PathVariable int id, MainRequest.resumeChoiceDTO resumeChoice) {
         System.out.println("resumeChoice = " + resumeChoice);
-        ApplyResponse.DTO respDTO=mainService.personPostApply(id, resumeChoice.getResumeChoice());
+        ApplyResponse.DTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
