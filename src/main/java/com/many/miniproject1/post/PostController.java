@@ -36,11 +36,11 @@ public class PostController {
     }
 
     // 이력서 저장
-    @PostMapping("/api/company/posts/save")
-    public ResponseEntity<?> companySavePost(PostRequest.PostSaveDTO reqDTO) {
+    @PostMapping("/api/company/posts")
+    public ResponseEntity<?> companySavePost(@RequestBody PostRequest.PostSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        postService.save(reqDTO, sessionUser);
-        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
+        Post post = postService.save(reqDTO, sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(post));
     }
 
     @PutMapping("/api/company/posts/{id}/update")
