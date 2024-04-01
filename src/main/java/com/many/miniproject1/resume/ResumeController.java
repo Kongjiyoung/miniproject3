@@ -17,19 +17,18 @@ public class ResumeController {
 
     //개인 이력서 관리
     @GetMapping("/api/person/resumes")
-    public ResponseEntity<?> personResumes() {
+    public ResponseEntity<?> personResumes(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
-
-        return ResponseEntity.ok(new ApiUtil<>(resumeList));
+        List<ResumeResponse.resumeListDTO> respDTO = resumeService.getResumeList(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서
     @GetMapping("/api/person/resumes/{id}/detail")
     public ResponseEntity<?> personResume(@PathVariable int id) {
-        Resume resume = resumeService.getResumeDetail(id);
-
-        return ResponseEntity.ok(new ApiUtil<>(resume));
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ResumeResponse.resumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PostMapping("/api/person/resumes")
@@ -51,8 +50,8 @@ public class ResumeController {
 
     @DeleteMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personDeleteResume(@PathVariable Integer id) {
-        resumeService.deleteResume(id);
-
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.deleteResumeId(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }
