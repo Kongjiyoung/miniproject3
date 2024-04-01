@@ -1,6 +1,8 @@
 package com.many.miniproject1.scrap;
 
 import com.many.miniproject1.offer.OfferResponse;
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.user.User;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -8,6 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScrapResponse {
+    @Data
+    public static class PostScrapSaveDTO{
+        private User user;
+        private Post post;
+
+        public PostScrapSaveDTO(Scrap scrap) {
+            this.user = scrap.getUser();
+            this.post = scrap.getPost();
+        }
+    }
+
     @Data
     public static class ScarpPostDTO {
         private Integer id;

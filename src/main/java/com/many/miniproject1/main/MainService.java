@@ -18,6 +18,7 @@ import com.many.miniproject1.scrap.Scrap;
 
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.scrap.ScrapRequest;
+import com.many.miniproject1.scrap.ScrapResponse;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserService;
 import com.many.miniproject1.skill.Skill;
@@ -48,13 +49,13 @@ public class MainService {
     private final SkillJPARepository skillJPARepository;
     private final UserService userService;
 
-    public Scrap personPostScrap(Integer userId, Integer postId) {
+    public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
         User user = userService.findByUser(userId);
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
         ScrapRequest.SavePostDTO saveScrap = new ScrapRequest.SavePostDTO(user, post);
         Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
-        return scrap;
+        return new ScrapResponse.PostScrapSaveDTO(scrap);
     }
 
     public ApplyResponse.DTO personPostApply(int postId, int resumeId) {
