@@ -53,7 +53,7 @@ public class ScrapJPARepositoryTest {
     @Test
     public void resumeDetail_test() {
         // given
-        int userId = 14;
+        int userId = 1;
         // when
         Scrap scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(userId);
         System.out.println("test::: " + scrap);

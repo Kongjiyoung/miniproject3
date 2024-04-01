@@ -72,7 +72,6 @@ public class ScrapController {
 
     @GetMapping("/api/company/scraps/{id}")
     public ResponseEntity<?> companyScrapDetail(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
         ScrapResponse.ScrapResumeDetailDTO respDTO = scrapService.getResumeDetail(id);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
