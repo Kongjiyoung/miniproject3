@@ -24,10 +24,8 @@ public class PostController {
     //회사 공고 관리
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Post> postList =postService.getResumeList(sessionUser.getId());
-
-        return ResponseEntity.ok(new ApiUtil<>(postList));
+        List<PostResponse.PostListDTO> respDTO =postService.getResumeList();
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/api/company/posts/{id}")

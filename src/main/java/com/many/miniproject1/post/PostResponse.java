@@ -1,27 +1,47 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1.skill.Skill;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PostResponse {
-    @Data static class PostListDTO{
+
+    @Data
+    static class PostListDTO {
         private Integer id;
         private Integer userId;
         private String companyName;
         private String career;
         private String workingArea;
-        private List<String> skills=new ArrayList<>();
+        private List<PostSkillDTO> skillList = new ArrayList<>();
 
-        public static class PostSkillDTO{
+        public PostListDTO(Post post) {
+            this.id = post.getId();
+            this.userId = post.getUser().getId();
+            this.companyName = post.getUser().getCompanyName();
+            this.career = post.getCareer();
+            this.workingArea = post.getWorkingArea();
+            this.skillList = post.getSkillList().stream().map(skill -> new PostSkillDTO(skill)).toList();
+        }
+        @Data
+        public static class PostSkillDTO {
             private Integer id;
             private String skill;
-            private int postId;
+
+            public PostSkillDTO(Skill skill){
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
         }
+
+
     }
     @Data
-    public static class DetailDTO{
+    public static class DetailDTO {
         private Integer id;
         private Integer companyId;
         private String title;
@@ -59,7 +79,7 @@ public class PostResponse {
     }
 
     @Data
-    public static class UpdateDTO{
+    public static class UpdateDTO {
         private Integer id;
         private Integer companyId;
         private String title;

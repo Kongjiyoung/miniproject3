@@ -14,6 +14,7 @@ import com.many.miniproject1.skill.SkillResponse;
 import com.many.miniproject1.user.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,8 +60,9 @@ public class PostService {
         return post;
     }
 
-    public List<Post> getResumeList(Integer userId){
-        return postJPARepository.findByUserIdJoinSkillAndUser(userId);
+    public List<PostResponse.PostListDTO> getResumeList(){
+        List<Post> postList = postJPARepository.findAllPost();
+        return postList.stream().map(post -> new PostResponse.PostListDTO(post)).toList();
     }
 
     // 공고 상세보기 YSH
