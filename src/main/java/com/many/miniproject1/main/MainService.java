@@ -65,9 +65,9 @@ public class MainService {
         return applyJPARepository.save(saveApply.toEntity());
     }
 
-    public List<Resume> getResumeId(int id) {
+    public List<MainResponse.ApplyListDTO> getResumeId(int id) {
         List<Resume> resumeList = resumeJPARepository.findByUserId(id);
-        return resumeList;
+        return resumeList.stream().map(resume -> new MainResponse.ApplyListDTO(resume)).toList();
     }
 
     public List<Post> findByUserIdPost(int userId) {
@@ -163,9 +163,9 @@ public class MainService {
         return postJPARepository.findByUserIdJoinSkillAndUser(companyId);
     }
 
-    public Post getPostDetail(int postId) {
+    public MainResponse.PostDetailDTO getPostDetail(int postId) {
         Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
-        return post;
+        return new MainResponse.PostDetailDTO(post);
     }
 
     @Transactional
