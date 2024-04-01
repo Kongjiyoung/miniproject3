@@ -6,6 +6,7 @@ import com.many.miniproject1.apply.Apply;
 
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
+import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
@@ -56,13 +57,15 @@ public class MainService {
         return scrap;
     }
 
-    public Apply personPostApply(Integer postId, Integer resumeId) {
+    public ApplyResponse.DTO personPostApply(Integer postId, Integer resumeId) {
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception401(""));
         ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume, post);
-        return applyJPARepository.save(saveApply.toEntity());
+        Apply apply=applyJPARepository.save(saveApply.toEntity());
+
+        return new ApplyResponse.DTO(apply);
     }
 
     public List<MainResponse.ApplyListDTO> getResumeId(int id) {

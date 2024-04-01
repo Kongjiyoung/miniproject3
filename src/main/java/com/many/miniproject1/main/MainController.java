@@ -1,6 +1,7 @@
 package com.many.miniproject1.main;
 
 import com.many.miniproject1._core.utils.ApiUtil;
+import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
@@ -109,11 +110,11 @@ public class MainController {
 
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
-    public ResponseEntity<?> personPostApply(@PathVariable int id, Integer resumeChoice) {
+    public ResponseEntity<?> personPostApply(@PathVariable int id, MainRequest.resumeChoiceDTO resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        Apply apply=mainService.personPostApply(id, resumeChoice);
-        return ResponseEntity.ok(new ApiUtil<>(apply));
+        ApplyResponse.DTO respDTO=mainService.personPostApply(id, resumeChoice.getResumeChoice());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 

@@ -1,6 +1,7 @@
 package com.many.miniproject1.apply;
 
 
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.Skill;
 import lombok.Builder;
@@ -30,7 +31,18 @@ public class ApplyResponse {
 //        private String isPass;
 //        private Timestamp createdAt;
 //    }
+    @Data
+    public static class DTO {
+        private Resume resume;
+        private Post post; // 채용공고 아이디
+        private String isPass;
 
+        public DTO(Apply apply) {
+            this.resume = apply.getResume();
+            this.post = apply.getPost();
+            this.isPass = apply.getIsPass();
+        }
+    }
 
     @Data
     public static class PostIsPassDTO {
@@ -191,5 +203,7 @@ public class ApplyResponse {
                 this.skill = skill.getSkill();
             }
         }
+
+
     }
 }
