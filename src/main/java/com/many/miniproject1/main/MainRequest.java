@@ -11,7 +11,7 @@ public class MainRequest {
 
     @Data
     public static class resumeChoiceDTO {
-        private Integer resumeChoice;
+        private int resumeChoice;
     }
 
 }
