@@ -1,6 +1,9 @@
 package com.many.miniproject1.offer;
 
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.user.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -8,6 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OfferResponse {
+
+    // 04-01 YSH
+    @Data
+    public static class personOffersDTO{
+        int id;
+        String profile;
+        String companyName;
+        String title;
+        Timestamp createdAt;
+
+        @Builder
+        public personOffersDTO(Offer offer, Post post, User user) {
+            this.id = post.getId();
+            this.profile = post.getProfile();
+            this.companyName = user.getUsername();
+            this.title = post.getTitle();
+            this.createdAt = offer.getCreatedAt();
+        }
+    }
 
     @Data
     public static class OfferDTO {
@@ -41,4 +63,5 @@ public class OfferResponse {
             private int resumeId;
         }
     }
+
 }

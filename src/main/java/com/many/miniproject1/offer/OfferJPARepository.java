@@ -68,4 +68,13 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
             where o.post.id = :post_id
                     """)
     void deleteByPostId(@Param("post_id") Integer postId);
+
+    // 04-01 YSH
+    @Query("""
+        SELECT o
+        FROM Offer o
+        JOIN FETCH o.post p
+        JOIN FETCH p.user u
+        """)
+    List<Offer> personFindAllOffers();
 }
