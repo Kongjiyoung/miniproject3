@@ -1,22 +1,14 @@
 package com.many.miniproject1.apply;
 
 
-import com.many.miniproject1._core.errors.exception.Exception400;
-import com.many.miniproject1.post.PostJPARepository;
-import com.many.miniproject1.post.PostService;
 import jakarta.persistence.EntityManager;
-
 import org.assertj.core.api.Assertions;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
-
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -62,7 +54,9 @@ public class ApplyJPARepositoryTest {
         List<Apply> applyList = applyJPARepository.findByUserIdJoinPost(id);
 
         // then
+        System.out.println("findByUserIdJoinPost_test: "+applyList);
         assertThat(applyList.get(1).getId()).isEqualTo(2);
+        assertThat(applyList.size()).isEqualTo(4);
     }
 
 

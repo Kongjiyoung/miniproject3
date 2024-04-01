@@ -1,13 +1,16 @@
 package com.many.miniproject1.apply;
 
 
-
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.skill.Skill;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ApplyResponse {
     //    @Data
@@ -131,7 +134,6 @@ public class ApplyResponse {
 
         public static class ApplySkillDTO {
         }
-
     }
 
     //  Person이 Apply한  📑Post 목록보기 YSH
@@ -153,6 +155,41 @@ public class ApplyResponse {
             private String skill;
             private int resumeId;
         }
+    }
 
+    ////////////////////////////////////////////////////////////////////////////
+    @Data
+    public static class AppliedResumeSkillDTO {
+        private Integer id;
+        private String profile;
+        private String title;
+        private String career;
+        private String simpleIntroduce;
+        private List<SkillDTO> skllList;
+        private String isPass;
+
+        @Builder
+        public AppliedResumeSkillDTO(Apply apply, Resume resume, List<Skill> skllList) {
+            this.id = apply.getId();
+            this.profile = resume.getProfile();
+            this.title = resume.getTitle();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
+            this.skllList = skllList.stream().map(skill -> {
+                return new SkillDTO(skill);
+            }).collect(Collectors.toList());
+            this.isPass = apply.getIsPass();
+        }
+
+        @Data
+        public static class SkillDTO {
+            private Integer id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
     }
 }
