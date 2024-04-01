@@ -42,9 +42,10 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
         JOIN FETCH o.post p
         JOIN FETCH p.user u
         JOIN FETCH o.resume r
+        JOIN FETCH p.skillList s
         WHERE o.id =:offer_id
         """)
-    Offer findByOfferId(@Param("offer_id") Integer  offer_id);
+    Offer findByOfferId(@Param("offer_id") Integer id);
     // 04-01 YSH
 
 
