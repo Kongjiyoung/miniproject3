@@ -33,6 +33,13 @@ public class UserService {
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return new UserResponse.PersonDTO(user);
     }
+
+    public UserResponse.CompanyDTO findByCompany(int id){
+        User user = userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+        return new UserResponse.CompanyDTO(user);
+    }
+
     @Transactional
     public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
         User user = userJPARepository.findById(id)
