@@ -27,10 +27,10 @@ public class UserController {
     }
 
     @PostMapping("/company/login")
-    public ResponseEntity<?> companyLogin(UserRequest.LoginDTO requestDTO) {
-        session.setAttribute("sessionUser", userService.login(requestDTO));
-        User user=userService.login(requestDTO);
-        return ResponseEntity.ok(new ApiUtil<>(user));
+    public ResponseEntity<?> companyLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
+        User sessionUser =userService.login(reqDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
 
@@ -61,8 +61,8 @@ public class UserController {
     @GetMapping("/company/info")
     public ResponseEntity<?> companyInfo() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.findByUser(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(user));
+        UserResponse.CompanyDTO respDTO = userService.findByCompany(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/company/info/update-form")
