@@ -2,7 +2,6 @@ package com.many.miniproject1.apply;
 
 
 import jakarta.persistence.EntityManager;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -54,7 +53,7 @@ public class ApplyJPARepositoryTest {
         List<Apply> applyList = applyJPARepository.findByUserIdJoinPost(id);
 
         // then
-        System.out.println("findByUserIdJoinPost_test: "+applyList);
+        System.out.println("findByUserIdJoinPost_test: " + applyList);
         assertThat(applyList.get(1).getId()).isEqualTo(2);
         assertThat(applyList.size()).isEqualTo(4);
     }
@@ -71,8 +70,9 @@ public class ApplyJPARepositoryTest {
         // then
         System.out.println("findAllAppliesWithPostsAndSkills_test ❤ : " + applyJPARepository.findAllAppliesWithPostsAndSkills(id));
     }
+
     @Test
-    public void findByApply_test(){
+    public void findByApply_test() {
         // given
         int id = 1;
         // when
@@ -81,7 +81,7 @@ public class ApplyJPARepositoryTest {
 
         // then
 
-        Assertions.assertThat(apply.getIsPass()).isEqualTo("합격");
+        assertThat(apply.getIsPass()).isEqualTo("합격");
 
     }
 //        @Test
@@ -95,4 +95,17 @@ public class ApplyJPARepositoryTest {
 //            // then
 //            Assertions.assertThat(apply.getIsPass()).isEqualTo("불합격");
 //        }
+
+    @Test
+    public void findByCompanyIdJoinResume_test() {
+        //given
+        int companyId = 14;
+
+        // when
+        List<Apply> applyList = applyJPARepository.findByCompanyIdJoinResume(companyId);
+
+        // then
+        assertThat(applyList.size()).isEqualTo(4);
+        assertThat(applyList.getFirst().getIsPass()).isEqualTo("합격");
+    }
 }

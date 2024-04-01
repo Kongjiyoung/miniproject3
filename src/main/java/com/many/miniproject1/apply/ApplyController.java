@@ -20,18 +20,18 @@ public class ApplyController {
     @GetMapping("/api/company/resumes")
     public ResponseEntity<?> companyResumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.appliedResumeSkillDTOs(sessionUser.getId());
+        List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.getAppliedResumeSkillDTOs(14);
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
     }
 
     @GetMapping("/api/company/resumes/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        ApplyResponse.AppliedResumeSkillDetailDTO applyResumeDetail = applyService.findById(id);
+        ApplyResponse.AppliedResumeSkillDetailDTO applyResumeDetail = applyService.appliedResume(id);
         applyService.companyResumeDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(applyResumeDetail));
-    }
+    }  // 체크 완
 
     // TODO: 테스트 다시 하기
     @PutMapping("/api/company/resumes/{id}/is-pass")

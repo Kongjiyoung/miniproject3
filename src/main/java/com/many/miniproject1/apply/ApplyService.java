@@ -30,8 +30,8 @@ public class ApplyService {
         return apply;
     }
 
-    public List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOs(Integer companyId) {
-        List<Apply> applyList = applyJPARepository.findByUserIdJoinPost(companyId);
+    public List<ApplyResponse.AppliedResumeSkillDTO> getAppliedResumeSkillDTOs(Integer companyId) {
+        List<Apply> applyList = applyJPARepository.findByCompanyIdJoinResume(companyId);
         List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = new ArrayList<>();
 
         applyList.stream().map(apply -> {
@@ -50,9 +50,8 @@ public class ApplyService {
         return apply;
     }
 
-    public ApplyResponse.AppliedResumeSkillDetailDTO findById(int applyId) {
-        Apply apply = applyJPARepository.findById(applyId)
-                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+    public ApplyResponse.AppliedResumeSkillDetailDTO appliedResume(int applyId) {
+        Apply apply = applyJPARepository.findByApplyId(applyId);
 
         return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkillList());
     }
@@ -74,4 +73,9 @@ public class ApplyService {
         return apply;
     }
 
+//    public ApplyResponse.AppliedResumeSkillDetailDTO findByApplyId(int applyId) {
+//        Apply apply = applyJPARepository.findByApplyId(applyId);
+//
+//        return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkillList());
+//    }
 }
