@@ -31,9 +31,8 @@ public class ScrapController {
     @GetMapping("/person/scraps")
     public ResponseEntity<?> personScrap() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Scrap> scrapList = scrapService.personScrapForm(sessionUser.getId());
-
-        return ResponseEntity.ok(new ApiUtil<>(scrapList));
+        List<ScrapResponse.ScrapPostListDTO> respDTO = scrapService.personScrapList(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/person/scraps/{id}/detail")
