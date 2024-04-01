@@ -3,6 +3,7 @@ package com.many.miniproject1.apply;
 
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.Skill;
+import com.many.miniproject1.user.User;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -179,6 +180,61 @@ public class ApplyResponse {
                 return new SkillDTO(skill);
             }).collect(Collectors.toList());
             this.isPass = apply.getIsPass();
+        }
+
+        @Data
+        public class SkillDTO {
+            private Integer id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+    }
+    ///////////////////////
+
+    @Data
+    public static class AppliedResumeSkillDetailDTO {
+        // apply
+        private Integer id;
+        private String isPass;
+
+        // user
+        private String name;
+        private String birth;
+        private String tel;
+        private String address;
+        private String email;
+
+        // resume
+        private String title;
+        private String profile;
+        private String career;
+        private String simpleIntroduce;
+        private String portfolio;
+        private List<SkillDTO> skllList;
+        private String introduce;
+
+        @Builder
+        public AppliedResumeSkillDetailDTO(Apply apply, User user, Resume resume, List<Skill> skllList) {
+            this.id = apply.getId();
+            this.isPass = apply.getIsPass();
+            this.name = user.getName();
+            this.birth = String.valueOf(user.getBirth());
+            this.tel = user.getTel();
+            this.address = user.getAddress();
+            this.email = user.getEmail();
+            this.title = resume.getTitle();
+            this.profile = resume.getProfile();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
+            this.portfolio = resume.getPortfolio();
+            this.skllList = skllList.stream().map(skill -> {
+                return new SkillDTO(skill);
+            }).collect(Collectors.toList());
+            this.introduce = resume.getIntroduce();
         }
 
         @Data

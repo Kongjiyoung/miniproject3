@@ -50,10 +50,11 @@ public class ApplyService {
         return apply;
     }
 
-    public Apply findById(int id) {
-        Apply apply = applyJPARepository.findById(id)
+    public ApplyResponse.AppliedResumeSkillDetailDTO findById(int applyId) {
+        Apply apply = applyJPARepository.findById(applyId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
-        return apply;
+
+        return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkillList());
     }
 
 

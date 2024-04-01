@@ -27,10 +27,10 @@ public class ApplyController {
     @GetMapping("/api/company/resumes/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Apply apply = applyService.findById(id);
+        ApplyResponse.AppliedResumeSkillDetailDTO applyResumeDetail = applyService.findById(id);
         applyService.companyResumeDetail(id);
 
-        return ResponseEntity.ok(new ApiUtil<>(apply));
+        return ResponseEntity.ok(new ApiUtil<>(applyResumeDetail));
     }
 
     // TODO: 테스트 다시 하기
