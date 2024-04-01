@@ -145,9 +145,9 @@ public class MainService {
     }
 
 
-    public List<Post> getPostList() {
+    public List<MainResponse.mainPostsDTO> getPostList() {
         List<Post> postList = postJPARepository.findAllPost();
-        return postList;
+        return postList.stream().map(post-> new MainResponse.mainPostsDTO(post)).toList();
     }
 
     public List<Resume> resumeForm() {

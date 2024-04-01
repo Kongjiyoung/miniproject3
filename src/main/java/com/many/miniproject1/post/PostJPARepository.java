@@ -35,6 +35,7 @@ public interface PostJPARepository extends JpaRepository<Post, Integer> {
             select p
             from Post p
             join fetch p.skillList s
+            join fetch p.user u
             """)
     List<Post> findAllPost();
 
