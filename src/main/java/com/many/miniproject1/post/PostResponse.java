@@ -18,6 +18,7 @@ public class PostResponse {
         private String companyName;
         private String career;
         private String workingArea;
+        private String profile;
         private List<PostSkillDTO> skillList;
 
         public PostListDTO(Post post) {
@@ -26,6 +27,7 @@ public class PostResponse {
             this.companyName = post.getUser().getCompanyName();
             this.career = post.getCareer();
             this.workingArea = post.getWorkingArea();
+            this.profile=post.getProfile();
             this.skillList = post.getSkillList().stream().map(skill -> new PostSkillDTO(skill)).toList();
         }
         @Data

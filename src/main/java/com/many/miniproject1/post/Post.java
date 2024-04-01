@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,7 +25,7 @@ public class Post { // 공고테이블
     private User user;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Skill> skillList = new ArrayList<>();
+    private List<Skill> skillList;
 
     private String title;
     private String career;
