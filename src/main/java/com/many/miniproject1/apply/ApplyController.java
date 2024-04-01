@@ -20,20 +20,19 @@ public class ApplyController {
     @GetMapping("/api/company/resumes")
     public ResponseEntity<?> companyResumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.appliedResumeSkillDTOs(sessionUser.getId());
+        List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.getAppliedResumeSkillDTOs(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
-    }
+    }  // 체크 완
 
     @GetMapping("/api/company/resumes/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Apply apply = applyService.findById(id);
+        ApplyResponse.AppliedResumeSkillDetailDTO appliedResumeDetail = applyService.getAppliedResume(id);
         applyService.companyResumeDetail(id);
 
-        return ResponseEntity.ok(new ApiUtil<>(apply));
-    }
+        return ResponseEntity.ok(new ApiUtil<>(appliedResumeDetail));
+    }  // 체크 완
 
-    // TODO: 테스트 다시 하기
     @PutMapping("/api/company/resumes/{id}/is-pass")
     public ResponseEntity<?> companyPass(@PathVariable int id, @RequestBody ApplyRequest.UpdateIsPass reqDTO) {
         Apply apply = applyService.isPassResume(id, reqDTO);
@@ -42,22 +41,21 @@ public class ApplyController {
     }
 
     // 개인이 지원한 이력서 목록
-    // TODO: InvalidDefinitionException 이런 것이 뜸, 객체직렬화, @transient
     @GetMapping("/api/person/applies")
-    public ResponseEntity<?> personApply() {
+    public ResponseEntity<?> personApplies() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Apply> applyList = applyService.getApplyList(1);
+        List<ApplyResponse.ApplyPostSkillDTO> applyPostSkillDTOList = applyService.getApplyPostSkillDTOs(sessionUser.getId());
 
-        return ResponseEntity.ok(new ApiUtil<>(applyList));
-    }
+        return ResponseEntity.ok(new ApiUtil<>(applyPostSkillDTOList));
+    }  // 체크 완
 
     @GetMapping("/api/person/applies/{id}") // 내가 지원한 공고 디테일
     public ResponseEntity<?> personApply(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Apply apply = applyService.getPostDetail(sessionUser.getId(), id);
+        ApplyResponse.ApplyPostSkillDetailDTO applyPostDetail = applyService.getPostDetail(id);
 
-        return ResponseEntity.ok(new ApiUtil<>(apply));
-    }
+        return ResponseEntity.ok(new ApiUtil<>(applyPostDetail));
+    }  // 체크 완
 
     @DeleteMapping("/api/person/applies/{id}")
     public ResponseEntity<?> appliedDelete(@PathVariable int id) {
