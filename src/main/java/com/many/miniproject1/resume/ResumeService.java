@@ -1,6 +1,7 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
+import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.offer.OfferJPARepository;
@@ -114,8 +115,8 @@ public class ResumeService {
         return resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 
-    public List<ResumeResponse.resumeListDTO> getResumeList() {
-        List<Resume> resumeList = resumeJPARepository.findAllResume();
+    public List<ResumeResponse.resumeListDTO> getResumeList(int userId) {
+        List<Resume> resumeList = resumeJPARepository.findAllResume(userId);
         return resumeList.stream().map(resume -> new ResumeResponse.resumeListDTO(resume)).toList();
     }
 
@@ -126,6 +127,16 @@ public class ResumeService {
         offerJPARepository.deleteByResumeId(resumeId);
         scrapJPARepository.deleteByResumeId(resumeId);
         skillJPARepository.deleteSkillsByResumeId(resumeId);
+    }
+
+    @Transactional
+    public void deleteResumeId(int resumeId, int sessionUserId) {
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+        if(sessionUserId != resume.getUser().getId()){
+            throw new Exception403("이력서를 삭제할 권한이 없습니다");
+        }
+        resumeJPARepository.deleteById(resumeId);
     }
 
     public List<Resume> getResumeFindBySessionUserId(Integer sessionUserId) {

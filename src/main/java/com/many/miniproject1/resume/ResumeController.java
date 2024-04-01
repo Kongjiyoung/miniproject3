@@ -17,9 +17,9 @@ public class ResumeController {
 
     //개인 이력서 관리
     @GetMapping("/api/person/resumes")
-    public ResponseEntity<?> personResumes() {
-//        User sessionUser = (User) session.getAttribute("sessionUser");
-        List<ResumeResponse.resumeListDTO> respDTO = resumeService.getResumeList();
+    public ResponseEntity<?> personResumes(HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<ResumeResponse.resumeListDTO> respDTO = resumeService.getResumeList(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -50,8 +50,8 @@ public class ResumeController {
 
     @DeleteMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personDeleteResume(@PathVariable Integer id) {
-        resumeService.deleteResume(id);
-
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        resumeService.deleteResumeId(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }

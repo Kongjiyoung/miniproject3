@@ -71,29 +71,29 @@ public class ResumeResponse {
         private String birth;
     }
 
-    @Data
-    public static class ResumeDetailDTO {
-        private Integer id;
-        private Integer userId;
-        private String title;
-        private String profile;
-        private String name;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
-        private String career;
-        private String simpleIntroduce;
-        private String portfolio;
-        private List<ResumeSkillDTO> skills = new ArrayList<>();
-        private String introduce;
-
-        public static class ResumeSkillDTO {
-            private Integer id;
-            private String skill;
-            private int resumeId;
-        }
-    }
+//    @Data
+//    public static class ResumeDetailDTO {
+//        private Integer id;
+//        private Integer userId;
+//        private String title;
+//        private String profile;
+//        private String name;
+//        private String birth;
+//        private String tel;
+//        private String address;
+//        private String email;
+//        private String career;
+//        private String simpleIntroduce;
+//        private String portfolio;
+//        private List<ResumeSkillDTO> skills = new ArrayList<>();
+//        private String introduce;
+//
+//        public static class ResumeSkillDTO {
+//            private Integer id;
+//            private String skill;
+//            private int resumeId;
+//        }
+//    }
 
     @Data
     public static class resumeDetailDTO {
