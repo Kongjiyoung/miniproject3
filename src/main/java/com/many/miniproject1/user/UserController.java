@@ -41,10 +41,10 @@ public class UserController {
     }
 
     @PostMapping("/person/login")
-    public ResponseEntity<?> personLogin(UserRequest.LoginDTO requestDTO) {
-        session.setAttribute("sessionUser", userService.login(requestDTO));
-        User user=userService.login(requestDTO);
-        return ResponseEntity.ok(new ApiUtil<>(user));
+    public ResponseEntity<?> personLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
+        User sessionUser=userService.login(reqDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
 
