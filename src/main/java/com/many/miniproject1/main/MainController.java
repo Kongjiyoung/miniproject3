@@ -111,7 +111,7 @@ public class MainController {
 
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
-    public ResponseEntity<?> personPostApply(@PathVariable int id, MainRequest.resumeChoiceDTO resumeChoice) {
+    public ResponseEntity<?> personPostApply(@PathVariable int id, @RequestBody MainRequest.resumeChoiceDTO resumeChoice) {
         System.out.println("resumeChoice = " + resumeChoice);
         ApplyResponse.DTO respDTO=mainService.personPostApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -131,24 +131,25 @@ public class MainController {
     @GetMapping("/posts/matching")
     public ResponseEntity<?> matchingPosts() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Post> posts = mainService.findByUserIdPost(sessionUser.getId());
+        List<MainResponse.PosteMatchingChoiceDTO> postList = mainService.findByUserIdPost(sessionUser.getId());
         Integer postChoice = (Integer) session.getAttribute("postChoice");
         if (postChoice != null) {
-            List<Resume> resumeList = mainService.matchingResume(postChoice);
+            List<MainResponse.MainPostMatchDTO> respDTO = mainService.matchingResume(postChoice);
             //resumeList와 posts 와 DTO담아서 넘ㄱ기기
-            return ResponseEntity.ok(new ApiUtil<>(resumeList));
+            return ResponseEntity.ok(new ApiUtil<>(respDTO, postList));
         }
         //
-        return ResponseEntity.ok(new ApiUtil<>(posts));
+        return ResponseEntity.ok(new ApiUtil<>(postList));
 
 
     }
 
     @PostMapping("/posts/match")
-    public ResponseEntity<?> matchingPost(int postChoice) {
-        session.setAttribute("postChoice", postChoice);
+    public ResponseEntity<?> matchingPost(@RequestBody MainRequest.posChoiceDTO postChoiceDTO) {
+        session.setAttribute("postChoice", postChoiceDTO.getPostChoice());
+        int respDTO=postChoiceDTO.getPostChoice();
 
-        return ResponseEntity.ok(new ApiUtil<>(postChoice));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 
@@ -157,12 +158,12 @@ public class MainController {
     public ResponseEntity<?> matchingResumes() {
         //공고 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Resume> resumeList = mainService.findByUserIdResume(sessionUser.getId());
+        List<MainResponse.ResumeeMatchingChoiceDTO> resumeList = mainService.findByUserIdResume(sessionUser.getId());
         Integer resumeChoice = (Integer) session.getAttribute("resumeChoice");
         if (resumeChoice != null) {
             List<Post> postList = mainService.matchingPost(resumeChoice);
             //resumeList와 함께 DTO에 담기
-            return ResponseEntity.ok(new ApiUtil<>(postList));
+            return ResponseEntity.ok(new ApiUtil<>(resumeList,postList));
         }
 
         return ResponseEntity.ok(new ApiUtil<>(resumeList));
@@ -170,9 +171,10 @@ public class MainController {
     }
 
     @PostMapping("/resumes/match")
-    public ResponseEntity<?> matchingResume(int resumeChoice) {
-        session.setAttribute("resumeChoice", resumeChoice);
-        return ResponseEntity.ok(new ApiUtil<>(resumeChoice));
+    public ResponseEntity<?> matchingResume(@RequestBody MainRequest.resumeChoiceDTO resumeChoiceDTO) {
+        session.setAttribute("resumeChoice", resumeChoiceDTO.getResumeChoice());
+        int respDTO=resumeChoiceDTO.getResumeChoice();
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 }

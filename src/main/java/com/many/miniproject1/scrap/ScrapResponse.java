@@ -15,12 +15,12 @@ import java.util.List;
 public class ScrapResponse {
     @Data
     public static class PostScrapSaveDTO{
-        private User user;
-        private Post post;
+        private int userId;
+        private int postId;
 
         public PostScrapSaveDTO(Scrap scrap) {
-            this.user = scrap.getUser();
-            this.post = scrap.getPost();
+            this.userId = scrap.getUser().getId();
+            this.postId = scrap.getPost().getId();
         }
     }
 
