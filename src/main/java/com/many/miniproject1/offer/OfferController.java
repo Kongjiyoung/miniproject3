@@ -28,7 +28,8 @@ public class OfferController {
     // person의 offers 관리
     @GetMapping("/api/person/offers")
     public ResponseEntity<?> personOffers() {
-        List<OfferResponse.personOffersDTO> respDTO = offerService.personOffers();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<OfferResponse.personOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -37,7 +38,8 @@ public class OfferController {
     // skill 만 불러오면 되나.?
     @GetMapping("/api/company/offers")
     public ResponseEntity<?> companyOffers() {
-        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

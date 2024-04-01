@@ -22,9 +22,20 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
             JOIN FETCH r.user u
             JOIN FETCH r.skillList s
             JOIN FETCH o.post p
+            WHERE p.user.id = :company_id
             """)
-    List<Offer> companyFindAllOffers();
+    List<Offer> companyFindAllOffers(@Param("company_id") int company_id);
 
+    @Query("""
+        SELECT o
+        FROM Offer o
+        JOIN FETCH o.post p
+        JOIN FETCH p.user u
+        JOIN FETCH o.resume r
+        WHERE r.user.id =:person_id
+        """)
+    List<Offer> personFindAllOffers(@Param("person_id") int person_id);
+    // 04-01 YSH
 
 
     @Query("""
@@ -69,12 +80,4 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
                     """)
     void deleteByPostId(@Param("post_id") Integer postId);
 
-    // 04-01 YSH
-    @Query("""
-        SELECT o
-        FROM Offer o
-        JOIN FETCH o.post p
-        JOIN FETCH p.user u
-        """)
-    List<Offer> personFindAllOffers();
 }

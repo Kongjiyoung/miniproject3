@@ -16,7 +16,8 @@ public class OfferResponse {
     // 04-01 YSH
     @Data
     public static class personOffersDTO{
-        int id;
+        int offerId;
+        int personId;
         String profile;
         String companyName;
         String title;
@@ -24,7 +25,8 @@ public class OfferResponse {
 
         @Builder
         public personOffersDTO(Offer offer, Post post, User user) {
-            this.id = post.getId();
+            this.offerId = post.getId();
+            this.personId = offer.getResume().getUser().getId();
             this.profile = post.getProfile();
             this.companyName = user.getUsername();
             this.title = post.getTitle();
@@ -34,8 +36,8 @@ public class OfferResponse {
 
     @Data
     public static class companyOffersDTO {
-        int id;
-        int company_id;
+        int offerId;
+        int companyId;
         String profile;
         String username;
         String carrer;
@@ -43,10 +45,10 @@ public class OfferResponse {
         List<SkillDTO> skills = new ArrayList<>();
 
         public companyOffersDTO(Offer offer) {
-            this.id = offer.getId();
-            this.company_id = offer.getPost().getId();
+            this.offerId = offer.getId();
+            this.companyId = offer.getPost().getUser().getId();
             this.profile = offer.getResume().getProfile();
-            this.username = offer.getResume().getUser().getUsername();
+            this.username = offer.getResume().getUser().getName();
             this.carrer = offer.getResume().getCareer();
             this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
             this.skills = offer.getResume().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
@@ -63,6 +65,7 @@ public class OfferResponse {
             }
         }
     }
+    // 04-01 YSH
 
     @Data
     public static class OfferDTO {
