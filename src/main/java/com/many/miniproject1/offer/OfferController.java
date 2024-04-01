@@ -29,18 +29,18 @@ public class OfferController {
     @GetMapping("/api/person/offers")
     public ResponseEntity<?> personOffers() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Offer> offerList = offerService.personOffers(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(offerList));
+        List<OfferResponse.personOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 
     // company의 offers 관리
     // skill 만 불러오면 되나.?
     @GetMapping("/api/company/offers")
-    public ResponseEntity<?> personPost() {
+    public ResponseEntity<?> companyOffers() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Offer> offerList = offerService.personPost(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(offerList));
+        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/api/company/offers/{id}")

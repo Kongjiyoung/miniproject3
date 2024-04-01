@@ -32,7 +32,18 @@ public class ApplyResponse {
 //        private String isPass;
 //        private Timestamp createdAt;
 //    }
+    @Data
+    public static class DTO {
+        private Resume resume;
+        private Post post; // 채용공고 아이디
+        private String isPass;
 
+        public DTO(Apply apply) {
+            this.resume = apply.getResume();
+            this.post = apply.getPost();
+            this.isPass = apply.getIsPass();
+        }
+    }
 
     @Data
     public static class PostIsPassDTO {
@@ -332,5 +343,7 @@ public class ApplyResponse {
                 this.skill = skill.getSkill();
             }
         }
+
+
     }
 }

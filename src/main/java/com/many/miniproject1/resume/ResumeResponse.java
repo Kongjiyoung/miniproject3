@@ -1,10 +1,13 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
+import com.many.miniproject1.user.User;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ResumeResponse {
@@ -68,27 +71,74 @@ public class ResumeResponse {
         private String birth;
     }
 
+//    @Data
+//    public static class ResumeDetailDTO {
+//        private Integer id;
+//        private Integer userId;
+//        private String title;
+//        private String profile;
+//        private String name;
+//        private String birth;
+//        private String tel;
+//        private String address;
+//        private String email;
+//        private String career;
+//        private String simpleIntroduce;
+//        private String portfolio;
+//        private List<ResumeSkillDTO> skills = new ArrayList<>();
+//        private String introduce;
+//
+//        public static class ResumeSkillDTO {
+//            private Integer id;
+//            private String skill;
+//            private int resumeId;
+//        }
+//    }
+
     @Data
-    public static class ResumeDetailDTO {
+    public static class resumeDetailDTO {
         private Integer id;
         private Integer userId;
+        private User user;
         private String title;
         private String profile;
         private String name;
-        private String birth;
+        private Date birth;
         private String tel;
         private String address;
         private String email;
         private String career;
         private String simpleIntroduce;
         private String portfolio;
-        private List<ResumeSkillDTO> skills = new ArrayList<>();
+        private List<resumeDetailDTO.ResumeSkillDTO> skills;
         private String introduce;
 
-        public static class ResumeSkillDTO {
-            private Integer id;
+        public resumeDetailDTO(Resume resume, User sessionUser) {
+            this.id = resume.getId();
+            this.userId = resume.getUser().getId();
+            this.title = resume.getTitle();
+            this.profile = resume.getProfile();
+            this.name = resume.getUser().getName();
+            this.birth = resume.getUser().getBirth();
+            this.tel = resume.getUser().getTel();
+            this.address = resume.getUser().getAddress();
+            this.email = resume.getUser().getEmail();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
+            this.portfolio = resume.getPortfolio();
+            this.skills = resume.getSkillList().stream().map(skill -> new resumeDetailDTO.ResumeSkillDTO(skill)).toList();
+            this.introduce = resume.getIntroduce();
+        }
+
+        @Data
+        public class ResumeSkillDTO {
+            private int id;
             private String skill;
-            private int resumeId;
+
+            public ResumeSkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
         }
     }
 
@@ -110,5 +160,37 @@ public class ResumeResponse {
         private String simpleIntroduce;
         private List<String> skills;
         private Timestamp createdAt;
+    }
+
+    @Data
+    public static class resumeListDTO {
+        int id;
+        Integer personId;
+        String profile;
+        String title;
+        String career;
+        String simpleIntroduce;
+        List<ResumeSkillDTO> skills;
+
+        public resumeListDTO(Resume resume) {
+            this.id = resume.getId();
+            this.personId = resume.getUser().getId();
+            this.profile = resume.getProfile();
+            this.title = resume.getTitle();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
+            this.skills = resume.getSkillList().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
+        }
+
+        @Data
+        public class ResumeSkillDTO {
+            private int id;
+            private String skill;
+
+            public ResumeSkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
     }
 }

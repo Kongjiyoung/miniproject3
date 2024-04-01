@@ -1,27 +1,50 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1.skill.Skill;
+import com.many.miniproject1.user.User;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PostResponse {
-    @Data static class PostListDTO{
+
+    @Data
+    static class PostListDTO {
         private Integer id;
         private Integer userId;
         private String companyName;
         private String career;
         private String workingArea;
-        private List<String> skills=new ArrayList<>();
+        private String profile;
+        private List<PostSkillDTO> skillList;
 
-        public static class PostSkillDTO{
+        public PostListDTO(Post post) {
+            this.id = post.getId();
+            this.userId = post.getUser().getId();
+            this.companyName = post.getUser().getCompanyName();
+            this.career = post.getCareer();
+            this.workingArea = post.getWorkingArea();
+            this.profile=post.getProfile();
+            this.skillList = post.getSkillList().stream().map(skill -> new PostSkillDTO(skill)).toList();
+        }
+        @Data
+        public static class PostSkillDTO {
             private Integer id;
             private String skill;
-            private int postId;
+
+            public PostSkillDTO(Skill skill){
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
         }
+
+
     }
     @Data
-    public static class DetailDTO{
+    public static class DetailDTO {
         private Integer id;
         private Integer companyId;
         private String title;
@@ -33,10 +56,11 @@ public class PostResponse {
         private String deadline;
         private String task;
         private String profile;
-        private List<String> skill;
         private String workingArea;
+        private List<skillDTO> skillList;
 
-        public DetailDTO(Post post, List<String> skill) {
+
+        public DetailDTO(Post post, User sessionUser) {
             this.id = post.getId();
             this.companyId = post.getId();
             this.title = post.getTitle();
@@ -48,18 +72,24 @@ public class PostResponse {
             this.deadline = post.getDeadline();
             this.task = post.getTask();
             this.profile = post.getProfile();
-            this.skill = skill;
             this.workingArea = post.getWorkingArea();
+            this.skillList = post.getSkillList().stream().map(skill -> new skillDTO(skill, sessionUser)).toList();
+
         }
+        @Data
+        public static class skillDTO {
+            private Integer id;
+            private String skill;
 
-        // 이거 문제생기면 생성자 안에 뭐 넣으면 됨
-        public DetailDTO() {
-
+            public skillDTO(Skill skill, User sessionUser){
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
         }
     }
 
     @Data
-    public static class UpdateDTO{
+    public static class UpdateDTO {
         private Integer id;
         private Integer companyId;
         private String title;

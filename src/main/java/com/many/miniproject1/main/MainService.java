@@ -6,6 +6,7 @@ import com.many.miniproject1.apply.Apply;
 
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
+import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
@@ -56,18 +57,20 @@ public class MainService {
         return scrap;
     }
 
-    public Apply personPostApply(Integer postId, Integer resumeId) {
+    public ApplyResponse.DTO personPostApply(Integer postId, Integer resumeId) {
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception401(""));
         ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume, post);
-        return applyJPARepository.save(saveApply.toEntity());
+        Apply apply=applyJPARepository.save(saveApply.toEntity());
+
+        return new ApplyResponse.DTO(apply);
     }
 
-    public List<Resume> getResumeId(int id) {
+    public List<MainResponse.ApplyListDTO> getResumeId(int id) {
         List<Resume> resumeList = resumeJPARepository.findByUserId(id);
-        return resumeList;
+        return resumeList.stream().map(resume -> new MainResponse.ApplyListDTO(resume)).toList();
     }
 
     public List<Post> findByUserIdPost(int userId) {
@@ -145,9 +148,9 @@ public class MainService {
     }
 
 
-    public List<Post> getPostList() {
+    public List<MainResponse.mainPostsDTO> getPostList() {
         List<Post> postList = postJPARepository.findAllPost();
-        return postList;
+        return postList.stream().map(post-> new MainResponse.mainPostsDTO(post)).toList();
     }
 
     public List<Resume> resumeForm() {
@@ -163,9 +166,9 @@ public class MainService {
         return postJPARepository.findByUserIdJoinSkillAndUser(companyId);
     }
 
-    public Post getPostDetail(int postId) {
+    public MainResponse.PostDetailDTO getPostDetail(int postId) {
         Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
-        return post;
+        return new MainResponse.PostDetailDTO(post);
     }
 
     @Transactional

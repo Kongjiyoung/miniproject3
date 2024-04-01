@@ -1,6 +1,7 @@
 package com.many.miniproject1.main;
 
 import com.many.miniproject1._core.utils.ApiUtil;
+import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
@@ -39,16 +40,6 @@ public class MainController {
     public ResponseEntity<?> resumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        Boolean isCompany = false;
-        //기업인지 개인인지 구분
-        if (sessionUser != null) {
-            String role = sessionUser.getRole();
-            System.out.println(role);
-
-            if (role.equals("company")) {
-                isCompany = true;
-            }
-        }
         List<Resume> resumeList = mainService.resumeForm();
 
         return ResponseEntity.ok(new ApiUtil<>(resumeList));
@@ -95,61 +86,35 @@ public class MainController {
     //메인 채용 공고
     @GetMapping({"/posts", "/"})
     public ResponseEntity<?> posts() {
-        List<Post> postList = mainService.getPostList();
+        List<MainResponse.mainPostsDTO> respDTO = mainService.getPostList();
 
-        // 목적: 개인 회원 로그인/비회원 로그인 시 공고들이 보임
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        //기업인지 개인인지 구분
-        Boolean isCompany = false;
-        if (sessionUser != null) {
-            String role = sessionUser.getRole();
-            System.out.println(role);
-
-            if (role.equals("company")) {
-                isCompany = true;
-            }
-        }
-
-
-
-        return ResponseEntity.ok(new ApiUtil<>(postList));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 
     @GetMapping("/posts/{id}")
     public ResponseEntity<?> postDetail(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
+        MainResponse.PostDetailDTO respDTO = mainService.getPostDetail(id);
         if (sessionUser != null) {
-            List<Resume> resumeList = mainService.getResumeId(sessionUser.getId());
-        }
-
-        //기업인지 개인인지 구분
-        Boolean isCompany = false;
-        if (sessionUser != null) {
-            String role = sessionUser.getRole();
-            System.out.println(role);
-
-            if (role.equals("company")) {
-                isCompany = true;
+            if(sessionUser.getRole().equals("person")) {
+                List<MainResponse.ApplyListDTO> resumeList = mainService.getResumeId(sessionUser.getId());
+                return ResponseEntity.ok(new ApiUtil<>(respDTO, resumeList));
             }
         }
-        // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
-        Post post = mainService.getPostDetail(id);
-
         //resumeList도 같이 dto에 담아서 넘길 예정
-        return ResponseEntity.ok(new ApiUtil<>(post));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
-    public ResponseEntity<?> personPostApply(@PathVariable int id, Integer resumeChoice) {
+    public ResponseEntity<?> personPostApply(@PathVariable int id, MainRequest.resumeChoiceDTO resumeChoice) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        Apply apply=mainService.personPostApply(id, resumeChoice);
-        return ResponseEntity.ok(new ApiUtil<>(apply));
+        ApplyResponse.DTO respDTO=mainService.personPostApply(id, resumeChoice.getResumeChoice());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 
@@ -163,11 +128,6 @@ public class MainController {
     }
 
 
-    /**
-     * TODO: company/matching의 검색 버튼을 누르면 스트링을 인터저로 변환하지 못 해서 생기는 에러가 뜨는데 로직을 날려서 그런 것인지 원래 있던 문제인지 몰라서 남겨둠.
-     *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
-     *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
-     */
     @GetMapping("/posts/matching")
     public ResponseEntity<?> matchingPosts() {
         User sessionUser = (User) session.getAttribute("sessionUser");

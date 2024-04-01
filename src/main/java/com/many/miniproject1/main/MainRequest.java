@@ -9,4 +9,9 @@ public class MainRequest {
         private Integer postId;
     }
 
+    @Data
+    public static class resumeChoiceDTO {
+        private Integer resumeChoice;
+    }
+
 }

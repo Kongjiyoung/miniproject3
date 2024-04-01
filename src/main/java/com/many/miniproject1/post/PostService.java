@@ -14,6 +14,7 @@ import com.many.miniproject1.skill.SkillResponse;
 import com.many.miniproject1.user.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,14 +60,16 @@ public class PostService {
         return post;
     }
 
-    public List<Post> getResumeList(Integer userId){
-        return postJPARepository.findByUserIdJoinSkillAndUser(userId);
+    public List<PostResponse.PostListDTO> getResumeList(){
+        List<Post> postList = postJPARepository.findAllPost();
+        return postList.stream().map(post -> new PostResponse.PostListDTO(post)).toList();
     }
 
-    // 공고 상세보기 YSH
-    public Post postDetail (int postId){
-        Post post = postJPARepository.findByIdJoinSkillAndCompany(postId);
-        return post;
+    // 공고 상세보기
+    public PostResponse.DetailDTO postDetail (int postId, User sessionUser){
+        Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
+                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
+        return new PostResponse.DetailDTO(post,sessionUser);
     }
 
     @Transactional
