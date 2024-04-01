@@ -21,8 +21,9 @@ public class OfferController {
     // 제안한 이력서 상세보기
     @GetMapping("/api/person/offers/{id}")
     public ResponseEntity<?> personOfferDetail(@PathVariable int id) {
-        Offer offer = offerService.offerDetail(id);
-        return ResponseEntity.ok(new ApiUtil<>(offer));
+        OfferResponse.personOfferDetailDTO respDTO = offerService.personOfferDetail(id);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // person의 offers 관리
@@ -30,6 +31,7 @@ public class OfferController {
     public ResponseEntity<?> personOffers() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<OfferResponse.personOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -39,7 +41,7 @@ public class OfferController {
     @GetMapping("/api/company/offers")
     public ResponseEntity<?> companyOffers() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers(sessionUser.getId());
+        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers(14);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
