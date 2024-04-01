@@ -1,6 +1,7 @@
 package com.many.miniproject1.scrap;
 
 import com.many.miniproject1.offer.OfferResponse;
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
@@ -12,6 +13,17 @@ import java.util.Date;
 import java.util.List;
 
 public class ScrapResponse {
+    @Data
+    public static class PostScrapSaveDTO{
+        private User user;
+        private Post post;
+
+        public PostScrapSaveDTO(Scrap scrap) {
+            this.user = scrap.getUser();
+            this.post = scrap.getPost();
+        }
+    }
+
     @Data
     public static class ScarpPostDTO {
         private Integer id;
@@ -154,6 +166,42 @@ public class ScrapResponse {
 //            this.skills = skills;
 //        }
 //    }
+
+    @Data
+    public static class ScrapPostListDTO {
+        private Integer id;
+        private Post post;
+        private Integer companyId;
+        private String title;
+        private String career;
+        private String task;
+        private String profile;
+        private String workingArea;
+        private List<PostSkillDTO> skills;
+
+        public ScrapPostListDTO(Scrap scrap) {
+            this.id = scrap.getId();
+            this.post = scrap.getPost();
+            this.companyId = scrap.getUser().getId();
+            this.title = scrap.getPost().getTitle();
+            this.career = scrap.getPost().getCareer();
+            this.task = scrap.getPost().getTask();
+            this.profile = scrap.getPost().getProfile();
+            this.workingArea = scrap.getPost().getWorkingArea();
+            this.skills=scrap.getPost().getSkillList().stream().map(skill -> new PostSkillDTO(skill)).toList();
+        }
+
+        @Data
+        public static class PostSkillDTO{
+            private Integer id;
+            private String skill;
+
+            public PostSkillDTO(Skill skill){
+                this.id = skill.getId();
+                this.skill=skill.getSkill();
+            }
+        }
+    }
 
     @Data
     public static class ScrapResumeListDTO {

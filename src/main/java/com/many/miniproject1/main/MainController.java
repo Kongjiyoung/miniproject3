@@ -7,6 +7,7 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.scrap.Scrap;
+import com.many.miniproject1.scrap.ScrapResponse;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -111,8 +112,7 @@ public class MainController {
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
     public ResponseEntity<?> personPostApply(@PathVariable int id, MainRequest.resumeChoiceDTO resumeChoice) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+        System.out.println("resumeChoice = " + resumeChoice);
         ApplyResponse.DTO respDTO=mainService.personPostApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
@@ -122,8 +122,8 @@ public class MainController {
     public ResponseEntity<?> personPostScrap(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        Scrap scrap = mainService.personPostScrap(sessionUser.getId(), id);
-        return ResponseEntity.ok(new ApiUtil<>(scrap));
+        ScrapResponse.PostScrapSaveDTO respDTO = mainService.personPostScrap(sessionUser.getId(), id);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 
