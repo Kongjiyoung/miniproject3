@@ -5,10 +5,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 
 @RestController
@@ -85,10 +81,10 @@ public class UserController {
     @PutMapping("/people/{id}/info")
     public ResponseEntity<?> personInfoUpdate(@PathVariable Integer id, @RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.findByPersonId(1);
-        newSessionUser.update(1, reqDTO);
+        User newSessionUser = userService.findByPersonId(sessionUser.getId());
+        newSessionUser.update(sessionUser.getId(), reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
 
-        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }
