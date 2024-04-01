@@ -2,14 +2,10 @@ package com.many.miniproject1.apply;
 
 
 import com.many.miniproject1._core.utils.ApiUtil;
-import com.many.miniproject1.post.PostJPARepository;
-import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +20,7 @@ public class ApplyController {
     @GetMapping("/api/company/resumes")
     public ResponseEntity<?> companyResumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Apply> applyList = applyService.companyResumes(sessionUser.getId());
+        List<Apply> applyList = applyService.companyResumes(14);
 
         return ResponseEntity.ok(new ApiUtil<>(applyList));
     }

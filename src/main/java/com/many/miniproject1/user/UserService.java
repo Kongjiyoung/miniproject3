@@ -1,20 +1,12 @@
 package com.many.miniproject1.user;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
-import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1._core.errors.exception.Exception401;
-import com.many.miniproject1._core.errors.exception.Exception500;
+import com.many.miniproject1._core.errors.exception.Exception404;
 import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -22,44 +14,67 @@ public class UserService {
     public final UserJPARepository userJPARepository;
 
 
-    public User findByUser(int id){
+    public User findByUser(int id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return user;
     }
 
-    public UserResponse.PersonDTO findByPerson(int id){
+    public User findByPersonId(int id) {
+        return userJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+    }
+
+    //    @Transactional
+//    public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
+//        User user = userJPARepository.findById(id)
+//                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+//
+//        String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
+//
+//        user.setProfile(profileFilename);
+//        user.setAddress(reqDTO.getAddress());
+//        user.setEmail(reqDTO.getEmail());
+//        user.setTel(reqDTO.getTel());
+//        user.setBirth(reqDTO.getBirth());
+//        user.setName(reqDTO.getName());
+//        user.setPassword(reqDTO.getPassword());
+//        return userJPARepository.save(user);
+//    }
+    public UserResponse.PersonDTO findByPerson(int id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return new UserResponse.PersonDTO(user);
     }
 
-    public UserResponse.CompanyDTO findByCompany(int id){
+    public UserResponse.CompanyDTO findByCompany(int id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return new UserResponse.CompanyDTO(user);
     }
 
     @Transactional
-    public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
-        User user = userJPARepository.findById(id)
+    public User updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
+        User user = userJPARepository.findById(personId)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
-        String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
+        //  String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
 
-        user.setProfile(profileFilename);
-        user.setAddress(reqDTO.getAddress());
-        user.setEmail(reqDTO.getEmail());
-        user.setTel(reqDTO.getTel());
-        user.setBirth(reqDTO.getBirth());
-        user.setName(reqDTO.getName());
-        user.setPassword(reqDTO.getPassword());
-        return userJPARepository.save(user);
+        // user.update(personId, reqDTO, profileFilename);
+        user.update(personId, reqDTO);
+//        user.setProfile(profileFilename);
+//        user.setName(reqDTO.getName());
+//        user.setBirth(Date.valueOf(reqDTO.getBirth().toLocalDate()));
+//        user.setAddress(reqDTO.getAddress());
+//        user.setTel(reqDTO.getTel());
+//        user.setEmail(reqDTO.getEmail());
+        // user = userJPARepository.save(user);
+        return user;
     }
 
     @Transactional
     public UserResponse.PersonDTO personJoin(UserRequest.PersonJoinDTO reqDTO) {
-        User user=userJPARepository.save(reqDTO.toEntity());
+        User user = userJPARepository.save(reqDTO.toEntity());
         return new UserResponse.PersonDTO(user);
     }
 
@@ -91,8 +106,18 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse.CompanyDTO companyJoin(UserRequest.CompanyJoinDTO reqDTO){
-        User user=userJPARepository.save(reqDTO.toEntity());
+    public User compJoin(UserRequest.CompanyJoinDTO reqDTO) {
+        String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
+
+        User user = reqDTO.toEntity();
+        user.setRole("company");
+        user.setProfile(profileFilename);
+        userJPARepository.save(user);
+        return user;
+    }
+
+    public UserResponse.CompanyDTO companyJoin(UserRequest.CompanyJoinDTO reqDTO) {
+        User user = userJPARepository.save(reqDTO.toEntity());
         return new UserResponse.CompanyDTO(user);
     }
 }
