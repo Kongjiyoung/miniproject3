@@ -40,7 +40,7 @@ public class ApplyController {
         apply.updateIsPass(reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(null));
-    }
+    } // 체크 완
 
     // 개인이 지원한 이력서 목록
     @GetMapping("/api/person/applies")

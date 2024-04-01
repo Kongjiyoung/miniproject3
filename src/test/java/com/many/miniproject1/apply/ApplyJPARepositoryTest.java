@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,18 +19,16 @@ public class ApplyJPARepositoryTest {
     private EntityManager em;
 
     @Test
-    public void findById_test() {
+    public void findByApplyId_test() {
         // given
-        ApplyRequest.UpdateIsPassDTO reqDTO = new ApplyRequest.UpdateIsPassDTO();
-        reqDTO.setId(1);
+        int applyId = 1;
 
         // when
-        Optional<Apply> apply = applyJPARepository.findById(reqDTO.getId());
+        Apply apply = applyJPARepository.findByApplyId(applyId);
 
         // then
-        // System.out.println("findById_test: " + apply);
-        assertThat(apply.get().getResume().getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
-        assertThat(apply.get().getIsPass()).isEqualTo("합격");
+        assertThat(apply.getIsPass()).isEqualTo("합격");
+
     }
 
     @Test
