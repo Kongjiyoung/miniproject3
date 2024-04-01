@@ -60,13 +60,13 @@ public class ScrapController {
         Apply apply=scrapService.saveApply(id, resumeChoice);
         return ResponseEntity.ok(new ApiUtil<>(apply));    }
 
+
     //기업 이력서 스크랩
-    @GetMapping("/company/scraps")
+    @GetMapping("/api/company/scraps")
     public ResponseEntity<?> companyScrapForm() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Scrap> scrapList = scrapService.companyScrapList(sessionUser.getId());
-
-        return ResponseEntity.ok(new ApiUtil<>(scrapList));
+        List<ScrapResponse.ScrapResumeListDTO> respDTO = scrapService.companyScrapList(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/company/scraps/{id}")

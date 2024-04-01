@@ -60,8 +60,9 @@ public class ScrapService {
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         return scrap;
     }
-    public List<Scrap> companyScrapList(Integer userId){
-        return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
+    public List<ScrapResponse.ScrapResumeListDTO> companyScrapList(Integer userId){
+        List<Scrap> scrapList = scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
+        return scrapList.stream().map(scrap -> new ScrapResponse.ScrapResumeListDTO(scrap)).toList();
     }
 
 

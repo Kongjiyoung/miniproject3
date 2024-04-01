@@ -1,6 +1,8 @@
 package com.many.miniproject1.scrap;
 
 import com.many.miniproject1.offer.OfferResponse;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.skill.Skill;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -117,6 +119,40 @@ public class ScrapResponse {
             this.birth = resumeDTO.getBirth();
             this.isPass = resumeDTO.getIsPass();
             this.skills = skills;
+        }
+    }
+
+    @Data
+    public static class ScrapResumeListDTO {
+        private Integer id;
+        private Resume resume;
+        private Integer personId;
+        private String title;
+        private String profile;
+        private String career;
+        private String simpleIntroduce;
+        private List<ResumeSkillDTO> skills;
+
+        public ScrapResumeListDTO(Scrap scrap) {
+            this.id = scrap.getId();
+            this.resume = getResume();
+            this.personId = scrap.getResume().getUser().getId();
+            this.title = scrap.getResume().getTitle();
+            this.profile = scrap.getResume().getUser().getProfile();
+            this.career = scrap.getResume().getCareer();
+            this.simpleIntroduce = scrap.getResume().getSimpleIntroduce();
+            this.skills=scrap.getResume().getSkillList().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
+        }
+
+        @Data
+        public static class ResumeSkillDTO{
+            private Integer id;
+            private String skill;
+
+            public ResumeSkillDTO(Skill skill){
+                this.id = skill.getId();
+                this.skill=skill.getSkill();
+            }
         }
     }
 
