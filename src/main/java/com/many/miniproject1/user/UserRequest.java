@@ -34,7 +34,7 @@ public class UserRequest {
         public User toEntity() {
             String profileImagePath = ProfileImageSaveUtil.save(profile);
             return User.builder()
-                    .role(role)
+                    .role("person")
                     .profile(profileImagePath)
                     .username(username)
                     .name(name)
@@ -77,10 +77,10 @@ public class UserRequest {
         private String email;       // 담당자 이메일
         private String password;    // 비밀번호
 
-        public User toEntity(){
+        public User toEntity() {
             String profileImagePath = ProfileImageSaveUtil.save(profile);
             return User.builder()
-                    .role(role)
+                    .role("company")
                     .profile(profileImagePath)
                     .companyName(companyName)
                     .companyNum(companyNum)
@@ -92,5 +92,28 @@ public class UserRequest {
                     .password(password)
                     .build();
         }
+    }
+
+    @Data
+    public static class PersonInfoUpdateDTO {
+        private Integer id;
+        //private MultipartFile profile;
+        private String name;
+        // private Date birth;
+        private String tel;
+        private String address;
+        private String email;
+        private String password;
+
+//        @Builder
+//        public PersonInfoUpdateDTO(User user) {
+//            this.id = user.getId();
+//            this.profile = user.getProfile();
+//            this.name = user.getName();
+//            this.birth = user.getName();
+//            this.tel = user.getTel();
+//            this.address = user.getAddress();
+//            this.email = user.getEmail();
+//        }
     }
 }
