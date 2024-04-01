@@ -20,14 +20,14 @@ public class ApplyService {
 
 
     @Transactional
-    public Apply isPassResume(Integer resumeId, ApplyRequest.UpdateIsPass reqDTO) {
+    public ApplyRequest.UpdateIsPassDTO isPassResume(Integer resumeId, ApplyRequest.UpdateIsPassDTO reqDTO) {
         // 1. 이력서 찾기
         Apply apply = applyJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         System.out.println(apply);
 
         apply.setIsPass(reqDTO.getIsPass());
-        return apply;
+        return new ApplyRequest.UpdateIsPassDTO();
     }
 
     public List<ApplyResponse.AppliedResumeSkillDTO> getAppliedResumeSkillDTOs(Integer companyId) {
@@ -87,5 +87,9 @@ public class ApplyService {
         Apply apply = applyJPARepository.findPostByApplyId(applyId);
 
         return new ApplyResponse.ApplyPostSkillDetailDTO(apply, apply.getPost().getUser(), apply.getPost(), apply.getPost().getSkillList());
+    }
+
+    public Apply getApplyById(Integer applyId) {
+        return applyJPARepository.findByApplyId(applyId);
     }
 }

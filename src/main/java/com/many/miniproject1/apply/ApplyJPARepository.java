@@ -112,4 +112,13 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             where a.id = :apply_id
                """)
     Apply findPostByApplyId(@Param("apply_id") Integer applyId);
+
+    @Query("""
+            select a
+            from Apply a           
+             join fetch a.post p
+            join fetch a.resume r
+            where a.id = :apply_id
+                        """)
+    Apply findByApplyId(@Param("apply_id") Integer applyId);
 }

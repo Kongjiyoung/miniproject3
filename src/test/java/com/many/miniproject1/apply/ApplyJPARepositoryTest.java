@@ -22,7 +22,7 @@ public class ApplyJPARepositoryTest {
     @Test
     public void findById_test() {
         // given
-        ApplyRequest.UpdateIsPass reqDTO = new ApplyRequest.UpdateIsPass();
+        ApplyRequest.UpdateIsPassDTO reqDTO = new ApplyRequest.UpdateIsPassDTO();
         reqDTO.setId(1);
 
         // when

@@ -34,10 +34,12 @@ public class ApplyController {
     }  // 체크 완
 
     @PutMapping("/api/company/resumes/{id}/is-pass")
-    public ResponseEntity<?> companyPass(@PathVariable int id, @RequestBody ApplyRequest.UpdateIsPass reqDTO) {
-        Apply apply = applyService.isPassResume(id, reqDTO);
+    public ResponseEntity<?> companyPass(@PathVariable int id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
+        Apply apply = applyService.getApplyById(id);
+        //ApplyRequest.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
+        apply.updateIsPass(reqDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(apply));
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
     // 개인이 지원한 이력서 목록

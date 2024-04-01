@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -31,7 +30,6 @@ public class Apply { // 지원 테이블
     private Timestamp createdAt;
 
     @Builder
-
     public Apply(Integer id, Resume resume, Post post, String isPass, Timestamp createdAt) {
         this.id = id;
         this.resume = resume;
@@ -39,4 +37,18 @@ public class Apply { // 지원 테이블
         this.isPass = isPass;
         this.createdAt = createdAt;
     }
+
+    public void updateIsPass(ApplyRequest.UpdateIsPassDTO reqDTO) {
+        this.isPass = reqDTO.getIsPass();
+    }
+
+    // 아래 매개변수에 각각 디티오 넣으면 업데이트 됨
+//    public void updateResume(Resume resume) {
+//        this.resume = resume;
+//    }
+//
+//    public void updatePost(Post post) {
+//        this.post = post;
+//    }
+    
 }
