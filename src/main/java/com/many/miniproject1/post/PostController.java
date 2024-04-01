@@ -24,25 +24,23 @@ public class PostController {
     //회사 공고 관리
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Post> postList =postService.getResumeList(sessionUser.getId());
-
-        return ResponseEntity.ok(new ApiUtil<>(postList));
+        List<PostResponse.PostListDTO> respDTO =postService.getResumeList();
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/api/company/posts/{id}")
-    public ResponseEntity<?> companyPostDetailForm(@PathVariable Integer id) {
-        Post post = postService.postDetail(id);
-
-        return ResponseEntity.ok(new ApiUtil<>(post));
+    public ResponseEntity<?> companyPostDetail(@PathVariable Integer id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        PostResponse.DetailDTO respDTO = postService.postDetail(id, sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // 이력서 저장
-    @PostMapping("/api/company/posts/save")
-    public ResponseEntity<?> companySavePost(PostRequest.PostSaveDTO reqDTO) {
+    @PostMapping("/api/company/posts")
+    public ResponseEntity<?> companySavePost(@RequestBody PostRequest.PostSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        postService.save(reqDTO, sessionUser);
-        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
+        Post post = postService.save(reqDTO, sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(post));
     }
 
     @PutMapping("/api/company/posts/{id}/update")
