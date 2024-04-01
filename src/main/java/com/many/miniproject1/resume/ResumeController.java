@@ -26,9 +26,9 @@ public class ResumeController {
     // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서
     @GetMapping("/api/person/resumes/{id}/detail")
     public ResponseEntity<?> personResume(@PathVariable int id) {
-        Resume resume = resumeService.getResumeDetail(id);
-
-        return ResponseEntity.ok(new ApiUtil<>(resume));
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        ResumeResponse.resumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PostMapping("/api/person/resumes")

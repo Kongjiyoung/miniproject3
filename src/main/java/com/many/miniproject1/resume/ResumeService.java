@@ -87,9 +87,14 @@ public class ResumeService {
         return resume;
     }
 
-
     public Resume getResumeDetail(int resumeId) {
         return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
+    }
+
+    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, User sessionUser) {
+        Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+        return new ResumeResponse.resumeDetailDTO(resume, sessionUser);
     }
 
     public Resume getResumeSkill(ResumeResponse.DetailDTO respDTO) {
