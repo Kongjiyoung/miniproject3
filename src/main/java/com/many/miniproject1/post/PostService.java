@@ -65,10 +65,11 @@ public class PostService {
         return postList.stream().map(post -> new PostResponse.PostListDTO(post)).toList();
     }
 
-    // 공고 상세보기 YSH
-    public Post postDetail (int postId){
-        Post post = postJPARepository.findByIdJoinSkillAndCompany(postId);
-        return post;
+    // 공고 상세보기
+    public PostResponse.DetailDTO postDetail (int postId, User sessionUser){
+        Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
+                .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
+        return new PostResponse.DetailDTO(post,sessionUser);
     }
 
     @Transactional

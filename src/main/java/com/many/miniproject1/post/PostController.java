@@ -29,10 +29,10 @@ public class PostController {
     }
 
     @GetMapping("/api/company/posts/{id}")
-    public ResponseEntity<?> companyPostDetailForm(@PathVariable Integer id) {
-        Post post = postService.postDetail(id);
-
-        return ResponseEntity.ok(new ApiUtil<>(post));
+    public ResponseEntity<?> companyPostDetail(@PathVariable Integer id) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        PostResponse.DetailDTO respDTO = postService.postDetail(id, sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // 이력서 저장

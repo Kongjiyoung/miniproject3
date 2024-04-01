@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostJPARepository extends JpaRepository<Post, Integer> {
 
@@ -29,7 +30,7 @@ public interface PostJPARepository extends JpaRepository<Post, Integer> {
             JOIN FETCH p.user pu
             WHERE p.id = :id
             """)
-    Post findByIdJoinSkillAndCompany(@Param("id") Integer id);
+    Optional<Post> findByIdJoinSkillAndCompany(@Param("id") Integer id);
 
     @Query("""
             select p
