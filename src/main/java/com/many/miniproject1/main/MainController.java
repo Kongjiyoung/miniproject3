@@ -95,7 +95,7 @@ public class MainController {
     //메인 채용 공고
     @GetMapping({"/posts", "/"})
     public ResponseEntity<?> posts() {
-        List<Post> postList = mainService.getPostList();
+        List<MainResponse.mainPostsDTO> postList = mainService.getPostList();
 
         // 목적: 개인 회원 로그인/비회원 로그인 시 공고들이 보임
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -110,8 +110,6 @@ public class MainController {
                 isCompany = true;
             }
         }
-
-
 
         return ResponseEntity.ok(new ApiUtil<>(postList));
 
@@ -163,11 +161,6 @@ public class MainController {
     }
 
 
-    /**
-     * TODO: company/matching의 검색 버튼을 누르면 스트링을 인터저로 변환하지 못 해서 생기는 에러가 뜨는데 로직을 날려서 그런 것인지 원래 있던 문제인지 몰라서 남겨둠.
-     *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
-     *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
-     */
     @GetMapping("/posts/matching")
     public ResponseEntity<?> matchingPosts() {
         User sessionUser = (User) session.getAttribute("sessionUser");
