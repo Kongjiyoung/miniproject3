@@ -18,10 +18,9 @@ public class ResumeController {
     //개인 이력서 관리
     @GetMapping("/api/person/resumes")
     public ResponseEntity<?> personResumes() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Resume> resumeList = resumeService.findResumeList(sessionUser.getId());
-
-        return ResponseEntity.ok(new ApiUtil<>(resumeList));
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<ResumeResponse.resumeListDTO> respDTO = resumeService.getResumeList();
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서

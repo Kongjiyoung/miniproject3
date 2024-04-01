@@ -1,5 +1,6 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
 import lombok.Data;
 
@@ -110,5 +111,37 @@ public class ResumeResponse {
         private String simpleIntroduce;
         private List<String> skills;
         private Timestamp createdAt;
+    }
+
+    @Data
+    public static class resumeListDTO {
+        int id;
+        Integer personId;
+        String profile;
+        String title;
+        String career;
+        String simpleIntroduce;
+        List<ResumeSkillDTO> skills;
+
+        public resumeListDTO(Resume resume) {
+            this.id = resume.getId();
+            this.personId = resume.getUser().getId();
+            this.profile = resume.getProfile();
+            this.title = resume.getTitle();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
+            this.skills = resume.getSkillList().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
+        }
+
+        @Data
+        public class ResumeSkillDTO {
+            private int id;
+            private String skill;
+
+            public ResumeSkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
     }
 }

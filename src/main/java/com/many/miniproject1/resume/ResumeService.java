@@ -109,6 +109,11 @@ public class ResumeService {
         return resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 
+    public List<ResumeResponse.resumeListDTO> getResumeList() {
+        List<Resume> resumeList = resumeJPARepository.findAllResume();
+        return resumeList.stream().map(resume -> new ResumeResponse.resumeListDTO(resume)).toList();
+    }
+
     @Transactional
     public void deleteResume(Integer resumeId) {
         applyJPARepository.deleteByResumeId(resumeId);
