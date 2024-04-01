@@ -52,11 +52,10 @@ public class PostController {
         return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 
-    @DeleteMapping("/api/company/posts/{id}/delete")
+    @DeleteMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyDeletePost(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         postService.postDelete(id, sessionUser.getId());
-
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }
