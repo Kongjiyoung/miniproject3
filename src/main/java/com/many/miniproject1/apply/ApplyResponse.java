@@ -1,6 +1,7 @@
 package com.many.miniproject1.apply;
 
 
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
@@ -158,7 +159,6 @@ public class ApplyResponse {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////
     @Data
     public static class AppliedResumeSkillDTO {
         private Integer id;
@@ -193,7 +193,6 @@ public class ApplyResponse {
             }
         }
     }
-    ///////////////////////
 
     @Data
     public static class AppliedResumeSkillDetailDTO {
@@ -235,6 +234,92 @@ public class ApplyResponse {
                 return new SkillDTO(skill);
             }).collect(Collectors.toList());
             this.introduce = resume.getIntroduce();
+        }
+
+        @Data
+        public static class SkillDTO {
+            private Integer id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+    }
+
+    @Data
+    public static class ApplyPostSkillDTO {
+        private Integer id;
+        private String profile;
+        private String title;
+        private String career;
+        private String workingArea;
+        private List<SkillDTO> skllList;
+        private String isPass;
+
+        @Builder
+        public ApplyPostSkillDTO(Apply apply, Post post, List<Skill> skllList) {
+            this.id = apply.getId();
+            this.profile = post.getProfile();
+            this.title = post.getTitle();
+            this.career = post.getCareer();
+            this.workingArea = post.getWorkingArea();
+            this.skllList = skllList.stream().map(skill -> {
+                return new SkillDTO(skill);
+            }).collect(Collectors.toList());
+            this.isPass = apply.getIsPass();
+        }
+
+        @Data
+        public class SkillDTO {
+            private Integer id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+    }
+
+    @Data
+    public static class ApplyPostSkillDetailDTO {
+        // apply
+        private Integer id;
+
+        // user
+        private String companyName;
+
+        // post
+        private String title;
+        private String career;
+        private String pay;
+        private String workCondition;
+        private String workStartTime;
+        private String workEndTime;
+        private String deadline;
+        private String task;
+        private String profile;
+        private String workingArea;
+        private List<SkillDTO> skllList;
+
+        public ApplyPostSkillDetailDTO(Apply apply, User user, Post post, List<Skill> skllList) {
+            this.id = apply.getId();
+            this.companyName = user.getCompanyName();
+            this.title = post.getTitle();
+            this.career = post.getCareer();
+            this.pay = post.getPay();
+            this.workCondition = post.getWorkCondition();
+            this.workStartTime = post.getWorkStartTime();
+            this.workEndTime = post.getWorkEndTime();
+            this.deadline = post.getDeadline();
+            this.task = post.getTask();
+            this.profile = user.getProfile();
+            this.workingArea = post.getWorkingArea();
+            this.skllList = skllList.stream().map(skill -> {
+                return new SkillDTO(skill);
+            }).collect(Collectors.toList());
         }
 
         @Data

@@ -45,13 +45,28 @@ public class ApplyService {
         return appliedResumeSkillDTOList;
     }
 
+    public List<ApplyResponse.ApplyPostSkillDTO> getApplyPostSkillDTOs(Integer personId) {
+        List<Apply> applyList = applyJPARepository.findByPersonIdJoinPost(personId);
+        List<ApplyResponse.ApplyPostSkillDTO> applyPostSkillDTOList = new ArrayList<>();
+
+        applyList.stream().map(apply -> {
+            return applyPostSkillDTOList.add(ApplyResponse.ApplyPostSkillDTO.builder()
+                    .apply(apply)
+                    .post(apply.getPost())
+                    .skllList(apply.getPost().getSkillList())
+                    .build());
+        }).collect(Collectors.toList());
+
+        return applyPostSkillDTOList;
+    }
+
     public Apply companyResumeDetail(int id) {
         Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id);
         return apply;
     }
 
-    public ApplyResponse.AppliedResumeSkillDetailDTO appliedResume(int applyId) {
-        Apply apply = applyJPARepository.findByApplyId(applyId);
+    public ApplyResponse.AppliedResumeSkillDetailDTO getAppliedResume(int applyId) {
+        Apply apply = applyJPARepository.findResumeByApplyId(applyId);
 
         return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkillList());
     }
@@ -68,14 +83,9 @@ public class ApplyService {
         return applyJPARepository.findAllAppliesWithPostsAndSkills(userId);
     }
 
-    public Apply getPostDetail(Integer userId, Integer postId) {
-        Apply apply = applyJPARepository.findByPostIdJoinPostAndSkillAndUser(postId, userId).orElseThrow(() -> new Exception404("없음"));
-        return apply;
-    }
+    public ApplyResponse.ApplyPostSkillDetailDTO getPostDetail(int applyId) {
+        Apply apply = applyJPARepository.findPostByApplyId(applyId);
 
-//    public ApplyResponse.AppliedResumeSkillDetailDTO findByApplyId(int applyId) {
-//        Apply apply = applyJPARepository.findByApplyId(applyId);
-//
-//        return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkillList());
-//    }
+        return new ApplyResponse.ApplyPostSkillDetailDTO(apply, apply.getPost().getUser(), apply.getPost(), apply.getPost().getSkillList());
+    }
 }

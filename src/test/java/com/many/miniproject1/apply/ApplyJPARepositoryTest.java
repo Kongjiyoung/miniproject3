@@ -84,17 +84,6 @@ public class ApplyJPARepositoryTest {
         assertThat(apply.getIsPass()).isEqualTo("합격");
 
     }
-//        @Test
-//        public void findByPostIdJoinPostAndSkillAndUser_test () {
-//            // given
-//            int postid = 1;
-//            int resumeUserId = 1;
-//            // when
-//            Apply apply = applyJPARepository.findByPostIdJoinPostAndSkillAndUser(postid, resumeUserId).get();
-//
-//            // then
-//            Assertions.assertThat(apply.getIsPass()).isEqualTo("불합격");
-//        }
 
     @Test
     public void findByCompanyIdJoinResume_test() {
@@ -107,5 +96,29 @@ public class ApplyJPARepositoryTest {
         // then
         assertThat(applyList.size()).isEqualTo(4);
         assertThat(applyList.getFirst().getIsPass()).isEqualTo("합격");
+    }
+
+    @Test
+    public void findByPersonIdJoinPost_test() {
+        //given
+        int personId = 1;
+
+        // when
+        List<Apply> applyList = applyJPARepository.findByPersonIdJoinPost(personId);
+
+        // then
+        assertThat(applyList.size()).isEqualTo(6);
+        assertThat(applyList.getFirst().getResume().getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
+    }
+
+    @Test
+    public void findPostByApplyId_test() {
+        // given
+        int id = 1;
+        // when
+        Apply apply = applyJPARepository.findPostByApplyId(id);
+
+        // then
+        assertThat(apply.getPost().getCareer()).isEqualTo("미들 (4~8년)");
     }
 }

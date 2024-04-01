@@ -69,14 +69,14 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
     void deleteByPostId(@Param("post_id") Integer postId);
 
     @Query("""
-         select a
-         from Apply a
-         join fetch a.resume r
-         join fetch r.user u
-         join fetch r.skillList s
-         where a.id = :apply_id
-            """)
-    Apply findByApplyId(@Param("apply_id") Integer applyId);
+            select a
+            from Apply a
+            join fetch a.resume r
+            join fetch r.user u
+            join fetch r.skillList s
+            where a.id = :apply_id
+               """)
+    Apply findResumeByApplyId(@Param("apply_id") Integer applyId);
 
     @Query("""
             select a
@@ -89,4 +89,27 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             where pu.id = :company_id
                         """)
     List<Apply> findByCompanyIdJoinResume(@Param("company_id") Integer companyId);
+
+    @Query("""
+            select a
+            from Apply a
+            join fetch a.post p
+            join fetch p.user pu
+            join fetch p.skillList s
+            join fetch a.resume r
+            join fetch r.user ru
+            where ru.id = :person_id
+                        """)
+    List<Apply> findByPersonIdJoinPost(@Param("person_id") Integer personId);
+
+
+    @Query("""
+            select a
+            from Apply a
+            join fetch a.post p
+            join fetch p.user u
+            join fetch p.skillList s
+            where a.id = :apply_id
+               """)
+    Apply findPostByApplyId(@Param("apply_id") Integer applyId);
 }
