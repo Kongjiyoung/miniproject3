@@ -111,8 +111,7 @@ public class MainController {
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
     public ResponseEntity<?> personPostApply(@PathVariable int id, MainRequest.resumeChoiceDTO resumeChoice) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+        System.out.println("resumeChoice = " + resumeChoice);
         ApplyResponse.DTO respDTO=mainService.personPostApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
