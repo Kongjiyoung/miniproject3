@@ -84,9 +84,8 @@ public class UserController {
     @GetMapping("/person/info")
     public ResponseEntity<?> personInfo() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.findByUser(sessionUser.getId());
-
-        return ResponseEntity.ok(new ApiUtil<>(user));
+        UserResponse.PersonDTO respDTO = userService.findByPerson(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/person/info/update-form")
