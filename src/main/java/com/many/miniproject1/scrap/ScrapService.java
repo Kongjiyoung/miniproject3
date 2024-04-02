@@ -2,6 +2,7 @@ package com.many.miniproject1.scrap;
 
 
 import com.many.miniproject1._core.errors.exception.Exception401;
+import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -42,11 +43,22 @@ public class ScrapService {
        return apply;
     }
 
-    @Transactional
-    public void deleteScrapPost(int id){
-        scrapJPARepository.deleteById(id);
+//    @Transactional
+//    public void deleteScrapPost(int id){
+//        scrapJPARepository.deleteById(id);
+//    }
 
+    @Transactional
+    public void deleteScrapPost(int scrapId, int sessionUserId){
+        Scrap scrap = scrapJPARepository.findById(scrapId)
+                .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
+
+        if(sessionUserId != scrap.getUser().getId()){
+            throw new Exception403("스크랩한 공고를 삭제할 권한이 없습니다");
+        }
+        scrapJPARepository.deleteById(scrapId);
     }
+
     public void deleteScrap(Integer id) {
         scrapJPARepository.deleteById(id);
     }

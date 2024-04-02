@@ -13,10 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,9 +47,10 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PostMapping("/person/scraps/{id}/detail/delete")
+    @DeleteMapping("/api/person/scraps/{id}")
     public ResponseEntity<?> personScrapDelete(@PathVariable Integer id) {
-        scrapService.deleteScrapPost(id);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        scrapService.deleteScrapPost(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
