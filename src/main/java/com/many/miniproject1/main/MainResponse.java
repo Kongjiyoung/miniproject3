@@ -96,6 +96,16 @@ public class MainResponse {
             this.resumeTitle = resume.getTitle();
         }
     }
+
+    public static class OfferListDTO{
+        int postId;
+        String postTitle;
+
+        public OfferListDTO(Post post) {
+            this.postId = post.getId();
+            this.postTitle = post.getTitle();
+        }
+    }
     @Data
     public static class ResumeSkillDTO {
         int resumeId;
@@ -116,5 +126,89 @@ public class MainResponse {
             this.score = i;
         }
 
+    }
+    @Data
+    public static class MainPostMatchDTO {
+        int id;
+        String profile;
+        String userName;
+        String career;
+        String simpleIntroduce;
+        List<SkillDTO> skills = new ArrayList<>();
+
+        public MainPostMatchDTO(Resume resume) {
+            this.id = resume.getId();
+            this.profile = resume.getProfile();
+            this.userName = resume.getUser().getName();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
+            this.skills = resume.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+        }
+        @Data
+        public class SkillDTO{
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+
+    }
+
+    @Data
+    public static class PosteMatchingChoiceDTO {
+        int postId;
+        String postTitle;
+
+        public PosteMatchingChoiceDTO(Post post) {
+            this.postId = post.getId();
+            this.postTitle = post.getTitle();
+        }
+    }
+    @Data
+    public static class ResumeeMatchingChoiceDTO {
+        int resumeId;
+        String resumeTitle;
+
+        public ResumeeMatchingChoiceDTO(Resume resume) {
+            this.resumeId = resume.getId();
+            this.resumeTitle = resume.getTitle();
+        }
+    }
+
+    @Data
+    public static class MainResumeMatchDTO {
+        int id;
+        String profile;
+        String companyName;
+        String title;
+        String task;
+        String career;
+        String workingArea;
+        List<SkillDTO> skills = new ArrayList<>();
+
+        public MainResumeMatchDTO(Post post) {
+            this.id = post.getId();
+            this.profile = post.getProfile();
+            this.companyName = post.getUser().getCompanyName();
+            this.title = post.getTitle();
+            this.task = post.getTask();
+            this.career = post.getCareer();
+            this.workingArea = post.getWorkingArea();
+            this.skills = post.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+        }
+
+        @Data
+        public class SkillDTO{
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
     }
 }

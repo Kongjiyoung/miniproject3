@@ -82,7 +82,7 @@ public class OfferResponse {
         String workEndTime;
         String workingArea;
         String workCondition;
-        List<personOfferDetailDTO.SkillDTO> skills = new ArrayList<>();
+        List<SkillDTO> skills = new ArrayList<>();
 
         @Data
         public class SkillDTO{

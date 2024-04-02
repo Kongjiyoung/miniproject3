@@ -4,7 +4,13 @@ import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Date;
+import java.util.Base64;
+
+import java.util.UUID;
 
 public class UserRequest {
 
@@ -67,7 +73,8 @@ public class UserRequest {
     @Data
     public static class CompanyJoinDTO {
         private String role;        // 구직자 or 회사
-        private MultipartFile profile;     // 사진
+        private String profile;     // 사진
+        private String profileName;
         private String companyName; // 회사명
         private String companyNum;  // 사업자번호
         private String username;    // 로그인ID
@@ -78,10 +85,18 @@ public class UserRequest {
         private String password;    // 비밀번호
 
         public User toEntity() {
-            String profileImagePath = ProfileImageSaveUtil.save(profile);
+            String encodedImageData = profile;
+            byte[] decodedBytes = Base64.getDecoder().decode(encodedImageData);
+            String profilename=UUID.nameUUIDFromBytes(decodedBytes).randomUUID()+"_" + profileName;
+            try {
+                Path path = Path.of("./images/" + profilename);
+                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return User.builder()
                     .role("company")
-                    .profile(profileImagePath)
+                    .profile(profilename)
                     .companyName(companyName)
                     .companyNum(companyNum)
                     .username(username)

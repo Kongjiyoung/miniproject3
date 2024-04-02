@@ -53,10 +53,9 @@ public class ScrapJPARepositoryTest {
     @Test
     public void resumeDetail_test() {
         // given
-        int userId = 14;
-        int resumeId = 1;
+        int userId = 1;
         // when
-        Optional<Scrap> scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(userId,resumeId);
+        Scrap scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(userId);
         System.out.println("test::: " + scrap);
         // then
     }
@@ -77,7 +76,7 @@ public class ScrapJPARepositoryTest {
 
         // then
 //        assertThat(offer.);
-        System.out.println("👩👴🧓👱‍♀️👼🎅👸🤴승호" + offer);
+        System.out.println("test:: " + offer);
     }
 
     @Test

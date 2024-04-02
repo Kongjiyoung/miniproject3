@@ -88,11 +88,10 @@ public class ResumeJPARepositoryTest {
     @Test
     public void findByIdJoinSkillAndUser_test() {
         //given
-        ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
-        respDTO.setId(1);
+      int resumeId=1;
 
         // when
-        Resume resumeDetail = resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
+        Resume resumeDetail = resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
 
         // then
         assertThat(resumeDetail.getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
