@@ -2,6 +2,7 @@ package com.many.miniproject1.scrap;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.apply.Apply;
+import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.PostResponse;
@@ -80,9 +81,9 @@ public class ScrapController {
     }
 
     @PostMapping("/api/company/scraps/{id}")
-    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody PostResponse.PostDetailDTO postChoice) {
-        Offer offer = scrapService.sendPostToResume(id, postChoice);
-        return ResponseEntity.ok(new ApiUtil<>(offer));
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody ScrapRequest.PostChoiceDTO postChoice) {
+        OfferResponse.ChoiceDTO respDTO = scrapService.sendPostToResume(id, postChoice.getPostChoice());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 }
