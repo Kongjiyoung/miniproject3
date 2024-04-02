@@ -67,4 +67,9 @@ public class ScrapRequest {
     public static class PostChoiceDTO {
         private Integer postChoice;
     }
+
+    @Data
+    public static class ResumeChoiceDTO {
+        private Integer resumeChoice;
+    }
 }
