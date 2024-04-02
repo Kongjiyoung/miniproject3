@@ -14,17 +14,13 @@ import com.many.miniproject1.offer.OfferRequest;
 import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
-import com.many.miniproject1.post.PostRequest;
-import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
-import com.many.miniproject1.user.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -117,9 +113,10 @@ public class ScrapService {
         return scrap;
     }
 
-    public ScrapResponse.ScrapPostDetailDTO ScrapPostDetail(Integer scrapId, User sessionUser) {
+
+    public ScrapResponse.ScrapPostDetailDTO ScrapPostDetail(Integer scrapId){
         Scrap scrap = scrapJPARepository.findByScrapIdJoinPost(scrapId)
                 .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
-        return new ScrapResponse.ScrapPostDetailDTO(scrap, sessionUser);
+        return new ScrapResponse.ScrapPostDetailDTO(scrap);
     }
 }

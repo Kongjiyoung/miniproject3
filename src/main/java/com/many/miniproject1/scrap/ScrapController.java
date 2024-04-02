@@ -35,18 +35,10 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @GetMapping("/api/person/scraps/{id}/detail")
+    @GetMapping("/api/person/scraps/{id}")
     public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        //뷰내용 뿌리기
-        Scrap scrap = scrapService.getScrapPostDetail(id);
-
-        //이력서 선택
-        List<Resume> resumeList = resumeService.getResumeFindBySessionUserId(sessionUser.getId());
-        ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id, sessionUser);
-
-        //resumeList도 같이 DTO에 담기
+        System.out.println("id = " + id);
+        ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
