@@ -1,5 +1,6 @@
 package com.many.miniproject1.offer;
 
+import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
@@ -16,7 +17,7 @@ public class OfferResponse {
 
     // 04-01 YSH
     @Data
-    public static class personOffersDTO{
+    public static class personOffersDTO {
         int offerId;
         int personId;
         String profile;
@@ -46,7 +47,7 @@ public class OfferResponse {
         List<SkillDTO> skills = new ArrayList<>();
 
         @Data
-        public class SkillDTO{
+        public class SkillDTO {
             private int id;
             private String skill;
 
@@ -68,7 +69,7 @@ public class OfferResponse {
     }
 
     @Data
-    public static class personOfferDetailDTO{
+    public static class personOfferDetailDTO {
         int postId;
         int personId;
         String title;
@@ -85,7 +86,7 @@ public class OfferResponse {
         List<SkillDTO> skills = new ArrayList<>();
 
         @Data
-        public class SkillDTO{
+        public class SkillDTO {
             private int id;
             private String skill;
 
@@ -194,4 +195,15 @@ public class OfferResponse {
         }
     }
 
+    @Data
+    public static class ChoiceDTO {
+        private int resumeId;
+        private int postId; // 채용공고 아이디
+
+        public ChoiceDTO(Offer offer) {
+            this.resumeId = offer.getResume().getId();
+            this.postId = offer.getPost().getId();
+
+        }
+    }
 }

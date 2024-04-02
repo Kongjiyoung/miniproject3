@@ -62,4 +62,9 @@ public class ScrapRequest {
                     .build();
         }
     }
+
+    @Data
+    public class PostChoiceDTO {
+        private Integer postChoice;
+    }
 }

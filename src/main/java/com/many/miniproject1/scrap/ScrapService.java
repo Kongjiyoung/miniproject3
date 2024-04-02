@@ -9,8 +9,10 @@ import com.many.miniproject1.apply.ApplyRequest;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
+import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
+import com.many.miniproject1.post.PostRequest;
 import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
@@ -78,15 +80,15 @@ public class ScrapService {
     }
 
     @Transactional
-    public Offer sendPostToResume(Integer id, PostResponse.PostDetailDTO respDTO){
-        Scrap scrap = scrapJPARepository.findById(id)
-                .orElseThrow(() -> new Exception401("존재하지 않는 스크랩입니다..." + id));
-        Post post = postJPARepository.findById(respDTO.getId())
-                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + respDTO.getId()));
-        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(scrap.getResume(), post);
+    public OfferResponse.ChoiceDTO sendPostToResume(Integer resumeId, Integer postChoice){
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+        Post post = postJPARepository.findById(postChoice)
+                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + postChoice));
+        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
         Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
 
-        return offer;
+        return new OfferResponse.ChoiceDTO(offer);
     }
 
     public Scrap getScrapPostDetail(Integer scrapId) {
