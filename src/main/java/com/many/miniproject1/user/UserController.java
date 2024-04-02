@@ -17,7 +17,7 @@ public class UserController {
 
     @PostMapping("/company/join")
     public ResponseEntity<?> companyJoin(@RequestBody UserRequest.CompanyJoinDTO requestDTO) {
-        UserResponse.CompanyDTO respDTO=userService.companyJoin(requestDTO);
+        UserResponse.CompanyDTO respDTO = userService.companyJoin(requestDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -25,7 +25,7 @@ public class UserController {
     @PostMapping("/company/login")
 
     public ResponseEntity<?> companyLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
-        User sessionUser =userService.login(reqDTO);
+        SessionUser sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
@@ -34,13 +34,13 @@ public class UserController {
     @PostMapping("/person/join")
     public ResponseEntity<?> personJoin(UserRequest.PersonJoinDTO reqDTO) {
 
-        UserResponse.PersonDTO respDTO=userService.personJoin(reqDTO);
+        UserResponse.PersonDTO respDTO = userService.personJoin(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PostMapping("/person/login")
     public ResponseEntity<?> personLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
-        User sessionUser=userService.login(reqDTO);
+        SessionUser sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(null));
     }

@@ -1,6 +1,5 @@
 package com.many.miniproject1.user;
 
-import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import io.micrometer.common.util.StringUtils;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Date;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -113,11 +111,11 @@ public class UserService {
         return userJPARepository.save(user);
     }
 
-    public User login(UserRequest.LoginDTO reqDTO) {
+    public SessionUser login(UserRequest.LoginDTO reqDTO) {
 
-        User sessionUser = userJPARepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
+        User user  = userJPARepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
-        return sessionUser;
+        return new SessionUser(user);
     }
 
     @Transactional
@@ -129,6 +127,7 @@ public class UserService {
         return user;
     }
 
+    @Transactional
     public UserResponse.CompanyDTO companyJoin(UserRequest.CompanyJoinDTO reqDTO) {
         User user = userJPARepository.save(reqDTO.toEntity());
         return new UserResponse.CompanyDTO(user);
