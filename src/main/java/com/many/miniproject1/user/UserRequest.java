@@ -70,6 +70,29 @@ public class UserRequest {
         private String email;
         private String password;
         private String newPassword;
+
+        public CompanyInfoUpdateDTO() {
+        }
+
+        @Builder
+        public CompanyInfoUpdateDTO(User user) {
+            byte[] decodedBytes = Base64.getDecoder().decode(profile);
+            String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
+            try {
+                Path path = Path.of("./images/" + profilename);
+                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            this.id = user.getId();
+            this.profile = user.getProfile();
+            this.profileName = user.getProfileName();
+            this.address = user.getAddress();
+            this.tel = user.getTel();
+            this.email = user.getEmail();
+            this.password = user.getPassword();
+            this.newPassword = user.getPassword();
+        }
     }
 
     @Data
@@ -122,8 +145,6 @@ public class UserRequest {
         private Integer id;
         private String profile;
         private String profileName;
-       // private String name;
-       // private String birth;
         private String tel;
         private String address;
         private String email;
@@ -145,8 +166,6 @@ public class UserRequest {
             this.id = user.getId();
             this.profile = user.getProfile();
             this.profileName = user.getProfileName();
-          //  this.name = user.getName();
-           // this.birth = user.getName();
             this.tel = user.getTel();
             this.address = user.getAddress();
             this.email = user.getEmail();
