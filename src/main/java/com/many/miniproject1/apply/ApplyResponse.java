@@ -33,12 +33,12 @@ public class ApplyResponse {
 //        private Timestamp createdAt;
 //    }
     @Data
-    public static class DTO {
+    public static class PostApplyDTO {
         private int resumeId;
         private int postId; // 채용공고 아이디
         private String isPass;
 
-        public DTO(Apply apply) {
+        public PostApplyDTO(Apply apply) {
             this.resumeId = apply.getResume().getId();
             this.postId = apply.getPost().getId();
             this.isPass = apply.getIsPass();

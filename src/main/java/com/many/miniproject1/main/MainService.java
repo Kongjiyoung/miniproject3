@@ -66,7 +66,7 @@ public class MainService {
         return new ScrapResponse.PostScrapSaveDTO(scrap);
     }
 
-    public ApplyResponse.DTO personPostApply(int postId, int resumeId) {
+    public ApplyResponse.PostApplyDTO personPostApply(int postId, int resumeId) {
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
         System.out.println("resumeId = " + resumeId);
@@ -75,7 +75,7 @@ public class MainService {
         ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume, post);
         Apply apply=applyJPARepository.save(saveApply.toEntity());
 
-        return new ApplyResponse.DTO(apply);
+        return new ApplyResponse.PostApplyDTO(apply);
     }
 
     public List<MainResponse.ApplyListDTO> getResumeId(int id) {
