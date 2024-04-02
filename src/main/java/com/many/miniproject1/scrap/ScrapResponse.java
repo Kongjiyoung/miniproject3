@@ -13,6 +13,19 @@ import java.util.Date;
 import java.util.List;
 
 public class ScrapResponse {
+
+    // 04-02 YSH
+    @Data
+    public static class MainResumeScrapDTO{
+        private int userId;
+        private int resumeId;
+
+        public MainResumeScrapDTO(Scrap scrap) {
+            this.userId = scrap.getUser().getId();
+            this.resumeId = scrap.getResume().getId();
+        }
+    }
+
     @Data
     public static class PostScrapSaveDTO{
         private int userId;

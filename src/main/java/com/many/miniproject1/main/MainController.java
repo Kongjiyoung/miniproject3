@@ -76,14 +76,15 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(offer));
     }
 
+    // 04-02 YSH
     @PostMapping("/resumes/{id}/scrap")
     public ResponseEntity<?> companyResumeScrap(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Scrap scrap = mainService.companyScrap(id, sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(scrap));
+
+        ScrapResponse.MainResumeScrapDTO respDTO = mainService.resumeScrap(id, sessionUser.getId());
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-    // YSH
-    // ┳━┳ ノ( ゜-゜ノ)
 
     //메인 채용 공고
     @GetMapping({"/posts", "/"})
