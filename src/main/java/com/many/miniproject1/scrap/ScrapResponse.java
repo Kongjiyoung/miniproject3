@@ -205,7 +205,7 @@ public class ScrapResponse {
     public static class ScrapPostListDTO {
         private Integer id;
         private Post post;
-        private Integer companyId;
+        private String companyName;
         private String title;
         private String career;
         private String task;
@@ -216,7 +216,7 @@ public class ScrapResponse {
         public ScrapPostListDTO(Scrap scrap) {
             this.id = scrap.getId();
             this.post = scrap.getPost();
-            this.companyId = scrap.getUser().getId();
+            this.companyName = scrap.getUser().getCompanyName();
             this.title = scrap.getPost().getTitle();
             this.career = scrap.getPost().getCareer();
             this.task = scrap.getPost().getTask();

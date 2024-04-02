@@ -25,14 +25,14 @@ public class ScrapController {
     private final ResumeService resumeService;
 
     //개인 채용 공고 스크랩
-    @GetMapping("/person/scraps")
+    @GetMapping("/api/person/scraps")
     public ResponseEntity<?> personScrap() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<ScrapResponse.ScrapPostListDTO> respDTO = scrapService.personScrapList(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @GetMapping("/person/scraps/{id}/detail")
+    @GetMapping("/api/person/scraps/{id}/detail")
     public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -49,8 +49,7 @@ public class ScrapController {
 
     @DeleteMapping("/api/person/scraps/{id}")
     public ResponseEntity<?> personScrapDelete(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        scrapService.deleteScrapPost(id, sessionUser.getId());
+        scrapService.deleteScrapPost(id);
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 

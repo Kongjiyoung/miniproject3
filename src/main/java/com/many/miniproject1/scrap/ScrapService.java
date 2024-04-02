@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -49,14 +50,14 @@ public class ScrapService {
 //    }
 
     @Transactional
-    public void deleteScrapPost(int scrapId, int sessionUserId){
-        Scrap scrap = scrapJPARepository.findById(scrapId)
+    public void deleteScrapPost(Integer id){
+        Scrap scrap = scrapJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
 
-        if(sessionUserId != scrap.getUser().getId()){
-            throw new Exception403("스크랩한 공고를 삭제할 권한이 없습니다");
-        }
-        scrapJPARepository.deleteById(scrapId);
+//        if(sessionUserId != scrap.getUser().getId()){
+//            throw new Exception403("스크랩한 공고를 삭제할 권한이 없습니다");
+//        }
+        scrapJPARepository.deleteById(id);
     }
 
     public void deleteScrap(Integer id) {
