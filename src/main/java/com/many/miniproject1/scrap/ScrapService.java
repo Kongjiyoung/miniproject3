@@ -11,6 +11,7 @@ import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
+import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.user.User;
@@ -75,12 +76,13 @@ public class ScrapService {
     public List<Post> companyPostList(int id) {
         return postJPARepository.findByPostId(id);
     }
+
     @Transactional
-    public Offer sendPostToResume(Integer id, Integer postId){
+    public Offer sendPostToResume(Integer id, PostResponse.PostDetailDTO respDTO){
         Scrap scrap = scrapJPARepository.findById(id)
                 .orElseThrow(() -> new Exception401("존재하지 않는 스크랩입니다..." + id));
-        Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + postId));
+        Post post = postJPARepository.findById(respDTO.getId())
+                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + respDTO.getId()));
         OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(scrap.getResume(), post);
         Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
 
