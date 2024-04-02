@@ -29,12 +29,13 @@ public class User {
     private String address;
     private String companyNum;
     private String profile;
-    private Date birth;
+    private String profileName;
+    private String birth;
     @CreationTimestamp
     private Timestamp createdAt;//
 
     @Builder
-    public User(Integer id, String role, String username, String email, String password, String name, String tel, String companyName, String address, String companyNum, String profile, Date birth, Timestamp createdAt) {
+    public User(Integer id, String role, String username, String email, String password, String name, String tel, String companyName, String address, String companyNum, String profile, String profileName, String birth, Timestamp createdAt) {
         this.id = id;
         this.role = role;
         this.username = username;
@@ -46,9 +47,15 @@ public class User {
         this.address = address;
         this.companyNum = companyNum;
         this.profile = profile;
+        this.profileName = profileName;
         this.birth = birth;
         this.createdAt = createdAt;
     }
+
+
+
+
+
 
     //    public void update(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO, String profileFilename) {
     public void update(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {

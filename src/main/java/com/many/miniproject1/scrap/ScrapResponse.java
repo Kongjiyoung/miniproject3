@@ -81,8 +81,8 @@ public class ScrapResponse {
     @Data
     public static class ScrapPostDetailDTO {
         private Integer id;
-        private Post post;
         private Integer companyId;
+        private String companyName;
         private String title;
         private String career;
         private String pay;
@@ -93,21 +93,22 @@ public class ScrapResponse {
         private String task;
         private String profile;
         private String workingArea;
-        private List<PostSkillDTO> skills;
+        private List<PostSkillDTO> skills = new ArrayList<>();
 
-        public ScrapPostDetailDTO(Scrap scrap, User sessionUser) {
-            this.id = post.getId();
-            this.companyId = post.getId();
-            this.title = post.getTitle();
-            this.career = post.getCareer();
-            this.pay = post.getPay();
-            this.workCondition = post.getWorkCondition();
-            this.workStartTime = post.getWorkStartTime();
-            this.workEndTime = post.getWorkEndTime();
-            this.deadline = post.getDeadline();
-            this.task = post.getTask();
-            this.profile = post.getProfile();
-            this.workingArea = post.getWorkingArea();
+        public ScrapPostDetailDTO(Scrap scrap) {
+            this.id = scrap.getId();
+            this.companyId = scrap.getPost().getUser().getId();
+            this.companyName = scrap.getPost().getUser().getCompanyName();
+            this.title = scrap.getPost().getTitle();
+            this.career = scrap.getPost().getCareer();
+            this.pay = scrap.getPost().getPay();
+            this.workCondition = scrap.getPost().getWorkCondition();
+            this.workStartTime = scrap.getPost().getWorkStartTime();
+            this.workEndTime = scrap.getPost().getWorkEndTime();
+            this.deadline = scrap.getPost().getDeadline();
+            this.task = scrap.getPost().getTask();
+            this.profile = scrap.getPost().getProfile();
+            this.workingArea = scrap.getPost().getWorkingArea();
             this.skills = scrap.getPost().getSkillList().stream().map(skill -> new ScrapPostDetailDTO.PostSkillDTO(skill)).toList();
         }
 
@@ -139,7 +140,7 @@ public class ScrapResponse {
         private String username;
         private String tel;
         private String address;
-        private Date birth;
+        private String birth;
         private String isPass;
         private List<ResumeSkillDTO> skills;
 
@@ -215,18 +216,16 @@ public class ScrapResponse {
     @Data
     public static class ScrapPostListDTO {
         private Integer id;
-        private Post post;
         private String companyName;
         private String title;
         private String career;
         private String task;
         private String profile;
         private String workingArea;
-        private List<PostSkillDTO> skills;
+        private List<PostSkillDTO> skills = new ArrayList<>();
 
         public ScrapPostListDTO(Scrap scrap) {
             this.id = scrap.getId();
-            this.post = scrap.getPost();
             this.companyName = scrap.getUser().getCompanyName();
             this.title = scrap.getPost().getTitle();
             this.career = scrap.getPost().getCareer();

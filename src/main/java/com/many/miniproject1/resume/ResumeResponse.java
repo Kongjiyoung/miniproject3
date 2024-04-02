@@ -103,7 +103,7 @@ public class ResumeResponse {
         private String title;
         private String profile;
         private String name;
-        private Date birth;
+        private String birth;
         private String tel;
         private String address;
         private String email;

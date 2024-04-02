@@ -127,7 +127,7 @@ public class OfferResponse {
         String portfolid;
         String introduce;
         String name;
-        Date birth;
+        String birth;
         String tel;
         String address;
         String email;

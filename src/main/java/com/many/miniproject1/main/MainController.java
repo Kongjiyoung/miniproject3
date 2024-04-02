@@ -119,7 +119,7 @@ public class MainController {
     @PostMapping("/posts/{id}/apply")
     public ResponseEntity<?> personPostApply(@PathVariable int id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
         System.out.println("resumeChoice = " + resumeChoice);
-        ApplyResponse.DTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
+        ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }

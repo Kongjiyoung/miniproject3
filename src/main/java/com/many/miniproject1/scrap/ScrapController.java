@@ -2,6 +2,7 @@ package com.many.miniproject1.scrap;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.apply.Apply;
+import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.offer.Offer;
@@ -34,18 +35,10 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @GetMapping("/api/person/scraps/{id}/detail")
+    @GetMapping("/api/person/scraps/{id}")
     public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        //뷰내용 뿌리기
-        Scrap scrap = scrapService.getScrapPostDetail(id);
-
-        //이력서 선택
-        List<Resume> resumeList = resumeService.getResumeFindBySessionUserId(sessionUser.getId());
-        ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id, sessionUser);
-
-        //resumeList도 같이 DTO에 담기
+        System.out.println("id = " + id);
+        ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -55,10 +48,13 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    @PostMapping("/person/scraps/{id}/detail/apply")
-    public ResponseEntity<?> personPostApply(@PathVariable Integer id, Integer resumeChoice) { // 스크랩 아이디와 이력서 아이디를 받아서
-        Apply apply=scrapService.saveApply(id, resumeChoice);
-        return ResponseEntity.ok(new ApiUtil<>(apply));    }
+    @PostMapping("/api/person/scraps/{id}")
+    public ResponseEntity<?> personPostApply(@PathVariable Integer id, @RequestBody ScrapRequest.ResumeChoiceDTO resumeChoice) { // 스크랩 아이디와 이력서 아이디를 받아서
+        System.out.println("resumeChoice =" + resumeChoice);
+        ApplyResponse.PostApplyDTO respDTO =scrapService.saveApply(id, resumeChoice.getResumeChoice());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+
+    }
 
 
     //기업 이력서 스크랩

@@ -201,7 +201,7 @@ public class MainResponse {
             }).collect(Collectors.toList());
             this.companyId = user.getId();
             this.name = user.getName();
-            this.birth = user.getBirth();
+            this.birth = Date.valueOf(user.getBirth());
             this.tel = user.getTel();
             this.address = user.getAddress();
             this.email = user.getEmail();
