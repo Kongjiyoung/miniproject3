@@ -4,6 +4,7 @@ import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.offer.Offer;
+import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.user.User;
@@ -13,10 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -81,8 +79,8 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    @PostMapping("/api/company/scraps")
-    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, Integer postChoice) {
+    @PostMapping("/api/company/scraps/{id}")
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody PostResponse.PostDetailDTO postChoice) {
         Offer offer = scrapService.sendPostToResume(id, postChoice);
         return ResponseEntity.ok(new ApiUtil<>(offer));
     }
