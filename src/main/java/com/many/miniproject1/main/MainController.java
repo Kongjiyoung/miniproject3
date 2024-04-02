@@ -37,13 +37,14 @@ public class MainController {
 
 
     //메인 구직 공고
+    // 04-02 YSH
     @GetMapping("/resumes")
     public ResponseEntity<?> resumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        List<Resume> resumeList = mainService.resumeForm();
+        List<MainResponse.mainResumesDTO> respDTO = mainService.mainResumes();
 
-        return ResponseEntity.ok(new ApiUtil<>(resumeList));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/resumes/{id}")

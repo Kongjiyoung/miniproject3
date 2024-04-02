@@ -2,8 +2,10 @@ package com.many.miniproject1.scrap;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.apply.Apply;
+import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.offer.Offer;
+import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.user.User;
@@ -13,10 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,14 +27,14 @@ public class ScrapController {
     private final ResumeService resumeService;
 
     //개인 채용 공고 스크랩
-    @GetMapping("/person/scraps")
+    @GetMapping("/api/person/scraps")
     public ResponseEntity<?> personScrap() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<ScrapResponse.ScrapPostListDTO> respDTO = scrapService.personScrapList(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @GetMapping("/person/scraps/{id}/detail")
+    @GetMapping("/api/person/scraps/{id}/detail")
     public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -44,12 +43,13 @@ public class ScrapController {
 
         //이력서 선택
         List<Resume> resumeList = resumeService.getResumeFindBySessionUserId(sessionUser.getId());
+        ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id, sessionUser);
 
         //resumeList도 같이 DTO에 담기
-        return ResponseEntity.ok(new ApiUtil<>(scrap));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PostMapping("/person/scraps/{id}/detail/delete")
+    @DeleteMapping("/api/person/scraps/{id}")
     public ResponseEntity<?> personScrapDelete(@PathVariable Integer id) {
         scrapService.deleteScrapPost(id);
         return ResponseEntity.ok(new ApiUtil<>(null));
@@ -81,10 +81,10 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    @PostMapping("/api/company/scraps")
-    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, Integer postChoice) {
-        Offer offer = scrapService.sendPostToResume(id, postChoice);
-        return ResponseEntity.ok(new ApiUtil<>(offer));
+    @PostMapping("/api/company/scraps/{id}")
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody ScrapRequest.PostChoiceDTO postChoice) {
+        OfferResponse.ChoiceDTO respDTO = scrapService.sendPostToResume(id, postChoice.getPostChoice());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 }

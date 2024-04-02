@@ -2,6 +2,7 @@ package com.many.miniproject1.scrap;
 
 
 import com.many.miniproject1._core.errors.exception.Exception401;
+import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -9,8 +10,11 @@ import com.many.miniproject1.apply.ApplyRequest;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
+import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
+import com.many.miniproject1.post.PostRequest;
+import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.user.User;
@@ -19,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -42,11 +47,22 @@ public class ScrapService {
        return apply;
     }
 
-    @Transactional
-    public void deleteScrapPost(int id){
-        scrapJPARepository.deleteById(id);
+//    @Transactional
+//    public void deleteScrapPost(int id){
+//        scrapJPARepository.deleteById(id);
+//    }
 
+    @Transactional
+    public void deleteScrapPost(Integer id){
+        Scrap scrap = scrapJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
+
+//        if(sessionUserId != scrap.getUser().getId()){
+//            throw new Exception403("스크랩한 공고를 삭제할 권한이 없습니다");
+//        }
+        scrapJPARepository.deleteById(id);
     }
+
     public void deleteScrap(Integer id) {
         scrapJPARepository.deleteById(id);
     }
@@ -63,7 +79,7 @@ public class ScrapService {
     }
 
     public List<ScrapResponse.ScrapPostListDTO> personScrapList(Integer userId){
-        List<Scrap> scrapList = scrapJPARepository.findByPostIdJoinSkills(userId);
+        List<Scrap> scrapList = scrapJPARepository.findByCompanyIdJoinSkills(userId);
         return scrapList.stream().map(scrap -> new ScrapResponse.ScrapPostListDTO(scrap)).toList();
     }
 
@@ -75,20 +91,27 @@ public class ScrapService {
     public List<Post> companyPostList(int id) {
         return postJPARepository.findByPostId(id);
     }
+
     @Transactional
-    public Offer sendPostToResume(Integer id, Integer postId){
-        Scrap scrap = scrapJPARepository.findById(id)
-                .orElseThrow(() -> new Exception401("존재하지 않는 스크랩입니다..." + id));
-        Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + postId));
-        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(scrap.getResume(), post);
+    public OfferResponse.ChoiceDTO sendPostToResume(Integer resumeId, Integer postChoice){
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404(""));
+        Post post = postJPARepository.findById(postChoice)
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다!" + postChoice));
+        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
         Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
 
-        return offer;
+        return new OfferResponse.ChoiceDTO(offer);
     }
 
     public Scrap getScrapPostDetail(Integer scrapId) {
         Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId);
         return scrap;
+    }
+
+    public ScrapResponse.ScrapPostDetailDTO ScrapPostDetail(Integer scrapId, User sessionUser) {
+        Scrap scrap = scrapJPARepository.findByScrapIdJoinPost(scrapId)
+                .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
+        return new ScrapResponse.ScrapPostDetailDTO(scrap, sessionUser);
     }
 }

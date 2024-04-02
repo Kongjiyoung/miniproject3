@@ -11,8 +11,11 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
 import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Optional;
 
 
@@ -39,7 +42,7 @@ public class ScrapJPARepositoryTest {
 //        // then
 //        // assertThat(scrapList.get(1).getId()).isEqualTo(2);
 //    }
-  
+
     @Test
     public void findByUserIdJoinSkill_test() {
         // given
@@ -61,7 +64,7 @@ public class ScrapJPARepositoryTest {
     }
 
     @Test
-    public void sendPostToResume_test(){
+    public void sendPostToResume_test() {
         // given
         int id = 1;
         int postId = 1;
@@ -92,4 +95,18 @@ public class ScrapJPARepositoryTest {
         assertThat(scrap.getPost().getTitle()).isEqualTo("데이터 분석가");
         assertThat(scrap.getPost().getSkillList().size()).isEqualTo(3);
     }
+
+    @Test
+    public void findByCompanyIdJoinSkills_test() {
+        // given
+        int id = 14;
+        List<Scrap> scrapList = scrapJPARepository.findByCompanyIdJoinSkills(id);
+        System.out.println("scrapList = " + scrapList);
+
+        // when
+
+
+        // then
+    }
+
 }

@@ -10,6 +10,37 @@ import java.util.List;
 
 public class MainResponse {
 
+    // 04-02 YSH resumes
+    @Data
+    public static class mainResumesDTO{
+        int resumeId;
+        String profile;
+        String title;
+        String career;
+        String simplerIntroduce;
+        List<SkillDTO> sklls = new ArrayList<>();
+
+        @Data
+        public class SkillDTO{
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+
+        public mainResumesDTO(Resume resume) {
+            this.resumeId = resume.getId();
+            this.profile = resume.getProfile();
+            this.title = resume.getTitle();
+            this.career = resume.getCareer();
+            this.simplerIntroduce = resume.getSimpleIntroduce();
+            this.sklls = resume.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+        }
+    }
+
     @Data
     public static class mainPostsDTO {
         int id;

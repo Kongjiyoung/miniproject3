@@ -10,7 +10,7 @@ import java.util.List;
 public class PostRequest {
 
     @Data
-    public  static class PostSaveDTO{
+    public static class PostSaveDTO {
         private String title;
         private String career;
         private String pay;
@@ -22,7 +22,8 @@ public class PostRequest {
         private String profile;
         private String workingArea;
         private List<String> skill;
-        public Post toEntity(User user){
+
+        public Post toEntity(User user) {
 //            String profilePath= ProfileImageSaveUtil.save(profile);
             return Post.builder()
                     .user(user)
@@ -55,6 +56,22 @@ public class PostRequest {
         private String profile;
         private String workingArea;
         private List<String> skill;
+        public Post toEntity(User user) {
+//            String profilePath= ProfileImageSaveUtil.save(profile);
+            return Post.builder()
+                    .user(user)
+                    .title(title)
+                    .career(career)
+                    .pay(pay)
+                    .workCondition(workCondition)
+                    .workStartTime(workStartTime)
+                    .workEndTime(workEndTime)
+                    .deadline(deadline)
+                    .task(task)
+                    .workingArea(workingArea)
+                    .profile(profile)
+                    .build();
+        }
     }
 
 
