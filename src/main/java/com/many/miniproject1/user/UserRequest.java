@@ -1,6 +1,7 @@
 package com.many.miniproject1.user;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +29,8 @@ public class UserRequest {
     @Data
     public static class PersonJoinDTO {
         private String role;
-        private MultipartFile profile;
+        private String profile;
+        private String profileName;
         private String username;
         private String name;
         private String email;
@@ -38,14 +40,21 @@ public class UserRequest {
         private String password;
 
         public User toEntity() {
-            String profileImagePath = ProfileImageSaveUtil.save(profile);
+            byte[] decodedBytes = Base64.getDecoder().decode(profile);
+            String profilename=UUID.nameUUIDFromBytes(decodedBytes).randomUUID()+"_" + profileName;
+            try {
+                Path path = Path.of("./images/" + profilename);
+                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return User.builder()
                     .role("person")
-                    .profile(profileImagePath)
+                    .profile(profilename)
                     .username(username)
                     .name(name)
                     .email(email)
-                    .birth(Date.valueOf(birth))
+                    .birth(birth)
                     .tel(tel)
                     .address(address)
                     .password(password)
@@ -86,8 +95,7 @@ public class UserRequest {
         private String password;    // 비밀번호
 
         public User toEntity() {
-            String encodedImageData = profile;
-            byte[] decodedBytes = Base64.getDecoder().decode(encodedImageData);
+            byte[] decodedBytes = Base64.getDecoder().decode(profile);
             String profilename=UUID.nameUUIDFromBytes(decodedBytes).randomUUID()+"_" + profileName;
             try {
                 Path path = Path.of("./images/" + profilename);
@@ -98,6 +106,7 @@ public class UserRequest {
             return User.builder()
                     .role("company")
                     .profile(profilename)
+                    .profileName(profileName)
                     .companyName(companyName)
                     .companyNum(companyNum)
                     .username(username)
@@ -113,23 +122,25 @@ public class UserRequest {
     @Data
     public static class PersonInfoUpdateDTO {
         private Integer id;
-        //private MultipartFile profile;
+        private String profile;
+        private String profileName;
         private String name;
-        // private Date birth;
+        private String birth;
         private String tel;
         private String address;
         private String email;
         private String password;
 
-//        @Builder
-//        public PersonInfoUpdateDTO(User user) {
-//            this.id = user.getId();
-//            this.profile = user.getProfile();
-//            this.name = user.getName();
-//            this.birth = user.getName();
-//            this.tel = user.getTel();
-//            this.address = user.getAddress();
-//            this.email = user.getEmail();
-//        }
+        @Builder
+        public PersonInfoUpdateDTO(User user) {
+            this.id = user.getId();
+            this.profile = user.getProfile();
+            this.profileName = user.getProfileName();
+            this.name = user.getName();
+            this.birth = user.getName();
+            this.tel = user.getTel();
+            this.address = user.getAddress();
+            this.email = user.getEmail();
+        }
     }
 }

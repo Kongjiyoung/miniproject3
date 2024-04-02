@@ -30,12 +30,12 @@ public class User {
     private String companyNum;
     private String profile;
     private String profileName;
-    private Date birth;
+    private String birth;
     @CreationTimestamp
     private Timestamp createdAt;//
 
     @Builder
-    public User(Integer id, String role, String username, String email, String password, String name, String tel, String companyName, String address, String companyNum, String profile, String profileName, Date birth, Timestamp createdAt) {
+    public User(Integer id, String role, String username, String email, String password, String name, String tel, String companyName, String address, String companyNum, String profile, String profileName, String birth, Timestamp createdAt) {
         this.id = id;
         this.role = role;
         this.username = username;
@@ -51,6 +51,8 @@ public class User {
         this.birth = birth;
         this.createdAt = createdAt;
     }
+
+
 
 
 

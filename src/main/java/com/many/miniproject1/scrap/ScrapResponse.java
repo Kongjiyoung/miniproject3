@@ -139,7 +139,7 @@ public class ScrapResponse {
         private String username;
         private String tel;
         private String address;
-        private Date birth;
+        private String birth;
         private String isPass;
         private List<ResumeSkillDTO> skills;
 

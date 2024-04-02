@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -31,22 +32,6 @@ public class UserService {
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
     }
 
-    //    @Transactional
-//    public User personUpdate(int id,UserRequest.PersonUpdateDTO reqDTO){
-//        User user = userJPARepository.findById(id)
-//                .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
-//
-//        String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
-//
-//        user.setProfile(profileFilename);
-//        user.setAddress(reqDTO.getAddress());
-//        user.setEmail(reqDTO.getEmail());
-//        user.setTel(reqDTO.getTel());
-//        user.setBirth(reqDTO.getBirth());
-//        user.setName(reqDTO.getName());
-//        user.setPassword(reqDTO.getPassword());
-//        return userJPARepository.save(user);
-//    }
     public UserResponse.PersonDTO findByPerson(int id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
@@ -60,22 +45,28 @@ public class UserService {
     }
 
     @Transactional
-    public User updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
+    public UserResponse.CompanyDTO updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(personId)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
-        //  String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
+        String encodedImageData = reqDTO.getProfile();
+        byte[] decodedBytes = Base64.getDecoder().decode(encodedImageData);
+        String profilename= UUID.nameUUIDFromBytes(decodedBytes).randomUUID()+"_" + reqDTO.getProfileName();
+        try {
+            Path path = Path.of("./images/" + profilename);
+            Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        // user.update(personId, reqDTO, profileFilename);
-        user.update(personId, reqDTO);
-//        user.setProfile(profileFilename);
-//        user.setName(reqDTO.getName());
-//        user.setBirth(Date.valueOf(reqDTO.getBirth().toLocalDate()));
-//        user.setAddress(reqDTO.getAddress());
-//        user.setTel(reqDTO.getTel());
-//        user.setEmail(reqDTO.getEmail());
-        // user = userJPARepository.save(user);
-        return user;
+        user.setProfile(profilename);
+        user.setName(reqDTO.getName());
+        user.setBirth(reqDTO.getBirth());
+        user.setAddress(reqDTO.getAddress());
+        user.setTel(reqDTO.getTel());
+        user.setEmail(reqDTO.getEmail());
+        user = userJPARepository.save(user);
+        return new UserResponse.CompanyDTO(user);
     }
 
     @Transactional
@@ -107,9 +98,6 @@ public class UserService {
 
         if (reqDTO.getProfile()!=null){
             user.setProfile(profilename);
-        }
-        if (reqDTO.getProfileName()!=null){
-            user.setProfileName(reqDTO.getProfileName());
         }
         if (reqDTO.getAddress()!=null){
             user.setAddress(reqDTO.getAddress());

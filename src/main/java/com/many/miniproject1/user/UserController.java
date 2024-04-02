@@ -63,9 +63,9 @@ public class UserController {
     }
 
     @PutMapping("/company/info")
-    public ResponseEntity<?> companyInfoUpdate(@RequestBody UserRequest.CompanyInfoUpdateDTO requestDTO) {
+    public ResponseEntity<?> companyInfoUpdate(@RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), requestDTO);
+        User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
@@ -78,13 +78,11 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PutMapping("/people/{id}/info")
-    public ResponseEntity<?> personInfoUpdate(@PathVariable Integer id, @RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
+    @PutMapping("/people/info")
+    public ResponseEntity<?> personInfoUpdate(@RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.findByPersonId(sessionUser.getId());
-        newSessionUser.update(sessionUser.getId(), reqDTO);
-        session.setAttribute("sessionUser", newSessionUser);
+        UserResponse.CompanyDTO respDTO = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }
