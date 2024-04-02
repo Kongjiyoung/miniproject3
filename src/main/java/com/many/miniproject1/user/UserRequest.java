@@ -1,6 +1,7 @@
 package com.many.miniproject1.user;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Date;
 import java.util.Base64;
-
 import java.util.UUID;
 
 public class UserRequest {
@@ -111,7 +111,7 @@ public class UserRequest {
 
     @Data
     public static class PersonInfoUpdateDTO {
-        private Integer id;
+        //private Integer id;
         //private MultipartFile profile;
         private String name;
         // private Date birth;
@@ -120,15 +120,15 @@ public class UserRequest {
         private String email;
         private String password;
 
-//        @Builder
-//        public PersonInfoUpdateDTO(User user) {
-//            this.id = user.getId();
-//            this.profile = user.getProfile();
-//            this.name = user.getName();
-//            this.birth = user.getName();
-//            this.tel = user.getTel();
-//            this.address = user.getAddress();
-//            this.email = user.getEmail();
-//        }
+        @Builder
+        public PersonInfoUpdateDTO(User user) {
+           // this.id = user.getId();
+        //    this.profile = user.getProfile();
+            this.name = user.getName();
+          //  this.birth = user.getName();
+            this.tel = user.getTel();
+            this.address = user.getAddress();
+            this.email = user.getEmail();
+        }
     }
 }

@@ -81,8 +81,8 @@ public class UserController {
     @PutMapping("/people/{id}/info")
     public ResponseEntity<?> personInfoUpdate(@PathVariable Integer id, @RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.findByPersonId(sessionUser.getId());
-        newSessionUser.update(sessionUser.getId(), reqDTO);
+        User newSessionUser = userService.findByPersonId(1);
+        newSessionUser.update(1, reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
 
         return ResponseEntity.ok(new ApiUtil<>(null));

@@ -46,7 +46,7 @@ public class MainService {
     private final UserService userService;
 
     // 04-02 YSH
-    public List<MainResponse.mainResumesDTO> mainResumes(){
+    public List<MainResponse.mainResumesDTO> mainResumes() {
         List<Resume> mainResumes = resumeJPARepository.mainAllResume();
 
         return mainResumes.stream().map(resume -> new MainResponse.mainResumesDTO(resume)).toList();
@@ -195,15 +195,12 @@ public class MainService {
 
     @Transactional
     public OfferRequest.MainOfferSaveDTO sendPostToResume(Integer resumeId, Integer postId) {
-        System.out.println(11111111);
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("존재하지 않는 이력서입니다."));
-        System.out.println(resume);
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다."));
-        System.out.println(post);
         //OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
-        Offer offer=offerJPARepository.save(OfferRequest.MainOfferSaveDTO.toEntity(resume, post));
+        Offer offer = offerJPARepository.save(OfferRequest.MainOfferSaveDTO.toEntity(resume, post));
         System.out.println(offer);
         return new OfferRequest.MainOfferSaveDTO(offer);
     }
