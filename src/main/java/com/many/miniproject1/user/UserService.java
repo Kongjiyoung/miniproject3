@@ -1,6 +1,5 @@
 package com.many.miniproject1.user;
 
-import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import io.micrometer.common.util.StringUtils;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Date;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -60,8 +58,8 @@ public class UserService {
         }
 
         user.setProfile(profilename);
-        user.setName(reqDTO.getName());
-        user.setBirth(reqDTO.getBirth());
+       // user.setName(reqDTO.getName());
+       // user.setBirth(reqDTO.getBirth());
         user.setAddress(reqDTO.getAddress());
         user.setTel(reqDTO.getTel());
         user.setEmail(reqDTO.getEmail());
