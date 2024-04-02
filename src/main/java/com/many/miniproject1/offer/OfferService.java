@@ -28,13 +28,12 @@ public class OfferService {
         }).collect(Collectors.toList());
         return personOffersDTOs;
     }
-    // 회사가 제안을 보낸 제안(이력서)들
+    // 기업이 보낸 제안(이력서)들
     public List<OfferResponse.companyOffersDTO> companyOffers(int id) {
         List<Offer> companyOffers = offerJPARepository.companyFindAllOffers(id);
 
         return companyOffers.stream().map(offer -> new OfferResponse.companyOffersDTO(offer)).toList();
     }
-
     // 개인이 제안(공고)상세보기
     public OfferResponse.personOfferDetailDTO personOfferDetail(int id) {
         Offer offer = offerJPARepository.personFindByOfferId(id);
@@ -43,16 +42,16 @@ public class OfferService {
     }
 
     // 04-02 YSH
+    // 기업의 제안(이력서) 상세보기
     public OfferResponse.companyOfferDetailDTO companyOfferDetail(int id) {
         Offer offer = offerJPARepository.companyFindByOfferId(id);
 
         return new OfferResponse.companyOfferDetailDTO(offer);
     }
-
+    // 기업의 제안 취소
     @Transactional
-    public void deleteOffer(int id) {
-        offerJPARepository.deleteById(id);
+    public void offerDelete (int offerId){
+        offerJPARepository.deleteById(offerId);
     }
-
 
 }

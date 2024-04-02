@@ -54,9 +54,17 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
         JOIN FETCH o.resume r
         JOIN FETCH r.user u
         JOIN FETCH r.skillList s
-        WHERE o.id =:offer_id
+        WHERE o.id = :offer_id
         """)
     Offer companyFindByOfferId(@Param("offer_id") Integer  offer_id);
+
+    @Query("""
+        DELETE
+        FROM Offer o
+        WHERE o.id = :offer_id
+        """)
+    Offer offerDelete(@Param("offer_id") int offerId);
+
 
     @Query("""
          SELECT DISTINCT o
@@ -76,15 +84,15 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
             """)
     List<Offer> findByPostIdJoinPost(@Param("post_id") int postId);
 
-@Query("""
-    select o
-    from Offer o
-    join fetch o.resume r
-    join fetch r.user u
-    join fetch r.skillList s
-    where o.id = :offer_id
-    """)
-Offer findByIdJoinResumeAndSkillAndUser(@Param("offer_id") int offerId);
+    @Query("""
+        select o
+        from Offer o
+        join fetch o.resume r
+        join fetch r.user u
+        join fetch r.skillList s
+        where o.id = :offer_id
+        """)
+    Offer findByIdJoinResumeAndSkillAndUser(@Param("offer_id") int offerId);
 
     @Modifying
     @Query("""
