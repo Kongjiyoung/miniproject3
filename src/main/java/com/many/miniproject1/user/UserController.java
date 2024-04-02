@@ -32,7 +32,7 @@ public class UserController {
 
 
     @PostMapping("/person/join")
-    public ResponseEntity<?> personJoin(UserRequest.PersonJoinDTO reqDTO) {
+    public ResponseEntity<?> personJoin(@RequestBody UserRequest.PersonJoinDTO reqDTO) {
 
         UserResponse.PersonDTO respDTO = userService.personJoin(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -55,8 +55,8 @@ public class UserController {
 
     //회사 정보 및 수정
     //회사 정보 수정
-    @GetMapping("/company/info")
-    public ResponseEntity<?> companyInfo() {
+    @GetMapping("/companies/{id}/info")
+    public ResponseEntity<?> companyInfo(@PathVariable Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         UserResponse.CompanyDTO respDTO = userService.findByCompany(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
