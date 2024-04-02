@@ -54,9 +54,4 @@ public class OfferService {
         offerJPARepository.deleteById(offerId);
     }
 
-    @Transactional
-    public void deleteOffer(int id) {
-        offerJPARepository.deleteById(id);
-    }
-
 }

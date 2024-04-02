@@ -54,7 +54,7 @@ public class OfferController {
     // company의 offer DELETE (취소)
     @DeleteMapping("/api/company/offers/{id}")
     public ResponseEntity<?> companyOfferDetailDelete(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+//        User sessionUser = (User) session.getAttribute("sessionUser");
         offerService.offerDelete(id);
 
         return ResponseEntity.ok(new ApiUtil<>(null));
