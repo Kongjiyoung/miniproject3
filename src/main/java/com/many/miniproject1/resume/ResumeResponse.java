@@ -1,5 +1,6 @@
 package com.many.miniproject1.resume;
 
+import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
@@ -11,6 +12,51 @@ import java.util.Date;
 import java.util.List;
 
 public class ResumeResponse {
+
+    // 04-02 YSH
+    @Data
+    public static class ResumeSaveDTO{
+        int resumeId;
+        String title;
+        String profile;
+        String username;
+        String birth;
+        String tel;
+        String address;
+        String email;
+        String career;
+        String simpleIntroduce;
+        String portfolio;
+        String introduce;
+        List<OfferResponse.companyOfferDetailDTO.SkillDTO> skills = new ArrayList<>();
+
+        @Data
+        public static class SkillDTO{
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+
+        public ResumeSaveDTO(Resume resume) {
+            this.resumeId = resume.getId();
+            this.title = resume.getTitle();
+            this.profile = resume.getProfile();
+            this.username = resume.getUser().getUsername();
+            this.birth = resume.getUser().getBirth();
+            this.tel = resume.getUser().getTel();
+            this.address = resume.getUser().getAddress();
+            this.email = resume.getUser().getEmail();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
+            this.portfolio = resume.getPortfolio();
+            this.introduce = resume.getIntroduce();
+            this.skills = resume.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+        }
+    }
 
     @Data
     public static class DetailSkillDTO {

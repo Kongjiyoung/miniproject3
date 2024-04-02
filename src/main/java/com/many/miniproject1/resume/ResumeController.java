@@ -1,6 +1,7 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.utils.ApiUtil;
+import com.many.miniproject1.post.PostRequest;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -30,20 +31,21 @@ public class ResumeController {
         ResumeResponse.resumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
+    // 04-02 YSH
     @PostMapping("/api/person/resumes")
-    public ResponseEntity<?> personSaveResume(ResumeRequest.SaveDTO requestDTO) {
+    public ResponseEntity<?> personSaveResume(@RequestBody ResumeRequest.ResumeSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        //나중에 findById 해서 그 user 넣어야하는 거 아녀? 일단은 이렇게 둠
-        Resume resume = resumeService.save(requestDTO, sessionUser);
 
-        return ResponseEntity.ok(new ApiUtil<>(resume));
+        ResumeResponse.ResumeSaveDTO respDTO = resumeService.save(reqDTO, sessionUser);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
+    // 04-02 YSH
     @PutMapping("/api/person/resumes/{id}")
-    public ResponseEntity<?> personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO) {
+    public ResponseEntity<?> personUpdateResume(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Resume resume = resumeService.update(id, requestDTO);
+
+        Resume resume = resumeService.resumeUpdate(id, sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(resume));
     }
