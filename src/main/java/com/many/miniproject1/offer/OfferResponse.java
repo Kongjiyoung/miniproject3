@@ -9,6 +9,7 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OfferResponse {
@@ -112,8 +113,53 @@ public class OfferResponse {
             this.skills = offer.getPost().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
-    // 04-01 YSH
 
+    // 04-02 YSH
+    @Data
+    public static class companyOfferDetailDTO{
+        int offerId;
+        int resumeId;
+        String title;
+        String profile;
+        String career;
+        String simpleIntroduce;
+        String portfolid;
+        String introduce;
+        String name;
+        Date birth;
+        String tel;
+        String address;
+        String email;
+        List<SkillDTO> skills = new ArrayList<>();
+
+        @Data
+        public class SkillDTO{
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+
+        public companyOfferDetailDTO(Offer offer) {
+            this.offerId = offer.getId();
+            this.resumeId = offer.getResume().getId();
+            this.title = offer.getResume().getTitle();
+            this.profile = offer.getResume().getProfile();
+            this.career = offer.getResume().getCareer();
+            this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
+            this.portfolid = offer.getResume().getPortfolio();
+            this.introduce = offer.getResume().getIntroduce();
+            this.name = offer.getResume().getUser().getName();
+            this.birth = offer.getResume().getUser().getBirth();
+            this.tel = offer.getResume().getUser().getTel();
+            this.address = offer.getResume().getUser().getAddress();
+            this.email = offer.getResume().getUser().getEmail();
+            this.skills = offer.getResume().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+        }
+    }
 
     @Data
     public static class OfferDTO {

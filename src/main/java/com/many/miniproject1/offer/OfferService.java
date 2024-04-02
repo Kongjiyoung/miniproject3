@@ -28,7 +28,6 @@ public class OfferService {
         }).collect(Collectors.toList());
         return personOffersDTOs;
     }
-
     // 회사가 제안을 보낸 제안(이력서)들
     public List<OfferResponse.companyOffersDTO> companyOffers(int id) {
         List<Offer> companyOffers = offerJPARepository.companyFindAllOffers(id);
@@ -38,24 +37,22 @@ public class OfferService {
 
     // 개인이 제안(공고)상세보기
     public OfferResponse.personOfferDetailDTO personOfferDetail(int id) {
-        Offer offer = offerJPARepository.findByOfferId(id);
+        Offer offer = offerJPARepository.personFindByOfferId(id);
 
         return new OfferResponse.personOfferDetailDTO(offer);
     }
-    // ~ 04-01 YSH
+
+    // 04-02 YSH
+    public OfferResponse.companyOfferDetailDTO companyOfferDetail(int id) {
+        Offer offer = offerJPARepository.companyFindByOfferId(id);
+
+        return new OfferResponse.companyOfferDetailDTO(offer);
+    }
 
     @Transactional
     public void deleteOffer(int id) {
         offerJPARepository.deleteById(id);
     }
 
-    public Offer offerDetail(Integer id) {
-        return offerJPARepository.findByIdWithPostAndSkillList(id);
-    }
-
-    public Offer companyOfferDetail(int id) {
-        Offer offer = offerJPARepository.findByIdJoinResumeAndSkillAndUser(id);
-        return offer;
-    }
 
 }
