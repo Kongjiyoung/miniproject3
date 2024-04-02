@@ -63,7 +63,7 @@ public class ScrapService {
     }
 
     public List<ScrapResponse.ScrapPostListDTO> personScrapList(Integer userId){
-        List<Scrap> scrapList = scrapJPARepository.findByPostIdJoinSkills(userId);
+        List<Scrap> scrapList = scrapJPARepository.findByCompanyIdJoinSkills(userId);
         return scrapList.stream().map(scrap -> new ScrapResponse.ScrapPostListDTO(scrap)).toList();
     }
 
