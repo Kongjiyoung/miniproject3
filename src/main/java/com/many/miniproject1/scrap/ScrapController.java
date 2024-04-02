@@ -81,7 +81,7 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    @PostMapping("/api/company/scraps/{id}")
+    @PostMapping("/api/company/scraps")
     public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, Integer postChoice) {
         Offer offer = scrapService.sendPostToResume(id, postChoice);
         return ResponseEntity.ok(new ApiUtil<>(offer));

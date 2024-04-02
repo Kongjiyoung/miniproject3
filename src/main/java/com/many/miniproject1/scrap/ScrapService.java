@@ -76,7 +76,7 @@ public class ScrapService {
         return postJPARepository.findByPostId(id);
     }
     @Transactional
-    public Offer sendPostToResume(int id, Integer postId){
+    public Offer sendPostToResume(Integer id, Integer postId){
         Scrap scrap = scrapJPARepository.findById(id)
                 .orElseThrow(() -> new Exception401("존재하지 않는 스크랩입니다..." + id));
         Post post = postJPARepository.findById(postId)

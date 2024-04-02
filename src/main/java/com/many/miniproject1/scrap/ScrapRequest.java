@@ -10,9 +10,18 @@ import java.sql.Timestamp;
 public class ScrapRequest {
     @Data
     public static class SaveResumeDTO {
-        private Integer resumeId;
-        private Integer companyId;
-        private Timestamp createdAt;
+        private User user;
+        private Resume resume;
+        public SaveResumeDTO(User user, Resume resume){
+            this.user =user;
+            this.resume=resume;
+        }
+        public Scrap toEntity(){
+            return Scrap.builder()
+                    .resume(resume)
+                    .user(user)
+                    .build();
+        }
     }
     @Data
     public static class SavePostDTO {
