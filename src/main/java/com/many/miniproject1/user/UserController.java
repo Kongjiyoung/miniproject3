@@ -78,10 +78,10 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PutMapping("/people/info")
+    @PutMapping("/people/{id}/info")
     public ResponseEntity<?> personInfoUpdate(@RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        UserResponse.CompanyDTO respDTO = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
+        UserResponse.CompanyDTO respDTO = userService.updatePersonInfo(1, reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

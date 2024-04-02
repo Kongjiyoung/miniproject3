@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -60,7 +59,7 @@ public class User {
     //    public void update(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO, String profileFilename) {
     public void update(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
         // this.profile = profileFilename;
-        this.name = reqDTO.getName();
+        //this.name = reqDTO.getName();
         // this.birth = Date.valueOf(reqDTO.getName());
         this.tel = reqDTO.getTel();
         this.address = reqDTO.getAddress();

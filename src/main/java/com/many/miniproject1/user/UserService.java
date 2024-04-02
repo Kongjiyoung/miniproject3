@@ -58,8 +58,8 @@ public class UserService {
         }
 
         user.setProfile(profilename);
-        user.setName(reqDTO.getName());
-        user.setBirth(reqDTO.getBirth());
+       // user.setName(reqDTO.getName());
+       // user.setBirth(reqDTO.getBirth());
         user.setAddress(reqDTO.getAddress());
         user.setTel(reqDTO.getTel());
         user.setEmail(reqDTO.getEmail());

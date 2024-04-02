@@ -122,20 +122,23 @@ public class UserRequest {
         private Integer id;
         private String profile;
         private String profileName;
-        private String name;
-        private String birth;
+       // private String name;
+       // private String birth;
         private String tel;
         private String address;
         private String email;
         private String password;
+
+        public PersonInfoUpdateDTO() {
+        }
 
         @Builder
         public PersonInfoUpdateDTO(User user) {
             this.id = user.getId();
             this.profile = user.getProfile();
             this.profileName = user.getProfileName();
-            this.name = user.getName();
-            this.birth = user.getName();
+          //  this.name = user.getName();
+           // this.birth = user.getName();
             this.tel = user.getTel();
             this.address = user.getAddress();
             this.email = user.getEmail();
