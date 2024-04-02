@@ -82,9 +82,9 @@ public class ScrapService {
     @Transactional
     public OfferResponse.ChoiceDTO sendPostToResume(Integer resumeId, Integer postChoice){
         Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception401(""));
+                .orElseThrow(() -> new Exception404(""));
         Post post = postJPARepository.findById(postChoice)
-                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + postChoice));
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다!" + postChoice));
         OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
         Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
 
