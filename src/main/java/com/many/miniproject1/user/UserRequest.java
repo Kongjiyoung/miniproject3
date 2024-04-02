@@ -56,7 +56,8 @@ public class UserRequest {
     @Data
     public static class CompanyInfoUpdateDTO {
         private Integer id;
-        private MultipartFile profile;
+        private String profile;
+        private String profileName;
         private String address;
         private String tel;
         private String email;
