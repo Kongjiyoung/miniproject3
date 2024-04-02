@@ -125,7 +125,7 @@ public class MainResponse {
     }
 
     @Data
-    public static class MainResumeDetailDTO {
+    public static class MainResumeDetailDTO { // 이력서, 유저 + 로그인한 유저의 이력서
         // resume
         private Integer id;
         private String title;
@@ -133,15 +133,19 @@ public class MainResponse {
         private String simpleIntroduce;
         private String portfolio;
         private String introduce;
-        private List<SkillDTO> skllList = new ArrayList<>();
+        private List<SkillDTO> skllList;
 
         // user
+        private Integer companyId;
         private String profile;
         private String name;
         private Date birth;
         private String tel;
         private String address;
         private String email;
+
+//        // post
+//        private List<PostDTO> postList;
 
         @Builder
         public MainResumeDetailDTO(Resume resume, User user, List<Skill> skllList) {
@@ -151,10 +155,11 @@ public class MainResponse {
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
             this.introduce = resume.getIntroduce();
+            this.profile = resume.getProfile();
             this.skllList = skllList.stream().map(skill -> {
                 return new SkillDTO(skill);
             }).collect(Collectors.toList());
-            this.profile = resume.getProfile();
+            this.companyId = user.getId();
             this.name = user.getName();
             this.birth = user.getBirth();
             this.tel = user.getTel();
@@ -171,6 +176,19 @@ public class MainResponse {
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }
+        }
+    }
+
+    @Data
+    public static class PostTitleListDTO{
+        private Integer id;
+        private String title;
+
+
+        @Builder
+        public PostTitleListDTO(Integer id, String title) {
+            this.id = id;
+            this.title = title;
         }
     }
 }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.*;
 
 
 @RestController
@@ -38,7 +38,7 @@ public class MainController {
 
     //메인 구직 공고
     @GetMapping("/resumes")
-    public ResponseEntity<?> resumes() {
+    public ResponseEntity<?> mainResumes() {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<Resume> resumeList = mainService.resumeForm();
@@ -48,11 +48,11 @@ public class MainController {
 
     //////////////////////////////////////// 현정
     @GetMapping("/resumes/{id}")
-    public ResponseEntity<?> resumeDetail(@PathVariable Integer id) {
+    public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
 
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
-
+        List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
         boolean isCompany = false;
         if (sessionUser != null) {
             String role = sessionUser.getRole();
@@ -60,14 +60,17 @@ public class MainController {
                 isCompany = true;
             }
             Integer companyId = sessionUser.getId();
-            List<Post> postList = mainService.getPostsByCompanyId(companyId);
+            postTitleListDTOList = mainService.getPostTitleListDTOs(sessionUser.getId(), companyId);
+
         }
 
-        Resume resume = mainService.resumeDetailForm(id);
-
+        MainResponse.MainResumeDetailDTO mainResumeDetailDTO = mainService.getResumeDetail(id);
         //resume만 아니라 postList도 같이 넘겨야함
-        return ResponseEntity.ok(new ApiUtil<>(resume));
-
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("postTitleListDTOList", postTitleListDTOList);
+        responseBody.put("mainResumeDetailDTO", mainResumeDetailDTO);
+        System.out.println("responseBody: " + responseBody);
+        return ResponseEntity.ok(new ApiUtil<>(responseBody));
     }
 
     //////////////////////////////////////// 현정
