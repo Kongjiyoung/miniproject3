@@ -2,7 +2,7 @@ package com.many.miniproject1.main;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.apply.ApplyResponse;
-import com.many.miniproject1.offer.Offer;
+import com.many.miniproject1.offer.OfferRequest;
 import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.scrap.ScrapResponse;
 import com.many.miniproject1.user.User;
@@ -45,7 +45,6 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    //////////////////////////////////////// 현정
     @GetMapping("/resumes/{id}")
     public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
 
@@ -72,11 +71,13 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(responseBody));
     }
 
-    //////////////////////////////////////// 현정
     @PostMapping("/resumes/{id}/offer")
-    public ResponseEntity<?> companyResumeOffer(@PathVariable int id, int postChoice) {
-        Offer offer = mainService.sendPostToResume(id, postChoice);
-        return ResponseEntity.ok(new ApiUtil<>(offer));
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody OfferRequest.MainOfferSaveDTO reqDTO) {
+        // 회사가 개인의 이력서를 보고 맘에 들면 오퍼를 보냄
+        // INSERT INTO offer_tb(resume_id, post_id, created_at) VALUES (1, 1, now());
+        reqDTO = mainService.sendPostToResume(id, reqDTO.getPostId()); // 해당 아이디의 이력서로 포스트를 선택해서 오퍼를 보냄
+
+        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 
     @PostMapping("/resumes/{id}/scrap")
@@ -94,7 +95,6 @@ public class MainController {
         List<MainResponse.mainPostsDTO> respDTO = mainService.getPostList();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
-
     }
 
     @GetMapping("/posts/{id}")
@@ -151,7 +151,7 @@ public class MainController {
     @PostMapping("/posts/match")
     public ResponseEntity<?> matchingPost(@RequestBody MainRequest.PostChoiceDTO postChoiceDTO) {
         session.setAttribute("postChoice", postChoiceDTO.getPostChoice());
-        int respDTO=postChoiceDTO.getPostChoice();
+        int respDTO = postChoiceDTO.getPostChoice();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
@@ -167,7 +167,7 @@ public class MainController {
         if (resumeChoice != null) {
             List<MainResponse.MainResumeMatchDTO> postList = mainService.matchingPost(resumeChoice);
             //resumeList와 함께 DTO에 담기
-            return ResponseEntity.ok(new ApiUtil<>(resumeList,postList));
+            return ResponseEntity.ok(new ApiUtil<>(resumeList, postList));
         }
 
         return ResponseEntity.ok(new ApiUtil<>(resumeList));
@@ -177,7 +177,7 @@ public class MainController {
     @PostMapping("/resumes/match")
     public ResponseEntity<?> matchingResume(@RequestBody MainRequest.ResumeChoiceDTO resumeChoiceDTO) {
         session.setAttribute("resumeChoice", resumeChoiceDTO.getResumeChoice());
-        int respDTO=resumeChoiceDTO.getResumeChoice();
+        int respDTO = resumeChoiceDTO.getResumeChoice();
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
