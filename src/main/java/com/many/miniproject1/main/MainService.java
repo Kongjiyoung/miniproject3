@@ -56,6 +56,17 @@ public class MainService {
 
         return mainResumes.stream().map(resume -> new MainResponse.mainResumesDTO(resume)).toList();
     }
+    // 04-02 YSH
+    public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId){
+        User user = userService.findByUser(userId);
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+        ScrapRequest.MainScrapDTO saveScrap = new ScrapRequest.MainScrapDTO(resume, user);
+
+        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
+
+        return new ScrapResponse.MainResumeScrapDTO(scrap);
+    }
 
     public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
         User user = userService.findByUser(userId);
