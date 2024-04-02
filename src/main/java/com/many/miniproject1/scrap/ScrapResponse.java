@@ -215,18 +215,16 @@ public class ScrapResponse {
     @Data
     public static class ScrapPostListDTO {
         private Integer id;
-        private Post post;
         private String companyName;
         private String title;
         private String career;
         private String task;
         private String profile;
         private String workingArea;
-        private List<PostSkillDTO> skills;
+        private List<PostSkillDTO> skills = new ArrayList<>();
 
         public ScrapPostListDTO(Scrap scrap) {
             this.id = scrap.getId();
-            this.post = scrap.getPost();
             this.companyName = scrap.getUser().getCompanyName();
             this.title = scrap.getPost().getTitle();
             this.career = scrap.getPost().getCareer();
