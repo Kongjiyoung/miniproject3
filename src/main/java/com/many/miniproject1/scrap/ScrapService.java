@@ -2,6 +2,7 @@ package com.many.miniproject1.scrap;
 
 
 import com.many.miniproject1._core.errors.exception.Exception401;
+import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -45,11 +47,22 @@ public class ScrapService {
        return apply;
     }
 
-    @Transactional
-    public void deleteScrapPost(int id){
-        scrapJPARepository.deleteById(id);
+//    @Transactional
+//    public void deleteScrapPost(int id){
+//        scrapJPARepository.deleteById(id);
+//    }
 
+    @Transactional
+    public void deleteScrapPost(Integer id){
+        Scrap scrap = scrapJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
+
+//        if(sessionUserId != scrap.getUser().getId()){
+//            throw new Exception403("스크랩한 공고를 삭제할 권한이 없습니다");
+//        }
+        scrapJPARepository.deleteById(id);
     }
+
     public void deleteScrap(Integer id) {
         scrapJPARepository.deleteById(id);
     }
@@ -66,7 +79,7 @@ public class ScrapService {
     }
 
     public List<ScrapResponse.ScrapPostListDTO> personScrapList(Integer userId){
-        List<Scrap> scrapList = scrapJPARepository.findByPostIdJoinSkills(userId);
+        List<Scrap> scrapList = scrapJPARepository.findByCompanyIdJoinSkills(userId);
         return scrapList.stream().map(scrap -> new ScrapResponse.ScrapPostListDTO(scrap)).toList();
     }
 
@@ -94,5 +107,11 @@ public class ScrapService {
     public Scrap getScrapPostDetail(Integer scrapId) {
         Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId);
         return scrap;
+    }
+
+    public ScrapResponse.ScrapPostDetailDTO ScrapPostDetail(Integer scrapId, User sessionUser) {
+        Scrap scrap = scrapJPARepository.findByScrapIdJoinPost(scrapId)
+                .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
+        return new ScrapResponse.ScrapPostDetailDTO(scrap, sessionUser);
     }
 }
