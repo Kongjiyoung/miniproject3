@@ -1,6 +1,5 @@
 package com.many.miniproject1.user;
 
-import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Date;
 import java.util.Base64;
-
 import java.util.UUID;
 
 public class UserRequest {
