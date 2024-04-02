@@ -8,6 +8,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Base64;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -83,17 +89,38 @@ public class UserService {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
-        String profileFilename = ProfileImageSaveUtil.save(reqDTO.getProfile());
+        String encodedImageData = reqDTO.getProfile();
+        byte[] decodedBytes = Base64.getDecoder().decode(encodedImageData);
+        String profilename= UUID.nameUUIDFromBytes(decodedBytes).randomUUID()+"_" + reqDTO.getProfileName();
+        try {
+            Path path = Path.of("./images/" + profilename);
+            Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // 비밀번호 업데이트
         if (StringUtils.isNotEmpty(reqDTO.getNewPassword())) {
             user.setPassword(reqDTO.getNewPassword());
         }
 
-        user.setProfile(profileFilename);
-        user.setAddress(reqDTO.getAddress());
-        user.setTel(reqDTO.getTel());
-        user.setEmail(reqDTO.getEmail());
+
+        if (reqDTO.getProfile()!=null){
+            user.setProfile(profilename);
+        }
+        if (reqDTO.getProfileName()!=null){
+            user.setProfileName(reqDTO.getProfileName());
+        }
+        if (reqDTO.getAddress()!=null){
+            user.setAddress(reqDTO.getAddress());
+        }
+        if (reqDTO.getTel()!=null){
+            user.setTel(reqDTO.getTel());
+        }
+        if (reqDTO.getEmail()!=null){
+            user.setEmail(reqDTO.getEmail());
+        }
+
 
         return userJPARepository.save(user);
     }

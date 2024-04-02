@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PutMapping("/company/info")
-    public ResponseEntity<?> companyInfoUpdate(UserRequest.CompanyInfoUpdateDTO requestDTO) {
+    public ResponseEntity<?> companyInfoUpdate(@RequestBody UserRequest.CompanyInfoUpdateDTO requestDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), requestDTO);
         session.setAttribute("sessionUser", newSessionUser);
