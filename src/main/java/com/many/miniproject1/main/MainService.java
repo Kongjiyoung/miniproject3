@@ -1,5 +1,6 @@
 package com.many.miniproject1.main;
 
+import com.many.miniproject1._core.errors.exception.Exception400;
 import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -44,6 +45,13 @@ public class MainService {
     private final SkillJPARepository skillJPARepository;
     private final UserService userService;
 
+    // 04-02 YSH
+    public List<MainResponse.mainResumesDTO> mainResumes(){
+        List<Resume> mainResumes = resumeJPARepository.mainAllResume();
+
+        return mainResumes.stream().map(resume -> new MainResponse.mainResumesDTO(resume)).toList();
+    }
+
     public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
         User user = userService.findByUser(userId);
         Post post = postJPARepository.findById(postId)
@@ -70,17 +78,17 @@ public class MainService {
         return resumeList.stream().map(resume -> new MainResponse.ApplyListDTO(resume)).toList();
     }
 
-    public List<Post> findByUserIdPost(int userId) {
+    public List<MainResponse.PosteMatchingChoiceDTO> findByUserIdPost(int userId) {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);
-        return postList;
+        return postList.stream().map(post -> new MainResponse.PosteMatchingChoiceDTO(post)).toList();
     }
 
-    public List<Resume> findByUserIdResume(int userId) {
+    public List<MainResponse.ResumeeMatchingChoiceDTO> findByUserIdResume(int userId) {
         List<Resume> resumeList = resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
-        return resumeList;
+        return resumeList.stream().map(resume -> new MainResponse.ResumeeMatchingChoiceDTO(resume)).toList();
     }
 
-    public List<Resume> matchingResume(int postchoice) {
+    public List<MainResponse.MainPostMatchDTO> matchingResume(Integer postchoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
         List<Skill> postSkills = skillJPARepository.findSkillsByPostId(postchoice);
         List<String> postSkill = postSkills.stream().map(skill -> skill.getSkill()).toList();
@@ -139,9 +147,9 @@ public class MainService {
 
         for (int i = 0; i < filteredList.size(); i++) {
             int resumeId = filteredList.get(i).getResumeId();
-            matchingResumeList.add(resumeJPARepository.findById(resumeId).orElseThrow(() -> new Exception401("이력서없음")));
+            matchingResumeList.add(resumeJPARepository.findByIdJoinSkillAndUser(resumeId));
         }
-        return matchingResumeList;
+        return matchingResumeList.stream().map(resume -> new MainResponse.MainPostMatchDTO(resume)).toList();
     }
 
 
@@ -208,7 +216,7 @@ public class MainService {
         return scrap;
     }
 
-    public List<Post> matchingPost(int resumechoice) {
+    public List<MainResponse.MainResumeMatchDTO> matchingPost(Integer resumechoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
         List<Skill> resumeSkills = skillJPARepository.findSkillsByResumeId(resumechoice);
         List<String> resumeSkill = resumeSkills.stream().map(skill -> skill.getSkill()).toList();
@@ -267,8 +275,8 @@ public class MainService {
 
         for (int i = 0; i < filteredList.size(); i++) {
             int postId = filteredList.get(i).postId;
-            matchingPostList.add(postJPARepository.findById(postId).orElseThrow(() -> new Exception401("이력서없음")));
+            matchingPostList.add(postJPARepository.findByPostIdJoinUserAndSkill(postId));
         }
-        return matchingPostList;
+        return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post)).toList();
     }
 }

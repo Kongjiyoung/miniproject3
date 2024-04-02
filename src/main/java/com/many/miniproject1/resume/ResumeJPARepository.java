@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
 
     // TODO: 이유 없으면 삭제하기 distinct
+
     @Query("""
             select distinct r
             from Resume r
@@ -76,4 +77,11 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
         where r.id = :resume_id
         """)
     Resume findResumeById(@Param("resume_id")Integer resumeId);
+    @Query("""
+            SELECT r
+            FROM Resume r
+            JOIN FETCH r.skillList s
+            ORDER BY r.id DESC
+            """)
+    List<Resume> mainAllResume();
 }

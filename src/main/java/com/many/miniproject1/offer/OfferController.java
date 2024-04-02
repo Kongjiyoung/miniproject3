@@ -18,43 +18,44 @@ public class OfferController {
     private final HttpSession session;
     private final OfferService offerService;
 
-    // 제안한 이력서 상세보기
-    @GetMapping("/api/person/offers/{id}")
-    public ResponseEntity<?> personOfferDetail(@PathVariable int id) {
-        Offer offer = offerService.offerDetail(id);
-        return ResponseEntity.ok(new ApiUtil<>(offer));
-    }
-
+    // 04-01
     // person의 offers 관리
     @GetMapping("/api/person/offers")
     public ResponseEntity<?> personOffers() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<OfferResponse.personOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
+    // person의 offer 상세보기
+    @GetMapping("/api/person/offers/{id}")
+    public ResponseEntity<?> personOfferDetail(@PathVariable int id) {
 
+        OfferResponse.personOfferDetailDTO respDTO = offerService.personOfferDetail(id);
 
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
     // company의 offers 관리
-    // skill 만 불러오면 되나.?
     @GetMapping("/api/company/offers")
     public ResponseEntity<?> companyOffers() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers(sessionUser.getId());
+        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers(14);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
+    // 04-02
+    // company의 offer 상세보기
     @GetMapping("/api/company/offers/{id}")
     public ResponseEntity<?> companyOfferDetail(@PathVariable int id) {
-        Offer offer = offerService.companyOfferDetail(id);
 
-        return ResponseEntity.ok(new ApiUtil<>(offer));
+        OfferResponse.companyOfferDetailDTO respDTO = offerService.companyOfferDetail(id);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
-    // 제안한 이력서 DELETE (취소)
+    // company의 offer DELETE (취소)
     @DeleteMapping("/api/company/offers/{id}")
     public ResponseEntity<?> companyOfferDetailDelete(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        offerService.deleteOffer(id);
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+        offerService.offerDelete(id);
 
         return ResponseEntity.ok(new ApiUtil<>(null));
     }

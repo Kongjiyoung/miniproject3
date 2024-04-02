@@ -10,7 +10,11 @@ import java.util.Optional;
 public interface PostJPARepository extends JpaRepository<Post, Integer> {
 
     @Query("""
-            select distinct p from Post p join fetch p.skillList s join fetch p.user u where u.id= :id
+            select distinct p 
+            from Post p 
+            join fetch p.skillList s 
+            join fetch p.user u 
+            where u.id= :id
             """)
     List<Post> findByUserIdJoinSkillAndUser(@Param("id") int id);
 

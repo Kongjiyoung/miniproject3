@@ -5,13 +5,13 @@ import lombok.Data;
 public class MainRequest {
 
     @Data
-    public static class postIdDTO {
-        private Integer postId;
+    public static class PostChoiceDTO {
+        private Integer postChoice;
     }
 
     @Data
-    public static class resumeChoiceDTO {
-        private int resumeChoice;
+    public static class ResumeChoiceDTO {
+        private Integer resumeChoice;
     }
 
 }
