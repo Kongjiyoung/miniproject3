@@ -50,6 +50,13 @@ public class MainService {
     private final SkillJPARepository skillJPARepository;
     private final UserService userService;
 
+    // 04-02 YSH
+    public List<MainResponse.mainResumesDTO> mainResumes(){
+        List<Resume> mainResumes = resumeJPARepository.mainAllResume();
+
+        return mainResumes.stream().map(resume -> new MainResponse.mainResumesDTO(resume)).toList();
+    }
+
     public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
         User user = userService.findByUser(userId);
         Post post = postJPARepository.findById(postId)
