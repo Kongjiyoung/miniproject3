@@ -91,4 +91,10 @@ public class ScrapService {
         Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId);
         return scrap;
     }
+
+    public ScrapResponse.ScrapPostDetailDTO ScrapPostDetail(Integer scrapId, User sessionUser) {
+        Scrap scrap = scrapJPARepository.findByScrapIdJoinPost(scrapId)
+                .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
+        return new ScrapResponse.ScrapPostDetailDTO(scrap, sessionUser);
+    }
 }

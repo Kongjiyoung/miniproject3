@@ -44,9 +44,10 @@ public class ScrapController {
 
         //이력서 선택
         List<Resume> resumeList = resumeService.getResumeFindBySessionUserId(sessionUser.getId());
+        ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id, sessionUser);
 
         //resumeList도 같이 DTO에 담기
-        return ResponseEntity.ok(new ApiUtil<>(scrap));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PostMapping("/person/scraps/{id}/detail/delete")
