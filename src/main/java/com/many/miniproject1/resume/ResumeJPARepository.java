@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
 
     // TODO: 이유 없으면 삭제하기 distinct
+
     @Query("""
             select distinct r
             from Resume r

@@ -111,7 +111,7 @@ public class MainController {
 
     // 지원하기 버튼 안 보임
     @PostMapping("/posts/{id}/apply")
-    public ResponseEntity<?> personPostApply(@PathVariable int id, @RequestBody MainRequest.resumeChoiceDTO resumeChoice) {
+    public ResponseEntity<?> personPostApply(@PathVariable int id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
         System.out.println("resumeChoice = " + resumeChoice);
         ApplyResponse.DTO respDTO=mainService.personPostApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -145,7 +145,7 @@ public class MainController {
     }
 
     @PostMapping("/posts/match")
-    public ResponseEntity<?> matchingPost(@RequestBody MainRequest.posChoiceDTO postChoiceDTO) {
+    public ResponseEntity<?> matchingPost(@RequestBody MainRequest.PostChoiceDTO postChoiceDTO) {
         session.setAttribute("postChoice", postChoiceDTO.getPostChoice());
         int respDTO=postChoiceDTO.getPostChoice();
 
@@ -161,7 +161,7 @@ public class MainController {
         List<MainResponse.ResumeeMatchingChoiceDTO> resumeList = mainService.findByUserIdResume(sessionUser.getId());
         Integer resumeChoice = (Integer) session.getAttribute("resumeChoice");
         if (resumeChoice != null) {
-            List<Post> postList = mainService.matchingPost(resumeChoice);
+            List<MainResponse.MainResumeMatchDTO> postList = mainService.matchingPost(resumeChoice);
             //resumeList와 함께 DTO에 담기
             return ResponseEntity.ok(new ApiUtil<>(resumeList,postList));
         }
@@ -171,7 +171,7 @@ public class MainController {
     }
 
     @PostMapping("/resumes/match")
-    public ResponseEntity<?> matchingResume(@RequestBody MainRequest.resumeChoiceDTO resumeChoiceDTO) {
+    public ResponseEntity<?> matchingResume(@RequestBody MainRequest.ResumeChoiceDTO resumeChoiceDTO) {
         session.setAttribute("resumeChoice", resumeChoiceDTO.getResumeChoice());
         int respDTO=resumeChoiceDTO.getResumeChoice();
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

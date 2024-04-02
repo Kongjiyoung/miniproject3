@@ -127,7 +127,7 @@ public class MainResponse {
         }
 
     }
-
+    @Data
     public static class MainPostMatchDTO {
         int id;
         String profile;
@@ -157,6 +157,7 @@ public class MainResponse {
 
     }
 
+    @Data
     public static class PosteMatchingChoiceDTO {
         int postId;
         String postTitle;
@@ -166,6 +167,7 @@ public class MainResponse {
             this.postTitle = post.getTitle();
         }
     }
+    @Data
     public static class ResumeeMatchingChoiceDTO {
         int resumeId;
         String resumeTitle;
@@ -173,6 +175,40 @@ public class MainResponse {
         public ResumeeMatchingChoiceDTO(Resume resume) {
             this.resumeId = resume.getId();
             this.resumeTitle = resume.getTitle();
+        }
+    }
+
+    @Data
+    public static class MainResumeMatchDTO {
+        int id;
+        String profile;
+        String companyName;
+        String title;
+        String task;
+        String career;
+        String workingArea;
+        List<SkillDTO> skills = new ArrayList<>();
+
+        public MainResumeMatchDTO(Post post) {
+            this.id = post.getId();
+            this.profile = post.getProfile();
+            this.companyName = post.getUser().getCompanyName();
+            this.title = post.getTitle();
+            this.task = post.getTask();
+            this.career = post.getCareer();
+            this.workingArea = post.getWorkingArea();
+            this.skills = post.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+        }
+
+        @Data
+        public class SkillDTO{
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
         }
     }
 }

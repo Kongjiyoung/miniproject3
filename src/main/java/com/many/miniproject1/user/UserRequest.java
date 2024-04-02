@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.sql.Date;
 import java.util.Base64;
 
+import java.util.UUID;
+
 public class UserRequest {
 
     @Data
@@ -72,6 +74,7 @@ public class UserRequest {
     public static class CompanyJoinDTO {
         private String role;        // 구직자 or 회사
         private String profile;     // 사진
+        private String profileName;
         private String companyName; // 회사명
         private String companyNum;  // 사업자번호
         private String username;    // 로그인ID
@@ -84,7 +87,7 @@ public class UserRequest {
         public User toEntity() {
             String encodedImageData = profile;
             byte[] decodedBytes = Base64.getDecoder().decode(encodedImageData);
-            String profilename="이미지1.jpg";
+            String profilename=UUID.nameUUIDFromBytes(decodedBytes).randomUUID()+"_" + profileName;
             try {
                 Path path = Path.of("./images/" + profilename);
                 Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
