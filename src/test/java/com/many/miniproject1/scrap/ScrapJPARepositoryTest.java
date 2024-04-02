@@ -79,7 +79,7 @@ public class ScrapJPARepositoryTest {
 
         // then
 //        assertThat(offer.);
-        System.out.println("👩👴🧓👱‍♀️👼🎅👸🤴승호" + offer);
+        System.out.println("test:: " + offer);
     }
 
     @Test

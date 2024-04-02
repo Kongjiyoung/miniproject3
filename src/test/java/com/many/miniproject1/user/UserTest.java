@@ -11,7 +11,7 @@ import java.util.Base64;
 public class UserTest {
 
     @Test
-    public void dddd() {
+    public void imageTest() {
         base64();
     }
 
