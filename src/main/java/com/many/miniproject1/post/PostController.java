@@ -52,7 +52,7 @@ public class PostController {
 
     @DeleteMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyDeletePost(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         postService.postDelete(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
