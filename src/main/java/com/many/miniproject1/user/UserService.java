@@ -43,7 +43,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse.CompanyDTO updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
+    public SessionUser updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(personId)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
@@ -64,7 +64,7 @@ public class UserService {
         user.setTel(reqDTO.getTel());
         user.setEmail(reqDTO.getEmail());
         user = userJPARepository.save(user);
-        return new UserResponse.CompanyDTO(user);
+        return new SessionUser(user);
     }
 
     @Transactional

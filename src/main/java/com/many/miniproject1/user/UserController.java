@@ -32,7 +32,7 @@ public class UserController {
 
 
     @PostMapping("/person/join")
-    public ResponseEntity<?> personJoin(UserRequest.PersonJoinDTO reqDTO) {
+    public ResponseEntity<?> personJoin(@RequestBody UserRequest.PersonJoinDTO reqDTO) {
 
         UserResponse.PersonDTO respDTO = userService.personJoin(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -57,7 +57,7 @@ public class UserController {
     //회사 정보 수정
     @GetMapping("/company/info")
     public ResponseEntity<?> companyInfo() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.CompanyDTO respDTO = userService.findByCompany(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -80,9 +80,9 @@ public class UserController {
 
     @PutMapping("/people/{id}/info")
     public ResponseEntity<?> personInfoUpdate(@RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        UserResponse.CompanyDTO respDTO = userService.updatePersonInfo(1, reqDTO);
-
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        SessionUser newSessionUser = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
+        session.setAttribute("sessionUser", newSessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 }

@@ -1,5 +1,6 @@
 package com.many.miniproject1.user;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -11,6 +12,7 @@ public class SessionUser {
     private String email;
     private Timestamp createdAt;
 
+    @Builder
     public SessionUser(User user) {
         this.id = user.getId();
         this.username = user.getUsername();

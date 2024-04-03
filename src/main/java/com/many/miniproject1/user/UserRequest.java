@@ -49,6 +49,7 @@ public class UserRequest {
             return User.builder()
                     .role("person")
                     .profile(profilename)
+                    .profileName(profileName)
                     .username(username)
                     .name(name)
                     .email(email)
