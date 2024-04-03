@@ -94,7 +94,7 @@ public class ResumeService {
             resume.setCareer(reqDTO.getCareer());
         }
         if (reqDTO.getSimpleIntroduce() != null) {
-            resume.setCareer(reqDTO.getSimpleIntroduce());
+            resume.setSimpleIntroduce(reqDTO.getSimpleIntroduce());
         }
 
 

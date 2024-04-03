@@ -184,7 +184,7 @@ public class ResumeResponse {
             this.portfolio = resume.getPortfolio();
             this.introduce = resume.getIntroduce();
             this.career = resume.getCareer();
-            this.simpleIntroduce = resume.getIntroduce();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
             this.skills = skills.stream().map(skill -> (new SkillDTO(skill))).toList();
         }
 
