@@ -49,4 +49,12 @@ public interface PostJPARepository extends JpaRepository<Post, Integer> {
             """)
     Post findByPostIdJoinUserAndSkill(@Param("post_id") Integer postId);
 
+    @Query("""
+            select p
+            from Post p
+            join fetch p.skillList s
+            join fetch p.user u
+            where u.id=:user_id
+            """)
+    List<Post> findByPost(@Param("user_id") Integer userId);
 }

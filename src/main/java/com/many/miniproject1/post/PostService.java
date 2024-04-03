@@ -60,8 +60,8 @@ public class PostService {
         return post;
     }
 
-    public List<PostResponse.PostListDTO> getResumeList(){
-        List<Post> postList = postJPARepository.findAllPost();
+    public List<PostResponse.PostListDTO> getResumeList(Integer userId){
+        List<Post> postList = postJPARepository.findByPost(userId);
         return postList.stream().map(post -> new PostResponse.PostListDTO(post)).toList();
     }
 
