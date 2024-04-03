@@ -55,14 +55,14 @@ public class UserController {
 
     //회사 정보 및 수정
     //회사 정보 수정
-    @GetMapping("/company/info")
+    @GetMapping("/api/company/info")
     public ResponseEntity<?> companyInfo() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.CompanyDTO respDTO = userService.findByCompany(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PutMapping("/companies/{id}/info")
+    @PutMapping("/api/companies/{id}/info")
     public ResponseEntity<?> companyInfoUpdate(@RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         SessionUser newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), reqDTO);
@@ -71,14 +71,14 @@ public class UserController {
     }
 
     //개인 프로필 정보 및 수정
-    @GetMapping("/person/info")
+    @GetMapping("/api/person/info")
     public ResponseEntity<?> personInfo() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.PersonDTO respDTO = userService.findByPerson(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PutMapping("/people/{id}/info")
+    @PutMapping("/api/people/{id}/info")
     public ResponseEntity<?> personInfoUpdate(@RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         SessionUser newSessionUser = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
