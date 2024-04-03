@@ -28,7 +28,7 @@ public class PostRequest {
         private String profile;
         private String profileName;
         private String workingArea;
-        private List<String> skillList = new ArrayList<>();
+        private List<String> skills = new ArrayList<>();
 
         public Post toEntity(User user) {
             byte[] decodedBytes = Base64.getDecoder().decode(profile);
@@ -50,44 +50,12 @@ public class PostRequest {
                     .deadline(deadline)
                     .task(task)
                     .workingArea(workingArea)
-                    .profile(profileName)
+                    .profile(profilename)
                     .profileName(profileName)
                     .build();
         }
     }
 
-    @Data
-    public static class SaveDTO {
-        private Integer id;
-        private Integer companyId;
-        private String title;
-        private String career;
-        private String pay;
-        private String workCondition;
-        private String workStartTime;
-        private String workEndTime;
-        private String deadline;
-        private String task;
-        private String profile;
-        private String workingArea;
-        private List<String> skill;
-        public Post toEntity(User user) {
-//            String profilePath= ProfileImageSaveUtil.save(profile);
-            return Post.builder()
-                    .user(user)
-                    .title(title)
-                    .career(career)
-                    .pay(pay)
-                    .workCondition(workCondition)
-                    .workStartTime(workStartTime)
-                    .workEndTime(workEndTime)
-                    .deadline(deadline)
-                    .task(task)
-                    .workingArea(workingArea)
-                    .profile(profile)
-                    .build();
-        }
-    }
 
 
     @Data
@@ -109,8 +77,8 @@ public class PostRequest {
 
     @Data
     public static class UpdatePostDTO {
-        private Integer id;
-        private Integer companyId;
+        private String profile;
+        private String profileName;
         private String title;
         private String career;
         private String pay;
