@@ -103,11 +103,11 @@ public class PostService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            post.setTitle(profilename);
+            post.setProfile(profilename);
         }
 
         if (reqDTO.getProfileName() != null) {
-            post.setPay(reqDTO.getProfileName());
+            post.setProfileName(reqDTO.getProfileName());
         }
 
         if (reqDTO.getPay() != null) {

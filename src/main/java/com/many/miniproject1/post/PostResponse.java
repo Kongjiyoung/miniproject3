@@ -5,8 +5,13 @@ import com.many.miniproject1.user.User;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class PostResponse {
@@ -203,6 +208,7 @@ public class PostResponse {
         private String profileName;
         private String workingArea;
         private List<SkillDTO> skills;
+        @Builder
         public PostUpdateDTO(Post post, List<Skill> skillList) {
             this.title = post.getTitle();
             this.career = post.getCareer();
