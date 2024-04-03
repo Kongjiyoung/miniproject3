@@ -66,4 +66,8 @@ public class ResumeRequest {
         private String simpleIntroduce;
         private List<String> skills;
     }
+
+    public class ResumeSaveDTO {
+
+    }
 }
