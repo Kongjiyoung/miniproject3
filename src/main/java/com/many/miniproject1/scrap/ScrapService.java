@@ -2,13 +2,16 @@ package com.many.miniproject1.scrap;
 
 
 import com.many.miniproject1._core.errors.exception.Exception401;
+import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
+import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
+import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
@@ -33,26 +36,41 @@ public class ScrapService {
     }
 
     @Transactional
-    public Apply saveApply(int id, int  resumeChoice){
-       Scrap scrap =scrapJPARepository.findById(id).orElseThrow(() -> new Exception404(""));
-       Resume resume = resumeJPARepository.findById(resumeChoice).orElseThrow(()-> new Exception404(""));
-       ApplyRequest.SaveDTO saveApply=new ApplyRequest.SaveDTO(resume, scrap.getPost());
+    public ApplyResponse.PostApplyDTO saveApply(int postId, int resumeId){
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+        System.out.println("resumeId = " + resumeId);
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+       ApplyRequest.SaveDTO saveApply=new ApplyRequest.SaveDTO(resume, post);
        Apply apply=applyJPARepository.save(saveApply.toEntity());
-       return apply;
+
+       return new ApplyResponse.PostApplyDTO(apply);
     }
+
+//    @Transactional
+//    public void deleteScrapPost(int id){
+//        scrapJPARepository.deleteById(id);
+//    }
 
     @Transactional
-    public void deleteScrapPost(int id){
-        scrapJPARepository.deleteById(id);
+    public void deleteScrapPost(Integer id){
+        Scrap scrap = scrapJPARepository.findById(id)
+                .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
 
+//        if(sessionUserId != scrap.getUser().getId()){
+//            throw new Exception403("스크랩한 공고를 삭제할 권한이 없습니다");
+//        }
+        scrapJPARepository.deleteById(id);
     }
+
     public void deleteScrap(Integer id) {
         scrapJPARepository.deleteById(id);
     }
 
-    public Scrap getResumeDetail(Integer userId, Integer resumeId){
-        return scrapJPARepository.findByResumeIdAndSkillAndUser(userId, resumeId)
-                .orElseThrow(()-> new Exception404("이력서를 찾을 수 없습니다."));
+    public ScrapResponse.ScrapResumeDetailDTO getResumeDetail(Integer userId){
+        Scrap scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(userId);
+        return new ScrapResponse.ScrapResumeDetailDTO(scrap);
     }
 
     public Scrap findById(int id) {
@@ -60,28 +78,45 @@ public class ScrapService {
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         return scrap;
     }
-    public List<Scrap> companyScrapList(Integer userId){
-        return scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
+
+    public List<ScrapResponse.ScrapPostListDTO> personScrapList(Integer userId){
+        List<Scrap> scrapList = scrapJPARepository.findByCompanyIdJoinSkills(userId);
+        return scrapList.stream().map(scrap -> new ScrapResponse.ScrapPostListDTO(scrap)).toList();
     }
 
+    public List<ScrapResponse.ScrapResumeListDTO> companyScrapList(Integer userId){
+        List<Scrap> scrapList = scrapJPARepository.findByUserIdJoinSkillAndResume(userId);
+        return scrapList.stream().map(scrap -> new ScrapResponse.ScrapResumeListDTO(scrap)).toList();
+    }
 
     public List<Post> companyPostList(int id) {
         return postJPARepository.findByPostId(id);
     }
+
     @Transactional
-    public Offer sendPostToResume(int id, Integer postId){
-        Scrap scrap = scrapJPARepository.findById(id)
-                .orElseThrow(() -> new Exception401("존재하지 않는 스크랩입니다..." + id));
-        Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + postId));
-        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(scrap.getResume(), post);
+    public OfferResponse.ChoiceDTO sendPostToResume(Integer resumeId, Integer postChoice){
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404(""));
+        Post post = postJPARepository.findById(postChoice)
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다!" + postChoice));
+        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
         Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
 
-        return offer;
+        return new OfferResponse.ChoiceDTO(offer);
     }
+
+//    @Transactional
+//    public
 
     public Scrap getScrapPostDetail(Integer scrapId) {
         Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId);
         return scrap;
+    }
+
+
+    public ScrapResponse.ScrapPostDetailDTO ScrapPostDetail(Integer scrapId){
+        Scrap scrap = scrapJPARepository.findByScrapIdJoinPost(scrapId)
+                .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
+        return new ScrapResponse.ScrapPostDetailDTO(scrap);
     }
 }

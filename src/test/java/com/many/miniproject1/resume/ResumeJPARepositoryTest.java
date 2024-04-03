@@ -85,18 +85,32 @@ public class ResumeJPARepositoryTest {
 
     }
 
+<<<<<<< HEAD
+//    @Test
+//    public void findByIdJoinSkillAndUser_test() {
+//        //given
+//        ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
+//        respDTO.setId(1);
+//
+//        // when
+//        Resume resumeDetail = resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
+//
+//        // then
+//        assertThat(resumeDetail.getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
+//    }
+=======
     @Test
     public void findByIdJoinSkillAndUser_test() {
         //given
-        ResumeResponse.ResumeDetailDTO respDTO = new ResumeResponse.ResumeDetailDTO();
-        respDTO.setId(1);
+      int resumeId=1;
 
         // when
-        Resume resumeDetail = resumeJPARepository.findByIdJoinSkillAndUser(respDTO.getId());
+        Resume resumeDetail = resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
 
         // then
         assertThat(resumeDetail.getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
     }
+>>>>>>> 129c0de4dd85e00e4709def997d15879eecc49ad
 
     @Test
         public void findByUser_test(){

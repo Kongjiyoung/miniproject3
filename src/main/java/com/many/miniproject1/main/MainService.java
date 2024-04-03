@@ -1,11 +1,11 @@
 package com.many.miniproject1.main;
 
 import com.many.miniproject1._core.errors.exception.Exception401;
-
+import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
-
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
+import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.offer.OfferRequest;
@@ -14,22 +14,20 @@ import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.scrap.Scrap;
-
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.scrap.ScrapRequest;
-import com.many.miniproject1.user.User;
-import com.many.miniproject1.user.UserService;
+import com.many.miniproject1.scrap.ScrapResponse;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
+import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
+import com.many.miniproject1.user.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,22 +45,43 @@ public class MainService {
     private final SkillJPARepository skillJPARepository;
     private final UserService userService;
 
-    public Scrap personPostScrap(Integer userId, Integer postId) {
+    // 04-02 YSH
+    public List<MainResponse.mainResumesDTO> mainResumes() {
+        List<Resume> mainResumes = resumeJPARepository.mainAllResume();
+
+        return mainResumes.stream().map(resume -> new MainResponse.mainResumesDTO(resume)).toList();
+    }
+    // 04-02 YSH
+    public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId){
+        User user = userService.findByUser(userId);
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+        ScrapRequest.MainScrapDTO saveScrap = new ScrapRequest.MainScrapDTO(resume, user);
+
+        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
+
+        return new ScrapResponse.MainResumeScrapDTO(scrap);
+    }
+
+    public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
         User user = userService.findByUser(userId);
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
         ScrapRequest.SavePostDTO saveScrap = new ScrapRequest.SavePostDTO(user, post);
         Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
-        return scrap;
+        return new ScrapResponse.PostScrapSaveDTO(scrap);
     }
 
-    public Apply personPostApply(Integer postId, Integer resumeId) {
+    public ApplyResponse.PostApplyDTO personPostApply(int postId, int resumeId) {
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+        System.out.println("resumeId = " + resumeId);
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception401(""));
         ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume, post);
-        return applyJPARepository.save(saveApply.toEntity());
+        Apply apply = applyJPARepository.save(saveApply.toEntity());
+
+        return new ApplyResponse.PostApplyDTO(apply);
     }
 
     public List<MainResponse.ApplyListDTO> getResumeId(int id) {
@@ -70,17 +89,17 @@ public class MainService {
         return resumeList.stream().map(resume -> new MainResponse.ApplyListDTO(resume)).toList();
     }
 
-    public List<Post> findByUserIdPost(int userId) {
+    public List<MainResponse.PosteMatchingChoiceDTO> findByUserIdPost(int userId) {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);
-        return postList;
+        return postList.stream().map(post -> new MainResponse.PosteMatchingChoiceDTO(post)).toList();
     }
 
-    public List<Resume> findByUserIdResume(int userId) {
+    public List<MainResponse.ResumeeMatchingChoiceDTO> findByUserIdResume(int userId) {
         List<Resume> resumeList = resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
-        return resumeList;
+        return resumeList.stream().map(resume -> new MainResponse.ResumeeMatchingChoiceDTO(resume)).toList();
     }
 
-    public List<Resume> matchingResume(int postchoice) {
+    public List<MainResponse.MainPostMatchDTO> matchingResume(Integer postchoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
         List<Skill> postSkills = skillJPARepository.findSkillsByPostId(postchoice);
         List<String> postSkill = postSkills.stream().map(skill -> skill.getSkill()).toList();
@@ -139,15 +158,15 @@ public class MainService {
 
         for (int i = 0; i < filteredList.size(); i++) {
             int resumeId = filteredList.get(i).getResumeId();
-            matchingResumeList.add(resumeJPARepository.findById(resumeId).orElseThrow(() -> new Exception401("이력서없음")));
+            matchingResumeList.add(resumeJPARepository.findByIdJoinSkillAndUser(resumeId));
         }
-        return matchingResumeList;
+        return matchingResumeList.stream().map(resume -> new MainResponse.MainPostMatchDTO(resume)).toList();
     }
 
 
     public List<MainResponse.mainPostsDTO> getPostList() {
         List<Post> postList = postJPARepository.findAllPost();
-        return postList.stream().map(post-> new MainResponse.mainPostsDTO(post)).toList();
+        return postList.stream().map(post -> new MainResponse.mainPostsDTO(post)).toList();
     }
 
     public List<Resume> resumeForm() {
@@ -155,8 +174,25 @@ public class MainService {
         return resumeJPARepository.findAll(sort);
     }
 
-    public Resume resumeDetailForm(Integer resumeId) {
-        return resumeJPARepository.findById(resumeId).orElse(null);
+    public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
+        Resume resume = resumeJPARepository.findResumeById(resumeId);
+
+        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkillList());
+    }
+
+    public List<MainResponse.PostTitleListDTO> getPostTitleListDTOs(Integer sessionUserId, Integer companyId) {
+        System.out.println(1);
+        List<Post> postList = postJPARepository.findPostListByCompanyId(sessionUserId, companyId);
+        List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
+
+        postList.stream().map(post -> {
+            return postTitleListDTOList.add(MainResponse.PostTitleListDTO.builder()
+                    .id(post.getId())
+                    .title(post.getTitle())
+                    .build());
+        }).collect(Collectors.toList());
+
+        return postTitleListDTOList;
     }
 
     public List<Post> getPostsByCompanyId(Integer companyId) {
@@ -169,15 +205,15 @@ public class MainService {
     }
 
     @Transactional
-    public Offer sendPostToResume(int id, int postId) {
-        Resume resume = resumeJPARepository.findById(id)
-                .orElseThrow(() -> new Exception401("존재하지 않는 이력서..." + id));
+    public OfferRequest.MainOfferSaveDTO sendPostToResume(Integer resumeId, Integer postId) {
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 이력서입니다."));
         Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + postId));
-        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
-        Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
-
-        return offer;
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다."));
+        //OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
+        Offer offer = offerJPARepository.save(OfferRequest.MainOfferSaveDTO.toEntity(resume, post));
+        System.out.println(offer);
+        return new OfferRequest.MainOfferSaveDTO(offer);
     }
 
     @Transactional
@@ -191,7 +227,7 @@ public class MainService {
         return scrap;
     }
 
-    public List<Post> matchingPost(int resumechoice) {
+    public List<MainResponse.MainResumeMatchDTO> matchingPost(Integer resumechoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
         List<Skill> resumeSkills = skillJPARepository.findSkillsByResumeId(resumechoice);
         List<String> resumeSkill = resumeSkills.stream().map(skill -> skill.getSkill()).toList();
@@ -250,8 +286,8 @@ public class MainService {
 
         for (int i = 0; i < filteredList.size(); i++) {
             int postId = filteredList.get(i).postId;
-            matchingPostList.add(postJPARepository.findById(postId).orElseThrow(() -> new Exception401("이력서없음")));
+            matchingPostList.add(postJPARepository.findByPostIdJoinUserAndSkill(postId));
         }
-        return matchingPostList;
+        return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post)).toList();
     }
 }
