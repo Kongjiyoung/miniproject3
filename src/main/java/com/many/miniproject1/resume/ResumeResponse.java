@@ -99,7 +99,7 @@ public class ResumeResponse {
     public static class resumeDetailDTO {
         private Integer id;
         private Integer userId;
-        private User user;
+
         private String title;
         private String profile;
         private String name;
