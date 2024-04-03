@@ -7,6 +7,7 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.scrap.ScrapResponse;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class MainController {
     // 04-02 YSH
     @GetMapping("/resumes")
     public ResponseEntity<?> resumes() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
 
         List<MainResponse.mainResumesDTO> respDTO = mainService.mainResumes();
 
