@@ -48,7 +48,7 @@ public class ResumeRequest {
             return Resume.builder()
                     .user(user)
                     .title(title)
-                    .profile(profile)
+                    .profile(profilename)
                     .profileName(profileName)
                     .career(career)
                     .simpleIntroduce(simpleIntroduce)

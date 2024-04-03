@@ -1,6 +1,7 @@
 package com.many.miniproject1.post;
 
 
+import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -12,6 +13,7 @@ import com.many.miniproject1.skill.SkillRequest;
 import com.many.miniproject1.skill.SkillResponse;
 import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
+import com.many.miniproject1.user.UserJPARepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,7 @@ public class PostService {
     private final ApplyJPARepository applyJPARepository;
     private final OfferJPARepository offerJPARepository;
     private final ScrapJPARepository scrapJPARepository;
+    private final UserJPARepository userJPARepository;
 
     @Transactional
     public void postDelete(int postId, int sessionUserId) {
@@ -50,8 +53,9 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponse.PostDTO save(PostRequest.PostSaveDTO reqDTO, User sessionUser) {
-        Post post = postJPARepository.save(reqDTO.toEntity(sessionUser));
+    public PostResponse.PostDTO save(PostRequest.PostSaveDTO reqDTO, SessionUser sessionUser) {
+        User user=userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception403("권한없음"));
+        Post post = postJPARepository.save(reqDTO.toEntity(user));
 
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {

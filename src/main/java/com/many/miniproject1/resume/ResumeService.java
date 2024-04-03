@@ -37,7 +37,7 @@ public class ResumeService {
 
     private final UserJPARepository userJPARepository;
     @Transactional
-    public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, User sessionUser){
+    public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, SessionUser sessionUser){
 //        Skill List<skill>
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인"));
         Resume resume = resumeJPARepository.save(reqDTO.toEntity(user));
