@@ -43,7 +43,7 @@ public class ResumeService {
     }
 
 
-    public Resume resumeUpdate(int id, User user) {
+    public Resume resumeUpdate(int id, User u) {
 
         return null;
     }
