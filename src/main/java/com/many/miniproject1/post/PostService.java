@@ -11,6 +11,7 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import com.many.miniproject1.skill.SkillRequest;
 import com.many.miniproject1.skill.SkillResponse;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +67,7 @@ public class PostService {
     }
 
     // 공고 상세보기
-    public PostResponse.DetailDTO postDetail (int postId, User sessionUser){
+    public PostResponse.DetailDTO postDetail (int postId, SessionUser sessionUser){
         Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
                 .orElseThrow(()-> new Exception404("게시글을 찾을 수 없습니다."));
         return new PostResponse.DetailDTO(post,sessionUser);

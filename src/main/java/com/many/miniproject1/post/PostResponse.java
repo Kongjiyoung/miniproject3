@@ -1,13 +1,11 @@
 package com.many.miniproject1.post;
 
 import com.many.miniproject1.skill.Skill;
-import com.many.miniproject1.user.User;
-import lombok.Builder;
+import com.many.miniproject1.user.SessionUser;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PostResponse {
 
@@ -60,7 +58,7 @@ public class PostResponse {
         private List<skillDTO> skillList;
 
 
-        public DetailDTO(Post post, User sessionUser) {
+        public DetailDTO(Post post, SessionUser sessionUser) {
             this.id = post.getId();
             this.companyId = post.getId();
             this.title = post.getTitle();
@@ -81,7 +79,7 @@ public class PostResponse {
             private Integer id;
             private String skill;
 
-            public skillDTO(Skill skill, User sessionUser){
+            public skillDTO(Skill skill, SessionUser sessionUser){
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }

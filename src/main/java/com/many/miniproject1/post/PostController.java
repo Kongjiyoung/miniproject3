@@ -1,6 +1,7 @@
 package com.many.miniproject1.post;
 
 import com.many.miniproject1._core.utils.ApiUtil;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class PostController {
 
     @GetMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyPostDetail(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         PostResponse.DetailDTO respDTO = postService.postDetail(id, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
