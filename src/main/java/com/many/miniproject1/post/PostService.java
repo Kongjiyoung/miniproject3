@@ -3,7 +3,6 @@ package com.many.miniproject1.post;
 
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
-
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.scrap.ScrapJPARepository;
@@ -11,17 +10,16 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import com.many.miniproject1.skill.SkillRequest;
 import com.many.miniproject1.skill.SkillResponse;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
@@ -72,9 +70,10 @@ public class PostService {
     }
 
     // 공고 상세보기
-    public PostResponse.DetailDTO postDetail(int postId, User sessionUser) {
+    public PostResponse.DetailDTO postDetail (int postId, SessionUser sessionUser){
         Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
         return new PostResponse.DetailDTO(post, sessionUser);
     }
 

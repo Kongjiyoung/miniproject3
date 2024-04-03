@@ -1,14 +1,12 @@
 package com.many.miniproject1.post;
 
 import com.many.miniproject1._core.utils.ApiUtil;
-import com.many.miniproject1.skill.Skill;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,13 +24,14 @@ public class PostController {
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<PostResponse.PostListDTO> respDTO =postService.getResumeList(sessionUser.getId());
+        List<PostResponse.PostListDTO> respDTO = postService.getResumeList(sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyPostDetail(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         PostResponse.DetailDTO respDTO = postService.postDetail(id, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -46,17 +45,16 @@ public class PostController {
     }
 
     @PutMapping("/api/company/posts/{id}")
-    public ResponseEntity<?> companyUpdatePost(@PathVariable int id,@Valid @RequestBody PostRequest.UpdatePostDTO reqDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        System.out.println(reqDTO);
-        PostResponse.PostUpdateDTO respDTO=postService.updatePost(id, sessionUser.getId(), reqDTO);
+    public ResponseEntity<?> companyUpdatePost(@PathVariable Integer id, @RequestBody PostRequest.UpdatePostDTO reqDTO) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        PostResponse.PostUpdateDTO respDTO = postService.updatePost(id, sessionUser.getId(), reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @DeleteMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyDeletePost(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         postService.postDelete(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(null));
     }

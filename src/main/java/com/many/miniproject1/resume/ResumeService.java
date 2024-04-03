@@ -6,14 +6,11 @@ import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.offer.OfferJPARepository;
-import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
-
-import com.many.miniproject1.skill.SkillRequest;
 import com.many.miniproject1.skill.SkillResponse;
-
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
 import lombok.RequiredArgsConstructor;
@@ -39,12 +36,12 @@ public class ResumeService {
     private final ScrapJPARepository scrapJPARepository;
 
     private final UserJPARepository userJPARepository;
-
     @Transactional
     public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, User sessionUser){
 //        Skill List<skill>
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인"));
         Resume resume = resumeJPARepository.save(reqDTO.toEntity(user));
+
 
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
@@ -56,7 +53,6 @@ public class ResumeService {
         List<Skill> skillList = skillJPARepository.saveAll(skills);
         return new ResumeResponse.ResumeSaveDTO(resume, skillList);
     }
-
 
     @Transactional
     public ResumeResponse.UpdateDTO resumeUpdate(int resumeId, ResumeRequest.UpdateDTO reqDTO) {
@@ -145,7 +141,7 @@ public class ResumeService {
         return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
     }
 
-    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, User sessionUser) {
+    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, SessionUser sessionUser) {
         Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         return new ResumeResponse.resumeDetailDTO(resume, sessionUser);

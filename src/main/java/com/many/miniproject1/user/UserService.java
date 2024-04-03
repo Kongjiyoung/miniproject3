@@ -19,7 +19,6 @@ import java.util.UUID;
 public class UserService {
     public final UserJPARepository userJPARepository;
 
-
     public User findByUser(int id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
@@ -42,7 +41,6 @@ public class UserService {
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return new UserResponse.CompanyDTO(user);
     }
-
     @Transactional
     public UserResponse.PersonDTO updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(personId)
@@ -92,13 +90,6 @@ public class UserService {
 
         return new UserResponse.PersonDTO(user);
     }
-
-    @Transactional
-    public UserResponse.PersonDTO personJoin(UserRequest.PersonJoinDTO reqDTO) {
-        User user = userJPARepository.save(reqDTO.toEntity());
-        return new UserResponse.PersonDTO(user);
-    }
-
     @Transactional
     public User companyInfoUpdate(int id, UserRequest.CompanyInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(id)
@@ -119,7 +110,6 @@ public class UserService {
             user.setPassword(reqDTO.getNewPassword());
         }
 
-
         if (reqDTO.getProfile()!=null){
             user.setProfile(profilename);
         }
@@ -133,15 +123,20 @@ public class UserService {
             user.setEmail(reqDTO.getEmail());
         }
 
-
         return userJPARepository.save(user);
     }
 
-    public String login(UserRequest.LoginDTO reqDTO) {
+    @Transactional
+    public UserResponse.PersonDTO personJoin(UserRequest.PersonJoinDTO reqDTO) {
+        User user = userJPARepository.save(reqDTO.toEntity());
+        return new UserResponse.PersonDTO(user);
+    }
 
+    public String  login(UserRequest.LoginDTO reqDTO) {
         User user = userJPARepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
         String jwt = JwtUtil.create(user);
+
         return jwt;
     }
 
@@ -154,6 +149,7 @@ public class UserService {
         return user;
     }
 
+    @Transactional
     public UserResponse.CompanyDTO companyJoin(UserRequest.CompanyJoinDTO reqDTO) {
         User user = userJPARepository.save(reqDTO.toEntity());
         return new UserResponse.CompanyDTO(user);

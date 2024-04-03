@@ -3,9 +3,11 @@ package com.many.miniproject1.main;
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.OfferRequest;
-import com.many.miniproject1.scrap.Scrap;
+import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.scrap.ScrapResponse;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
+import com.many.miniproject1.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +22,10 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class MainController {
-
     private final HttpSession session;
     private final MainService mainService;
-
+    private final UserService userService;
+    private final ResumeJPARepository resumeJPARepository;
 
     //맞춤 공고 - 기업이 보는 매칭 이력서
 
@@ -32,14 +34,11 @@ public class MainController {
      *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
      *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
      */
-
-
     //메인 구직 공고
     // 04-02 YSH
     @GetMapping("/resumes")
-    public ResponseEntity<?> mainResumes() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
+    public ResponseEntity<?> resumes() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<MainResponse.mainResumesDTO> respDTO = mainService.mainResumes();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -73,7 +72,7 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(responseBody));
     }
 
-    @PostMapping("/resumes/{id}/offer")
+    @PostMapping("/api/resumes/{id}/offer")
     public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody OfferRequest.MainOfferSaveDTO reqDTO) {
         // 회사가 개인의 이력서를 보고 맘에 들면 오퍼를 보냄
         // INSERT INTO offer_tb(resume_id, post_id, created_at) VALUES (1, 1, now());
@@ -82,11 +81,10 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 
-    // 04-02 YSH
-    @PostMapping("/resumes/{id}/scrap")
-    public ResponseEntity<?> companyResumeScrap(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+    @PostMapping("/api/resumes/{id}/scrap")
 
+    public ResponseEntity<?> companyResumeScrap(@PathVariable int id) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.MainResumeScrapDTO respDTO = mainService.resumeScrap(id, sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -100,9 +98,9 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/api/posts/{id}")
     public ResponseEntity<?> postDetail(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
         MainResponse.PostDetailDTO respDTO = mainService.getPostDetail(id);
         if (sessionUser != null) {
@@ -117,7 +115,7 @@ public class MainController {
     }
 
     // 지원하기 버튼 안 보임
-    @PostMapping("/posts/{id}/apply")
+    @PostMapping("/api/posts/{id}/apply")
     public ResponseEntity<?> personPostApply(@PathVariable int id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
         System.out.println("resumeChoice = " + resumeChoice);
         ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
@@ -125,19 +123,18 @@ public class MainController {
 
     }
 
-    @PostMapping("/posts/{id}/scrap")
+    @PostMapping("/api/posts/{id}/scrap")
     public ResponseEntity<?> personPostScrap(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
 
         ScrapResponse.PostScrapSaveDTO respDTO = mainService.personPostScrap(sessionUser.getId(), id);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 
-
-    @GetMapping("/posts/matching")
+    @GetMapping("/api/posts/matching")
     public ResponseEntity<?> matchingPosts() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<MainResponse.PosteMatchingChoiceDTO> postList = mainService.findByUserIdPost(sessionUser.getId());
         Integer postChoice = (Integer) session.getAttribute("postChoice");
         if (postChoice != null) {
@@ -145,13 +142,11 @@ public class MainController {
             //resumeList와 posts 와 DTO담아서 넘ㄱ기기
             return ResponseEntity.ok(new ApiUtil<>(respDTO, postList));
         }
-        //
+
         return ResponseEntity.ok(new ApiUtil<>(postList));
-
-
     }
 
-    @PostMapping("/posts/match")
+    @PostMapping("/api/posts/match")
     public ResponseEntity<?> matchingPost(@RequestBody MainRequest.PostChoiceDTO postChoiceDTO) {
         session.setAttribute("postChoice", postChoiceDTO.getPostChoice());
         int respDTO = postChoiceDTO.getPostChoice();
@@ -161,10 +156,10 @@ public class MainController {
     }
 
     //맞춤 공고 - 개인이 보는 매칭 공고
-    @GetMapping("/resumes/matching")
+    @GetMapping("/api/resumes/matching")
     public ResponseEntity<?> matchingResumes() {
         //공고 가져오기
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<MainResponse.ResumeeMatchingChoiceDTO> resumeList = mainService.findByUserIdResume(sessionUser.getId());
         Integer resumeChoice = (Integer) session.getAttribute("resumeChoice");
         if (resumeChoice != null) {
@@ -177,7 +172,7 @@ public class MainController {
 
     }
 
-    @PostMapping("/resumes/match")
+    @PostMapping("/api/resumes/match")
     public ResponseEntity<?> matchingResume(@RequestBody MainRequest.ResumeChoiceDTO resumeChoiceDTO) {
         session.setAttribute("resumeChoice", resumeChoiceDTO.getResumeChoice());
         int respDTO = resumeChoiceDTO.getResumeChoice();

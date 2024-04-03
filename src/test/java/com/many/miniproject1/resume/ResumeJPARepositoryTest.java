@@ -51,19 +51,6 @@ public class ResumeJPARepositoryTest {
         System.out.println("update_test: " + newTitle);
 
     }
-//    @Test
-//    public void findById_test() {
-//        // given
-//        int id = 1;
-//        // when
-//        Optional<Resume> resumeOP = resumeJPARepository.findById(id);
-//        if (resumeOP.isPresent()) {
-//            Resume resume = resumeOP.get();
-//            System.out.println("findById_test: " + resume.getTitle());
-//        }
-//        // then
-//    }
-
 
     @Test
     public void save_test() {
@@ -85,6 +72,20 @@ public class ResumeJPARepositoryTest {
 
     }
 
+<<<<<<< HEAD
+
+    @Test
+    public void findByIdJoinSkillAndUser_test() {
+        //given
+      int resumeId=1;
+
+        // when
+        Resume resumeDetail = resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
+
+        // then
+        assertThat(resumeDetail.getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
+    }
+=======
 //    @Test
 //    public void findByIdJoinSkillAndUser_test() {
 //        //given
@@ -98,6 +99,7 @@ public class ResumeJPARepositoryTest {
 //        assertThat(resumeDetail.getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
 //    }
 
+>>>>>>> master
 
     @Test
         public void findByUser_test(){

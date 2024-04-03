@@ -1,7 +1,7 @@
 package com.many.miniproject1.post;
 
 import com.many.miniproject1.skill.Skill;
-import com.many.miniproject1.user.User;
+import com.many.miniproject1.user.SessionUser;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,8 +11,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class PostResponse {
 
@@ -65,7 +63,7 @@ public class PostResponse {
         private List<skillDTO> skillList;
 
 
-        public DetailDTO(Post post, User sessionUser) {
+        public DetailDTO(Post post, SessionUser sessionUser) {
             this.id = post.getId();
             this.companyId = post.getId();
             this.title = post.getTitle();
@@ -86,7 +84,7 @@ public class PostResponse {
             private Integer id;
             private String skill;
 
-            public skillDTO(Skill skill, User sessionUser){
+            public skillDTO(Skill skill, SessionUser sessionUser){
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }
@@ -208,6 +206,7 @@ public class PostResponse {
         private String profileName;
         private String workingArea;
         private List<SkillDTO> skills;
+
         @Builder
         public PostUpdateDTO(Post post, List<Skill> skillList) {
             this.title = post.getTitle();
@@ -234,6 +233,5 @@ public class PostResponse {
                 this.skill = skill.getSkill();
             }
         }
-
     }
 }

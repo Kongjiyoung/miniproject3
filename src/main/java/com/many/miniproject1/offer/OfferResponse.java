@@ -1,16 +1,11 @@
 package com.many.miniproject1.offer;
 
-import com.many.miniproject1.apply.Apply;
-import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
-import com.many.miniproject1.user.User;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OfferResponse {
@@ -178,7 +173,7 @@ public class OfferResponse {
         private String title;
         private String profile;
         private String name;
-        private Date birth;
+        private String  birth;
         private String tel;
         private String address;
         private String email;

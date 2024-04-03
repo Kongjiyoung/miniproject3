@@ -174,6 +174,8 @@ public class UserRequest {
         private String profile;
         @NotEmpty
         private String profileName;
+       // private String name;
+       // private String birth;
         @NotEmpty
         private String name;
         @NotEmpty
@@ -208,6 +210,8 @@ public class UserRequest {
             }
             this.profile = user.getProfile();
             this.profileName = user.getProfileName();
+          //  this.name = user.getName();
+           // this.birth = user.getName();
             this.name = user.getName();
             this.birth = user.getBirth();
             this.tel = user.getTel();

@@ -24,10 +24,10 @@ public class UserController {
     }
 
     @PostMapping("/company/login")
-
     public ResponseEntity<?> companyLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
         String jwt = userService.login(reqDTO);
-        return ResponseEntity.ok().header("Authorization", "Bearer "+jwt).body(new ApiUtil(null));
+
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil(null));
     }
 
 
@@ -37,10 +37,12 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+
     @PostMapping("/person/login")
     public ResponseEntity<?> personLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
         String jwt = userService.login(reqDTO);
-        return ResponseEntity.ok().header("Authorization", "Bearer "+jwt).body(new ApiUtil(null));
+
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil(null));
     }
 
 
@@ -53,34 +55,44 @@ public class UserController {
 
     //회사 정보 및 수정
     //회사 정보 수정
-    @GetMapping("/companies/{id}/info")
-    public ResponseEntity<?> companyInfo(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        UserResponse.CompanyDTO respDTO = userService.findByCompany(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    @GetMapping("/api/company/info")
+    public ResponseEntity<?> companyInfo() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.CompanyDTO respBody = userService.findByCompany(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respBody));
     }
 
-    @PutMapping("/company/info")
+    @PutMapping("/api/companies/{id}/info")
     public ResponseEntity<?> companyInfoUpdate(@Valid @RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO, Errors errors) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         User newSessionUser = userService.companyInfoUpdate(14, reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 
-    //개인 프로필 정보 및 수정
-    @GetMapping("/person/info")
-    public ResponseEntity<?> personInfo() {
+    @PutMapping("/companies/{id}/info")
+    public ResponseEntity<?> companyInfoUpdate(@PathVariable Integer id, @Valid @RequestBody UserRequest.CompanyInfoUpdateDTO
+            reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        User newSessionUser = userService.companyInfoUpdate(id, reqDTO);
+        session.setAttribute("sessionUser", newSessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
+    }
+
+    //개인 프로필 정보 및 수정
+    @GetMapping("/api/person/info")
+    public ResponseEntity<?> personInfo() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.PersonDTO respDTO = userService.findByPerson(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PutMapping("/people/info")
-    public ResponseEntity<?> personInfoUpdate(@Valid @RequestBody UserRequest.PersonInfoUpdateDTO reqDTO, Errors errors) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        UserResponse.PersonDTO respDTO = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
-
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    @PutMapping("/api/people/{id}/info")
+    public ResponseEntity<?> personInfoUpdate(@RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+//        SessionUser newSessionUser = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
+        UserResponse.PersonDTO newSessionUser = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
+        session.setAttribute("sessionUser", newSessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 }

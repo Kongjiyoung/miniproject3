@@ -25,7 +25,6 @@ public class Resume {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Skill> skills = new ArrayList<>();
 

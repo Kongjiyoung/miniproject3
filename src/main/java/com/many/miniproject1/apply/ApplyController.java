@@ -2,7 +2,7 @@ package com.many.miniproject1.apply;
 
 
 import com.many.miniproject1._core.utils.ApiUtil;
-import com.many.miniproject1.user.User;
+import com.many.miniproject1.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +19,14 @@ public class ApplyController {
     // 기업에서 받은 이력서 관리
     @GetMapping("/api/company/resumes")
     public ResponseEntity<?> companyResumes() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.getAppliedResumeSkillDTOs(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
     }  // 체크 완
 
     @GetMapping("/api/company/resumes/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.AppliedResumeSkillDetailDTO appliedResumeDetail = applyService.getAppliedResume(id);
         applyService.companyResumeDetail(id);
 
@@ -45,7 +45,7 @@ public class ApplyController {
     // 개인이 지원한 이력서 목록
     @GetMapping("/api/person/applies")
     public ResponseEntity<?> personApplies() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ApplyResponse.ApplyPostSkillDTO> applyPostSkillDTOList = applyService.getApplyPostSkillDTOs(sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(applyPostSkillDTOList));
@@ -53,7 +53,7 @@ public class ApplyController {
 
     @GetMapping("/api/person/applies/{id}") // 내가 지원한 공고 디테일
     public ResponseEntity<?> personApply(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.ApplyPostSkillDetailDTO applyPostDetail = applyService.getPostDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(applyPostDetail));
