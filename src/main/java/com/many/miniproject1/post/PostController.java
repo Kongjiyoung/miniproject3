@@ -21,7 +21,7 @@ public class PostController {
     //회사 공고 관리
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
-        List<PostResponse.PostListDTO> respDTO =postService.getResumeList();
+        List<PostResponse.PostListDTO> respDTO = postService.getResumeList();
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -41,7 +41,7 @@ public class PostController {
     }
 
     @PutMapping("/api/company/posts/{id}")
-    public ResponseEntity<?> companyUpdatePost(@PathVariable int id,@RequestBody PostRequest.UpdatePostDTO reqDTO) {
+    public ResponseEntity<?> companyUpdatePost(@PathVariable int id, @RequestBody PostRequest.UpdatePostDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(reqDTO);
         postService.updatePost(id, sessionUser.getId(), reqDTO);
