@@ -2,6 +2,8 @@ package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1.user.User;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,13 +21,21 @@ public class ResumeRequest {
     // 04-03 YSH
     @Data
     public static class ResumeSaveDTO{
+        @NotEmpty
+        @Size(min = 4, max = 50, message = "4자이상 50자이하로 작성해주세요")
         private String title;
+        @NotEmpty
         private String profile;
+        @NotEmpty
         private String profileName;
+        @NotEmpty
         private String career;
         private String simpleIntroduce;
         private String portfolio;
+        @NotEmpty
+        @Size(min = 4, max = 300, message = "4자이상 300자이하로 작성해주세요")
         private String introduce;
+        @NotEmpty
         private List<String> skills = new ArrayList<>();
 
         public Resume toEntity(User user){
@@ -52,33 +62,22 @@ public class ResumeRequest {
     }
 
     @Data
-    public static class ResumeDTO {
-        private Integer id;
-        private Integer personId;
-        private String title;
-        private MultipartFile profile;
-        private String portfolio;
-        private String introduce;
-        private String career;
-        private String simpleIntroduce;
-        private String email;
-        private String password;
-        private String username;
-        private String tel;
-        private String address;
-    }
-
-    @Data
     public static class UpdateDTO {
-        private Integer id;
-        private Integer personId;
+        @NotEmpty
+        @Size(min = 4, max = 50, message = "4자이상 50자이하로 작성해주세요")
         private String title;
+        @NotEmpty
         private String profile;
+        @NotEmpty
         private String profileName;
         private String portfolio;
+        @NotEmpty
+        @Size(min = 4, max = 300, message = "4자이상 300자이하로 작성해주세요")
         private String introduce;
+        @NotEmpty
         private String career;
         private String simpleIntroduce;
+        @NotEmpty
         private List<String> skills;
     }
 }

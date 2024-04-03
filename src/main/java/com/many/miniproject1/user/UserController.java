@@ -2,8 +2,10 @@ package com.many.miniproject1.user;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -16,7 +18,7 @@ public class UserController {
 
 
     @PostMapping("/company/join")
-    public ResponseEntity<?> companyJoin(@RequestBody UserRequest.CompanyJoinDTO requestDTO) {
+    public ResponseEntity<?> companyJoin(@Valid @RequestBody UserRequest.CompanyJoinDTO requestDTO, Errors errors) {
         UserResponse.CompanyDTO respDTO = userService.companyJoin(requestDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -31,7 +33,7 @@ public class UserController {
 
 
     @PostMapping("/person/join")
-    public ResponseEntity<?> personJoin(@RequestBody UserRequest.PersonJoinDTO reqDTO) {
+    public ResponseEntity<?> personJoin(@Valid @RequestBody UserRequest.PersonJoinDTO reqDTO, Errors errors) {
 
         UserResponse.PersonDTO respDTO = userService.personJoin(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -61,7 +63,7 @@ public class UserController {
     }
 
     @PutMapping("/company/info")
-    public ResponseEntity<?> companyInfoUpdate(@RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO) {
+    public ResponseEntity<?> companyInfoUpdate(@Valid @RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.companyInfoUpdate(14, reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
@@ -76,13 +78,10 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PutMapping("/people/{id}/info")
-    public ResponseEntity<?> personInfoUpdate(@PathVariable Integer id, @RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
+    @PutMapping("/people/info")
+    public ResponseEntity<?> personInfoUpdate(@Valid @RequestBody UserRequest.PersonInfoUpdateDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.findByPersonId(1);
-        newSessionUser.update(id, reqDTO);
-        session.setAttribute("sessionUser", newSessionUser);
-        UserResponse.PersonDTO respDTO = userService.updatePersonInfo(id, reqDTO);
+        UserResponse.PersonDTO respDTO = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

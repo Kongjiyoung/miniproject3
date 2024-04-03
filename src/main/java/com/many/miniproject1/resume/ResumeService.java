@@ -152,17 +152,6 @@ public class ResumeService {
         return new ResumeResponse.resumeDetailDTO(resume, sessionUser);
     }
 
-    public Resume getResumeSkill(ResumeResponse.DetailDTO respDTO) {
-        ResumeRequest.ResumeDTO resumeDTO = new ResumeRequest.ResumeDTO();
-        List<Resume> resumeList = findResumeList(resumeDTO.getId());
-        ArrayList<ResumeResponse.DetailSkillDTO> resumeSkillList = new ArrayList<>();
-        for (int i = 0; i < resumeList.size(); i++) {
-            List<Skill> skills = skillJPARepository.findSkillsByResumeId(resumeList.get(i).getId());
-            Resume resume = resumeList.get(i);
-            resumeSkillList.add(new ResumeResponse.DetailSkillDTO(resume, skills));
-        }
-        return resumeJPARepository.findByIdJoinSkill(respDTO.getId());
-    }
 
     public List<Resume> findResumeList(Integer userId) {
 
