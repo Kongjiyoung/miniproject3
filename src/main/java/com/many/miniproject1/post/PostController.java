@@ -40,8 +40,8 @@ public class PostController {
     @PostMapping("/api/company/posts")
     public ResponseEntity<?> companySavePost(@RequestBody PostRequest.PostSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Post post = postService.save(reqDTO, sessionUser);
-        return ResponseEntity.ok(new ApiUtil<>(post));
+        PostResponse.PostDTO respDTO = postService.save(reqDTO, sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PutMapping("/api/company/posts/{id}/update")

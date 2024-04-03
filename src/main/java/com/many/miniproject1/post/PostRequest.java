@@ -5,7 +5,13 @@ import com.many.miniproject1.user.User;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 public class PostRequest {
 
@@ -20,11 +26,19 @@ public class PostRequest {
         private String deadline;
         private String task;
         private String profile;
+        private String profileName;
         private String workingArea;
-        private List<String> skill;
+        private List<String> skillList = new ArrayList<>();
 
         public Post toEntity(User user) {
-//            String profilePath= ProfileImageSaveUtil.save(profile);
+            byte[] decodedBytes = Base64.getDecoder().decode(profile);
+            String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
+            try {
+                Path path = Path.of("./images/" + profilename);
+                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return Post.builder()
                     .user(user)
                     .title(title)
@@ -36,7 +50,8 @@ public class PostRequest {
                     .deadline(deadline)
                     .task(task)
                     .workingArea(workingArea)
-                    .profile(profile)
+                    .profile(profileName)
+                    .profileName(profileName)
                     .build();
         }
     }

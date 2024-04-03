@@ -146,4 +146,48 @@ public class PostResponse {
             private int resumeId;
         }
     }
+
+    @Data
+    public static class PostDTO {
+        private User user;
+        private Integer companyId;
+        private String title;
+        private String career;
+        private String pay;
+        private String workCondition;
+        private String workStartTime;
+        private String workEndTime;
+        private String deadline;
+        private String task;
+        private String profile;
+        private String workingArea;
+        private List<SkillDTO> skillList;
+        public PostDTO(Post post, User sessionUser) {
+            this.user=sessionUser;
+            this.companyId = post.getId();
+            this.title = post.getTitle();
+            this.career = post.getCareer();
+            this.pay = post.getPay();
+            this.workCondition = post.getWorkCondition();
+            this.workStartTime = post.getWorkStartTime();
+            this.workEndTime = post.getWorkEndTime();
+            this.deadline = post.getDeadline();
+            this.task = post.getTask();
+            this.profile = post.getProfile();
+            this.workingArea = post.getWorkingArea();
+            this.skillList = post.getSkillList().stream().map(skill -> (new SkillDTO(skill))).toList();
+
+        }
+        @Data
+        public class SkillDTO {
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+
+    }
 }
