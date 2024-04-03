@@ -16,13 +16,13 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
     @Query("""
             select distinct r
             from Resume r
-            join fetch r.skillList s
+            join fetch r.skills s
             join fetch r.user u
             where r.id = :id
             """)
     Resume findByIdJoinSkillAndUser(@Param("id") int id);
 
-    @Query("select r from Resume r join fetch r.skillList s where r.id = :id")
+    @Query("select r from Resume r join fetch r.skills s where r.id = :id")
     Resume findByIdJoinSkill(@Param("id") int id);
 
     @Query("""
@@ -37,7 +37,7 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
     @Query("""
             select distinct r
             from Resume r
-            join fetch r.skillList s
+            join fetch r.skills s
             join fetch r.user u
             where u.id = :id
             """)
@@ -55,7 +55,7 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             select r
             from Resume r
             join fetch r.user u
-            join fetch r.skillList s
+            join fetch r.skills s
             where u.id=:user_id
             """)
     List<Resume> findAllResume(@Param("user_id") int userId);
@@ -64,15 +64,23 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             select r
             from Resume r
             join fetch r.user u
-            join fetch r.skillList s
+            join fetch r.skills s
             where r.id = :id
         """)
     Optional<Resume> findByIdJoinUser(@Param("id") int id);
 
     @Query("""
+        select r
+        from Resume r
+        join fetch r.user u
+        join fetch r.skills s
+        where r.id = :resume_id
+        """)
+    Resume findResumeById(@Param("resume_id")Integer resumeId);
+    @Query("""
             SELECT r
             FROM Resume r
-            JOIN FETCH r.skillList s
+            JOIN FETCH r.skills s
             ORDER BY r.id DESC
             """)
     List<Resume> mainAllResume();

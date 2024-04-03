@@ -29,7 +29,7 @@ public class OfferJPARepositoryTest {
         // then
         System.out.println("findByIdJoinResumeAndSkillAndUser_test: " + offedResumeDetail);
         System.out.println("유저: " + offedResumeDetail.getResume().getUser());
-        System.out.println("스킬리스트: " + offedResumeDetail.getResume().getSkillList());
+        System.out.println("스킬리스트: " + offedResumeDetail.getResume().getSkills());
     }
 
     @Test

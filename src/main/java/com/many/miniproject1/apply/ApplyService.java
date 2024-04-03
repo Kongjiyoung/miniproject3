@@ -37,7 +37,7 @@ public class ApplyService {
             return appliedResumeSkillDTOList.add(ApplyResponse.AppliedResumeSkillDTO.builder()
                     .apply(apply)
                     .resume(apply.getResume())
-                    .skllList(apply.getResume().getSkillList())
+                    .skllList(apply.getResume().getSkills())
                     .build());
         }).collect(Collectors.toList());
 
@@ -67,7 +67,7 @@ public class ApplyService {
     public ApplyResponse.AppliedResumeSkillDetailDTO getAppliedResume(int applyId) {
         Apply apply = applyJPARepository.findResumeByApplyId(applyId);
 
-        return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkillList());
+        return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkills());
     }
 
 

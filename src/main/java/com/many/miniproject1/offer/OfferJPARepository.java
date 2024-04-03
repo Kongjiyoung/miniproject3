@@ -20,7 +20,7 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
             FROM Offer o
             JOIN FETCH o.resume r
             JOIN FETCH r.user u
-            JOIN FETCH r.skillList s
+            JOIN FETCH r.skills s
             JOIN FETCH o.post p
             WHERE p.user.id = :company_id
             """)
@@ -53,7 +53,7 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
         FROM Offer o
         JOIN FETCH o.resume r
         JOIN FETCH r.user u
-        JOIN FETCH r.skillList s
+        JOIN FETCH r.skills s
         WHERE o.id = :offer_id
         """)
     Offer companyFindByOfferId(@Param("offer_id") Integer  offer_id);
@@ -89,7 +89,7 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
         from Offer o
         join fetch o.resume r
         join fetch r.user u
-        join fetch r.skillList s
+        join fetch r.skills s
         where o.id = :offer_id
         """)
     Offer findByIdJoinResumeAndSkillAndUser(@Param("offer_id") int offerId);

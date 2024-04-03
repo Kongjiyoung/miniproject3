@@ -1,8 +1,10 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.utils.ApiUtil;
+import com.many.miniproject1.post.PostRequest;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
-    //개인 이력서 관리
+    // 개인 이력서 목록
     @GetMapping("/api/person/resumes")
     public ResponseEntity<?> personResumes(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -24,28 +26,31 @@ public class ResumeController {
     }
 
     // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서
-    @GetMapping("/api/person/resumes/{id}/detail")
+
+    // 개인 이력서 상세
+    @GetMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personResume(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ResumeResponse.resumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 개인 이력서 작성
     @PostMapping("/api/person/resumes")
-    public ResponseEntity<?> personSaveResume(ResumeRequest.SaveDTO requestDTO) {
+    public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        //나중에 findById 해서 그 user 넣어야하는 거 아녀? 일단은 이렇게 둠
-        Resume resume = resumeService.save(requestDTO, sessionUser);
 
-        return ResponseEntity.ok(new ApiUtil<>(resume));
+        ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 개인 이력서 수정
     @PutMapping("/api/person/resumes/{id}")
-    public ResponseEntity<?> personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        Resume resume = resumeService.update(id, requestDTO);
+    public ResponseEntity<?> personUpdateResume(@PathVariable int id,@Valid  @RequestBody ResumeRequest.UpdateDTO reqDTO, Error error) {
+        ResumeResponse.UpdateDTO respDTO = resumeService.resumeUpdate(id, reqDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(resume));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @DeleteMapping("/api/person/resumes/{id}")

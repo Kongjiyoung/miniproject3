@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,7 +25,7 @@ public class Post { // 공고테이블
     private User user;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Skill> skillList = new ArrayList<>();
+    private List<Skill> skillList;
 
     private String title;
     private String career;
@@ -37,15 +36,17 @@ public class Post { // 공고테이블
     private String deadline;
     private String task;
     private String profile;
+    private String profileName;
     private String workingArea;
 
     @CreationTimestamp
     private Timestamp createdAt;
 
     @Builder
-    public Post(Integer id, User user, String title, String career, String pay, String workCondition, String workStartTime, String workEndTime, String deadline, String task, String profile, String workingArea, Timestamp createdAt) {
+    public Post(Integer id, User user, List<Skill> skillList, String title, String career, String pay, String workCondition, String workStartTime, String workEndTime, String deadline, String task, String profile, String profileName, String workingArea, Timestamp createdAt) {
         this.id = id;
         this.user = user;
+        this.skillList = skillList;
         this.title = title;
         this.career = career;
         this.pay = pay;
@@ -55,9 +56,13 @@ public class Post { // 공고테이블
         this.deadline = deadline;
         this.task = task;
         this.profile = profile;
+        this.profileName = profileName;
         this.workingArea = workingArea;
         this.createdAt = createdAt;
     }
+
+
+
 
     @Override
     public String toString() {
@@ -72,6 +77,7 @@ public class Post { // 공고테이블
                 ", deadline='" + deadline + '\'' +
                 ", task='" + task + '\'' +
                 ", profile='" + profile + '\'' +
+                ", profileName='" + profileName + '\'' +
                 ", workingArea='" + workingArea + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
