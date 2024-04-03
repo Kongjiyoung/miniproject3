@@ -41,7 +41,7 @@ public class MainResponse {
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simplerIntroduce = resume.getSimpleIntroduce();
-            this.sklls = resume.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.sklls = resume.getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
 
@@ -246,7 +246,7 @@ public class MainResponse {
             this.userName = resume.getUser().getName();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
-            this.skills = resume.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
         @Data
         public class SkillDTO{

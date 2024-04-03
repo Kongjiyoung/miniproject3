@@ -177,7 +177,7 @@ public class MainService {
     public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
         Resume resume = resumeJPARepository.findResumeById(resumeId);
 
-        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkillList());
+        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
     }
 
     public List<MainResponse.PostTitleListDTO> getPostTitleListDTOs(Integer sessionUserId, Integer companyId) {

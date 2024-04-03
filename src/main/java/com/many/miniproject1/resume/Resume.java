@@ -27,13 +27,14 @@ public class Resume {
 
 
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Skill> skillList = new ArrayList<>();
+    private List<Skill> skills = new ArrayList<>();
 
     @Transient
     private boolean isResumeOwner;
 
     private String title;
     private String profile;
+    private String profileName;
     private String portfolio;
     private String introduce;
     private String career;
@@ -43,17 +44,25 @@ public class Resume {
     private Timestamp createdAt;
 
     @Builder
-    public Resume(Integer id, User user, String title, String profile, String portfolio, String introduce, String career, String simpleIntroduce, Timestamp createdAt) {
+    public Resume(Integer id, User user, List<Skill> skills, boolean isResumeOwner, String title, String profile, String profileName, String portfolio, String introduce, String career, String simpleIntroduce, Timestamp createdAt) {
         this.id = id;
         this.user = user;
+        this.skills = skills;
+        this.isResumeOwner = isResumeOwner;
         this.title = title;
         this.profile = profile;
+        this.profileName = profileName;
         this.portfolio = portfolio;
         this.introduce = introduce;
         this.career = career;
         this.simpleIntroduce = simpleIntroduce;
         this.createdAt = createdAt;
     }
+
+
+
+
+
 
     @Override
     public String toString() {
