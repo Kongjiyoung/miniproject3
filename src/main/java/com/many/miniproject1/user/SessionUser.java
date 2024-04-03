@@ -8,15 +8,52 @@ import java.sql.Timestamp;
 @Data
 public class SessionUser {
     private Integer id;
+    private String role;
     private String username;
     private String email;
+    private String password;
+    private String name;
+    private String tel;
+    private String companyName;
+    private String address;
+    private String companyNum;
+    private String profile;
+    private String profileName;
+    private String birth;
     private Timestamp createdAt;
 
-    @Builder
+
     public SessionUser(User user) {
         this.id = user.getId();
+        this.role = user.getRole();
         this.username = user.getUsername();
         this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.name = user.getName();
+        this.tel = user.getTel();
+        this.companyName = user.getCompanyName();
+        this.address = user.getAddress();
+        this.companyNum = user.getCompanyNum();
+        this.profile = user.getProfile();
+        this.profileName = user.getProfileName();
+        this.birth = user.getBirth();
         this.createdAt = user.getCreatedAt();
+    }
+    @Builder
+    public SessionUser(Integer id, String role, String username, String email, String password, String name, String tel, String companyName, String address, String companyNum, String profile, String profileName, String birth, Timestamp createdAt) {
+        this.id = id;
+        this.role = role;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.tel = tel;
+        this.companyName = companyName;
+        this.address = address;
+        this.companyNum = companyNum;
+        this.profile = profile;
+        this.profileName = profileName;
+        this.birth = birth;
+        this.createdAt = createdAt;
     }
 }

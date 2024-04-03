@@ -73,7 +73,7 @@ public class UserController {
     //개인 프로필 정보 및 수정
     @GetMapping("/person/info")
     public ResponseEntity<?> personInfo() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.PersonDTO respDTO = userService.findByPerson(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
