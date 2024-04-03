@@ -146,10 +146,13 @@ public class UserRequest {
         private Integer id;
         private String profile;
         private String profileName;
+        private String name;
+        private String birth;
         private String tel;
         private String address;
         private String email;
         private String password;
+        private String newPassword;
 
         public PersonInfoUpdateDTO() {
         }
@@ -167,6 +170,8 @@ public class UserRequest {
             this.id = user.getId();
             this.profile = user.getProfile();
             this.profileName = user.getProfileName();
+            this.name = user.getName();
+            this.birth = user.getBirth();
             this.tel = user.getTel();
             this.address = user.getAddress();
             this.email = user.getEmail();

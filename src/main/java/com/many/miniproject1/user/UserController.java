@@ -82,9 +82,9 @@ public class UserController {
     public ResponseEntity<?> personInfoUpdate(@PathVariable Integer id, @RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.findByPersonId(1);
-        newSessionUser.update(1, reqDTO);
+        newSessionUser.update(id, reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
-        UserResponse.CompanyDTO respDTO = userService.updatePersonInfo(1, reqDTO);
+        UserResponse.PersonDTO respDTO = userService.updatePersonInfo(id, reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
