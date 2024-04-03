@@ -110,7 +110,6 @@ public class ResumeResponse {
     public static class resumeDetailDTO {
         private Integer id;
         private Integer userId;
-
         private String title;
         private String profile;
         private String name;
@@ -121,10 +120,10 @@ public class ResumeResponse {
         private String career;
         private String simpleIntroduce;
         private String portfolio;
-        private List<resumeDetailDTO.ResumeSkillDTO> skills;
         private String introduce;
+        private List<resumeDetailDTO.ResumeSkillDTO> skills;
 
-        public resumeDetailDTO(Resume resume, SessionUser sessionUser) {
+        public resumeDetailDTO(Resume resume) {
             this.id = resume.getId();
             this.userId = resume.getUser().getId();
             this.title = resume.getTitle();
@@ -137,8 +136,8 @@ public class ResumeResponse {
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
-            this.skills = resume.getSkills().stream().map(skill -> new resumeDetailDTO.ResumeSkillDTO(skill)).toList();
             this.introduce = resume.getIntroduce();
+            this.skills = resume.getSkills().stream().map(skill -> new resumeDetailDTO.ResumeSkillDTO(skill)).toList();
         }
 
         @Data

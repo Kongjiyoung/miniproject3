@@ -141,10 +141,13 @@ public class ResumeService {
         return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
     }
 
-    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, SessionUser sessionUser) {
+    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, int sessionUserId) {
         Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
-        return new ResumeResponse.resumeDetailDTO(resume, sessionUser);
+        if (sessionUserId != resume.getId()) {
+            throw new Exception403("이력서를 볼 권한이 없습니다");
+        }
+        return new ResumeResponse.resumeDetailDTO(resume);
     }
 
 
