@@ -34,7 +34,7 @@ public class ApplyController {
     }  // 체크 완
 
     @PutMapping("/api/company/resumes/{id}/is-pass")
-    public ResponseEntity<?> companyPass(@PathVariable int id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
+    public ResponseEntity<?> companyPass(@PathVariable Integer id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
         Apply apply = applyService.getApplyById(id);
         ApplyRequest.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
         apply.updateIsPass(reqDTO);
@@ -60,7 +60,7 @@ public class ApplyController {
     }  // 체크 완
 
     @DeleteMapping("/api/person/applies/{id}")
-    public ResponseEntity<?> appliedDelete(@PathVariable int id) {
+    public ResponseEntity<?> applyDelete(@PathVariable int id) {
         applyService.deleteApply(id);
 
         return ResponseEntity.ok(new ApiUtil<>(null));
