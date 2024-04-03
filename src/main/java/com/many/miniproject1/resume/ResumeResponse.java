@@ -1,13 +1,11 @@
 package com.many.miniproject1.resume;
 
-import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ResumeResponse {
@@ -113,7 +111,7 @@ public class ResumeResponse {
         private List<resumeDetailDTO.ResumeSkillDTO> skills;
         private String introduce;
 
-        public resumeDetailDTO(Resume resume, User sessionUser) {
+        public resumeDetailDTO(Resume resume, SessionUser sessionUser) {
             this.id = resume.getId();
             this.userId = resume.getUser().getId();
             this.title = resume.getTitle();

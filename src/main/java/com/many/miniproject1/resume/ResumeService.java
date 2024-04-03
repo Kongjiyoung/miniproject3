@@ -12,6 +12,7 @@ import com.many.miniproject1.skill.SkillJPARepository;
 
 import com.many.miniproject1.skill.SkillResponse;
 
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
 import lombok.RequiredArgsConstructor;
@@ -92,7 +93,7 @@ public class ResumeService {
         return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
     }
 
-    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, User sessionUser) {
+    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, SessionUser sessionUser) {
         Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         return new ResumeResponse.resumeDetailDTO(resume, sessionUser);
