@@ -43,7 +43,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse.CompanyDTO updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
+    public UserResponse.PersonDTO updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(personId)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 
@@ -57,14 +57,39 @@ public class UserService {
             e.printStackTrace();
         }
 
-        user.setProfile(profilename);
-       // user.setName(reqDTO.getName());
-       // user.setBirth(reqDTO.getBirth());
-        user.setAddress(reqDTO.getAddress());
-        user.setTel(reqDTO.getTel());
-        user.setEmail(reqDTO.getEmail());
-        user = userJPARepository.save(user);
-        return new UserResponse.CompanyDTO(user);
+        // 비밀번호 업데이트
+        if (StringUtils.isNotEmpty(reqDTO.getNewPassword())) {
+            user.setPassword(reqDTO.getNewPassword());
+        }
+
+        if (reqDTO.getProfile()!=null){
+            user.setProfile(profilename);
+        }
+        if (reqDTO.getName()!=null){
+            user.setName(reqDTO.getName());
+        }
+        if (reqDTO.getBirth()!=null){
+            user.setBirth(reqDTO.getBirth());
+        }
+        if (reqDTO.getAddress()!=null){
+            user.setAddress(reqDTO.getAddress());
+        }
+        if (reqDTO.getTel()!=null){
+            user.setTel(reqDTO.getTel());
+        }
+        if (reqDTO.getEmail()!=null){
+            user.setEmail(reqDTO.getEmail());
+        }
+
+//        user.setProfile(profilename);
+//        user.setName(reqDTO.getName());
+//        user.setBirth(reqDTO.getBirth());
+//        user.setAddress(reqDTO.getAddress());
+//        user.setTel(reqDTO.getTel());
+//        user.setEmail(reqDTO.getEmail());
+        //user = userJPARepository.save(user);
+
+        return new UserResponse.PersonDTO(user);
     }
 
     @Transactional
