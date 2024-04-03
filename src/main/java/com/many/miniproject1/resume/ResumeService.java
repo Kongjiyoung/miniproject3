@@ -1,6 +1,7 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
+import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -33,6 +34,19 @@ public class ResumeService {
 
     private final UserJPARepository userJPARepository;
 
+    @Transactional
+    public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, User sessionUser){
+//        Skill List<skill>
+        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인"));
+        Resume resume = resumeJPARepository.save(reqDTO.toEntity(user));
+        return new ResumeResponse.ResumeSaveDTO(resume);
+    }
+
+
+    public Resume resumeUpdate(int id, User user) {
+
+        return null;
+    }
 
     @Transactional
     public Resume update(int resumeId, ResumeRequest.UpdateDTO requestDTO) {
@@ -140,4 +154,5 @@ public class ResumeService {
         List<Resume> resumeList = resumeJPARepository.findBySessionUserId(sessionUserId);
         return resumeList;
     }
+
 }
