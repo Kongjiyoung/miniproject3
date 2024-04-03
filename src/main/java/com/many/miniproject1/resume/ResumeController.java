@@ -43,7 +43,7 @@ public class ResumeController {
 
     @PutMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         Resume resume = resumeService.update(id, requestDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(resume));
@@ -51,7 +51,7 @@ public class ResumeController {
 
     @DeleteMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personDeleteResume(@PathVariable Integer id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         resumeService.deleteResumeId(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(null));
     }

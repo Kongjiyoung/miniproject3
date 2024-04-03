@@ -5,7 +5,6 @@ import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.user.SessionUser;
-import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class ScrapController {
     //개인 채용 공고 스크랩
     @GetMapping("/api/person/scraps")
     public ResponseEntity<?> personScrap() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ScrapResponse.ScrapPostListDTO> respDTO = scrapService.personScrapList(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

@@ -1,10 +1,7 @@
 package com.many.miniproject1.main;
 
-import com.many.miniproject1._core.errors.exception.Exception400;
 import com.many.miniproject1._core.errors.exception.Exception401;
-
 import com.many.miniproject1.apply.Apply;
-
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
 import com.many.miniproject1.apply.ApplyResponse;
@@ -16,23 +13,20 @@ import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.scrap.Scrap;
-
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.scrap.ScrapRequest;
 import com.many.miniproject1.scrap.ScrapResponse;
-import com.many.miniproject1.user.User;
-import com.many.miniproject1.user.UserService;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
+import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
+import com.many.miniproject1.user.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -266,5 +260,25 @@ public class MainService {
             matchingPostList.add(postJPARepository.findByPostIdJoinUserAndSkill(postId));
         }
         return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post)).toList();
+    }
+
+    public List<MainResponse.PostTitleListDTO> getPostTitleListDTOs(Integer sessionUserId, Integer companyId) {
+        System.out.println(1);
+        List<Post> postList = postJPARepository.findPostListByCompanyId(sessionUserId, companyId);
+        List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
+
+        postList.stream().map(post -> {
+            return postTitleListDTOList.add(MainResponse.PostTitleListDTO.builder()
+                    .id(post.getId())
+                    .title(post.getTitle())
+                    .build());
+        }).collect(Collectors.toList());
+
+        return postTitleListDTOList;
+    }
+    public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
+        Resume resume = resumeJPARepository.findResumeById(resumeId);
+
+        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkillList());
     }
 }
