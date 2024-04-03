@@ -2,27 +2,22 @@ package com.many.miniproject1.user;
 
 import lombok.Builder;
 import lombok.Data;
-
 import java.sql.Timestamp;
 
 @Data
 public class SessionUser {
     private Integer id;
-    private String role;
     private String username;
+    private String email;
+    private String role;
     private Timestamp createdAt;
 
-    public SessionUser(User user) {
-        this.id = user.getId();
-        this.role = user.getRole();
-        this.username = user.getUsername();
-        this.createdAt = user.getCreatedAt();
-    }
     @Builder
-    public SessionUser(Integer id, String role, String username, Timestamp createdAt) {
+    public SessionUser(Integer id, String username, String email, String role,Timestamp createdAt) {
         this.id = id;
-        this.role = role;
         this.username = username;
+        this.email = email;
+        this.role = role;
         this.createdAt = createdAt;
     }
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScrapResponse {
+
     @Data
     public static class PostScrapSaveDTO{
         private int userId;

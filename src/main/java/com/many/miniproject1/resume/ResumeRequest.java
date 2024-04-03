@@ -57,60 +57,24 @@ public class ResumeRequest {
                     .build();
         }
     }
-    @Data
-    public static class SaveDTO{
-
-        private User user;
-        private String title;
-        private MultipartFile profile;
-        private String portfolio;
-        private String introduce;
-        private String career;
-        private String simpleIntroduce;
-        private List<String> skills;
-
-        public Resume toEntity(User sessionUser){
-            String profilePath= ProfileImageSaveUtil.save(profile);
-            return Resume.builder()
-                    .user(sessionUser)
-                    .title(title)
-                    .profile(profilePath)
-                    .portfolio(portfolio)
-                    .introduce(introduce)
-                    .career(career)
-                    .simpleIntroduce(simpleIntroduce)
-                    .build();
-        }
-
-    }
-
-    @Data
-    public static class ResumeDTO {
-        private Integer id;
-        private Integer personId;
-        private String title;
-        private MultipartFile profile;
-        private String portfolio;
-        private String introduce;
-        private String career;
-        private String simpleIntroduce;
-        private String email;
-        private String password;
-        private String username;
-        private String tel;
-        private String address;
-    }
 
     @Data
     public static class UpdateDTO {
-        private Integer id;
-        private Integer personId;
+        @NotEmpty
+        @Size(min = 4, max = 50, message = "4자이상 50자이하로 작성해주세요")
         private String title;
-        private MultipartFile profile;
+        @NotEmpty
+        private String profile;
+        @NotEmpty
+        private String profileName;
         private String portfolio;
+        @NotEmpty
+        @Size(min = 4, max = 300, message = "4자이상 300자이하로 작성해주세요")
         private String introduce;
+        @NotEmpty
         private String career;
         private String simpleIntroduce;
+        @NotEmpty
         private List<String> skills;
     }
 }

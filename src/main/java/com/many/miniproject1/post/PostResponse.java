@@ -2,9 +2,14 @@ package com.many.miniproject1.post;
 
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.SessionUser;
+import lombok.Builder;
 import lombok.Data;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class PostResponse {
@@ -142,6 +147,91 @@ public class PostResponse {
             private Integer id;
             private String skill;
             private int resumeId;
+        }
+    }
+
+    @Data
+    public static class PostDTO {
+        private String title;
+        private String career;
+        private String pay;
+        private String workCondition;
+        private String workStartTime;
+        private String workEndTime;
+        private String deadline;
+        private String task;
+        private String profile;
+        private String profileName;
+        private String workingArea;
+        private List<SkillDTO> skills;
+        public PostDTO(Post post, List<Skill> skills) {
+            this.title = post.getTitle();
+            this.career = post.getCareer();
+            this.pay = post.getPay();
+            this.workCondition = post.getWorkCondition();
+            this.workStartTime = post.getWorkStartTime();
+            this.workEndTime = post.getWorkEndTime();
+            this.deadline = post.getDeadline();
+            this.task = post.getTask();
+            this.profile = post.getProfile();
+            this.profileName = post.getProfileName();
+            this.workingArea = post.getWorkingArea();
+            this.skills = skills.stream().map(skill -> (new SkillDTO(skill))).toList();
+
+        }
+        @Data
+        public class SkillDTO {
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+
+    }
+
+    @Data
+    public static class PostUpdateDTO {
+        private String title;
+        private String career;
+        private String pay;
+        private String workCondition;
+        private String workStartTime;
+        private String workEndTime;
+        private String deadline;
+        private String task;
+        private String profile;
+        private String profileName;
+        private String workingArea;
+        private List<SkillDTO> skills;
+
+        @Builder
+        public PostUpdateDTO(Post post, List<Skill> skillList) {
+            this.title = post.getTitle();
+            this.career = post.getCareer();
+            this.pay = post.getPay();
+            this.workCondition = post.getWorkCondition();
+            this.workStartTime = post.getWorkStartTime();
+            this.workEndTime = post.getWorkEndTime();
+            this.deadline = post.getDeadline();
+            this.task = post.getTask();
+            this.profile = post.getProfile();
+            this.profileName = post.getProfileName();
+            this.workingArea = post.getWorkingArea();
+            this.skills = skillList.stream().map(skill -> (new SkillDTO(skill))).toList();
+
+        }
+        @Data
+        public class SkillDTO {
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
         }
     }
 }

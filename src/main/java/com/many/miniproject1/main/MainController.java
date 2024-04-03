@@ -22,12 +22,10 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class MainController {
-
     private final HttpSession session;
     private final MainService mainService;
     private final UserService userService;
     private final ResumeJPARepository resumeJPARepository;
-
 
     //맞춤 공고 - 기업이 보는 매칭 이력서
 
@@ -36,21 +34,18 @@ public class MainController {
      *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
      *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
      */
-
-
     //메인 구직 공고
     // 04-02 YSH
     @GetMapping("/resumes")
     public ResponseEntity<?> resumes() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-
         List<MainResponse.mainResumesDTO> respDTO = mainService.mainResumes();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/resumes/{id}")
-    public ResponseEntity<?> resumeDetailForm(@PathVariable Integer id) {
+    public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
 
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -75,7 +70,6 @@ public class MainController {
         responseBody.put("mainResumeDetailDTO", mainResumeDetailDTO);
         System.out.println("responseBody: " + responseBody);
         return ResponseEntity.ok(new ApiUtil<>(responseBody));
-
     }
 
     @PostMapping("/api/resumes/{id}/offer")
@@ -88,6 +82,7 @@ public class MainController {
     }
 
     @PostMapping("/api/resumes/{id}/scrap")
+
     public ResponseEntity<?> companyResumeScrap(@PathVariable int id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.MainResumeScrapDTO respDTO = mainService.resumeScrap(id, sessionUser.getId());
@@ -101,7 +96,6 @@ public class MainController {
         List<MainResponse.mainPostsDTO> respDTO = mainService.getPostList();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
-
     }
 
     @GetMapping("/api/posts/{id}")
@@ -138,7 +132,6 @@ public class MainController {
 
     }
 
-
     @GetMapping("/api/posts/matching")
     public ResponseEntity<?> matchingPosts() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -149,10 +142,8 @@ public class MainController {
             //resumeList와 posts 와 DTO담아서 넘ㄱ기기
             return ResponseEntity.ok(new ApiUtil<>(respDTO, postList));
         }
-        //
+
         return ResponseEntity.ok(new ApiUtil<>(postList));
-
-
     }
 
     @PostMapping("/api/posts/match")

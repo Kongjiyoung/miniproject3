@@ -46,10 +46,21 @@ public class MainService {
     private final UserService userService;
 
     // 04-02 YSH
-    public List<MainResponse.mainResumesDTO> mainResumes(){
+    public List<MainResponse.mainResumesDTO> mainResumes() {
         List<Resume> mainResumes = resumeJPARepository.mainAllResume();
 
         return mainResumes.stream().map(resume -> new MainResponse.mainResumesDTO(resume)).toList();
+    }
+
+    public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId) {
+        User user = userService.findByUser(userId);
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+        ScrapRequest.MainScrapDTO saveScrap = new ScrapRequest.MainScrapDTO(resume, user);
+
+        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
+
+        return new ScrapResponse.MainResumeScrapDTO(scrap);
     }
 
     public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
@@ -68,7 +79,7 @@ public class MainService {
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception401(""));
         ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume, post);
-        Apply apply=applyJPARepository.save(saveApply.toEntity());
+        Apply apply = applyJPARepository.save(saveApply.toEntity());
 
         return new ApplyResponse.PostApplyDTO(apply);
     }
@@ -155,16 +166,12 @@ public class MainService {
 
     public List<MainResponse.mainPostsDTO> getPostList() {
         List<Post> postList = postJPARepository.findAllPost();
-        return postList.stream().map(post-> new MainResponse.mainPostsDTO(post)).toList();
+        return postList.stream().map(post -> new MainResponse.mainPostsDTO(post)).toList();
     }
 
     public List<Resume> resumeForm() {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         return resumeJPARepository.findAll(sort);
-    }
-
-    public Resume resumeDetailForm(Integer resumeId) {
-        return resumeJPARepository.findById(resumeId).orElse(null);
     }
 
     public List<Post> getPostsByCompanyId(Integer companyId) {
@@ -277,20 +284,10 @@ public class MainService {
 
         return postTitleListDTOList;
     }
+
     public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
         Resume resume = resumeJPARepository.findResumeById(resumeId);
 
         return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
-    }
-
-    public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId){
-        User user = userService.findByUser(userId);
-        Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception401(""));
-        ScrapRequest.MainScrapDTO saveScrap = new ScrapRequest.MainScrapDTO(resume, user);
-
-        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
-
-        return new ScrapResponse.MainResumeScrapDTO(scrap);
     }
 }

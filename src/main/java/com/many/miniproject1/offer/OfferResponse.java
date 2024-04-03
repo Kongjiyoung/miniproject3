@@ -1,8 +1,6 @@
 package com.many.miniproject1.offer;
 
-import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
-import com.many.miniproject1.user.User;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,12 +21,12 @@ public class OfferResponse {
         Timestamp createdAt;
 
         @Builder
-        public personOffersDTO(Offer offer, Post post, User user) {
-            this.offerId = post.getId();
+        public personOffersDTO(Offer offer) {
+            this.offerId = offer.getPost().getId();
             this.personId = offer.getResume().getUser().getId();
-            this.profile = post.getProfile();
-            this.companyName = user.getCompanyName();
-            this.title = post.getTitle();
+            this.profile = offer.getPost().getProfile();
+            this.companyName = offer.getPost().getUser().getCompanyName();
+            this.title = offer.getPost().getTitle();
             this.createdAt = offer.getCreatedAt();
         }
     }
@@ -76,7 +74,7 @@ public class OfferResponse {
         String deadline;
         String companyName;
         String task;
-        String workStatTime;
+        String workStartTime;
         String workEndTime;
         String workingArea;
         String workCondition;
@@ -104,7 +102,7 @@ public class OfferResponse {
             this.deadline = offer.getPost().getDeadline();
             this.companyName = offer.getPost().getUser().getCompanyName();
             this.task = offer.getPost().getTask();
-            this.workStatTime = offer.getPost().getWorkStartTime();
+            this.workStartTime = offer.getPost().getWorkStartTime();
             this.workEndTime = offer.getPost().getWorkEndTime();
             this.workingArea = offer.getPost().getWorkingArea();
             this.workCondition = offer.getPost().getWorkCondition();
@@ -121,7 +119,7 @@ public class OfferResponse {
         String profile;
         String career;
         String simpleIntroduce;
-        String portfolid;
+        String portfolio;
         String introduce;
         String name;
         String birth;
@@ -148,7 +146,7 @@ public class OfferResponse {
             this.profile = offer.getResume().getProfile();
             this.career = offer.getResume().getCareer();
             this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
-            this.portfolid = offer.getResume().getPortfolio();
+            this.portfolio = offer.getResume().getPortfolio();
             this.introduce = offer.getResume().getIntroduce();
             this.name = offer.getResume().getUser().getName();
             this.birth = offer.getResume().getUser().getBirth();
@@ -175,7 +173,7 @@ public class OfferResponse {
         private String title;
         private String profile;
         private String name;
-        private String birth;
+        private String  birth;
         private String tel;
         private String address;
         private String email;

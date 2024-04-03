@@ -17,7 +17,6 @@ public class SkillResponse {
                     .resume(resume)
                     .build();
         }
-
     }
     @Data
     public static class SaveDTO {
@@ -30,7 +29,6 @@ public class SkillResponse {
                     .resume(resume)
                     .build();
         }
-
     }
 
     @Data

@@ -17,7 +17,7 @@ public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
-    //개인 이력서 관리
+    // 개인 이력서 목록
     @GetMapping("/api/person/resumes")
     public ResponseEntity<?> personResumes(HttpSession session) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -26,29 +26,30 @@ public class ResumeController {
     }
 
     // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서
-    @GetMapping("/api/person/resumes/{id}/detail")
+
+    // 개인 이력서 상세
+    @GetMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personResume(@PathVariable int id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.resumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 개인 이력서 작성
     @PostMapping("/api/person/resumes")
     public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-//        ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
         ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 개인 이력서 수정
     @PutMapping("/api/person/resumes/{id}")
-    public ResponseEntity<?> personUpdateResume(@PathVariable int id, ResumeRequest.UpdateDTO requestDTO) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        Resume resume = resumeService.update(id, requestDTO);
+    public ResponseEntity<?> personUpdateResume(@PathVariable int id,@Valid  @RequestBody ResumeRequest.UpdateDTO reqDTO, Error error) {
+        ResumeResponse.UpdateDTO respDTO = resumeService.resumeUpdate(id, reqDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(resume));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @DeleteMapping("/api/person/resumes/{id}")

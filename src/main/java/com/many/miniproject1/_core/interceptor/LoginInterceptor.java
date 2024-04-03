@@ -17,14 +17,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 
         // Bearer jwt 토큰이 들어옴
         String jwt = request.getHeader("Authorization");
-
         if (jwt == null) {
+
             throw new Exception401("jwt 토큰을 전달해주세요");
         }
-
         jwt = jwt.replace("Bearer ", "");
 
-        //검증
         try {
             SessionUser sessionUser = JwtUtil.verify(jwt);
 
@@ -32,8 +30,6 @@ public class LoginInterceptor implements HandlerInterceptor{
             HttpSession session = request.getSession();
             session.setAttribute("sessionUser", sessionUser);
             return true;
-        } catch (TokenExpiredException e){
-            throw new Exception401("토큰이 만료되었습니다. 다시 로그인하세요");
         }catch (JWTDecodeException e){
             throw new Exception401("토큰이 유효하지 않습니다");
         }catch (Exception e){

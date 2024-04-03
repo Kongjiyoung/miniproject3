@@ -4,6 +4,7 @@ import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,9 @@ public class PostController {
     //회사 공고 관리
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
-        List<PostResponse.PostListDTO> respDTO = postService.getResumeList();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<PostResponse.PostListDTO> respDTO = postService.getResumeList(sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -35,19 +38,18 @@ public class PostController {
 
     // 이력서 저장
     @PostMapping("/api/company/posts")
-    public ResponseEntity<?> companySavePost(@RequestBody PostRequest.PostSaveDTO reqDTO) {
+    public ResponseEntity<?> companySavePost(@Valid @RequestBody PostRequest.PostSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Post post = postService.save(reqDTO, sessionUser);
-        return ResponseEntity.ok(new ApiUtil<>(post));
+        PostResponse.PostDTO respDTO = postService.save(reqDTO, sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PutMapping("/api/company/posts/{id}")
-    public ResponseEntity<?> companyUpdatePost(@PathVariable int id, @RequestBody PostRequest.UpdatePostDTO reqDTO) {
+    public ResponseEntity<?> companyUpdatePost(@PathVariable Integer id, @RequestBody PostRequest.UpdatePostDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        System.out.println(reqDTO);
-        postService.updatePost(id, sessionUser.getId(), reqDTO);
+        PostResponse.PostUpdateDTO respDTO = postService.updatePost(id, sessionUser.getId(), reqDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @DeleteMapping("/api/company/posts/{id}")
