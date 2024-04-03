@@ -46,18 +46,18 @@ public class PostService {
     }
 
     @Transactional
-    public Post save(PostRequest.PostSaveDTO reqDTO, User sessionUser){
+    public PostResponse.PostDTO save(PostRequest.PostSaveDTO reqDTO, User sessionUser){
         Post post = postJPARepository.save(reqDTO.toEntity(sessionUser));
 
         List<Skill> skills = new ArrayList<>();
-        for (String skillName : reqDTO.getSkill()) {
+        for (String skillName : reqDTO.getSkillList()) {
             SkillResponse.PostSaveDTO skill = new SkillResponse.PostSaveDTO();
-            skill.setSkill(skillName);
+            skill.setSkill(String.valueOf(skillName));
             skill.setPost(post);
             skills.add(skill.toEntity());
         }
         skillJPARepository.saveAll(skills);
-        return post;
+        return new PostResponse.PostDTO(post,sessionUser);
     }
 
     public List<PostResponse.PostListDTO> getResumeList(Integer userId){
