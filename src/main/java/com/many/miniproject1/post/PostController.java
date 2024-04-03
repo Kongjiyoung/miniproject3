@@ -43,7 +43,7 @@ public class PostController {
 
     @PutMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyUpdatePost(@PathVariable int id, @RequestBody PostRequest.UpdatePostDTO reqDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         System.out.println(reqDTO);
         postService.updatePost(id, sessionUser.getId(), reqDTO);
 
