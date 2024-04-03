@@ -39,7 +39,7 @@ public class PostController {
     // 이력서 저장
     @PostMapping("/api/company/posts")
     public ResponseEntity<?> companySavePost(@Valid @RequestBody PostRequest.PostSaveDTO reqDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         PostResponse.PostDTO respDTO = postService.save(reqDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

@@ -38,7 +38,7 @@ public class ResumeController {
     // 개인 이력서 작성
     @PostMapping("/api/person/resumes")
     public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
