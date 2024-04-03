@@ -2,6 +2,7 @@ package com.many.miniproject1.apply;
 
 
 import com.many.miniproject1._core.utils.ApiUtil;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class ApplyController {
     // 기업에서 받은 이력서 관리
     @GetMapping("/api/company/resumes")
     public ResponseEntity<?> companyResumes() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.getAppliedResumeSkillDTOs(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
     }  // 체크 완
