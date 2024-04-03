@@ -64,7 +64,7 @@ public class OfferResponse {
             this.username = offer.getResume().getUser().getName();
             this.carrer = offer.getResume().getCareer();
             this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
-            this.skills = offer.getResume().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
 
@@ -158,7 +158,7 @@ public class OfferResponse {
             this.tel = offer.getResume().getUser().getTel();
             this.address = offer.getResume().getUser().getAddress();
             this.email = offer.getResume().getUser().getEmail();
-            this.skills = offer.getResume().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
 

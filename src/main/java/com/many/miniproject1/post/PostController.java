@@ -44,13 +44,13 @@ public class PostController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PutMapping("/api/company/posts/{id}/update")
-    public ResponseEntity<?> companyUpdatePost(@PathVariable int id, PostRequest.UpdatePostDTO reqDTO) {
+    @PutMapping("/api/company/posts/{id}")
+    public ResponseEntity<?> companyUpdatePost(@PathVariable int id, @RequestBody PostRequest.UpdatePostDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(reqDTO);
-        postService.updatePost(id, sessionUser.getId(), reqDTO);
+        PostResponse.PostUpdateDTO respDTO=postService.updatePost(id, sessionUser.getId(), reqDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @DeleteMapping("/api/company/posts/{id}")

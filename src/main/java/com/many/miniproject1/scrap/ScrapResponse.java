@@ -173,7 +173,7 @@ public class ScrapResponse {
             this.address = scrap.getResume().getUser().getAddress();
             this.birth = scrap.getResume().getUser().getBirth();
             this.isPass = getIsPass();
-            this.skills=scrap.getResume().getSkillList().stream().map(skill -> new ScrapResumeDetailDTO.ResumeSkillDTO(skill)).toList();        }
+            this.skills=scrap.getResume().getSkills().stream().map(skill -> new ScrapResumeDetailDTO.ResumeSkillDTO(skill)).toList();        }
 
         @Data
         public static class ResumeSkillDTO{
@@ -279,7 +279,7 @@ public class ScrapResponse {
             this.profile = scrap.getResume().getUser().getProfile();
             this.career = scrap.getResume().getCareer();
             this.simpleIntroduce = scrap.getResume().getSimpleIntroduce();
-            this.skills=scrap.getResume().getSkillList().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
+            this.skills=scrap.getResume().getSkills().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
         }
 
         @Data
