@@ -5,6 +5,7 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -38,14 +39,14 @@ public class PostController {
 
     // 이력서 저장
     @PostMapping("/api/company/posts")
-    public ResponseEntity<?> companySavePost(@RequestBody PostRequest.PostSaveDTO reqDTO) {
+    public ResponseEntity<?> companySavePost(@Valid @RequestBody PostRequest.PostSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         PostResponse.PostDTO respDTO = postService.save(reqDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PutMapping("/api/company/posts/{id}")
-    public ResponseEntity<?> companyUpdatePost(@PathVariable int id, @RequestBody PostRequest.UpdatePostDTO reqDTO) {
+    public ResponseEntity<?> companyUpdatePost(@PathVariable int id,@Valid @RequestBody PostRequest.UpdatePostDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println(reqDTO);
         PostResponse.PostUpdateDTO respDTO=postService.updatePost(id, sessionUser.getId(), reqDTO);

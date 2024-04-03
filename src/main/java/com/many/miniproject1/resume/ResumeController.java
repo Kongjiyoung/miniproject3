@@ -4,6 +4,7 @@ import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.post.PostRequest;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class ResumeController {
 
     // 개인 이력서 작성
     @PostMapping("/api/person/resumes")
-    public ResponseEntity<?> personSaveResume(@RequestBody ResumeRequest.ResumeSaveDTO reqDTO) {
+    public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
@@ -46,7 +47,7 @@ public class ResumeController {
 
     // 개인 이력서 수정
     @PutMapping("/api/person/resumes/{id}")
-    public ResponseEntity<?> personUpdateResume(@PathVariable int id, @RequestBody ResumeRequest.UpdateDTO reqDTO) {
+    public ResponseEntity<?> personUpdateResume(@PathVariable int id,@Valid  @RequestBody ResumeRequest.UpdateDTO reqDTO, Error error) {
         ResumeResponse.UpdateDTO respDTO = resumeService.resumeUpdate(id, reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

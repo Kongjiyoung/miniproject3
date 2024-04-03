@@ -57,7 +57,6 @@ public class UserJPARepositoryTest {
                 .username("ssar2")
                 .name("최주호")
                 .email("ssar2@nate.com")
-                .birth(Date.valueOf("1876-02-01"))
                 .tel("010-1234-5678")
                 .address("부산시 부산진구")
                 .password("1234")
