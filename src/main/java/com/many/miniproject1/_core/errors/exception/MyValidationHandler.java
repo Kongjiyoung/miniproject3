@@ -13,7 +13,7 @@ public class MyValidationHandler {
     // Advice (부가 로직 hello 메서드)
     // Advice가 수행될 위치 == PointCut
     @Before("@annotation(org.springframework.web.bind.annotation.PostMapping) || @annotation(org.springframework.web.bind.annotation.PutMapping)")
-    public void User(JoinPoint jp){
+    public void Errors(JoinPoint jp){
         Object[] args = jp.getArgs(); // 파라메터(매개변수)
 
         for(Object arg : args){
@@ -26,7 +26,6 @@ public class MyValidationHandler {
                     }
                 }
             }
-
         }
     }
 }

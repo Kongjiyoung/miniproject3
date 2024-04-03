@@ -20,7 +20,6 @@ public class UserController {
     @PostMapping("/company/join")
     public ResponseEntity<?> companyJoin(@Valid @RequestBody UserRequest.CompanyJoinDTO requestDTO, Errors errors) {
         UserResponse.CompanyDTO respDTO = userService.companyJoin(requestDTO);
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -34,7 +33,6 @@ public class UserController {
 
     @PostMapping("/person/join")
     public ResponseEntity<?> personJoin(@Valid @RequestBody UserRequest.PersonJoinDTO reqDTO, Errors errors) {
-
         UserResponse.PersonDTO respDTO = userService.personJoin(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
