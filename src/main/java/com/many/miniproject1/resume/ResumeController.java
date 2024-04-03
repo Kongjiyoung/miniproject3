@@ -25,14 +25,13 @@ public class ResumeController {
     }
 
     // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서
-    @GetMapping("/api/person/resumes/{id}/detail")
+    @GetMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personResume(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         ResumeResponse.resumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 04-03 YSH
     @PostMapping("/api/person/resumes")
     public ResponseEntity<?> personSaveResume(@RequestBody ResumeRequest.ResumeSaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -42,7 +41,6 @@ public class ResumeController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 04-03 YSH
     @PutMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personUpdateResume(@PathVariable int id) {
         User sessionUser = (User) session.getAttribute("sessionUser");

@@ -39,7 +39,16 @@ public class ResumeService {
 //        Skill List<skill>
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인"));
         Resume resume = resumeJPARepository.save(reqDTO.toEntity(user));
-        return new ResumeResponse.ResumeSaveDTO(resume);
+
+        List<Skill> skills = new ArrayList<>();
+        for (String skillName : reqDTO.getSkills()) {
+            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
+            skill.setSkill(skillName);
+            skill.setResume(resume);
+            skills.add(skill.toEntity());
+        }
+        List<Skill> skillList = skillJPARepository.saveAll(skills);
+        return new ResumeResponse.ResumeSaveDTO(resume, skillList);
     }
 
 
@@ -67,7 +76,7 @@ public class ResumeService {
         }
         List<Skill> skills1 = new ArrayList<>();
         for (String skillName : requestDTO.getSkills()) {
-            SkillResponse.SaveDTO skill = new SkillResponse.SaveDTO();
+            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
             skill.setResume(resume);
             skill.setSkill(skillName);
             skills1.add(skill.toEntity());
@@ -90,7 +99,7 @@ public class ResumeService {
 
         List<Skill> skills = new ArrayList<>();
         for (String skillName : requestDTO.getSkills()) {
-            SkillResponse.SaveDTO skill = new SkillResponse.SaveDTO();
+            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
             skill.setResume(resume);
             skill.setSkill(skillName);
             skills.add(skill.toEntity());
