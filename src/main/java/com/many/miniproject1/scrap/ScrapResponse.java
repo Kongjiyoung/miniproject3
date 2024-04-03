@@ -1,15 +1,11 @@
 package com.many.miniproject1.scrap;
 
-import com.many.miniproject1.offer.OfferResponse;
-import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.Skill;
-import com.many.miniproject1.user.User;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ScrapResponse {
@@ -280,7 +276,16 @@ public class ScrapResponse {
             }
         }
     }
+    @Data
+    public static class MainResumeScrapDTO{
+        private int userId;
+        private int resumeId;
 
+        public MainResumeScrapDTO(Scrap scrap) {
+            this.userId = scrap.getUser().getId();
+            this.resumeId = scrap.getResume().getId();
+        }
+    }
 }
 
 

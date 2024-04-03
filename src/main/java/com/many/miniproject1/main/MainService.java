@@ -1,6 +1,7 @@
 package com.many.miniproject1.main;
 
 import com.many.miniproject1._core.errors.exception.Exception401;
+import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.apply.ApplyRequest;
@@ -176,15 +177,15 @@ public class MainService {
     }
 
     @Transactional
-    public Offer sendPostToResume(int id, int postId) {
-        Resume resume = resumeJPARepository.findById(id)
-                .orElseThrow(() -> new Exception401("존재하지 않는 이력서..." + id));
+    public OfferRequest.MainOfferSaveDTO sendPostToResume(Integer resumeId, Integer postId) {
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 이력서입니다."));
         Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("존재하지 않는 공고입니다!" + postId));
-        OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
-        Offer offer = offerJPARepository.save(scrapOfferDTO.toEntity());
-
-        return offer;
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다."));
+        //OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
+        Offer offer = offerJPARepository.save(OfferRequest.MainOfferSaveDTO.toEntity(resume, post));
+        System.out.println(offer);
+        return new OfferRequest.MainOfferSaveDTO(offer);
     }
 
     @Transactional
@@ -280,5 +281,16 @@ public class MainService {
         Resume resume = resumeJPARepository.findResumeById(resumeId);
 
         return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkillList());
+    }
+
+    public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId){
+        User user = userService.findByUser(userId);
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+        ScrapRequest.MainScrapDTO saveScrap = new ScrapRequest.MainScrapDTO(resume, user);
+
+        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
+
+        return new ScrapResponse.MainResumeScrapDTO(scrap);
     }
 }

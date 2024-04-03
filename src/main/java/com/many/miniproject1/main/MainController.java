@@ -2,11 +2,12 @@ package com.many.miniproject1.main;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.apply.ApplyResponse;
-import com.many.miniproject1.offer.Offer;
-import com.many.miniproject1.scrap.Scrap;
+import com.many.miniproject1.offer.OfferRequest;
+import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.scrap.ScrapResponse;
 import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
+import com.many.miniproject1.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,8 @@ public class MainController {
 
     private final HttpSession session;
     private final MainService mainService;
+    private final UserService userService;
+    private final ResumeJPARepository resumeJPARepository;
 
 
     //맞춤 공고 - 기업이 보는 매칭 이력서
@@ -76,19 +79,21 @@ public class MainController {
     }
 
     @PostMapping("/api/resumes/{id}/offer")
-    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id,Integer postChoice) {
-        Offer offer = mainService.sendPostToResume(id, postChoice);
-        return ResponseEntity.ok(new ApiUtil<>(offer));
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody OfferRequest.MainOfferSaveDTO reqDTO) {
+        // 회사가 개인의 이력서를 보고 맘에 들면 오퍼를 보냄
+        // INSERT INTO offer_tb(resume_id, post_id, created_at) VALUES (1, 1, now());
+        reqDTO = mainService.sendPostToResume(id, reqDTO.getPostId()); // 해당 아이디의 이력서로 포스트를 선택해서 오퍼를 보냄
+
+        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 
     @PostMapping("/api/resumes/{id}/scrap")
     public ResponseEntity<?> companyResumeScrap(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        Scrap scrap = mainService.companyScrap(id, sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(scrap));
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        ScrapResponse.MainResumeScrapDTO respDTO = mainService.resumeScrap(id, sessionUser.getId());
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-    // YSH
-    // ┳━┳ ノ( ゜-゜ノ)
 
     //메인 채용 공고
     @GetMapping({"/posts", "/"})
@@ -101,11 +106,11 @@ public class MainController {
 
     @GetMapping("/api/posts/{id}")
     public ResponseEntity<?> postDetail(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
         MainResponse.PostDetailDTO respDTO = mainService.getPostDetail(id);
         if (sessionUser != null) {
-            if(sessionUser.getRole().equals("person")) {
+            if (sessionUser.getRole().equals("person")) {
                 List<MainResponse.ApplyListDTO> resumeList = mainService.getResumeId(sessionUser.getId());
                 return ResponseEntity.ok(new ApiUtil<>(respDTO, resumeList));
             }
@@ -119,14 +124,14 @@ public class MainController {
     @PostMapping("/api/posts/{id}/apply")
     public ResponseEntity<?> personPostApply(@PathVariable int id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
         System.out.println("resumeChoice = " + resumeChoice);
-        ApplyResponse.PostApplyDTO respDTO=mainService.personPostApply(id, resumeChoice.getResumeChoice());
+        ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
 
     @PostMapping("/api/posts/{id}/scrap")
     public ResponseEntity<?> personPostScrap(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
 
         ScrapResponse.PostScrapSaveDTO respDTO = mainService.personPostScrap(sessionUser.getId(), id);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -136,7 +141,7 @@ public class MainController {
 
     @GetMapping("/api/posts/matching")
     public ResponseEntity<?> matchingPosts() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<MainResponse.PosteMatchingChoiceDTO> postList = mainService.findByUserIdPost(sessionUser.getId());
         Integer postChoice = (Integer) session.getAttribute("postChoice");
         if (postChoice != null) {
@@ -153,7 +158,7 @@ public class MainController {
     @PostMapping("/api/posts/match")
     public ResponseEntity<?> matchingPost(@RequestBody MainRequest.PostChoiceDTO postChoiceDTO) {
         session.setAttribute("postChoice", postChoiceDTO.getPostChoice());
-        int respDTO=postChoiceDTO.getPostChoice();
+        int respDTO = postChoiceDTO.getPostChoice();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
@@ -163,13 +168,13 @@ public class MainController {
     @GetMapping("/api/resumes/matching")
     public ResponseEntity<?> matchingResumes() {
         //공고 가져오기
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<MainResponse.ResumeeMatchingChoiceDTO> resumeList = mainService.findByUserIdResume(sessionUser.getId());
         Integer resumeChoice = (Integer) session.getAttribute("resumeChoice");
         if (resumeChoice != null) {
             List<MainResponse.MainResumeMatchDTO> postList = mainService.matchingPost(resumeChoice);
             //resumeList와 함께 DTO에 담기
-            return ResponseEntity.ok(new ApiUtil<>(resumeList,postList));
+            return ResponseEntity.ok(new ApiUtil<>(resumeList, postList));
         }
 
         return ResponseEntity.ok(new ApiUtil<>(resumeList));
@@ -179,7 +184,7 @@ public class MainController {
     @PostMapping("/api/resumes/match")
     public ResponseEntity<?> matchingResume(@RequestBody MainRequest.ResumeChoiceDTO resumeChoiceDTO) {
         session.setAttribute("resumeChoice", resumeChoiceDTO.getResumeChoice());
-        int respDTO=resumeChoiceDTO.getResumeChoice();
+        int respDTO = resumeChoiceDTO.getResumeChoice();
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }
