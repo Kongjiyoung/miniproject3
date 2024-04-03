@@ -1,6 +1,7 @@
 package com.many.miniproject1.offer;
 
 import com.many.miniproject1._core.utils.ApiUtil;
+import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class OfferController {
     // company의 offers 관리
     @GetMapping("/api/company/offers")
     public ResponseEntity<?> companyOffers() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers(14);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
