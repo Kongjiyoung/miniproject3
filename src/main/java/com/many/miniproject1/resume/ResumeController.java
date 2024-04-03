@@ -42,12 +42,10 @@ public class ResumeController {
     }
 
     @PutMapping("/api/person/resumes/{id}")
-    public ResponseEntity<?> personUpdateResume(@PathVariable int id) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+    public ResponseEntity<?> personUpdateResume(@PathVariable int id, @RequestBody ResumeRequest.UpdateDTO reqDTO) {
+        ResumeResponse.UpdateDTO respDTO = resumeService.resumeUpdate(id, reqDTO);
 
-        Resume resume = resumeService.resumeUpdate(id, sessionUser);
-
-        return ResponseEntity.ok(new ApiUtil<>(resume));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @DeleteMapping("/api/person/resumes/{id}")

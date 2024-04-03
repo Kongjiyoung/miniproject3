@@ -2,6 +2,7 @@ package com.many.miniproject1.resume;
 
 import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostResponse;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
 import lombok.Data;
@@ -166,15 +167,37 @@ public class ResumeResponse {
     @Data
     public static class UpdateDTO {
         private Integer id;
-        private Integer personId;
         private String title;
         private String profile;
+        private String profileName;
         private String portfolio;
         private String introduce;
         private String career;
         private String simpleIntroduce;
-        private List<String> skills;
-        private Timestamp createdAt;
+        private List<SkillDTO> skills;
+
+        public UpdateDTO(Resume resume, List<Skill> skills) {
+            this.id = resume.getId();
+            this.title = resume.getTitle();
+            this.profile = resume.getProfile();
+            this.profileName = resume.getProfileName();
+            this.portfolio = resume.getPortfolio();
+            this.introduce = resume.getIntroduce();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getIntroduce();
+            this.skills = skills.stream().map(skill -> (new SkillDTO(skill))).toList();
+        }
+
+        @Data
+        public class SkillDTO {
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
     }
 
     @Data

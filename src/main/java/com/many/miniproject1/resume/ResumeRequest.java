@@ -52,33 +52,6 @@ public class ResumeRequest {
     }
 
     @Data
-    public static class SaveDTO{
-
-        private User user;
-        private String title;
-        private MultipartFile profile;
-        private String portfolio;
-        private String introduce;
-        private String career;
-        private String simpleIntroduce;
-        private List<String> skills;
-
-        public Resume toEntity(User sessionUser){
-            String profilePath= ProfileImageSaveUtil.save(profile);
-            return Resume.builder()
-                    .user(sessionUser)
-                    .title(title)
-                    .profile(profilePath)
-                    .portfolio(portfolio)
-                    .introduce(introduce)
-                    .career(career)
-                    .simpleIntroduce(simpleIntroduce)
-                    .build();
-        }
-
-    }
-
-    @Data
     public static class ResumeDTO {
         private Integer id;
         private Integer personId;
@@ -100,7 +73,8 @@ public class ResumeRequest {
         private Integer id;
         private Integer personId;
         private String title;
-        private MultipartFile profile;
+        private String profile;
+        private String profileName;
         private String portfolio;
         private String introduce;
         private String career;
