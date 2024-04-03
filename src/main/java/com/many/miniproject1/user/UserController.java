@@ -23,11 +23,10 @@ public class UserController {
     }
 
     @PostMapping("/company/login")
-
     public ResponseEntity<?> companyLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
-        SessionUser sessionUser = userService.login(reqDTO);
-        session.setAttribute("sessionUser", sessionUser);
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        String jwt = userService.login(reqDTO);
+
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil(null));
     }
 
 
@@ -40,9 +39,9 @@ public class UserController {
 
     @PostMapping("/person/login")
     public ResponseEntity<?> personLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
-        SessionUser sessionUser = userService.login(reqDTO);
-        session.setAttribute("sessionUser", sessionUser);
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        String jwt = userService.login(reqDTO);
+
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil(null));
     }
 
 
@@ -58,8 +57,8 @@ public class UserController {
     @GetMapping("/api/company/info")
     public ResponseEntity<?> companyInfo() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.CompanyDTO respDTO = userService.findByCompany(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+        UserResponse.CompanyDTO respBody = userService.findByCompany(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respBody));
     }
 
     @PutMapping("/api/companies/{id}/info")

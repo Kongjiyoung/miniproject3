@@ -14,22 +14,11 @@ public class JwtUtil {
 
         String jwt = JWT.create()
                 .withSubject("miniproject")
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L * 48))
                 .withClaim("id", user.getId())
-                .withClaim("role", user.getRole())
                 .withClaim("username", user.getUsername())
-                .withClaim("email", user.getEmail())
-                .withClaim("password", user.getPassword())
-                .withClaim("name", user.getName())
-                .withClaim("tel", user.getTel())
-                .withClaim("companyName", user.getCompanyName())
-                .withClaim("address", user.getAddress())
-                .withClaim("companyNum", user.getCompanyNum())
-                .withClaim("profile", user.getProfile())
-                .withClaim("profileName", user.getProfileName())
-                .withClaim("birth", user.getBirth())
+                .withClaim("role", user.getRole())
                 .sign(Algorithm.HMAC512("many"));
-
         return jwt;
     }
 
@@ -38,31 +27,11 @@ public class JwtUtil {
         Integer id = decodedJWT.getClaim("id").asInt();
         String username = decodedJWT.getClaim("username").asString();
         String role = decodedJWT.getClaim("role").asString();
-        String email = decodedJWT.getClaim("email").asString();
-        String password = decodedJWT.getClaim("password").asString();
-        String name = decodedJWT.getClaim("name").asString();
-        String tel = decodedJWT.getClaim("tel").asString();
-        String companyName = decodedJWT.getClaim("companyName").asString();
-        String address = decodedJWT.getClaim("address").asString();
-        String companyNum = decodedJWT.getClaim("companyNum").asString();
-        String profile = decodedJWT.getClaim("profile").asString();
-        String profileName = decodedJWT.getClaim("profileName").asString();
-        String birth = decodedJWT.getClaim("birth").asString();
 
         return SessionUser.builder()
                 .id(id)
                 .role(role)
                 .username(username)
-                .email(email)
-                .password(password)
-                .name(name)
-                .tel(tel)
-                .companyName(companyName)
-                .address(address)
-                .companyNum(companyNum)
-                .profile(profile)
-                .profileName(profileName)
-                .birth(birth)
                 .build();
     }
 }

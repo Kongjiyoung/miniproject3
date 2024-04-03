@@ -2,6 +2,7 @@ package com.many.miniproject1.user;
 
 import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception404;
+import com.many.miniproject1._core.utils.JwtUtil;
 import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -111,11 +112,11 @@ public class UserService {
         return new SessionUser(user);
     }
 
-    public SessionUser login(UserRequest.LoginDTO reqDTO) {
-
+    public String  login(UserRequest.LoginDTO reqDTO) {
         User user = userJPARepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
-        return new SessionUser(user);
+        String jwt = JwtUtil.create(user);
+        return jwt;
     }
 
     @Transactional

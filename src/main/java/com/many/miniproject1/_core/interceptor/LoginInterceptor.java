@@ -1,6 +1,9 @@
 package com.many.miniproject1._core.interceptor;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.many.miniproject1._core.errors.exception.Exception401;
+import com.many.miniproject1._core.errors.exception.Exception500;
 import com.many.miniproject1._core.utils.JwtUtil;
 import com.many.miniproject1.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,8 +32,12 @@ public class LoginInterceptor implements HandlerInterceptor{
             HttpSession session = request.getSession();
             session.setAttribute("sessionUser", sessionUser);
             return true;
-        } catch (Exception e) {
-            return false;
+        } catch (TokenExpiredException e){
+            throw new Exception401("토큰이 만료되었습니다. 다시 로그인하세요");
+        }catch (JWTDecodeException e){
+            throw new Exception401("토큰이 유효하지 않습니다");
+        }catch (Exception e){
+            throw new Exception500(e.getMessage());
         }
     }
 }
