@@ -58,7 +58,6 @@ public class ResumeService {
     }
 
 
-
     @Transactional
     public ResumeResponse.UpdateDTO resumeUpdate(int resumeId, ResumeRequest.UpdateDTO reqDTO) {
 

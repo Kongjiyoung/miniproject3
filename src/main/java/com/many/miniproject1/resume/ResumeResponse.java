@@ -205,6 +205,7 @@ public class ResumeResponse {
         int id;
         Integer personId;
         String profile;
+        String name;
         String title;
         String career;
         String simpleIntroduce;
@@ -213,6 +214,7 @@ public class ResumeResponse {
         public resumeListDTO(Resume resume) {
             this.id = resume.getId();
             this.personId = resume.getUser().getId();
+            this.name = resume.getUser().getName();
             this.profile = resume.getProfile();
             this.title = resume.getTitle();
             this.career = resume.getCareer();
