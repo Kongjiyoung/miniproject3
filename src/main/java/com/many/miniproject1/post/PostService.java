@@ -70,11 +70,11 @@ public class PostService {
     }
 
     // 공고 상세보기
-    public PostResponse.DetailDTO postDetail (int postId, SessionUser sessionUser){
+    public PostResponse.DetailDTO postDetail (int postId){
         Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 
-        return new PostResponse.DetailDTO(post, sessionUser);
+        return new PostResponse.DetailDTO(post);
     }
 
     @Transactional

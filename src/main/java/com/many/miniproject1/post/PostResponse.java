@@ -50,6 +50,7 @@ public class PostResponse {
     public static class DetailDTO {
         private Integer id;
         private Integer companyId;
+        private String companyName;
         private String title;
         private String career;
         private String pay;
@@ -63,9 +64,10 @@ public class PostResponse {
         private List<skillDTO> skillList;
 
 
-        public DetailDTO(Post post, SessionUser sessionUser) {
+        public DetailDTO(Post post) {
             this.id = post.getId();
-            this.companyId = post.getId();
+            this.companyId = post.getUser().getId();
+            this.companyName=post.getUser().getCompanyName();
             this.title = post.getTitle();
             this.career = post.getCareer();
             this.pay = post.getPay();
@@ -76,7 +78,7 @@ public class PostResponse {
             this.task = post.getTask();
             this.profile = post.getProfile();
             this.workingArea = post.getWorkingArea();
-            this.skillList = post.getSkillList().stream().map(skill -> new skillDTO(skill, sessionUser)).toList();
+            this.skillList = post.getSkillList().stream().map(skill -> new skillDTO(skill)).toList();
 
         }
         @Data
@@ -84,7 +86,7 @@ public class PostResponse {
             private Integer id;
             private String skill;
 
-            public skillDTO(Skill skill, SessionUser sessionUser){
+            public skillDTO(Skill skill){
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }

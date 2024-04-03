@@ -72,7 +72,6 @@ public class ResumeJPARepositoryTest {
 
     }
 
-<<<<<<< HEAD
 
     @Test
     public void findByIdJoinSkillAndUser_test() {
@@ -85,7 +84,6 @@ public class ResumeJPARepositoryTest {
         // then
         assertThat(resumeDetail.getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
     }
-=======
 //    @Test
 //    public void findByIdJoinSkillAndUser_test() {
 //        //given
@@ -99,7 +97,7 @@ public class ResumeJPARepositoryTest {
 //        assertThat(resumeDetail.getTitle()).isEqualTo("백엔드 개발자 공지영입니다.");
 //    }
 
->>>>>>> master
+
 
     @Test
         public void findByUser_test(){

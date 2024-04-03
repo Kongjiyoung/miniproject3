@@ -346,4 +346,12 @@ public class ApplyResponse {
 
 
     }
+    @Data
+    public static class UpdateIsPassDTO {
+        private String isPass;
+
+        public UpdateIsPassDTO(String isPass) {
+            this.isPass = isPass;
+        }
+    }
 }

@@ -34,5 +34,7 @@ public class ApplyRequest {
     @Data
     public static class UpdateIsPassDTO {
         private String isPass;
+
+
     }
 }

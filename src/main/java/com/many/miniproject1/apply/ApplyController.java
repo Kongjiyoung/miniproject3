@@ -17,14 +17,14 @@ public class ApplyController {
     private final ApplyService applyService;
 
     // 기업에서 받은 이력서 관리
-    @GetMapping("/api/company/resumes")
+    @GetMapping("/api/company/apply")
     public ResponseEntity<?> companyResumes() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.getAppliedResumeSkillDTOs(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
     }  // 체크 완
 
-    @GetMapping("/api/company/resumes/{id}")
+    @GetMapping("/api/company/apply/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.AppliedResumeSkillDetailDTO appliedResumeDetail = applyService.getAppliedResume(id);
@@ -36,8 +36,8 @@ public class ApplyController {
     @PutMapping("/api/company/resumes/{id}/is-pass")
     public ResponseEntity<?> companyPass(@PathVariable Integer id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
         Apply apply = applyService.getApplyById(id);
-        ApplyRequest.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
-        apply.updateIsPass(reqDTO);
+        //apply.updateIsPass(reqDTO);
+        ApplyResponse.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(updateIsPassDTO));
     } // 체크 완

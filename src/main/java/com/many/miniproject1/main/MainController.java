@@ -48,7 +48,7 @@ public class MainController {
     public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
 
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
         boolean isCompany = false;
         if (sessionUser != null) {
