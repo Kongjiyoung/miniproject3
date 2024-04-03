@@ -280,7 +280,7 @@ public class MainService {
     public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
         Resume resume = resumeJPARepository.findResumeById(resumeId);
 
-        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkillList());
+        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
     }
 
     public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId){

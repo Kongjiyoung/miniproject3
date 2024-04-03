@@ -1,16 +1,13 @@
 package com.many.miniproject1.offer;
 
-import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OfferResponse {
@@ -64,7 +61,7 @@ public class OfferResponse {
             this.username = offer.getResume().getUser().getName();
             this.carrer = offer.getResume().getCareer();
             this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
-            this.skills = offer.getResume().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
 
@@ -158,7 +155,7 @@ public class OfferResponse {
             this.tel = offer.getResume().getUser().getTel();
             this.address = offer.getResume().getUser().getAddress();
             this.email = offer.getResume().getUser().getEmail();
-            this.skills = offer.getResume().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
 

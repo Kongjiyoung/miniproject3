@@ -29,7 +29,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             SELECT DISTINCT a
             FROM Apply a
             JOIN FETCH a.resume r
-            JOIN FETCH r.skillList s
+            JOIN FETCH r.skills s
             JOIN FETCH r.user ru
             JOIN FETCH a.post p
             JOIN p.user pu
@@ -73,7 +73,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             from Apply a
             join fetch a.resume r
             join fetch r.user u
-            join fetch r.skillList s
+            join fetch r.skills s
             where a.id = :apply_id
                """)
     Apply findResumeByApplyId(@Param("apply_id") Integer applyId);
@@ -83,7 +83,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             from Apply a
             join fetch a.resume r
             join fetch r.user ru
-            join fetch r.skillList s
+            join fetch r.skills s
             join fetch a.post p
             join fetch p.user pu
             where pu.id = :company_id

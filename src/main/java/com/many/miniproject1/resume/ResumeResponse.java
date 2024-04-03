@@ -9,7 +9,41 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class ResumeResponse {
+    @Data
+    public static class ResumeSaveDTO{
+        int resumeId;
+        String title;
+        String profile;
+        String profileName;
+        String career;
+        String simpleIntroduce;
+        String portfolio;
+        String introduce;
+        List<SkillDTO> skills;
 
+        public ResumeSaveDTO(Resume resume, List<Skill> skills) {
+            this.resumeId = resume.getId();
+            this.title = resume.getTitle();
+            this.profile = resume.getProfile();
+            this.profileName= resume.getProfileName();
+            this.career = resume.getCareer();
+            this.simpleIntroduce = resume.getSimpleIntroduce();
+            this.portfolio = resume.getPortfolio();
+            this.introduce = resume.getIntroduce();
+            this.skills = skills.stream().map(skill -> new SkillDTO(skill)).toList();
+        }
+
+        @Data
+        public static class SkillDTO{
+            private int id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+    }
     @Data
     public static class DetailSkillDTO {
         private Integer id;
@@ -124,7 +158,7 @@ public class ResumeResponse {
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
-            this.skills = resume.getSkillList().stream().map(skill -> new resumeDetailDTO.ResumeSkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(skill -> new resumeDetailDTO.ResumeSkillDTO(skill)).toList();
             this.introduce = resume.getIntroduce();
         }
 
@@ -177,7 +211,7 @@ public class ResumeResponse {
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
-            this.skills = resume.getSkillList().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
         }
 
         @Data

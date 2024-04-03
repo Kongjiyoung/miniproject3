@@ -1,17 +1,15 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
+import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.ApplyJPARepository;
 import com.many.miniproject1.offer.OfferJPARepository;
-import com.many.miniproject1.scrap.Scrap;
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
-
 import com.many.miniproject1.skill.SkillResponse;
-
 import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
@@ -33,7 +31,22 @@ public class ResumeService {
     private final ScrapJPARepository scrapJPARepository;
 
     private final UserJPARepository userJPARepository;
+    @Transactional
+    public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, User sessionUser){
+//        Skill List<skill>
+        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인"));
+        Resume resume = resumeJPARepository.save(reqDTO.toEntity(user));
 
+        List<Skill> skills = new ArrayList<>();
+        for (String skillName : reqDTO.getSkills()) {
+            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
+            skill.setSkill(skillName);
+            skill.setResume(resume);
+            skills.add(skill.toEntity());
+        }
+        List<Skill> skillList = skillJPARepository.saveAll(skills);
+        return new ResumeResponse.ResumeSaveDTO(resume, skillList);
+    }
 
     @Transactional
     public Resume update(int resumeId, ResumeRequest.UpdateDTO requestDTO) {

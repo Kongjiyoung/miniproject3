@@ -4,6 +4,7 @@ import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +34,13 @@ public class ResumeController {
     }
 
     @PostMapping("/api/person/resumes")
-    public ResponseEntity<?> personSaveResume(ResumeRequest.SaveDTO requestDTO) {
+    public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        //나중에 findById 해서 그 user 넣어야하는 거 아녀? 일단은 이렇게 둠
-        Resume resume = resumeService.save(requestDTO, sessionUser);
 
-        return ResponseEntity.ok(new ApiUtil<>(resume));
+//        ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
+        ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PutMapping("/api/person/resumes/{id}")
