@@ -171,45 +171,6 @@ public class ScrapResponse {
         }
     }
 
-//    @Data
-//    public static class ScrapResumeSkillDTO {
-//        private Integer id;
-//        private Integer personId;
-//        private String title;
-//        private String profile;
-//        private String portfolio;
-//        private String introduce;
-//        private String career;
-//        private String simpleIntroduce;
-//        private Timestamp createdAt;
-//        private String email;
-//        private String username;
-//        private String tel;
-//        private String address;
-//        private String birth;
-//        private String isPass;
-//        private List<String> skills;
-//
-//        public ScrapResumeSkillDTO(ScrapResponse.ScrapResumeDTO resumeDTO, List<String> skills) {
-//            this.id = resumeDTO.getId();
-//            this.personId = resumeDTO.getPersonId();
-//            this.title = resumeDTO.getTitle();
-//            this.profile = resumeDTO.getProfile();
-//            this.portfolio = resumeDTO.getPortfolio();
-//            this.introduce = resumeDTO.getIntroduce();
-//            this.career = resumeDTO.getCareer();
-//            this.simpleIntroduce = resumeDTO.getSimpleIntroduce();
-//            this.createdAt = resumeDTO.getCreatedAt();
-//            this.email = resumeDTO.getEmail();
-//            this.username = resumeDTO.getUsername();
-//            this.tel = resumeDTO.getTel();
-//            this.address = resumeDTO.getAddress();
-//            this.birth = resumeDTO.getBirth();
-//            this.isPass = resumeDTO.getIsPass();
-//            this.skills = skills;
-//        }
-//    }
-
     @Data
     public static class ScrapPostListDTO {
         private Integer id;

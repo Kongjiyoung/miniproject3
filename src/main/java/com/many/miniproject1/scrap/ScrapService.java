@@ -39,7 +39,6 @@ public class ScrapService {
     public ApplyResponse.PostApplyDTO saveApply(int postId, int resumeId){
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
-        System.out.println("resumeId = " + resumeId);
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception401(""));
        ApplyRequest.SaveDTO saveApply=new ApplyRequest.SaveDTO(resume, post);
@@ -47,11 +46,6 @@ public class ScrapService {
 
        return new ApplyResponse.PostApplyDTO(apply);
     }
-
-//    @Transactional
-//    public void deleteScrapPost(int id){
-//        scrapJPARepository.deleteById(id);
-//    }
 
     @Transactional
     public void deleteScrapPost(Integer id){

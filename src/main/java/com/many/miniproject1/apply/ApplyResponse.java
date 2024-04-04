@@ -15,23 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ApplyResponse {
-    //    @Data
-//    public static class ApplyPostDTO {
-//        private Integer id;
-//        private Integer companyId;
-////        private String title;
-////        private String career;
-////        private String pay;
-////        private String workCondition;
-////        private String workStartTime;
-////        private String workEndTime;
-////        private String deadline;
-////        private String task;
-////        private String profile;
-////        private String workingArea;
-//        private String isPass;
-//        private Timestamp createdAt;
-//    }
     @Data
     public static class PostApplyDTO {
         private int resumeId;
