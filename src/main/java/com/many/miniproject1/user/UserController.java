@@ -65,7 +65,7 @@ public class UserController {
     @PutMapping("/api/companies/{id}/info")
     public ResponseEntity<?> companyInfoUpdate(@Valid @RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO, Errors errors) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        User newSessionUser = userService.companyInfoUpdate(14, reqDTO);
+        User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
