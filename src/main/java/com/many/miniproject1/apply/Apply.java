@@ -42,7 +42,7 @@ public class Apply { // 지원 테이블
         this.isPass = reqDTO.getIsPass();
     }
 
-    // 아래 매개변수에 각각 디티오 넣으면 업데이트 됨
+    // 아래 매개변수에 각각 디티오 넣으면 업데이트
 //    public void updateResume(Resume resume) {
 //        this.resume = resume;
 //    }

@@ -68,7 +68,6 @@ public class MainController {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("postTitleListDTOList", postTitleListDTOList);
         responseBody.put("mainResumeDetailDTO", mainResumeDetailDTO);
-        System.out.println("responseBody: " + responseBody);
         return ResponseEntity.ok(new ApiUtil<>(responseBody));
     }
 
@@ -117,7 +116,6 @@ public class MainController {
     // 지원하기 버튼 안 보임
     @PostMapping("/api/posts/{id}/apply")
     public ResponseEntity<?> personPostApply(@PathVariable int id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
-        System.out.println("resumeChoice = " + resumeChoice);
         ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 

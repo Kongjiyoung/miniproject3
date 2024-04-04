@@ -26,11 +26,6 @@ public class ApplyRequest {
         }
     }
 
-//    @Data
-//    public static class UpdateDTO {
-//        private String isPass;
-//    }
-
     @Data
     public static class UpdateIsPassDTO {
         private String isPass;

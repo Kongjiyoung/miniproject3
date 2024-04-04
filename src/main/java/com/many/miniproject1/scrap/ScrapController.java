@@ -30,7 +30,6 @@ public class ScrapController {
 
     @GetMapping("/api/person/scraps/{id}")
     public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
-        System.out.println("id = " + id);
         ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -43,7 +42,6 @@ public class ScrapController {
 
     @PostMapping("/api/person/scraps/{id}")
     public ResponseEntity<?> personPostApply(@PathVariable Integer id, @RequestBody ScrapRequest.ResumeChoiceDTO resumeChoice) { // 스크랩 아이디와 이력서 아이디를 받아서
-        System.out.println("resumeChoice =" + resumeChoice);
         ApplyResponse.PostApplyDTO respDTO =scrapService.saveApply(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
