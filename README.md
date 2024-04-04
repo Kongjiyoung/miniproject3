@@ -5,6 +5,8 @@
 ## 1. 시연영상
 
 ## 2. 발표자료
+![image](https://github.com/Kongjiyoung/miniproject3/assets/153695703/609057e5-c2b5-4d13-a5a6-b1564aa4794d)
+
 [미니프로젝트1조.pptx](https://github.com/Kongjiyoung/miniproject/files/14600963/1.pptx)
 
 ## 3. 팀소개 및 각자 맡은 기능
