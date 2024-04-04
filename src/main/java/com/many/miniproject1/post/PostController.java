@@ -2,7 +2,6 @@ package com.many.miniproject1.post;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.user.SessionUser;
-import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ public class PostController {
     //회사 공고 관리
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<PostResponse.PostListDTO> respDTO = postService.getResumeList(sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

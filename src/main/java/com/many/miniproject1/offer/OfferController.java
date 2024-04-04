@@ -23,8 +23,9 @@ public class OfferController {
     @GetMapping("/api/person/offers")
     public ResponseEntity<?> personOffers() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        System.out.println(sessionUser.getId());
         List<OfferResponse.personOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
-
+        System.out.println(respDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
     // person의 offer 상세보기

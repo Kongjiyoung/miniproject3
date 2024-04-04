@@ -2,8 +2,6 @@ package com.many.miniproject1.user;
 
 import lombok.Data;
 
-import java.sql.Date;
-
 public class UserResponse {
     @Data
     public static class PersonDTO {
@@ -32,6 +30,7 @@ public class UserResponse {
 
     @Data
     public static class CompanyDTO {
+        private Integer id;
         private String role;        // 구직자 or 회사
         private String profile;     // 사진
         private String companyName; // 회사명
@@ -44,6 +43,7 @@ public class UserResponse {
         private String password;    // 비밀번호
 
         public CompanyDTO(User user) {
+            this.id = user.getId();
             this.role = user.getRole();
             this.profile = user.getProfile();
             this.companyName = user.getCompanyName();
