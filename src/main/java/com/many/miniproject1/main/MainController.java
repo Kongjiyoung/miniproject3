@@ -6,7 +6,6 @@ import com.many.miniproject1.offer.OfferRequest;
 import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.scrap.ScrapResponse;
 import com.many.miniproject1.user.SessionUser;
-import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +47,7 @@ public class MainController {
     public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
 
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
         boolean isCompany = false;
         if (sessionUser != null) {
@@ -57,6 +56,7 @@ public class MainController {
                 isCompany = true;
             }
             Integer companyId = sessionUser.getId();
+            // TODO: 세션이 아닌 토큰값 비교로 변경하기
             postTitleListDTOList = mainService.getPostTitleListDTOs(sessionUser.getId(), companyId); // 세션유저의 아이디와 컴퍼니 아이디가 일치해야 정보가 넘어감
 
         }

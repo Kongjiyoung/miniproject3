@@ -2,7 +2,6 @@ package com.many.miniproject1.resume;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.user.SessionUser;
-import com.many.miniproject1.user.User;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class ResumeController {
 
     // 개인 이력서 상세
     @GetMapping("/api/person/resumes/{id}")
-    public ResponseEntity<?> personResume(@PathVariable int id) {
+    public ResponseEntity<?> personResume(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.resumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

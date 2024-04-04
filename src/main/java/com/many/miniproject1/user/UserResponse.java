@@ -5,6 +5,7 @@ import lombok.Data;
 public class UserResponse {
     @Data
     public static class PersonDTO {
+        private Integer id;
         private String role;
         private String profile;
         private String username;
@@ -16,6 +17,7 @@ public class UserResponse {
         private String password;
 
         public PersonDTO(User user) {
+            this.id = user.getId();
             this.role = user.getRole();
             this.profile = user.getProfile();
             this.username = user.getUsername();

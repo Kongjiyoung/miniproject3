@@ -13,16 +13,19 @@ public class OfferResponse {
     // 04-01 YSH
     @Data
     public static class personOffersDTO {
-        int offerId;
-        int personId;
-        String profile;
-        String companyName;
-        String title;
-        Timestamp createdAt;
+        private Integer id;
+        private Integer postId;
+        private Integer resumeId;
+        private Integer personId;
+        private String profile;
+        private String companyName;
+        private String title;
+        private Timestamp createdAt;
 
         @Builder
         public personOffersDTO(Offer offer) {
-            this.offerId = offer.getPost().getId();
+            this.id = offer.getPost().getId();
+            this.postId = offer.getPost().getId();
             this.personId = offer.getResume().getUser().getId();
             this.profile = offer.getPost().getProfile();
             this.companyName = offer.getPost().getUser().getCompanyName();
@@ -33,17 +36,17 @@ public class OfferResponse {
 
     @Data
     public static class companyOffersDTO {
-        int offerId;
-        int companyId;
-        String profile;
-        String username;
-        String carrer;
-        String simpleIntroduce;
-        List<SkillDTO> skills = new ArrayList<>();
+        private Integer offerId;
+        private Integer companyId;
+        private String profile;
+        private String username;
+        private String career;
+        private String simpleIntroduce;
+        private List<SkillDTO> skills = new ArrayList<>();
 
         @Data
         public class SkillDTO {
-            private int id;
+            private Integer id;
             private String skill;
 
             public SkillDTO(Skill skill) {
@@ -57,7 +60,7 @@ public class OfferResponse {
             this.companyId = offer.getPost().getUser().getId();
             this.profile = offer.getResume().getProfile();
             this.username = offer.getResume().getUser().getName();
-            this.carrer = offer.getResume().getCareer();
+            this.career = offer.getResume().getCareer();
             this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
             this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
@@ -65,24 +68,25 @@ public class OfferResponse {
 
     @Data
     public static class personOfferDetailDTO {
-        int postId;
-        int personId;
-        String title;
-        String profile;
-        String career;
-        String pay;
-        String deadline;
-        String companyName;
-        String task;
-        String workStartTime;
-        String workEndTime;
-        String workingArea;
-        String workCondition;
-        List<SkillDTO> skills = new ArrayList<>();
+        private Integer id;
+        private Integer postId;
+        private Integer personId;
+        private String title;
+        private String profile;
+        private String career;
+        private String pay;
+        private String deadline;
+        private String companyName;
+        private String task;
+        private String workStartTime;
+        private String workEndTime;
+        private String workingArea;
+        private String workCondition;
+        private List<SkillDTO> skills = new ArrayList<>();
 
         @Data
         public class SkillDTO {
-            private int id;
+            private Integer id;
             private String skill;
 
             public SkillDTO(Skill skill) {
@@ -93,6 +97,7 @@ public class OfferResponse {
         }
 
         public personOfferDetailDTO(Offer offer) {
+            this.id = offer.getId();
             this.postId = offer.getPost().getId();
             this.personId = offer.getResume().getId();
             this.title = offer.getPost().getTitle();
@@ -112,25 +117,26 @@ public class OfferResponse {
 
     // 04-02 YSH
     @Data
-    public static class companyOfferDetailDTO{
-        int offerId;
-        int resumeId;
-        String title;
-        String profile;
-        String career;
-        String simpleIntroduce;
-        String portfolio;
-        String introduce;
-        String name;
-        String birth;
-        String tel;
-        String address;
-        String email;
-        List<SkillDTO> skills = new ArrayList<>();
+    public static class companyOfferDetailDTO {
+        private Integer offerId;
+        private Integer resumeId;
+        private Integer postId;
+        private String title;
+        private String profile;
+        private String career;
+        private String simpleIntroduce;
+        private String portfolio;
+        private String introduce;
+        private String name;
+        private String birth;
+        private String tel;
+        private String address;
+        private String email;
+        private List<SkillDTO> skills = new ArrayList<>();
 
         @Data
-        public class SkillDTO{
-            private int id;
+        public class SkillDTO {
+            private Integer id;
             private String skill;
 
             public SkillDTO(Skill skill) {
@@ -142,6 +148,7 @@ public class OfferResponse {
         public companyOfferDetailDTO(Offer offer) {
             this.offerId = offer.getId();
             this.resumeId = offer.getResume().getId();
+            this.postId = offer.getPost().getId();
             this.title = offer.getResume().getTitle();
             this.profile = offer.getResume().getProfile();
             this.career = offer.getResume().getCareer();
@@ -173,7 +180,7 @@ public class OfferResponse {
         private String title;
         private String profile;
         private String name;
-        private String  birth;
+        private String birth;
         private String tel;
         private String address;
         private String email;
@@ -192,8 +199,8 @@ public class OfferResponse {
 
     @Data
     public static class ChoiceDTO {
-        private int resumeId;
-        private int postId; // 채용공고 아이디
+        private Integer resumeId;
+        private Integer postId; // 채용공고 아이디
 
         public ChoiceDTO(Offer offer) {
             this.resumeId = offer.getResume().getId();

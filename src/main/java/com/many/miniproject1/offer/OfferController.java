@@ -30,7 +30,7 @@ public class OfferController {
     }
     // person의 offer 상세보기
     @GetMapping("/api/person/offers/{id}")
-    public ResponseEntity<?> personOfferDetail(@PathVariable int id) {
+    public ResponseEntity<?> personOfferDetail(@PathVariable Integer id) {
 
         OfferResponse.personOfferDetailDTO respDTO = offerService.personOfferDetail(id);
 

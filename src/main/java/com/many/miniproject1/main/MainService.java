@@ -123,7 +123,7 @@ public class MainService {
                         //이력서점수리스트 만큼 반복문 돌리기
                         for (int k = 0; k < resumeSkillScore.size(); k++) {
                             //이력서점수리스트의 이력서아이디와 스킬테이블 이력서 아이디와 같으면 이력서 점수리스트에 해당하는 점수 1점 올리기
-                            if (resumeSkillScore.get(k).resumeId == resumeId) {
+                            if (resumeSkillScore.get(k).getResumeId() == resumeId) {
                                 //이력서점수 1점 추가하기
                                 resumeSkillScore.get(k).setScore(resumeSkillScore.get(k).getScore() + 1);
                                 ;
@@ -216,7 +216,7 @@ public class MainService {
                         //이력서점수리스트 만큼 반복문 돌리기
                         for (int k = 0; k < postSkillScore.size(); k++) {
                             //이력서점수리스트의 이력서아이디와 스킬테이블 이력서 아이디와 같으면 이력서 점수리스트에 해당하는 점수 1점 올리기
-                            if (postSkillScore.get(k).postId == postId) {
+                            if (postSkillScore.get(k).getPostId() == postId) {
                                 //이력서점수 1점 추가하기
                                 postSkillScore.get(k).setScore(postSkillScore.get(k).getScore() + 1);
                                 break;
@@ -237,7 +237,7 @@ public class MainService {
         List<Post> matchingPostList = new ArrayList<>();
 
         for (int i = 0; i < filteredList.size(); i++) {
-            int postId = filteredList.get(i).postId;
+            int postId = filteredList.get(i).getPostId();
             matchingPostList.add(postJPARepository.findByPostIdJoinUserAndSkill(postId));
         }
         return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post)).toList();

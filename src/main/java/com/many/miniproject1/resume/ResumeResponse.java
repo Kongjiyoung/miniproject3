@@ -1,8 +1,6 @@
 package com.many.miniproject1.resume;
 
 import com.many.miniproject1.skill.Skill;
-import com.many.miniproject1.user.SessionUser;
-import com.many.miniproject1.user.User;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -12,22 +10,22 @@ public class ResumeResponse {
 
     // 04-02 YSH
     @Data
-    public static class ResumeSaveDTO{
-        int resumeId;
-        String title;
-        String profile;
-        String profileName;
-        String career;
-        String simpleIntroduce;
-        String portfolio;
-        String introduce;
-        List<SkillDTO> skills;
+    public static class ResumeSaveDTO {
+        private Integer resumeId;
+        private String title;
+        private String profile;
+        private String profileName;
+        private String career;
+        private String simpleIntroduce;
+        private String portfolio;
+        private String introduce;
+        private List<SkillDTO> skills;
 
         public ResumeSaveDTO(Resume resume, List<Skill> skills) {
             this.resumeId = resume.getId();
             this.title = resume.getTitle();
             this.profile = resume.getProfile();
-            this.profileName= resume.getProfileName();
+            this.profileName = resume.getProfileName();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
@@ -36,8 +34,8 @@ public class ResumeResponse {
         }
 
         @Data
-        public static class SkillDTO{
-            private int id;
+        public static class SkillDTO {
+            private Integer id;
             private String skill;
 
             public SkillDTO(Skill skill) {
@@ -46,6 +44,7 @@ public class ResumeResponse {
             }
         }
     }
+
     @Data
     public static class DetailSkillDTO {
         private Integer id;
@@ -142,7 +141,7 @@ public class ResumeResponse {
 
         @Data
         public class ResumeSkillDTO {
-            private int id;
+            private Integer id;
             private String skill;
 
             public ResumeSkillDTO(Skill skill) {
