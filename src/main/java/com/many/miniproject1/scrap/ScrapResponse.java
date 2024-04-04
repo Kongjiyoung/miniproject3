@@ -11,10 +11,12 @@ public class ScrapResponse {
 
     @Data
     public static class PostScrapSaveDTO {
+        private Integer id;
         private Integer userId;
         private Integer postId;
 
         public PostScrapSaveDTO(Scrap scrap) {
+            this.id = scrap.getId();
             this.userId = scrap.getUser().getId();
             this.postId = scrap.getPost().getId();
         }

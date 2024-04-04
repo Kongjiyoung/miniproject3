@@ -252,11 +252,11 @@ public class MainResponse {
     }
 
     @Data
-    public static class PosteMatchingChoiceDTO {
+    public static class PostMatchingChoiceDTO {
         private Integer postId;
         private String postTitle;
 
-        public PosteMatchingChoiceDTO(Post post) {
+        public PostMatchingChoiceDTO(Post post) {
             this.postId = post.getId();
             this.postTitle = post.getTitle();
         }
@@ -318,6 +318,61 @@ public class MainResponse {
             this.title = title;
         }
     }
+
+//    @Data
+//    public static class MainResumeDetailDTO { // 이력서, 유저 + 로그인한 유저의 이력서
+//        // resume
+//        private Integer id;
+//        private String title;
+//        private String career;
+//        private String simpleIntroduce;
+//        private String portfolio;
+//        private String introduce;
+//        private List<SkillDTO> skllList;
+//
+//        // user
+//        private Integer companyId;
+//        private String profile;
+//        private String name;
+//        private Date birth;
+//        private String tel;
+//        private String address;
+//        private String email;
+//
+////        // post
+////        private List<PostDTO> postList;
+//
+//        @Builder
+//        public MainResumeDetailDTO(Resume resume, User user, List<Skill> skillList) {
+//            this.id = resume.getId();
+//            this.title = resume.getTitle();
+//            this.career = resume.getCareer();
+//            this.simpleIntroduce = resume.getSimpleIntroduce();
+//            this.portfolio = resume.getPortfolio();
+//            this.introduce = resume.getIntroduce();
+//            this.profile = resume.getProfile();
+//            this.skillList = skillList.stream().map(skill -> {
+//                return new SkillDTO(skill);
+//            }).collect(Collectors.toList());
+//            this.companyId = user.getId();
+//            this.name = user.getName();
+//            this.birth = Date.valueOf(user.getBirth());
+//            this.tel = user.getTel();
+//            this.address = user.getAddress();
+//            this.email = user.getEmail();
+//        }
+//
+//        @Data
+//        public class SkillDTO {
+//            private Integer id;
+//            private String skill;
+//
+//            public SkillDTO(Skill skill) {
+//                this.id = skill.getId();
+//                this.skill = skill.getSkill();
+//            }
+//        }
+//    }
 
     @Data
     public static class MainResumeDetailDTO { // 이력서, 유저 + 로그인한 유저의 이력서

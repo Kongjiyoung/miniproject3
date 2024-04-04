@@ -88,9 +88,9 @@ public class MainService {
         return resumeList.stream().map(resume -> new MainResponse.ApplyListDTO(resume)).toList();
     }
 
-    public List<MainResponse.PosteMatchingChoiceDTO> findByUserIdPost(int userId) {
+    public List<MainResponse.PostMatchingChoiceDTO> findByUserIdPost(int userId) {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);
-        return postList.stream().map(post -> new MainResponse.PosteMatchingChoiceDTO(post)).toList();
+        return postList.stream().map(post -> new MainResponse.PostMatchingChoiceDTO(post)).toList();
     }
 
     public List<MainResponse.ResumeeMatchingChoiceDTO> findByUserIdResume(int userId) {
