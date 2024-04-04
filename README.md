@@ -53,18 +53,13 @@
 + 메인 - 개인 이력서 상세보기
 + 메인 - 기업이 개인 이력서에 제안하는 기능
 ## 4. 기술스택
+![image](https://github.com/Kongjiyoung/miniproject3/assets/153695703/51e9c0fb-a478-4f10-9f69-5fd2f134e8f3)
 + JDK 11
-
 + Springboot 3.2.3
-
 + 테스트 h2 디비
-
 + HTML
-
 + CSS
-
 + JAVAScript
-
 + Bootstrap
 ## 5. 기능
 #### MANY는 구인하는 기업과 구직하는 구직자의 매칭 기능 제공하는 사이트입니다.
