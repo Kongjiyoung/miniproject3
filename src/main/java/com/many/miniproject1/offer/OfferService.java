@@ -15,33 +15,33 @@ public class OfferService {
     // 04-01 YSH ~
     // 개인 제안 목록
     @Transactional(readOnly = true)
-    public List<OfferResponse.personOffersDTO> personOffers(int id) {
+    public List<OfferResponse.PersonOffersDTO> personOffers(int id) {
         List<Offer> personOffers = offerJPARepository.personFindAllOffers(id);
 
-        return personOffers.stream().map(offer -> new OfferResponse.personOffersDTO(offer)).toList();
+        return personOffers.stream().map(offer -> new OfferResponse.PersonOffersDTO(offer)).toList();
     }
     // 기업이 보낸 제안(이력서)들
     @Transactional(readOnly = true)
-    public List<OfferResponse.companyOffersDTO> companyOffers(int id) {
+    public List<OfferResponse.CompanyOffersDTO> companyOffers(int id) {
         List<Offer> companyOffers = offerJPARepository.companyFindAllOffers(id);
 
-        return companyOffers.stream().map(offer -> new OfferResponse.companyOffersDTO(offer)).toList();
+        return companyOffers.stream().map(offer -> new OfferResponse.CompanyOffersDTO(offer)).toList();
     }
     // 개인이 제안(공고)상세보기
     @Transactional(readOnly = true)
-    public OfferResponse.personOfferDetailDTO personOfferDetail(int id) {
+    public OfferResponse.PersonOfferDetailDTO personOfferDetail(int id) {
         Offer offer = offerJPARepository.personFindByOfferId(id);
 
-        return new OfferResponse.personOfferDetailDTO(offer);
+        return new OfferResponse.PersonOfferDetailDTO(offer);
     }
 
     // 04-02 YSH
     // 기업의 제안(이력서) 상세보기
     @Transactional(readOnly = true)
-    public OfferResponse.companyOfferDetailDTO companyOfferDetail(int id) {
+    public OfferResponse.CompanyOfferDetailDTO companyOfferDetail(int id) {
         Offer offer = offerJPARepository.companyFindByOfferId(id);
 
-        return new OfferResponse.companyOfferDetailDTO(offer);
+        return new OfferResponse.CompanyOfferDetailDTO(offer);
     }
     // 기업의 제안 취소
     @Transactional(readOnly = true)

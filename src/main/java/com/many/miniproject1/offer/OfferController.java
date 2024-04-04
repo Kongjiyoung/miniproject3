@@ -24,7 +24,7 @@ public class OfferController {
     public ResponseEntity<?> personOffers() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         System.out.println(sessionUser.getId());
-        List<OfferResponse.personOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
+        List<OfferResponse.PersonOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
         System.out.println(respDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -32,7 +32,7 @@ public class OfferController {
     @GetMapping("/api/person/offers/{id}")
     public ResponseEntity<?> personOfferDetail(@PathVariable Integer id) {
 
-        OfferResponse.personOfferDetailDTO respDTO = offerService.personOfferDetail(id);
+        OfferResponse.PersonOfferDetailDTO respDTO = offerService.personOfferDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -40,7 +40,7 @@ public class OfferController {
     @GetMapping("/api/company/offers")
     public ResponseEntity<?> companyOffers() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<OfferResponse.companyOffersDTO> respDTO = offerService.companyOffers(14);
+        List<OfferResponse.CompanyOffersDTO> respDTO = offerService.companyOffers(14);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
     // 04-02
@@ -48,7 +48,7 @@ public class OfferController {
     @GetMapping("/api/company/offers/{id}")
     public ResponseEntity<?> companyOfferDetail(@PathVariable int id) {
 
-        OfferResponse.companyOfferDetailDTO respDTO = offerService.companyOfferDetail(id);
+        OfferResponse.CompanyOfferDetailDTO respDTO = offerService.companyOfferDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

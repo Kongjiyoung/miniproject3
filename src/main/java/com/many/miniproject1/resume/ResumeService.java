@@ -141,13 +141,13 @@ public class ResumeService {
         return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
     }
 
-    public ResumeResponse.resumeDetailDTO getResumeDetail(int resumeId, int sessionUserId) {
+    public ResumeResponse.ResumeDetailDTO getResumeDetail(int resumeId, int sessionUserId) {
         Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         if (sessionUserId != resume.getId()) {
             throw new Exception403("이력서를 볼 권한이 없습니다");
         }
-        return new ResumeResponse.resumeDetailDTO(resume);
+        return new ResumeResponse.ResumeDetailDTO(resume);
     }
 
 
@@ -156,9 +156,9 @@ public class ResumeService {
         return resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 
-    public List<ResumeResponse.resumeListDTO> getResumeList(int userId) {
+    public List<ResumeResponse.ResumeListDTO> getResumeList(int userId) {
         List<Resume> resumeList = resumeJPARepository.findAllResume(userId);
-        return resumeList.stream().map(resume -> new ResumeResponse.resumeListDTO(resume)).toList();
+        return resumeList.stream().map(resume -> new ResumeResponse.ResumeListDTO(resume)).toList();
     }
 
     @Transactional

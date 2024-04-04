@@ -12,7 +12,7 @@ public class OfferResponse {
 
     // 04-01 YSH
     @Data
-    public static class personOffersDTO {
+    public static class PersonOffersDTO {
         private Integer id;
         private Integer postId;
         private Integer resumeId;
@@ -23,7 +23,7 @@ public class OfferResponse {
         private Timestamp createdAt;
 
         @Builder
-        public personOffersDTO(Offer offer) {
+        public PersonOffersDTO(Offer offer) {
             this.id = offer.getPost().getId();
             this.postId = offer.getPost().getId();
             this.personId = offer.getResume().getUser().getId();
@@ -35,7 +35,7 @@ public class OfferResponse {
     }
 
     @Data
-    public static class companyOffersDTO {
+    public static class CompanyOffersDTO {
         private Integer offerId;
         private Integer companyId;
         private String profile;
@@ -55,7 +55,7 @@ public class OfferResponse {
             }
         }
 
-        public companyOffersDTO(Offer offer) {
+        public CompanyOffersDTO(Offer offer) {
             this.offerId = offer.getId();
             this.companyId = offer.getPost().getUser().getId();
             this.profile = offer.getResume().getProfile();
@@ -67,7 +67,7 @@ public class OfferResponse {
     }
 
     @Data
-    public static class personOfferDetailDTO {
+    public static class PersonOfferDetailDTO {
         private Integer id;
         private Integer postId;
         private Integer personId;
@@ -96,7 +96,7 @@ public class OfferResponse {
 
         }
 
-        public personOfferDetailDTO(Offer offer) {
+        public PersonOfferDetailDTO(Offer offer) {
             this.id = offer.getId();
             this.postId = offer.getPost().getId();
             this.personId = offer.getResume().getId();
@@ -117,7 +117,7 @@ public class OfferResponse {
 
     // 04-02 YSH
     @Data
-    public static class companyOfferDetailDTO {
+    public static class CompanyOfferDetailDTO {
         private Integer offerId;
         private Integer resumeId;
         private Integer postId;
@@ -145,7 +145,7 @@ public class OfferResponse {
             }
         }
 
-        public companyOfferDetailDTO(Offer offer) {
+        public CompanyOfferDetailDTO(Offer offer) {
             this.offerId = offer.getId();
             this.resumeId = offer.getResume().getId();
             this.postId = offer.getPost().getId();

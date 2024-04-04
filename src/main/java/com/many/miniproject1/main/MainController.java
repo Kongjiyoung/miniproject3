@@ -38,7 +38,7 @@ public class MainController {
     @GetMapping("/resumes")
     public ResponseEntity<?> resumes() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<MainResponse.mainResumesDTO> respDTO = mainService.mainResumes();
+        List<MainResponse.MainResumesDTO> respDTO = mainService.mainResumes();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -91,7 +91,7 @@ public class MainController {
     //메인 채용 공고
     @GetMapping({"/posts", "/"})
     public ResponseEntity<?> posts() {
-        List<MainResponse.mainPostsDTO> respDTO = mainService.getPostList();
+        List<MainResponse.MainPostsDTO> respDTO = mainService.getPostList();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -156,7 +156,7 @@ public class MainController {
     public ResponseEntity<?> matchingResumes() {
         //공고 가져오기
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<MainResponse.ResumeeMatchingChoiceDTO> resumeList = mainService.findByUserIdResume(sessionUser.getId());
+        List<MainResponse.ResumeMatchingChoiceDTO> resumeList = mainService.findByUserIdResume(sessionUser.getId());
         Integer resumeChoice = (Integer) session.getAttribute("resumeChoice");
         if (resumeChoice != null) {
             List<MainResponse.MainResumeMatchDTO> postList = mainService.matchingPost(resumeChoice);

@@ -106,7 +106,7 @@ public class ResumeResponse {
 
 
     @Data
-    public static class resumeDetailDTO {
+    public static class ResumeDetailDTO {
         private Integer id;
         private Integer userId;
         private String title;
@@ -120,9 +120,9 @@ public class ResumeResponse {
         private String simpleIntroduce;
         private String portfolio;
         private String introduce;
-        private List<resumeDetailDTO.ResumeSkillDTO> skills;
+        private List<ResumeDetailDTO.ResumeSkillDTO> skills;
 
-        public resumeDetailDTO(Resume resume) {
+        public ResumeDetailDTO(Resume resume) {
             this.id = resume.getId();
             this.userId = resume.getUser().getId();
             this.title = resume.getTitle();
@@ -136,7 +136,7 @@ public class ResumeResponse {
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
             this.introduce = resume.getIntroduce();
-            this.skills = resume.getSkills().stream().map(skill -> new resumeDetailDTO.ResumeSkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(skill -> new ResumeDetailDTO.ResumeSkillDTO(skill)).toList();
         }
 
         @Data
@@ -152,7 +152,7 @@ public class ResumeResponse {
     }
 
     @Data
-    public static class skillDTO {
+    public static class SkillDTO {
         private Integer resumeId;
         private String skill;
     }
@@ -194,7 +194,7 @@ public class ResumeResponse {
     }
 
     @Data
-    public static class resumeListDTO {
+    public static class ResumeListDTO {
         int id;
         Integer personId;
         String profile;
@@ -204,7 +204,7 @@ public class ResumeResponse {
         String simpleIntroduce;
         List<ResumeSkillDTO> skills;
 
-        public resumeListDTO(Resume resume) {
+        public ResumeListDTO(Resume resume) {
             this.id = resume.getId();
             this.personId = resume.getUser().getId();
             this.name = resume.getUser().getName();
