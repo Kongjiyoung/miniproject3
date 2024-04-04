@@ -24,7 +24,7 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
             JOIN FETCH o.post p
             WHERE p.user.id = :company_id
             """)
-    List<Offer> companyFindAllOffers(@Param("company_id") int company_id);
+    List<Offer> companyFindAllOffers(@Param("company_id") Integer companyId);
 
     @Query("""
         SELECT o

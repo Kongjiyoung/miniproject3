@@ -46,10 +46,10 @@ public class MainService {
     private final UserService userService;
 
     // 04-02 YSH
-    public List<MainResponse.mainResumesDTO> mainResumes() {
+    public List<MainResponse.MainResumesDTO> mainResumes() {
         List<Resume> mainResumes = resumeJPARepository.mainAllResume();
 
-        return mainResumes.stream().map(resume -> new MainResponse.mainResumesDTO(resume)).toList();
+        return mainResumes.stream().map(resume -> new MainResponse.MainResumesDTO(resume)).toList();
     }
 
     public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId) {
@@ -88,14 +88,14 @@ public class MainService {
         return resumeList.stream().map(resume -> new MainResponse.ApplyListDTO(resume)).toList();
     }
 
-    public List<MainResponse.PosteMatchingChoiceDTO> findByUserIdPost(int userId) {
+    public List<MainResponse.PostMatchingChoiceDTO> findByUserIdPost(int userId) {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);
-        return postList.stream().map(post -> new MainResponse.PosteMatchingChoiceDTO(post)).toList();
+        return postList.stream().map(post -> new MainResponse.PostMatchingChoiceDTO(post)).toList();
     }
 
-    public List<MainResponse.ResumeeMatchingChoiceDTO> findByUserIdResume(int userId) {
+    public List<MainResponse.ResumeMatchingChoiceDTO> findByUserIdResume(int userId) {
         List<Resume> resumeList = resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
-        return resumeList.stream().map(resume -> new MainResponse.ResumeeMatchingChoiceDTO(resume)).toList();
+        return resumeList.stream().map(resume -> new MainResponse.ResumeMatchingChoiceDTO(resume)).toList();
     }
 
     public List<MainResponse.MainPostMatchDTO> matchingResume(Integer postchoice) {
@@ -123,7 +123,7 @@ public class MainService {
                         //이력서점수리스트 만큼 반복문 돌리기
                         for (int k = 0; k < resumeSkillScore.size(); k++) {
                             //이력서점수리스트의 이력서아이디와 스킬테이블 이력서 아이디와 같으면 이력서 점수리스트에 해당하는 점수 1점 올리기
-                            if (resumeSkillScore.get(k).resumeId == resumeId) {
+                            if (resumeSkillScore.get(k).getResumeId() == resumeId) {
                                 //이력서점수 1점 추가하기
                                 resumeSkillScore.get(k).setScore(resumeSkillScore.get(k).getScore() + 1);
                                 ;
@@ -151,9 +151,9 @@ public class MainService {
     }
 
 
-    public List<MainResponse.mainPostsDTO> getPostList() {
+    public List<MainResponse.MainPostsDTO> getPostList() {
         List<Post> postList = postJPARepository.findAllPost();
-        return postList.stream().map(post -> new MainResponse.mainPostsDTO(post)).toList();
+        return postList.stream().map(post -> new MainResponse.MainPostsDTO(post)).toList();
     }
 
     public List<Resume> resumeForm() {
@@ -216,7 +216,7 @@ public class MainService {
                         //이력서점수리스트 만큼 반복문 돌리기
                         for (int k = 0; k < postSkillScore.size(); k++) {
                             //이력서점수리스트의 이력서아이디와 스킬테이블 이력서 아이디와 같으면 이력서 점수리스트에 해당하는 점수 1점 올리기
-                            if (postSkillScore.get(k).postId == postId) {
+                            if (postSkillScore.get(k).getPostId() == postId) {
                                 //이력서점수 1점 추가하기
                                 postSkillScore.get(k).setScore(postSkillScore.get(k).getScore() + 1);
                                 break;
@@ -237,12 +237,37 @@ public class MainService {
         List<Post> matchingPostList = new ArrayList<>();
 
         for (int i = 0; i < filteredList.size(); i++) {
-            int postId = filteredList.get(i).postId;
+            int postId = filteredList.get(i).getPostId();
             matchingPostList.add(postJPARepository.findByPostIdJoinUserAndSkill(postId));
         }
         return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post)).toList();
     }
 
+
+
+
+//    public List<MainResponse.PostTitleListDTO> getPostTitleListDTOs(Integer sessionUserId, Integer companyId) {
+//        List<Post> postList = postJPARepository.findPostListByCompanyId(sessionUserId, companyId);
+//        List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
+//
+//        postList.stream().map(post -> {
+//            return postTitleListDTOList.add(MainResponse.PostTitleListDTO.builder()
+//                    .id(post.getId())
+//                    .title(post.getTitle())
+//                    .build());
+//        }).collect(Collectors.toList());
+//
+//        return postTitleListDTOList;
+//    }
+//
+//    public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
+//        Resume resume = resumeJPARepository.findResumeById(resumeId);
+//
+//        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
+//    }
+
+
+    // 나의 생각!! 서비스에서 두 개의 리스트를 만들었는데 이것을 하나의 서비스에 담아서 돌려주자.
     public List<MainResponse.PostTitleListDTO> getPostTitleListDTOs(Integer sessionUserId, Integer companyId) {
         List<Post> postList = postJPARepository.findPostListByCompanyId(sessionUserId, companyId);
         List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();

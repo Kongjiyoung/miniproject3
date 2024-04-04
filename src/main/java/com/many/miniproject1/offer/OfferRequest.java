@@ -20,7 +20,7 @@ public class OfferRequest {
     }
 
     @Data
-    public static class ScrapOfferDTO{
+    public static class ScrapOfferDTO {
         private Resume resume;
         private Post post;
 
@@ -29,7 +29,7 @@ public class OfferRequest {
             this.resume = resume;
         }
 
-        public Offer toEntity(){
+        public Offer toEntity() {
             return Offer.builder()
                     .post(post)
                     .resume(resume)
@@ -39,6 +39,7 @@ public class OfferRequest {
 
     @Data
     public static class MainOfferSaveDTO {
+        private Integer id;
         private Integer resumeId;
         private Integer postId;
 
@@ -46,6 +47,7 @@ public class OfferRequest {
         }
 
         public MainOfferSaveDTO(Offer offer) {
+            this.id = offer.getId();
             this.resumeId = offer.getResume().getId();
             this.postId = offer.getPost().getId();
         }

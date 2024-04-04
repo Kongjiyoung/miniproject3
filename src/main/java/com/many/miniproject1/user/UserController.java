@@ -55,7 +55,7 @@ public class UserController {
 
     //회사 정보 및 수정
     //회사 정보 수정
-    @GetMapping("/api/company/info")
+    @GetMapping("/api/company/info") // 기업 정보를 보여주는데 비밀번호도 넘겨야 하나?
     public ResponseEntity<?> companyInfo() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.CompanyDTO respBody = userService.findByCompany(sessionUser.getId());

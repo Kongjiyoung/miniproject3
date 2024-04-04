@@ -5,11 +5,7 @@ import com.many.miniproject1.user.SessionUser;
 import lombok.Builder;
 import lombok.Data;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 public class PostResponse {
@@ -30,15 +26,16 @@ public class PostResponse {
             this.companyName = post.getUser().getCompanyName();
             this.career = post.getCareer();
             this.workingArea = post.getWorkingArea();
-            this.profile=post.getProfile();
+            this.profile = post.getProfile();
             this.skillList = post.getSkillList().stream().map(skill -> new PostSkillDTO(skill)).toList();
         }
+
         @Data
         public static class PostSkillDTO {
             private Integer id;
             private String skill;
 
-            public PostSkillDTO(Skill skill){
+            public PostSkillDTO(Skill skill) {
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }
@@ -46,6 +43,7 @@ public class PostResponse {
 
 
     }
+
     @Data
     public static class DetailDTO {
         private Integer id;
@@ -79,12 +77,13 @@ public class PostResponse {
             this.skillList = post.getSkillList().stream().map(skill -> new skillDTO(skill, sessionUser)).toList();
 
         }
+
         @Data
         public static class skillDTO {
             private Integer id;
             private String skill;
 
-            public skillDTO(Skill skill, SessionUser sessionUser){
+            public skillDTO(Skill skill, SessionUser sessionUser) {
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }
@@ -152,6 +151,7 @@ public class PostResponse {
 
     @Data
     public static class PostDTO {
+        private Integer id;
         private String title;
         private String career;
         private String pay;
@@ -164,7 +164,9 @@ public class PostResponse {
         private String profileName;
         private String workingArea;
         private List<SkillDTO> skills;
+
         public PostDTO(Post post, List<Skill> skills) {
+            this.id = post.getId();
             this.title = post.getTitle();
             this.career = post.getCareer();
             this.pay = post.getPay();
@@ -179,9 +181,10 @@ public class PostResponse {
             this.skills = skills.stream().map(skill -> (new SkillDTO(skill))).toList();
 
         }
+
         @Data
         public class SkillDTO {
-            private int id;
+            private Integer id;
             private String skill;
 
             public SkillDTO(Skill skill) {
@@ -194,6 +197,7 @@ public class PostResponse {
 
     @Data
     public static class PostUpdateDTO {
+        private Integer id;
         private String title;
         private String career;
         private String pay;
@@ -209,6 +213,7 @@ public class PostResponse {
 
         @Builder
         public PostUpdateDTO(Post post, List<Skill> skillList) {
+            this.id = post.getId();
             this.title = post.getTitle();
             this.career = post.getCareer();
             this.pay = post.getPay();
@@ -223,9 +228,10 @@ public class PostResponse {
             this.skills = skillList.stream().map(skill -> (new SkillDTO(skill))).toList();
 
         }
+
         @Data
         public class SkillDTO {
-            private int id;
+            private Integer id;
             private String skill;
 
             public SkillDTO(Skill skill) {

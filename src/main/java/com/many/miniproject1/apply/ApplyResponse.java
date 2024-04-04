@@ -17,11 +17,13 @@ import java.util.stream.Collectors;
 public class ApplyResponse {
     @Data
     public static class PostApplyDTO {
-        private int resumeId;
-        private int postId; // 채용공고 아이디
+        private Integer id;
+        private Integer resumeId;
+        private Integer postId; // 채용공고 아이디
         private String isPass;
 
         public PostApplyDTO(Apply apply) {
+            this.id = apply.getId();
             this.resumeId = apply.getResume().getId();
             this.postId = apply.getPost().getId();
             this.isPass = apply.getIsPass();
