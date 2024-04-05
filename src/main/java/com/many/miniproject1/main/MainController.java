@@ -120,7 +120,7 @@ public class MainController {
         List<MainResponse.PostMatchingChoiceDTO> respDTO = mainService.findByUserIdPost(sessionUser.getId());
 
         if (postChoice != null) {
-            List<MainResponse.MainPostMatchDTO> respResultDTO = mainService.matchingResume(postChoice);
+            MainResponse.MainPostMatchDTO respResultDTO = mainService.matchingResume(postChoice);
             return ResponseEntity.ok(new ApiUtil<>(respResultDTO));
         }
 
@@ -135,7 +135,7 @@ public class MainController {
         List<MainResponse.ResumeMatchingChoiceDTO> resumeList = mainService.findByUserIdResume(sessionUser.getId());
 
         if (resumeChoice != null) {
-            List<MainResponse.MainResumeMatchDTO> postResultList = mainService.matchingPost(resumeChoice);
+            MainResponse.MainResumeMatchDTO postResultList = mainService.matchingPost(resumeChoice);
             //resumeList와 함께 DTO에 담기
             return ResponseEntity.ok(new ApiUtil<>(postResultList));
         }

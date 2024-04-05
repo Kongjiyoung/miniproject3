@@ -22,6 +22,7 @@ import com.many.miniproject1.skill.SkillJPARepository;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
 import com.many.miniproject1.user.UserService;
+import com.sun.tools.javac.Main;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -51,6 +52,37 @@ public class MainService {
 
         return mainResumes.stream().map(resume -> new MainResponse.MainResumesDTO(resume)).toList();
     }
+    // 나의 생각!! 서비스에서 두 개의 리스트를 만들었는데 이것을 하나의 서비스에 담아서 돌려주자.
+    public List<MainResponse.PostTitleListDTO> getPostTitleListDTOs(Integer sessionUserId, Integer companyId) {
+        List<Post> postList = postJPARepository.findPostListByCompanyId(sessionUserId, companyId);
+        List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
+
+        postList.stream().map(post -> {
+            return postTitleListDTOList.add(MainResponse.PostTitleListDTO.builder()
+                    .id(post.getId())
+                    .title(post.getTitle())
+                    .build());
+        }).collect(Collectors.toList());
+
+        return postTitleListDTOList;
+    }
+
+    public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
+        Resume resume = resumeJPARepository.findResumeById(resumeId);
+
+        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
+    }
+
+    @Transactional
+    public OfferRequest.MainOfferSaveDTO sendPostToResume(Integer resumeId, Integer postId) {
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 이력서입니다."));
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다."));
+        //OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
+        Offer offer = offerJPARepository.save(OfferRequest.MainOfferSaveDTO.toEntity(resume, post));
+        return new OfferRequest.MainOfferSaveDTO(offer);
+    }
 
     public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId) {
         User user = userService.findByUser(userId);
@@ -63,13 +95,20 @@ public class MainService {
         return new ScrapResponse.MainResumeScrapDTO(scrap);
     }
 
-    public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
-        User user = userService.findByUser(userId);
-        Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
-        ScrapRequest.SavePostDTO saveScrap = new ScrapRequest.SavePostDTO(user, post);
-        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
-        return new ScrapResponse.PostScrapSaveDTO(scrap);
+    public List<MainResponse.MainPostsDTO> getPostList() {
+        List<Post> postList = postJPARepository.findAllPost();
+        return postList.stream().map(post -> new MainResponse.MainPostsDTO(post)).toList();
+    }
+
+    public MainResponse.PostDetailDTO getPostIsCompanyDetail(int postId, int userId, Boolean isCompany) {
+        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
+        List<Resume> resumes=resumeJPARepository.findAllResume(userId);
+        return new MainResponse.PostDetailDTO(post, resumes, isCompany);
+    }
+
+    public MainResponse.PostDetailDTO getPostDetail(int postId, Boolean isCompany) {
+        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
+        return new MainResponse.PostDetailDTO(post, isCompany);
     }
 
     public ApplyResponse.PostApplyDTO personPostApply(int postId, int resumeId) {
@@ -83,17 +122,25 @@ public class MainService {
         return new ApplyResponse.PostApplyDTO(apply);
     }
 
+    public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
+        User user = userService.findByUser(userId);
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+        ScrapRequest.SavePostDTO saveScrap = new ScrapRequest.SavePostDTO(user, post);
+        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
+        return new ScrapResponse.PostScrapSaveDTO(scrap);
+    }
+
     public List<MainResponse.PostMatchingChoiceDTO> findByUserIdPost(int userId) {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);
         return postList.stream().map(post -> new MainResponse.PostMatchingChoiceDTO(post)).toList();
     }
 
-    public List<MainResponse.ResumeMatchingChoiceDTO> findByUserIdResume(int userId) {
-        List<Resume> resumeList = resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
-        return resumeList.stream().map(resume -> new MainResponse.ResumeMatchingChoiceDTO(resume)).toList();
-    }
 
-    public List<MainResponse.MainPostMatchDTO> matchingResume(Integer postchoice) {
+
+
+
+    public MainResponse.MainPostMatchDTO matchingResume(Integer postchoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
         List<Skill> postSkills = skillJPARepository.findSkillsByPostId(postchoice);
         List<String> postSkill = postSkills.stream().map(skill -> skill.getSkill()).toList();
@@ -143,51 +190,17 @@ public class MainService {
         }
 
         Post post = postJPARepository.findById(postchoice).orElseThrow(() -> new Exception404("권한이 없습니다"));
-        MainResponse.MatchingPostsDTO =matchingResumeList.stream().map(resume -> new MainResponse.MatchingPostsDTO(resume)).toList();
-        return
+        List<MainResponse.MainResumesDTO>  resumesDTO=matchingResumeList.stream().map(resume -> new MainResponse.MainResumesDTO(resume)).toList();
+        return new MainResponse.MainPostMatchDTO(post, resumesDTO);
     }
 
 
-    public List<MainResponse.MainPostsDTO> getPostList() {
-        List<Post> postList = postJPARepository.findAllPost();
-        return postList.stream().map(post -> new MainResponse.MainPostsDTO(post)).toList();
+    public List<MainResponse.ResumeMatchingChoiceDTO> findByUserIdResume(int userId) {
+        List<Resume> resumeList = resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
+        return resumeList.stream().map(resume -> new MainResponse.ResumeMatchingChoiceDTO(resume)).toList();
     }
 
-
-
-    public MainResponse.PostDetailDTO getPostIsCompanyDetail(int postId, int userId, Boolean isCompany) {
-        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
-        List<Resume> resumes=resumeJPARepository.findAllResume(userId);
-        return new MainResponse.PostDetailDTO(post, resumes, isCompany);
-    }
-
-    public MainResponse.PostDetailDTO getPostDetail(int postId, Boolean isCompany) {
-        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
-        return new MainResponse.PostDetailDTO(post, isCompany);
-    }
-    @Transactional
-    public OfferRequest.MainOfferSaveDTO sendPostToResume(Integer resumeId, Integer postId) {
-        Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception404("존재하지 않는 이력서입니다."));
-        Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다."));
-        //OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
-        Offer offer = offerJPARepository.save(OfferRequest.MainOfferSaveDTO.toEntity(resume, post));
-        return new OfferRequest.MainOfferSaveDTO(offer);
-    }
-
-    @Transactional
-    public Scrap companyScrap(int id, Integer userId) {
-        Resume resume = resumeJPARepository.findById(id)
-                .orElseThrow(() -> new Exception401("존재하지 않는 이력서입니다...!" + id));
-        User user = userJPARepository.findById(userId)
-                .orElseThrow(() -> new Exception401("띠용~?" + userId));
-        ScrapRequest.MainScrapDTO mainScrapDTO = new ScrapRequest.MainScrapDTO(resume, user);
-        Scrap scrap = scrapJPARepository.save(mainScrapDTO.toEntity());
-        return scrap;
-    }
-
-    public List<MainResponse.MainResumeMatchDTO> matchingPost(Integer resumechoice) {
+    public MainResponse.MainResumeMatchDTO matchingPost(Integer resumechoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
         List<Skill> resumeSkills = skillJPARepository.findSkillsByResumeId(resumechoice);
         List<String> resumeSkill = resumeSkills.stream().map(skill -> skill.getSkill()).toList();
@@ -238,28 +251,8 @@ public class MainService {
 
         //선택한 이력서 확인
         Resume resume = resumeJPARepository.findById(resumechoice).orElseThrow(() -> new Exception401("권한이 없습니다"));
-        return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post, resume)).toList();
+        List<MainResponse.MainPostsDTO> mainPostsDTO=matchingPostList.stream().map(post -> new MainResponse.MainPostsDTO(post)).toList();
+        return new MainResponse.MainResumeMatchDTO(resume, mainPostsDTO);
     }
 
-
-    // 나의 생각!! 서비스에서 두 개의 리스트를 만들었는데 이것을 하나의 서비스에 담아서 돌려주자.
-    public List<MainResponse.PostTitleListDTO> getPostTitleListDTOs(Integer sessionUserId, Integer companyId) {
-        List<Post> postList = postJPARepository.findPostListByCompanyId(sessionUserId, companyId);
-        List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
-
-        postList.stream().map(post -> {
-            return postTitleListDTOList.add(MainResponse.PostTitleListDTO.builder()
-                    .id(post.getId())
-                    .title(post.getTitle())
-                    .build());
-        }).collect(Collectors.toList());
-
-        return postTitleListDTOList;
-    }
-
-    public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
-        Resume resume = resumeJPARepository.findResumeById(resumeId);
-
-        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
-    }
 }
