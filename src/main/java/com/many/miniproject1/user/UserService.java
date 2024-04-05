@@ -55,6 +55,8 @@ public class UserService {
         User user = userJPARepository.findById(personId)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         user.updatePersonInfo(reqDTO);
+        user.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(),reqDTO.getProfileName()));
+        user.setPassword(reqDTO.getNewPassword());
         return new UserResponse.PersonDTO(user);
     }
 
@@ -63,6 +65,8 @@ public class UserService {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         user.updateCompanyInfo(reqDTO);
+        user.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(),reqDTO.getProfileName()));
+        user.setPassword(reqDTO.getNewPassword());
         return new UserResponse.CompanyDTO(user);
     }
 

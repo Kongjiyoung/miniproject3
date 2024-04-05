@@ -7,7 +7,6 @@ public class ApiUtil<T> {
     private Integer status ; //200,400,404,405
     private String msg ; // 성공, 실패 -> 메세지  성공시에는 메세지 필요없음
     private T body1 ; // 타입이 정해져있지 않아 new 때 타입을 정하는 T로 정함
-    private T body2 ; // 타입이 정해져있지 않아 new 때 타입을 정하는 T로 정함
 
     //통신이 성공했을 때
     public ApiUtil(T body) {
@@ -16,12 +15,6 @@ public class ApiUtil<T> {
         this.body1 = body;
     }
 
-    public ApiUtil(T body1, T body2) {
-        this.status = 200;
-        this.msg ="성공";
-        this.body1 = body1;
-        this.body2 = body2;
-    }
     //통신이 실패했을 때
     public ApiUtil(Integer status, String msg) {
         this.status = status;

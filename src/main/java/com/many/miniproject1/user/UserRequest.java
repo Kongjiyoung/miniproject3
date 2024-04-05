@@ -4,19 +4,14 @@ import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.NoArgsConstructor;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.sql.Date;
-import java.util.Base64;
-import java.util.UUID;
 
 public class UserRequest {
 
+    @NoArgsConstructor
     @Data
     public static class PersonJoinDTO {
         @NotEmpty
@@ -56,6 +51,7 @@ public class UserRequest {
                     .build();
         }
     }
+    @NoArgsConstructor
     @Data
     public static class CompanyJoinDTO {
         @NotEmpty
@@ -102,6 +98,7 @@ public class UserRequest {
         }
     }
 
+    @NoArgsConstructor
     @Data
     public static class PersonInfoUpdateDTO {
         @NotEmpty
@@ -128,6 +125,7 @@ public class UserRequest {
         private String newPassword;
 
     }
+    @NoArgsConstructor
     @Data
     public static class CompanyInfoUpdateDTO {
         @NotEmpty
@@ -148,18 +146,9 @@ public class UserRequest {
         @NotEmpty
         @Size(min = 4, max = 20)
         private String newPassword;
-        @Builder
-        public CompanyInfoUpdateDTO(User user) {
-            this.profile = user.getProfile();
-            this.profileName = user.getProfileName();
-            this.address = user.getAddress();
-            this.tel = user.getTel();
-            this.email = user.getEmail();
-            this.password = user.getPassword();
-            this.newPassword = user.getPassword();
-        }
     }
 
+    @NoArgsConstructor
     @Data
     public static class LoginDTO {
         private String username;
