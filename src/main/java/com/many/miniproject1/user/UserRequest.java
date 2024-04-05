@@ -1,5 +1,6 @@
 package com.many.miniproject1.user;
 
+import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -41,17 +42,9 @@ public class UserRequest {
         private String password;
 
         public User toEntity() {
-            byte[] decodedBytes = Base64.getDecoder().decode(profile);
-            String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
-            try {
-                Path path = Path.of("./images/" + profilename);
-                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return User.builder()
                     .role("person")
-                    .profile(profilename)
+                    .profile(ProfileImageSaveUtil.convertToBase64(profile, profileName))
                     .profileName(profileName)
                     .username(username)
                     .name(name)
@@ -93,17 +86,9 @@ public class UserRequest {
         private String password;    // 비밀번호
 
         public User toEntity() {
-            byte[] decodedBytes = Base64.getDecoder().decode(profile);
-            String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
-            try {
-                Path path = Path.of("./images/" + profilename);
-                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return User.builder()
                     .role("company")
-                    .profile(profilename)
+                    .profile(ProfileImageSaveUtil.convertToBase64(profile, profileName))
                     .profileName(profileName)
                     .companyName(companyName)
                     .companyNum(companyNum)
@@ -123,8 +108,6 @@ public class UserRequest {
         private String profile;
         @NotEmpty
         private String profileName;
-        // private String name;
-        // private String birth;
         @NotEmpty
         private String name;
         @NotEmpty
@@ -165,18 +148,8 @@ public class UserRequest {
         @NotEmpty
         @Size(min = 4, max = 20)
         private String newPassword;
-
-
         @Builder
         public CompanyInfoUpdateDTO(User user) {
-            byte[] decodedBytes = Base64.getDecoder().decode(profile);
-            String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
-            try {
-                Path path = Path.of("./images/" + profilename);
-                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             this.profile = user.getProfile();
             this.profileName = user.getProfileName();
             this.address = user.getAddress();
