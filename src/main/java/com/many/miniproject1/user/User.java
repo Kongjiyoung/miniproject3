@@ -56,8 +56,6 @@ public class User {
         this.tel = reqDTO.getTel();
         this.address = reqDTO.getAddress();
         this.email = reqDTO.getEmail();
-        this.password = reqDTO.getNewPassword();
-        this.profile = ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(), reqDTO.getProfileName());
         this.profileName = reqDTO.getProfileName();
         this.name = reqDTO.getName();
         this.birth = reqDTO.getBirth();
@@ -67,8 +65,6 @@ public class User {
         this.tel = reqDTO.getTel();
         this.address = reqDTO.getAddress();
         this.email = reqDTO.getEmail();
-        this.password = reqDTO.getNewPassword();
-        this.profile = ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(), reqDTO.getProfileName());
         this.profileName = reqDTO.getProfileName();
     }
 }

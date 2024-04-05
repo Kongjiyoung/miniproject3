@@ -11,6 +11,11 @@ public class SkillResponse {
         private String skill;
         private Resume resume;
 
+        public SaveResumeDTO(String skillName, Resume resume) {
+            this.skill=skillName;
+            this.resume=resume;
+        }
+
         public Skill toEntity() {
             return Skill.builder()
                     .skill(skill)

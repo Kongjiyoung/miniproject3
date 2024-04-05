@@ -36,7 +36,6 @@ public class ResumeService {
     private final ScrapJPARepository scrapJPARepository;
     private final UserJPARepository userJPARepository;
 
-
     //이력서 목록보기
     public List<ResumeResponse.ResumeListDTO> getResumeList(int userId) {
         List<Resume> resumeList = resumeJPARepository.findAllResume(userId);
@@ -57,14 +56,17 @@ public class ResumeService {
     @Transactional
     public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, SessionUser sessionUser){
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인"));
+
+        //이력서 저장
         Resume resume = resumeJPARepository.save(reqDTO.toEntity(user));
+
+        //스킬 저장
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
-            skill.setSkill(skillName);
-            skill.setResume(resume);
+            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO(skillName, resume);
             skills.add(skill.toEntity());
         }
+
         List<Skill> skillList = skillJPARepository.saveAll(skills);
         return new ResumeResponse.ResumeSaveDTO(resume, skillList);
     }
@@ -75,45 +77,24 @@ public class ResumeService {
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
 
-        if (reqDTO.getProfile() != null) {
-            resume.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(), reqDTO.getProfileName()));
-        }
+        //이력서 업데이트
+        resume.updateResume(reqDTO);
+        resume.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(),reqDTO.getProfileName()));
 
-        if (reqDTO.getProfileName() != null) {
-            resume.setProfileName(reqDTO.getProfileName());
-        }
-
-        if (reqDTO.getTitle() != null) {
-            resume.setTitle(reqDTO.getTitle());
-        }
-        if (reqDTO.getPortfolio() != null) {
-            resume.setPortfolio(reqDTO.getPortfolio());
-        }
-        if (reqDTO.getIntroduce() != null) {
-            resume.setIntroduce(reqDTO.getIntroduce());
-        }
-        if (reqDTO.getCareer() != null) {
-            resume.setCareer(reqDTO.getCareer());
-        }
-        if (reqDTO.getSimpleIntroduce() != null) {
-            resume.setSimpleIntroduce(reqDTO.getSimpleIntroduce());
-        }
-
-
-        // 4. 스킬 업데이트
+        //스킬 전체 삭제
         List<Skill> beforeSkill = skillJPARepository.findSkillsByPostId(resume.getId());
         for (Skill skill : beforeSkill) {
             skillJPARepository.deleteSkillsByPostId(resume.getId());
         }
 
+        //스킬 업데이트
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
-            skill.setSkill(skillName);
-            skill.setResume(resume);
+            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO(skillName, resume);
             skills.add(skill.toEntity());
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
+
         return new ResumeResponse.UpdateDTO(resume, skillList);
     }
 
