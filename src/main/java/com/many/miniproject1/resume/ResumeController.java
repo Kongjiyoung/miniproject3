@@ -24,8 +24,6 @@ public class ResumeController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서
-
     // 개인 이력서 상세
     @GetMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personResume(@PathVariable Integer id) {
