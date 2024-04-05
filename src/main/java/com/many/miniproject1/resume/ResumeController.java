@@ -49,6 +49,7 @@ public class ResumeController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    //이력서 삭제
     @DeleteMapping("/api/person/resumes/{id}")
     public ResponseEntity<?> personDeleteResume(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");

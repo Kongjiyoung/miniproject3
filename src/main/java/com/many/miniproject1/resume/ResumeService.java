@@ -37,11 +37,13 @@ public class ResumeService {
     private final UserJPARepository userJPARepository;
 
 
+    //이력서 목록보기
     public List<ResumeResponse.ResumeListDTO> getResumeList(int userId) {
         List<Resume> resumeList = resumeJPARepository.findAllResume(userId);
         return resumeList.stream().map(resume -> new ResumeResponse.ResumeListDTO(resume)).toList();
     }
 
+    //이력서 상세보기
     public ResumeResponse.ResumeDetailDTO getResumeDetail(int resumeId, int sessionUserId) {
         Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
@@ -51,6 +53,7 @@ public class ResumeService {
         return new ResumeResponse.ResumeDetailDTO(resume);
     }
 
+    //이력서 저장
     @Transactional
     public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, SessionUser sessionUser){
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인"));
@@ -66,6 +69,7 @@ public class ResumeService {
         return new ResumeResponse.ResumeSaveDTO(resume, skillList);
     }
 
+    //이력서 업데이트
     @Transactional
     public ResumeResponse.UpdateDTO resumeUpdate(int resumeId, ResumeRequest.UpdateDTO reqDTO) {
         Resume resume = resumeJPARepository.findById(resumeId)
@@ -102,7 +106,6 @@ public class ResumeService {
             skillJPARepository.deleteSkillsByPostId(resume.getId());
         }
 
-
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
             SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
@@ -114,6 +117,7 @@ public class ResumeService {
         return new ResumeResponse.UpdateDTO(resume, skillList);
     }
 
+    //이력서 삭제
     @Transactional
     public void deleteResumeId(Integer resumeId, int sessionUserId) {
         Resume resume = resumeJPARepository.findById(resumeId)
