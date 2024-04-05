@@ -63,57 +63,6 @@ public class UserRequest {
                     .build();
         }
     }
-
-    @Data
-    public static class CompanyInfoUpdateDTO {
-        @NotEmpty
-        private String profile;
-        @NotEmpty
-        private String profileName;
-        @NotEmpty
-        private String address;
-        @NotEmpty
-        @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
-        private String tel;
-        @NotEmpty
-        @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$", message = "이메일 형식으로 작성해주세요")
-        private String email;
-        @NotEmpty
-        @Size(min = 4, max = 20)
-        private String password;
-        @NotEmpty
-        @Size(min = 4, max = 20)
-        private String newPassword;
-
-        public CompanyInfoUpdateDTO() {
-        }
-
-        @Builder
-        public CompanyInfoUpdateDTO(User user) {
-            byte[] decodedBytes = Base64.getDecoder().decode(profile);
-            String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
-            try {
-                Path path = Path.of("./images/" + profilename);
-                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            this.profile = user.getProfile();
-            this.profileName = user.getProfileName();
-            this.address = user.getAddress();
-            this.tel = user.getTel();
-            this.email = user.getEmail();
-            this.password = user.getPassword();
-            this.newPassword = user.getPassword();
-        }
-    }
-
-    @Data
-    public static class LoginDTO {
-        private String username;
-        private String password;
-    }
-
     @Data
     public static class CompanyJoinDTO {
         @NotEmpty
@@ -174,8 +123,8 @@ public class UserRequest {
         private String profile;
         @NotEmpty
         private String profileName;
-       // private String name;
-       // private String birth;
+        // private String name;
+        // private String birth;
         @NotEmpty
         private String name;
         @NotEmpty
@@ -195,11 +144,31 @@ public class UserRequest {
         @Size(min = 4, max = 20)
         private String newPassword;
 
-        public PersonInfoUpdateDTO() {
-        }
+    }
+    @Data
+    public static class CompanyInfoUpdateDTO {
+        @NotEmpty
+        private String profile;
+        @NotEmpty
+        private String profileName;
+        @NotEmpty
+        private String address;
+        @NotEmpty
+        @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
+        private String tel;
+        @NotEmpty
+        @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$", message = "이메일 형식으로 작성해주세요")
+        private String email;
+        @NotEmpty
+        @Size(min = 4, max = 20)
+        private String password;
+        @NotEmpty
+        @Size(min = 4, max = 20)
+        private String newPassword;
+
 
         @Builder
-        public PersonInfoUpdateDTO(User user) {
+        public CompanyInfoUpdateDTO(User user) {
             byte[] decodedBytes = Base64.getDecoder().decode(profile);
             String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
             try {
@@ -210,13 +179,19 @@ public class UserRequest {
             }
             this.profile = user.getProfile();
             this.profileName = user.getProfileName();
-          //  this.name = user.getName();
-           // this.birth = user.getName();
-            this.name = user.getName();
-            this.birth = user.getBirth();
-            this.tel = user.getTel();
             this.address = user.getAddress();
+            this.tel = user.getTel();
             this.email = user.getEmail();
+            this.password = user.getPassword();
+            this.newPassword = user.getPassword();
         }
     }
+
+    @Data
+    public static class LoginDTO {
+        private String username;
+        private String password;
+    }
+
+
 }
