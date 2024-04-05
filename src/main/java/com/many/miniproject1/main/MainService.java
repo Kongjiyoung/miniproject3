@@ -83,11 +83,6 @@ public class MainService {
         return new ApplyResponse.PostApplyDTO(apply);
     }
 
-    public List<MainResponse.ApplyListDTO> getResumeId(int id) {
-        List<Resume> resumeList = resumeJPARepository.findByUserId(id);
-        return resumeList.stream().map(resume -> new MainResponse.ApplyListDTO(resume)).toList();
-    }
-
     public List<MainResponse.PostMatchingChoiceDTO> findByUserIdPost(int userId) {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);
         return postList.stream().map(post -> new MainResponse.PostMatchingChoiceDTO(post)).toList();
@@ -115,7 +110,6 @@ public class MainService {
             //모든 스킬테이블에서 비교하기위해 반복문 돌리기
             for (int j = 0; j < skillJPARepository.findAll().size(); j++) {
                 if (skillJPARepository.findAll().get(j).getResume() != null) {
-
                     //스킬테이블과 공고스킬 비교하기
                     if (postSkill.get(i).equals(skillJPARepository.findAll().get(j).getSkill())) {
                         //스킬테이블에서 같은 스킬 찾아서 거기 이력서아이디 가져오기
@@ -165,11 +159,16 @@ public class MainService {
         return postJPARepository.findByUserIdJoinSkillAndUser(companyId);
     }
 
-    public MainResponse.PostDetailDTO getPostDetail(int postId) {
+    public MainResponse.PostDetailDTO getPostIsCompanyDetail(int postId, int userId, Boolean isCompany) {
         Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
-        return new MainResponse.PostDetailDTO(post);
+        List<Resume> resumes=resumeJPARepository.findAllResume(userId);
+        return new MainResponse.PostDetailDTO(post, resumes, isCompany);
     }
 
+    public MainResponse.PostDetailDTO getPostDetail(int postId, Boolean isCompany) {
+        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
+        return new MainResponse.PostDetailDTO(post, isCompany);
+    }
     @Transactional
     public OfferRequest.MainOfferSaveDTO sendPostToResume(Integer resumeId, Integer postId) {
         Resume resume = resumeJPARepository.findById(resumeId)
@@ -242,29 +241,6 @@ public class MainService {
         }
         return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post)).toList();
     }
-
-
-
-
-//    public List<MainResponse.PostTitleListDTO> getPostTitleListDTOs(Integer sessionUserId, Integer companyId) {
-//        List<Post> postList = postJPARepository.findPostListByCompanyId(sessionUserId, companyId);
-//        List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
-//
-//        postList.stream().map(post -> {
-//            return postTitleListDTOList.add(MainResponse.PostTitleListDTO.builder()
-//                    .id(post.getId())
-//                    .title(post.getTitle())
-//                    .build());
-//        }).collect(Collectors.toList());
-//
-//        return postTitleListDTOList;
-//    }
-//
-//    public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
-//        Resume resume = resumeJPARepository.findResumeById(resumeId);
-//
-//        return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
-//    }
 
 
     // 나의 생각!! 서비스에서 두 개의 리스트를 만들었는데 이것을 하나의 서비스에 담아서 돌려주자.

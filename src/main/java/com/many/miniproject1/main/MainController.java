@@ -26,15 +26,7 @@ public class MainController {
     private final UserService userService;
     private final ResumeJPARepository resumeJPARepository;
 
-    //맞춤 공고 - 기업이 보는 매칭 이력서
-
-    /**
-     * TODO: company/matching의 검색 버튼을 누르면 스트링을 인터저로 변환하지 못 해서 생기는 에러가 뜨는데 로직을 날려서 그런 것인지 원래 있던 문제인지 몰라서 남겨둠.
-     *  그 문제는 company/match로 넘어가는 과정에서 터지는 것이다.
-     *  /person/matching도 마찬가지이니 담당자는 반드시 체크할 것!!!
-     */
-    //메인 구직 공고
-    // 04-02 YSH
+    //메인 이력서 목록
     @GetMapping("/resumes")
     public ResponseEntity<?> resumes() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -43,6 +35,7 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    //메인 이력서 디테일
     @GetMapping("/resumes/{id}")
     public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
 
@@ -60,7 +53,7 @@ public class MainController {
 
         }
         // TODO: 테스트 끝나고 바로 아래 한 줄의 코드 삭제. 세션유저의 아이디와 컴퍼니 아이디가 일치해야 정보가 넘어가서 테스트할 때 주석 해제하고 보라고 빼놓음. 테스트할때 14, 14 넣으면 됨.
-        //postTitleListDTOList = mainService.getPostTitleListDTOs(14, 14);
+       // postTitleListDTOList = mainService.getPostTitleListDTOs(14, 14);
 
         MainResponse.MainResumeDetailDTO mainResumeDetailDTO = mainService.getResumeDetail(id);
         //resume만 아니라 postList도 같이 넘겨야함
@@ -72,19 +65,15 @@ public class MainController {
 
     @PostMapping("/api/resumes/{id}/offer")
     public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody OfferRequest.MainOfferSaveDTO reqDTO) {
-        // 회사가 개인의 이력서를 보고 맘에 들면 오퍼를 보냄
-        // INSERT INTO offer_tb(resume_id, post_id, created_at) VALUES (1, 1, now());
-        reqDTO = mainService.sendPostToResume(id, reqDTO.getPostId()); // 해당 아이디의 이력서로 포스트를 선택해서 오퍼를 보냄
+        reqDTO = mainService.sendPostToResume(id, reqDTO.getPostId());
 
         return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 
     @PostMapping("/api/resumes/{id}/scrap")
-
     public ResponseEntity<?> companyResumeScrap(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.MainResumeScrapDTO respDTO = mainService.resumeScrap(id, sessionUser.getId());
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -96,22 +85,24 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    //메인 채용 공고 디테일
     @GetMapping("/api/posts/{id}")
     public ResponseEntity<?> postDetail(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        // 목적: 로그인 하지 않아도 회사에서 올린 공고가 보임
-        MainResponse.PostDetailDTO respDTO = mainService.getPostDetail(id);
+        // 목적: 로그인 하지 않아도 채용 공고가 보임, 개인일때 resume제목을 주고 선택하여 지원함.
+        boolean isPerson = false;
         if (sessionUser != null) {
             if (sessionUser.getRole().equals("person")) {
-                List<MainResponse.ApplyListDTO> resumeList = mainService.getResumeId(sessionUser.getId());
-                return ResponseEntity.ok(new ApiUtil<>(respDTO, resumeList));
+                isPerson=true;
+                MainResponse.PostDetailDTO respDTO = mainService.getPostIsCompanyDetail(id, sessionUser.getId(), isPerson);
+                return ResponseEntity.ok(new ApiUtil<>(respDTO));
             }
         }
-        //resumeList도 같이 dto에 담아서 넘길 예정
+        MainResponse.PostDetailDTO respDTO = mainService.getPostDetail(id, isPerson);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 지원하기 버튼 안 보임
+    //이력서 지원하기
     @PostMapping("/api/posts/{id}/apply")
     public ResponseEntity<?> personPostApply(@PathVariable Integer id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
         ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
@@ -119,6 +110,7 @@ public class MainController {
 
     }
 
+    //공고 스크랩하기
     @PostMapping("/api/posts/{id}/scrap")
     public ResponseEntity<?> personPostScrap(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -128,6 +120,7 @@ public class MainController {
 
     }
 
+    //메인 매칭 이력서 목록
     @GetMapping("/api/posts/matching")
     public ResponseEntity<?> matchingPosts() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -142,6 +135,7 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(postList));
     }
 
+    //공고 선택하여 매칭하기
     @PostMapping("/api/posts/match")
     public ResponseEntity<?> matchingPost(@RequestBody MainRequest.PostChoiceDTO postChoiceDTO) {
         session.setAttribute("postChoice", postChoiceDTO.getPostChoice());
@@ -151,7 +145,7 @@ public class MainController {
 
     }
 
-    //맞춤 공고 - 개인이 보는 매칭 공고
+    //메인 매칭 공고 목록
     @GetMapping("/api/resumes/matching")
     public ResponseEntity<?> matchingResumes() {
         //공고 가져오기
@@ -168,6 +162,7 @@ public class MainController {
 
     }
 
+    //이력서 선택하여 매칭하기
     @PostMapping("/api/resumes/match")
     public ResponseEntity<?> matchingResume(@RequestBody MainRequest.ResumeChoiceDTO resumeChoiceDTO) {
         session.setAttribute("resumeChoice", resumeChoiceDTO.getResumeChoice());

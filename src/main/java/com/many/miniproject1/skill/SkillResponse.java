@@ -19,19 +19,6 @@ public class SkillResponse {
         }
     }
     @Data
-    public static class SaveDTO {
-        private String skill;
-        private Resume resume;
-
-        public Skill toEntity() {
-            return Skill.builder()
-                    .skill(skill)
-                    .resume(resume)
-                    .build();
-        }
-    }
-
-    @Data
     public static class PostSaveDTO{
         private String skill;
         private Post post;
