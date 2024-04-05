@@ -17,7 +17,7 @@ public class ResumeController {
     private final HttpSession session;
 
     // 개인 이력서 목록
-    @GetMapping("/api/person/resumes")
+    @GetMapping("/api/person/my-page/resumes")
     public ResponseEntity<?> personResumes(HttpSession session) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ResumeResponse.ResumeListDTO> respDTO = resumeService.getResumeList(sessionUser.getId());
@@ -26,16 +26,18 @@ public class ResumeController {
 
     // TODO: detail을 넣을지 말지 이야기가 필요함. 선생님은 넣지으셨는데 굳이 안 넣어도 될 것 같아서
 
+    // TODO: 권한이 없다고 나와 왜지?
     // 개인 이력서 상세
-    @GetMapping("/api/person/resumes/{id}")
+    @GetMapping("/api/person/my-page/resumes/{id}")
     public ResponseEntity<?> personResume(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.ResumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // TODO: 이력서를 볼 권한이 없습니다.
     // 개인 이력서 작성
-    @PostMapping("/api/person/resumes")
+    @PostMapping("/api/person/my-page/resumes")
     public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
@@ -43,18 +45,20 @@ public class ResumeController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // TODO: 이력서를 삭제할 권한이 없습니다.
     // 개인 이력서 수정
-    @PutMapping("/api/person/resumes/{id}")
+    @PutMapping("/api/person/my-page/resumes/{id}")
     public ResponseEntity<?> personUpdateResume(@PathVariable int id,@Valid  @RequestBody ResumeRequest.UpdateDTO reqDTO, Error error) {
         ResumeResponse.UpdateDTO respDTO = resumeService.resumeUpdate(id, reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @DeleteMapping("/api/person/resumes/{id}")
+    @DeleteMapping("/api/person/my-page/resumes/{id}")
     public ResponseEntity<?> personDeleteResume(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         resumeService.deleteResumeId(id, sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }

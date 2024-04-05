@@ -5,14 +5,13 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Date;
 import java.util.Base64;
 import java.util.UUID;
+
 
 public class UserRequest {
 
@@ -166,6 +165,8 @@ public class UserRequest {
         @Size(min = 4, max = 20)
         private String newPassword;
 
+        public CompanyInfoUpdateDTO() {
+        }
 
         @Builder
         public CompanyInfoUpdateDTO(User user) {

@@ -50,49 +50,54 @@ public class UserController {
     @GetMapping("/logout")
     public ResponseEntity<?> logout() {
         session.invalidate();
+
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
     //회사 정보 및 수정
     //회사 정보 수정
-    @GetMapping("/api/company/info") // 기업 정보를 보여주는데 비밀번호도 넘겨야 하나?
+    @GetMapping("/api/company/my-page/info") // 기업 정보를 보여주는데 비밀번호도 넘겨야 하나?
     public ResponseEntity<?> companyInfo() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.CompanyDTO respBody = userService.findByCompany(sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(respBody));
     }
 
-    @PutMapping("/api/companies/{id}/info")
+    @PutMapping("/api/company/my-page/info")
     public ResponseEntity<?> companyInfoUpdate(@Valid @RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO, Errors errors) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
+
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 
-    @PutMapping("/companies/{id}/info")
-    public ResponseEntity<?> companyInfoUpdate(@PathVariable Integer id, @Valid @RequestBody UserRequest.CompanyInfoUpdateDTO
-            reqDTO, Errors errors) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User newSessionUser = userService.companyInfoUpdate(id, reqDTO);
-        session.setAttribute("sessionUser", newSessionUser);
-        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
-    }
+//    @PutMapping("/companies/{id}/info")
+//    public ResponseEntity<?> companyInfoUpdate(@PathVariable Integer id, @Valid @RequestBody UserRequest.CompanyInfoUpdateDTO
+//            reqDTO, Errors errors) {
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//        User newSessionUser = userService.companyInfoUpdate(id, reqDTO);
+//        session.setAttribute("sessionUser", newSessionUser);
+//        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
+//    }
 
     //개인 프로필 정보 및 수정
-    @GetMapping("/api/person/info")
+    @GetMapping("/api/person/my-page/info")
     public ResponseEntity<?> personInfo() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.PersonDTO respDTO = userService.findByPerson(sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PutMapping("/api/people/{id}/info")
+    @PutMapping("/api/person/my-page/info")
     public ResponseEntity<?> personInfoUpdate(@RequestBody UserRequest.PersonInfoUpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
 //        SessionUser newSessionUser = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
         UserResponse.PersonDTO newSessionUser = userService.updatePersonInfo(sessionUser.getId(), reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
+
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 }

@@ -213,7 +213,7 @@ public class MainResponse {
             }
 
             @Data
-            public class SkillDTO {
+            public static class SkillDTO {
                 private Integer id;
                 private String skill;
 

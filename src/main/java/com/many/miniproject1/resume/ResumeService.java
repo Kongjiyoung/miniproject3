@@ -1,6 +1,5 @@
 package com.many.miniproject1.resume;
 
-import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
@@ -156,13 +155,13 @@ public class ResumeService {
         return resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 
-    public List<ResumeResponse.ResumeListDTO> getResumeList(int userId) {
+    public List<ResumeResponse.ResumeListDTO> getResumeList(Integer userId) {
         List<Resume> resumeList = resumeJPARepository.findAllResume(userId);
         return resumeList.stream().map(resume -> new ResumeResponse.ResumeListDTO(resume)).toList();
     }
 
     @Transactional
-    public void deleteResumeId(Integer resumeId, int sessionUserId) {
+    public void deleteResumeId(Integer resumeId, Integer sessionUserId) {
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         if(sessionUserId != resume.getUser().getId()){
