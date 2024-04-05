@@ -52,7 +52,7 @@ public class MainService {
         return mainResumes.stream().map(resume -> new MainResponse.MainResumesDTO(resume)).toList();
     }
 
-    public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId) {
+    public ScrapResponse.MainResumeScrapDTO resumeScrap(Integer resumeId, Integer userId) {
         User user = userService.findByUser(userId);
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception401(""));
@@ -72,7 +72,7 @@ public class MainService {
         return new ScrapResponse.PostScrapSaveDTO(scrap);
     }
 
-    public ApplyResponse.PostApplyDTO personPostApply(int postId, int resumeId) {
+    public ApplyResponse.PostApplyDTO personPostApply(Integer postId, Integer resumeId) {
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
         Resume resume = resumeJPARepository.findById(resumeId)
@@ -83,17 +83,17 @@ public class MainService {
         return new ApplyResponse.PostApplyDTO(apply);
     }
 
-    public List<MainResponse.ApplyListDTO> getResumeId(int id) {
+    public List<MainResponse.ApplyListDTO> getResumeId(Integer id) {
         List<Resume> resumeList = resumeJPARepository.findByUserId(id);
         return resumeList.stream().map(resume -> new MainResponse.ApplyListDTO(resume)).toList();
     }
 
-    public List<MainResponse.PostMatchingChoiceDTO> findByUserIdPost(int userId) {
+    public List<MainResponse.PostMatchingChoiceDTO> findByUserIdPost(Integer userId) {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);
         return postList.stream().map(post -> new MainResponse.PostMatchingChoiceDTO(post)).toList();
     }
 
-    public List<MainResponse.ResumeMatchingChoiceDTO> findByUserIdResume(int userId) {
+    public List<MainResponse.ResumeMatchingChoiceDTO> findByUserIdResume(Integer userId) {
         List<Resume> resumeList = resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
         return resumeList.stream().map(resume -> new MainResponse.ResumeMatchingChoiceDTO(resume)).toList();
     }

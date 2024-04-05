@@ -55,7 +55,7 @@ public class ApplyController {
     }
 
     @GetMapping("/api/person/applies/{id}") // 내가 지원한 공고 디테일
-    public ResponseEntity<?> personApply(@PathVariable int id) {
+    public ResponseEntity<?> personApply(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.ApplyPostSkillDetailDTO applyPostDetail = applyService.getPostDetail(id);
 
@@ -63,7 +63,7 @@ public class ApplyController {
     }
 
     @DeleteMapping("/api/person/applies/{id}")
-    public ResponseEntity<?> applyDelete(@PathVariable int id) {
+    public ResponseEntity<?> applyDelete(@PathVariable Integer id) {
         applyService.deleteApply(id);
 
         return ResponseEntity.ok(new ApiUtil<>(null));

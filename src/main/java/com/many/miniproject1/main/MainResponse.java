@@ -22,10 +22,10 @@ public class MainResponse {
         private String title;
         private String career;
         private String simplerIntroduce;
-        private List<SkillDTO> sklls = new ArrayList<>();
+        private List<SkillDTO> skills = new ArrayList<>();
 
         @Data
-        public class SkillDTO {
+        public static class SkillDTO {
             private Integer id;
             private String skill;
 
@@ -41,7 +41,7 @@ public class MainResponse {
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simplerIntroduce = resume.getSimpleIntroduce();
-            this.sklls = resume.getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(SkillDTO::new).toList();
         }
     }
 
@@ -64,11 +64,11 @@ public class MainResponse {
             this.task = post.getTask();
             this.career = post.getCareer();
             this.workingArea = post.getWorkingArea();
-            this.skills = post.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = post.getSkillList().stream().map(SkillDTO::new).toList();
         }
 
         @Data
-        public class SkillDTO {
+        public static class SkillDTO {
             private Integer id;
             private String skill;
 
@@ -107,11 +107,11 @@ public class MainResponse {
             this.workEndTime = post.getWorkEndTime();
             this.workingArea = post.getWorkingArea();
             this.workCondition = post.getWorkCondition();
-            this.skills = post.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = post.getSkillList().stream().map(SkillDTO::new).toList();
         }
 
         @Data
-        public class SkillDTO {
+        public static class SkillDTO {
             private Integer id;
             private String skill;
 
@@ -133,6 +133,7 @@ public class MainResponse {
         }
     }
 
+    @Data
     public static class OfferListDTO {
         private Integer postId;
         private String postTitle;
