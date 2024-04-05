@@ -30,5 +30,4 @@ spring:
         default_batch_fetch_size: 10
     defer-datasource-initialization: true
     open-in-view: false
-file:
-  upload-dir: \\images
+
