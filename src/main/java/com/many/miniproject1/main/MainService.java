@@ -94,60 +94,6 @@ public class MainService {
         return resumeList.stream().map(resume -> new MainResponse.ResumeMatchingChoiceDTO(resume)).toList();
     }
 
-//    public List<MainResponse.MainPostMatchDTO> matchingResume(Integer postchoice) {
-//        //매칭할 공고 스킬 가져와 리스트에 담기
-//        List<Skill> postSkills = skillJPARepository.findSkillsByPostId(postchoice);
-//        List<String> postSkill = postSkills.stream().map(skill -> skill.getSkill()).toList();
-//
-//        //전체 이력서 새로운 이력서점수리스트에 담기, 점수는 0으로 시작
-//        List<MainResponse.ResumeSkillDTO> resumeSkillScore = new ArrayList<>();
-//        for (int i = 0; i < resumeJPARepository.findAll().size(); i++) {
-//            int resumeId = resumeJPARepository.findAll().get(i).getId();
-//            resumeSkillScore.add(new MainResponse.ResumeSkillDTO(resumeId, 0));
-//        }
-//
-//        //공고스킬만큼 반복문 돌리기
-//        for (int i = 0; i < postSkill.size(); i++) {
-//            //모든 스킬테이블에서 비교하기위해 반복문 돌리기
-//            for (int j = 0; j < skillJPARepository.findAll().size(); j++) {
-//                if (skillJPARepository.findAll().get(j).getResume() != null) {
-//                    //스킬테이블과 공고스킬 비교하기
-//                    if (postSkill.get(i).equals(skillJPARepository.findAll().get(j).getSkill())) {
-//                        //스킬테이블에서 같은 스킬 찾아서 거기 이력서아이디 가져오기
-//                        int resumeId = skillJPARepository.findAll().get(j).getResume().getId();
-//                        //이력서점수리스트 만큼 반복문 돌리기
-//                        for (int k = 0; k < resumeSkillScore.size(); k++) {
-//                            //이력서점수리스트의 이력서아이디와 스킬테이블 이력서 아이디와 같으면 이력서 점수리스트에 해당하는 점수 1점 올리기
-//                            if (resumeSkillScore.get(k).getResumeId() == resumeId) {
-//                                //이력서점수 1점 추가하기
-//                                resumeSkillScore.get(k).setScore(resumeSkillScore.get(k).getScore() + 1);
-//                                ;
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//        }
-//        //2점이상 이력서아이디만 가져와 리스트 만들기
-//        List<MainResponse.ResumeSkillDTO> filteredList = resumeSkillScore.stream()
-//                .filter(dto -> dto.getScore() >= 2)
-//                .sorted(Comparator.comparing(MainResponse.ResumeSkillDTO::getScore).reversed())
-//                .collect(Collectors.toList());
-//
-//        List<Resume> matchingResumeList = new ArrayList<>();
-//
-//        for (int i = 0; i < filteredList.size(); i++) {
-//            int resumeId = filteredList.get(i).getResumeId();
-//            matchingResumeList.add(resumeJPARepository.findByIdJoinSkillAndUser(resumeId));
-//        }
-//
-//        Post post = postJPARepository.findById(postchoice).orElseThrow(() -> new Exception404("권한이 없습니다"));
-//        MainResponse.MatchingPostsDTO =matchingResumeList.stream().map(resume -> new MainResponse.MatchingPostsDTO(resume)).toList();
-//        return
-//    }
-
 
     public List<MainResponse.MainPostsDTO> getPostList() {
         List<Post> postList = postJPARepository.findAllPost();
@@ -155,10 +101,9 @@ public class MainService {
     }
 
 
-
     public MainResponse.PostDetailDTO getPostIsCompanyDetail(int postId, int userId, Boolean isCompany) {
         Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
-        List<Resume> resumes=resumeJPARepository.findAllResume(userId);
+        List<Resume> resumes = resumeJPARepository.findAllResume(userId);
         return new MainResponse.PostDetailDTO(post, resumes, isCompany);
     }
 
@@ -166,6 +111,7 @@ public class MainService {
         Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
         return new MainResponse.PostDetailDTO(post, isCompany);
     }
+
     @Transactional
     public OfferRequest.OfferSaveDTO sendPostToResume(Integer resumeId, Integer postId) {
         Resume resume = resumeJPARepository.findById(resumeId)
@@ -188,7 +134,7 @@ public class MainService {
         return scrap;
     }
 
-    public List<MainResponse.MainResumeMatchDTO> matchingPost(Integer resumechoice) {
+    public MainResponse.MainResumeMatchDTO matchingPost(Integer resumechoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
         List<Skill> resumeSkills = skillJPARepository.findSkillsByResumeId(resumechoice);
         List<String> resumeSkill = resumeSkills.stream().map(skill -> skill.getSkill()).toList();
@@ -239,8 +185,10 @@ public class MainService {
 
         //선택한 이력서 확인
         Resume resume = resumeJPARepository.findById(resumechoice).orElseThrow(() -> new Exception401("권한이 없습니다"));
-        return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post, resume)).toList();
+        List<MainResponse.MainPostsDTO> mainPostsDTO=matchingPostList.stream().map(post -> new MainResponse.MainPostsDTO(post)).toList();
+        return new MainResponse.MainResumeMatchDTO(resume, mainPostsDTO);
     }
+
 
 
     // 나의 생각!! 서비스에서 두 개의 리스트를 만들었는데 이것을 하나의 서비스에 담아서 돌려주자.
@@ -258,9 +206,64 @@ public class MainService {
         return postTitleListDTOList;
     }
 
+
     public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
         Resume resume = resumeJPARepository.findResumeById(resumeId);
 
         return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
+    }
+
+    public MainResponse.MainPostMatchDTO matchingResume(Integer postchoice) {
+        //매칭할 공고 스킬 가져와 리스트에 담기
+        List<Skill> postSkills = skillJPARepository.findSkillsByPostId(postchoice);
+        List<String> postSkill = postSkills.stream().map(skill -> skill.getSkill()).toList();
+
+        //전체 이력서 새로운 이력서점수리스트에 담기, 점수는 0으로 시작
+        List<MainResponse.ResumeSkillDTO> resumeSkillScore = new ArrayList<>();
+        for (int i = 0; i < resumeJPARepository.findAll().size(); i++) {
+            int resumeId = resumeJPARepository.findAll().get(i).getId();
+            resumeSkillScore.add(new MainResponse.ResumeSkillDTO(resumeId, 0));
+        }
+
+        //공고스킬만큼 반복문 돌리기
+        for (int i = 0; i < postSkill.size(); i++) {
+            //모든 스킬테이블에서 비교하기위해 반복문 돌리기
+            for (int j = 0; j < skillJPARepository.findAll().size(); j++) {
+                if (skillJPARepository.findAll().get(j).getResume() != null) {
+                    //스킬테이블과 공고스킬 비교하기
+                    if (postSkill.get(i).equals(skillJPARepository.findAll().get(j).getSkill())) {
+                        //스킬테이블에서 같은 스킬 찾아서 거기 이력서아이디 가져오기
+                        int resumeId = skillJPARepository.findAll().get(j).getResume().getId();
+                        //이력서점수리스트 만큼 반복문 돌리기
+                        for (int k = 0; k < resumeSkillScore.size(); k++) {
+                            //이력서점수리스트의 이력서아이디와 스킬테이블 이력서 아이디와 같으면 이력서 점수리스트에 해당하는 점수 1점 올리기
+                            if (resumeSkillScore.get(k).getResumeId() == resumeId) {
+                                //이력서점수 1점 추가하기
+                                resumeSkillScore.get(k).setScore(resumeSkillScore.get(k).getScore() + 1);
+                                ;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        //2점이상 이력서아이디만 가져와 리스트 만들기
+        List<MainResponse.ResumeSkillDTO> filteredList = resumeSkillScore.stream()
+                .filter(dto -> dto.getScore() >= 2)
+                .sorted(Comparator.comparing(MainResponse.ResumeSkillDTO::getScore).reversed())
+                .collect(Collectors.toList());
+
+        List<Resume> matchingResumeList = new ArrayList<>();
+
+        for (int i = 0; i < filteredList.size(); i++) {
+            int resumeId = filteredList.get(i).getResumeId();
+            matchingResumeList.add(resumeJPARepository.findByIdJoinSkillAndUser(resumeId));
+        }
+
+        Post post = postJPARepository.findById(postchoice).orElseThrow(() -> new Exception404("권한이 없습니다"));
+        List<MainResponse.MainResumesDTO> resumesDTO = matchingResumeList.stream().map(resume -> new MainResponse.MainResumesDTO(resume)).toList();
+        return new MainResponse.MainPostMatchDTO(post, resumesDTO);
     }
 }

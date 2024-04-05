@@ -29,7 +29,7 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    //메인 이력서 디테일
+    // 메인 이력서 디테일
     @GetMapping("/main/resumes/{id}") //  @GetMapping("/resumes/{id}")
     public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
@@ -83,28 +83,30 @@ public class MainController {
             if (sessionUser.getRole().equals("person")) {
                 isPerson = true;
                 MainResponse.PostDetailDTO respDTO = mainService.getPostIsCompanyDetail(id, sessionUser.getId(), isPerson);
+
                 return ResponseEntity.ok(new ApiUtil<>(respDTO));
             }
         }
         MainResponse.PostDetailDTO respDTO = mainService.getPostDetail(id, isPerson);
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-/////////////////////////////////////////////////
-
 
     //메인 매칭 이력서 목록
-//    @GetMapping("/api/posts/matching") // @GetMapping("/api/main/company/matching")
-//    public ResponseEntity<?> matchingPosts(@RequestParam (value = "postChoice", defaultValue = "") Integer postChoice) {
-//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-//        List<MainResponse.PostMatchingChoiceDTO> respDTO = mainService.findByUserIdPost(sessionUser.getId());
-//
-//        if (postChoice != null) {
-//            List<MainResponse.MainPostMatchDTO> respResultDTO = mainService.matchingResume(postChoice);
-//            return ResponseEntity.ok(new ApiUtil<>(respResultDTO));
-//        }
-//
-//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-//    }
+//    @GetMapping("/api/main/company/matching") // @GetMapping("/api/main/company/matching")
+    @GetMapping("/api/main/company/matching") // @GetMapping("/api/main/company/matching")
+    public ResponseEntity<?> matchingPosts(@RequestParam(value = "postChoice", defaultValue = "") Integer postChoice) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<MainResponse.PostMatchingChoiceDTO> respDTO = mainService.findByUserIdPost(sessionUser.getId());
+
+        if (postChoice != null) {
+            MainResponse.MainPostMatchDTO respResultDTO = mainService.matchingResume(postChoice);
+
+            return ResponseEntity.ok(new ApiUtil<>(respResultDTO));
+        }
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
 
     // 개인 로그인 시 메인 매칭 공고 목록
     @GetMapping("/api/main/person/matching")
@@ -114,9 +116,9 @@ public class MainController {
         List<MainResponse.ResumeMatchingChoiceDTO> resumeList = mainService.findByUserIdResume(sessionUser.getId());
 
         if (resumeChoice != null) {
-            List<MainResponse.MainResumeMatchDTO> postResultList = mainService.matchingPost(resumeChoice);
-            //resumeList와 함께 DTO에 담기
+            MainResponse.MainResumeMatchDTO postResultList = mainService.matchingPost(resumeChoice);
 
+            //resumeList와 함께 DTO에 담기
             return ResponseEntity.ok(new ApiUtil<>(postResultList));
         }
 
