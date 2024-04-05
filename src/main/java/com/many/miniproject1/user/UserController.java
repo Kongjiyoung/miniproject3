@@ -62,18 +62,18 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(respBody));
     }
 
-    @PutMapping("/api/companies/{id}/info")
-    public ResponseEntity<?> companyInfoUpdate(@Valid @RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO, Errors errors) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), reqDTO);
-        session.setAttribute("sessionUser", newSessionUser);
-        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
-    }
+//    @PutMapping("/api/companies/{id}/info")
+//    public ResponseEntity<?> companyInfoUpdate( @Valid @RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO, Errors errors) {
+//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+//        User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), reqDTO);
+//        session.setAttribute("sessionUser", newSessionUser);
+//        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
+//    }
 
-    @PutMapping("/companies/{id}/info")
+    @PutMapping("/api/companies/{id}/info")
     public ResponseEntity<?> companyInfoUpdate(@PathVariable Integer id, @Valid @RequestBody UserRequest.CompanyInfoUpdateDTO
             reqDTO, Errors errors) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         User newSessionUser = userService.companyInfoUpdate(id, reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));

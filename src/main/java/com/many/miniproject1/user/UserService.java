@@ -91,7 +91,7 @@ public class UserService {
         return new UserResponse.PersonDTO(user);
     }
     @Transactional
-    public User companyInfoUpdate(int id, UserRequest.CompanyInfoUpdateDTO reqDTO) {
+    public User companyInfoUpdate(Integer id, UserRequest.CompanyInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
 

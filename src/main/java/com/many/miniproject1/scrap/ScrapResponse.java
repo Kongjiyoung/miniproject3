@@ -40,41 +40,41 @@ public class ScrapResponse {
         private Timestamp createdAt;
     }
 
-    @Data
-    public static class ScarpPostSkillDTO {
-        private Integer id;
-        private Integer companyId;
-        private String title;
-        private String career;
-        private String pay;
-        private String workCondition;
-        private String workStartTime;
-        private String workEndTime;
-        private String deadline;
-        private String task;
-        private String profile;
-        private String workingArea;
-        private List<String> skill;
-        private Timestamp createdAt;
+//    @Data
+//    public static class ScarpPostSkillDTO {
+//        private Integer id;
+//        private Integer companyId;
+//        private String title;
+//        private String career;
+//        private String pay;
+//        private String workCondition;
+//        private String workStartTime;
+//        private String workEndTime;
+//        private String deadline;
+//        private String task;
+//        private String profile;
+//        private String workingArea;
+//        private List<String> skill;
+//        private Timestamp createdAt;
+////
 //
-
-        public ScarpPostSkillDTO(ScrapResponse.ScarpPostDTO post, List<String> skills) {
-            this.id = post.getId();
-            this.companyId = post.getCompanyId();
-            this.title = post.getTitle();
-            this.career = post.getCareer();
-            this.pay = post.getPay();
-            this.workCondition = post.getWorkCondition();
-            this.workStartTime = post.getWorkStartTime();
-            this.workEndTime = post.getWorkEndTime();
-            this.deadline = post.getDeadline();
-            this.task = post.getTask();
-            this.profile = post.getProfile();
-            this.workingArea = post.getWorkingArea();
-            this.skill = skills;
-            this.createdAt = post.getCreatedAt();
-        }
-    }
+//        public ScarpPostSkillDTO(ScrapResponse.ScarpPostDTO post, List<String> skills) {
+//            this.id = post.getId();
+//            this.companyId = post.getCompanyId();
+//            this.title = post.getTitle();
+//            this.career = post.getCareer();
+//            this.pay = post.getPay();
+//            this.workCondition = post.getWorkCondition();
+//            this.workStartTime = post.getWorkStartTime();
+//            this.workEndTime = post.getWorkEndTime();
+//            this.deadline = post.getDeadline();
+//            this.task = post.getTask();
+//            this.profile = post.getProfile();
+//            this.workingArea = post.getWorkingArea();
+//            this.skill = skills;
+//            this.createdAt = post.getCreatedAt();
+//        }
+//    }
 
     @Data
     public static class ScrapPostDetailDTO {
@@ -107,7 +107,7 @@ public class ScrapResponse {
             this.task = scrap.getPost().getTask();
             this.profile = scrap.getPost().getProfile();
             this.workingArea = scrap.getPost().getWorkingArea();
-            this.skills = scrap.getPost().getSkillList().stream().map(skill -> new ScrapPostDetailDTO.PostSkillDTO(skill)).toList();
+            this.skills = scrap.getPost().getSkillList().stream().map(PostSkillDTO::new).toList();
         }
 
         @Data

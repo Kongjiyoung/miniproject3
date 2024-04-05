@@ -25,7 +25,7 @@ public class ApplyController {
     }  // 체크 완
 
     @GetMapping("/api/company/resumes/{id}")
-    public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
+    public ResponseEntity<?> companyResumeDetail(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.AppliedResumeSkillDetailDTO appliedResumeDetail = applyService.getAppliedResume(id);
         applyService.companyResumeDetail(id);

@@ -158,7 +158,7 @@ public class ResumeService {
 
     public List<ResumeResponse.ResumeListDTO> getResumeList(int userId) {
         List<Resume> resumeList = resumeJPARepository.findAllResume(userId);
-        return resumeList.stream().map(resume -> new ResumeResponse.ResumeListDTO(resume)).toList();
+        return resumeList.stream().map(ResumeResponse.ResumeListDTO::new).toList();
     }
 
     @Transactional

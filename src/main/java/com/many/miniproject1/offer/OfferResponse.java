@@ -26,6 +26,7 @@ public class OfferResponse {
         public PersonOffersDTO(Offer offer) {
             this.id = offer.getPost().getId();
             this.postId = offer.getPost().getId();
+            this.resumeId = offer.getResume().getId();
             this.personId = offer.getResume().getUser().getId();
             this.profile = offer.getPost().getProfile();
             this.companyName = offer.getPost().getUser().getCompanyName();
@@ -173,36 +174,38 @@ public class OfferResponse {
         private Integer personId;
     }
 
-    @Data
-    public static class OfferedResumeDetailDTO {
-        private Integer id;
-        private Integer userId;
-        private String title;
-        private String profile;
-        private String name;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
-        private String career;
-        private String simpleIntroduce;
-        private String portfolio;
-        private List<OfferedResumeSkillDTO> skills = new ArrayList<>();
-        private String introduce;
-
-        public static class OfferedResumeSkillDTO {
-            private Integer id;
-            private String skill;
-            private int resumeId;
-        }
-    }
-
+    //    @Data
+//    public static class OfferedResumeDetailDTO {
+//        private Integer id;
+//        private Integer userId;
+//        private String title;
+//        private String profile;
+//        private String name;
+//        private String birth;
+//        private String tel;
+//        private String address;
+//        private String email;
+//        private String career;
+//        private String simpleIntroduce;
+//        private String portfolio;
+//        private List<OfferedResumeSkillDTO> skills = new ArrayList<>();
+//        private String introduce;
+//
+//        public static class OfferedResumeSkillDTO {
+//            private Integer id;
+//            private String skill;
+//            private int resumeId;
+//        }
+//    }
+//
     @Data
     public static class ChoiceDTO {
+        private Integer id;
         private Integer resumeId;
         private Integer postId; // 채용공고 아이디
 
         public ChoiceDTO(Offer offer) {
+            this.id = offer.getId();
             this.resumeId = offer.getResume().getId();
             this.postId = offer.getPost().getId();
 
