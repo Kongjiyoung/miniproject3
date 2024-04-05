@@ -42,11 +42,10 @@ public class MainService {
     private final ScrapJPARepository scrapJPARepository;
     private final ResumeJPARepository resumeJPARepository;
     private final PostJPARepository postJPARepository;
-    private final UserJPARepository userJPARepository;
     private final SkillJPARepository skillJPARepository;
     private final UserService userService;
 
-    // 04-02 YSH
+    // 메인 이력서 목록 조회
     public List<MainResponse.MainResumesDTO> mainResumes() {
         List<Resume> mainResumes = resumeJPARepository.mainAllResume();
 
@@ -135,10 +134,6 @@ public class MainService {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);
         return postList.stream().map(post -> new MainResponse.PostMatchingChoiceDTO(post)).toList();
     }
-
-
-
-
 
     public MainResponse.MainPostMatchDTO matchingResume(Integer postchoice) {
         //매칭할 공고 스킬 가져와 리스트에 담기
