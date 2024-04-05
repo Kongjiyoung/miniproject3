@@ -23,9 +23,7 @@ public class OfferController {
     @GetMapping("/api/person/offers")
     public ResponseEntity<?> personOffers() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        System.out.println(sessionUser.getId());
         List<OfferResponse.PersonOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
-        System.out.println(respDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
     // person의 offer 상세보기
@@ -40,14 +38,13 @@ public class OfferController {
     @GetMapping("/api/company/offers")
     public ResponseEntity<?> companyOffers() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<OfferResponse.CompanyOffersDTO> respDTO = offerService.companyOffers(14);
+        List<OfferResponse.CompanyOffersDTO> respDTO = offerService.companyOffers(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
     // 04-02
     // company의 offer 상세보기
     @GetMapping("/api/company/offers/{id}")
     public ResponseEntity<?> companyOfferDetail(@PathVariable int id) {
-
         OfferResponse.CompanyOfferDetailDTO respDTO = offerService.companyOfferDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -55,9 +52,7 @@ public class OfferController {
     // company의 offer DELETE (취소)
     @DeleteMapping("/api/company/offers/{id}")
     public ResponseEntity<?> companyOfferDetailDelete(@PathVariable int id) {
-//        User sessionUser = (User) session.getAttribute("sessionUser");
         offerService.offerDelete(id);
-
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }
