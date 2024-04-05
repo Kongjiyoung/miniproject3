@@ -22,7 +22,7 @@ public class ApplyController {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.getAppliedResumeSkillDTOs(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
-    }  // 체크 완
+    }
 
     @GetMapping("/api/company/resumes/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable Integer id) {
@@ -31,7 +31,7 @@ public class ApplyController {
         applyService.companyResumeDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeDetail));
-    }  // 체크 완
+    }
 
     @PutMapping("/api/company/resumes/{id}/is-pass")
     public ResponseEntity<?> companyPass(@PathVariable Integer id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
@@ -40,7 +40,7 @@ public class ApplyController {
         apply.updateIsPass(reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(updateIsPassDTO));
-    } // 체크 완
+    }
 
     // 개인이 지원한 이력서 목록
     @GetMapping("/api/person/applies")
@@ -49,7 +49,7 @@ public class ApplyController {
         List<ApplyResponse.ApplyPostSkillDTO> applyPostSkillDTOList = applyService.getApplyPostSkillDTOs(sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(applyPostSkillDTOList));
-    }  // 체크 완
+    }
 
     @GetMapping("/api/person/applies/{id}") // 내가 지원한 공고 디테일
     public ResponseEntity<?> personApply(@PathVariable int id) {
@@ -57,12 +57,12 @@ public class ApplyController {
         ApplyResponse.ApplyPostSkillDetailDTO applyPostDetail = applyService.getPostDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(applyPostDetail));
-    }  // 체크 완
+    }
 
     @DeleteMapping("/api/person/applies/{id}")
     public ResponseEntity<?> applyDelete(@PathVariable int id) {
         applyService.deleteApply(id);
 
         return ResponseEntity.ok(new ApiUtil<>(null));
-    }  // 체크 완
+    }
 }

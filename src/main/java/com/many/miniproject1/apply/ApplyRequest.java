@@ -6,6 +6,7 @@ import lombok.Data;
 
 
 public class ApplyRequest {
+
     @Data
     public static class SaveDTO {
         private Resume resume;
@@ -26,6 +27,7 @@ public class ApplyRequest {
         }
     }
 
+    // 이력서 합격/불합격 여부 결정
     @Data
     public static class UpdateIsPassDTO {
         private String isPass;

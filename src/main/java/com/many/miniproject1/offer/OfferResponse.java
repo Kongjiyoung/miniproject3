@@ -1,5 +1,6 @@
 package com.many.miniproject1.offer;
 
+import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.skill.Skill;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +11,6 @@ import java.util.List;
 
 public class OfferResponse {
 
-    // 04-01 YSH
     @Data
     public static class PersonOffersDTO {
         private Integer id;
@@ -46,7 +46,7 @@ public class OfferResponse {
         private List<SkillDTO> skills = new ArrayList<>();
 
         @Data
-        public class SkillDTO {
+        public static class SkillDTO {
             private Integer id;
             private String skill;
 
@@ -63,7 +63,7 @@ public class OfferResponse {
             this.username = offer.getResume().getUser().getName();
             this.career = offer.getResume().getCareer();
             this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
-            this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = offer.getResume().getSkills().stream().map(SkillDTO::new).toList();
         }
     }
 
@@ -83,10 +83,10 @@ public class OfferResponse {
         private String workEndTime;
         private String workingArea;
         private String workCondition;
-        private List<SkillDTO> skills = new ArrayList<>();
+        private List<SkillDTO> skills;
 
         @Data
-        public class SkillDTO {
+        public static class SkillDTO {
             private Integer id;
             private String skill;
 
@@ -112,11 +112,10 @@ public class OfferResponse {
             this.workEndTime = offer.getPost().getWorkEndTime();
             this.workingArea = offer.getPost().getWorkingArea();
             this.workCondition = offer.getPost().getWorkCondition();
-            this.skills = offer.getPost().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = offer.getPost().getSkillList().stream().map(SkillDTO::new).toList();
         }
     }
 
-    // 04-02 YSH
     @Data
     public static class CompanyOfferDetailDTO {
         private Integer offerId;
@@ -133,10 +132,10 @@ public class OfferResponse {
         private String tel;
         private String address;
         private String email;
-        private List<SkillDTO> skills = new ArrayList<>();
+        private List<SkillDTO> skills;
 
         @Data
-        public class SkillDTO {
+        public static class SkillDTO {
             private Integer id;
             private String skill;
 
@@ -161,7 +160,7 @@ public class OfferResponse {
             this.tel = offer.getResume().getUser().getTel();
             this.address = offer.getResume().getUser().getAddress();
             this.email = offer.getResume().getUser().getEmail();
-            this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = offer.getResume().getSkills().stream().map(SkillDTO::new).toList();
         }
     }
 
@@ -174,30 +173,6 @@ public class OfferResponse {
         private Integer personId;
     }
 
-    //    @Data
-//    public static class OfferedResumeDetailDTO {
-//        private Integer id;
-//        private Integer userId;
-//        private String title;
-//        private String profile;
-//        private String name;
-//        private String birth;
-//        private String tel;
-//        private String address;
-//        private String email;
-//        private String career;
-//        private String simpleIntroduce;
-//        private String portfolio;
-//        private List<OfferedResumeSkillDTO> skills = new ArrayList<>();
-//        private String introduce;
-//
-//        public static class OfferedResumeSkillDTO {
-//            private Integer id;
-//            private String skill;
-//            private int resumeId;
-//        }
-//    }
-//
     @Data
     public static class ChoiceDTO {
         private Integer id;

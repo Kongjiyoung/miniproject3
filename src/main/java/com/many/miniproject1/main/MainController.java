@@ -111,10 +111,9 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 지원하기 버튼 안 보임
     @PostMapping("/api/posts/{id}/apply")
-    public ResponseEntity<?> personPostApply(@PathVariable Integer id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
-        ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
+    public ResponseEntity<?> personPostApply(@PathVariable Integer id, @RequestBody MainRequest.ResumeChoiceDTO reqDTO) {
+        ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, reqDTO.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
 
     }

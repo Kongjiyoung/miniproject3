@@ -8,30 +8,17 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 public class ScrapRequest {
-//    @Data
-//    public static class SaveResumeDTO {
-//        private User user;
-//        private Resume resume;
-//        public SaveResumeDTO(User user, Resume resume){
-//            this.user =user;
-//            this.resume=resume;
-//        }
-//        public Scrap toEntity(){
-//            return Scrap.builder()
-//                    .resume(resume)
-//                    .user(user)
-//                    .build();
-//        }
-//    }
     @Data
     public static class SavePostDTO {
         private Post post;
         private User user;
+
         public SavePostDTO(User user, Post post) {
             this.user = user;
             this.post = post;
         }
-        public Scrap toEntity(){
+
+        public Scrap toEntity() {
             return Scrap.builder()
                     .user(user)
                     .post(post)
@@ -39,13 +26,8 @@ public class ScrapRequest {
         }
     }
 
-//    @Data
-//    public static class UpdateDTO {
-//        private Integer id;
-//    }
-
     @Data
-    public static class MainScrapDTO{
+    public static class MainScrapDTO {
         private Resume resume;
         private User user;
 
@@ -54,7 +36,7 @@ public class ScrapRequest {
             this.user = user;
         }
 
-        public Scrap toEntity(){
+        public Scrap toEntity() {
             return Scrap.builder()
                     .resume(resume)
                     .user(user)
