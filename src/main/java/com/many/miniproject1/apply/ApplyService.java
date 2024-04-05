@@ -16,19 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class ApplyService {
     private final ApplyJPARepository applyJPARepository;
-    private final SkillJPARepository skillJPARepository;
 
-
-    @Transactional
-    public ApplyRequest.UpdateIsPassDTO isPassResume(Integer resumeId, ApplyRequest.UpdateIsPassDTO reqDTO) {
-        // 1. 이력서 찾기
-        Apply apply = applyJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
-
-        apply.setIsPass(reqDTO.getIsPass());
-        return new ApplyRequest.UpdateIsPassDTO();
-    }
-
+    //공고에서 받은 이력서 목록
     public List<ApplyResponse.AppliedResumeSkillDTO> getAppliedResumeSkillDTOs(Integer companyId) {
         List<Apply> applyList = applyJPARepository.findByCompanyIdJoinResume(companyId);
         List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = new ArrayList<>();
@@ -44,6 +33,25 @@ public class ApplyService {
         return appliedResumeSkillDTOList;
     }
 
+    //공고에서 받은 이력서 디테일
+    public ApplyResponse.AppliedResumeSkillDetailDTO getAppliedResume(int applyId) {
+        Apply apply = applyJPARepository.findResumeByApplyId(applyId);
+
+        return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkills());
+    }
+
+    //합격/불합격주기
+    @Transactional
+    public ApplyResponse.UpdateIsPassDTO isPassResume(Integer resumeId, ApplyRequest.UpdateIsPassDTO reqDTO) {
+        // 1. 이력서 찾기
+        Apply apply = applyJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+
+        apply.setIsPass(reqDTO.getIsPass());
+        return new ApplyResponse.UpdateIsPassDTO(apply.getIsPass());
+    }
+
+    //개인이 공고 목록보기
     public List<ApplyResponse.ApplyPostSkillDTO> getApplyPostSkillDTOs(Integer personId) {
         List<Apply> applyList = applyJPARepository.findByPersonIdJoinPost(personId);
         List<ApplyResponse.ApplyPostSkillDTO> applyPostSkillDTOList = new ArrayList<>();
@@ -59,16 +67,26 @@ public class ApplyService {
         return applyPostSkillDTOList;
     }
 
+    //개인이 공고 디테일보기
+    public ApplyResponse.ApplyPostSkillDetailDTO getPostDetail(int applyId) {
+        Apply apply = applyJPARepository.findPostByApplyId(applyId);
+
+        return new ApplyResponse.ApplyPostSkillDetailDTO(apply, apply.getPost().getUser(), apply.getPost(), apply.getPost().getSkillList());
+    }
+
+
+
+
+
+
+
+
     public Apply companyResumeDetail(int id) {
         Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id);
         return apply;
     }
 
-    public ApplyResponse.AppliedResumeSkillDetailDTO getAppliedResume(int applyId) {
-        Apply apply = applyJPARepository.findResumeByApplyId(applyId);
 
-        return new ApplyResponse.AppliedResumeSkillDetailDTO(apply, apply.getResume().getUser(), apply.getResume(), apply.getResume().getSkills());
-    }
 
 
     @Transactional
@@ -81,11 +99,7 @@ public class ApplyService {
         return applyJPARepository.findAllAppliesWithPostsAndSkills(userId);
     }
 
-    public ApplyResponse.ApplyPostSkillDetailDTO getPostDetail(int applyId) {
-        Apply apply = applyJPARepository.findPostByApplyId(applyId);
 
-        return new ApplyResponse.ApplyPostSkillDetailDTO(apply, apply.getPost().getUser(), apply.getPost(), apply.getPost().getSkillList());
-    }
 
     public Apply getApplyById(Integer applyId) {
         return applyJPARepository.findByApplyId(applyId);
