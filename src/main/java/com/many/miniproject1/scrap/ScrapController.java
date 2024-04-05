@@ -24,7 +24,7 @@ public class ScrapController {
     @GetMapping("/api/person/scraps")
     public ResponseEntity<?> personScrap() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<ScrapResponse.ScrapPostListDTO> respDTO = scrapService.personScrapList(sessionUser.getId());
+        List<ScrapResponse.ScrapPostsDTO> respDTO = scrapService.personScrapList(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -41,12 +41,7 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    @PostMapping("/api/person/posts/{id}/scrap") // 개인이 포스트 보고 스크랩, /api/person/posts/{id}/scrap도 될 듯, 원래 매핑 -> /api/person/scraps/{id}
-    public ResponseEntity<?> personPostApply(@PathVariable Integer id, @RequestBody ScrapRequest.ResumeChoiceDTO resumeChoice) { // 스크랩 아이디와 이력서 아이디를 받아서
-        ApplyResponse.PostApplyDTO respDTO =scrapService.saveApply(id, resumeChoice.getResumeChoice());
 
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
 
 
     //기업 이력서 스크랩

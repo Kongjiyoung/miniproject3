@@ -2,6 +2,8 @@ package com.many.miniproject1.apply;
 
 
 import com.many.miniproject1._core.utils.ApiUtil;
+import com.many.miniproject1.scrap.ScrapRequest;
+import com.many.miniproject1.scrap.ScrapService;
 import com.many.miniproject1.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ApplyController {
     private final HttpSession session;
     private final ApplyService applyService;
+    private final ScrapService scrapService;
 
     // 기업에서 받은 이력서 관리
     @GetMapping("/api/company/resumes")
@@ -64,5 +67,13 @@ public class ApplyController {
         applyService.deleteApply(id);
 
         return ResponseEntity.ok(new ApiUtil<>(null));
+    }
+
+    @PostMapping("/api/person/scraps/{id}/apply")
+    // 개인이 포스트 보고 스크랩, /api/person/posts/{id}/scrap도 될 듯, 원래 매핑 -> /api/person/scraps/{id}
+    public ResponseEntity<?> personPostApply(@PathVariable Integer id, @RequestBody ScrapRequest.ResumeChoiceDTO resumeChoice) { // 스크랩 아이디와 이력서 아이디를 받아서
+        ApplyResponse.PostApplyDTO respDTO = scrapService.saveApply(id, resumeChoice.getResumeChoice());
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }

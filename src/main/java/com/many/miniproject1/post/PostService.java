@@ -38,7 +38,7 @@ public class PostService {
     private final UserJPARepository userJPARepository;
 
     @Transactional
-    public void postDelete(int postId, int sessionUserId) {
+    public void deletePost(Integer postId, Integer sessionUserId) {
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception404("공고글을 찾을 수 없습니다"));
 
@@ -53,7 +53,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponse.PostDTO save(PostRequest.PostSaveDTO reqDTO, SessionUser sessionUser) {
+    public PostResponse.SavePostDTO save(PostRequest.PostSaveDTO reqDTO, SessionUser sessionUser) {
         User user=userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception403("권한없음"));
         Post post = postJPARepository.save(reqDTO.toEntity(user));
 
@@ -65,24 +65,24 @@ public class PostService {
             skills.add(skill.toEntity());
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
-        return new PostResponse.PostDTO(post, skillList);
+        return new PostResponse.SavePostDTO(post, skillList);
     }
 
-    public List<PostResponse.PostListDTO> getResumeList(Integer userId) {
+    public List<PostResponse.CompanyPostsDTO> getResumeList(Integer userId) {
         List<Post> postList = postJPARepository.findByPost(userId);
-        return postList.stream().map(post -> new PostResponse.PostListDTO(post)).toList();
+        return postList.stream().map(PostResponse.CompanyPostsDTO::new).toList();
     }
 
     // 공고 상세보기
-    public PostResponse.DetailDTO postDetail (int postId, SessionUser sessionUser){
+    public PostResponse.CompanyPostDetailDTO postDetail (Integer postId, SessionUser sessionUser){
         Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 
-        return new PostResponse.DetailDTO(post, sessionUser);
+        return new PostResponse.CompanyPostDetailDTO(post, sessionUser);
     }
 
     @Transactional
-    public PostResponse.PostUpdateDTO updatePost(int postId, int sessionUserId, PostRequest.UpdatePostDTO reqDTO) {
+    public PostResponse.PostUpdateDTO updatePost(Integer postId, Integer sessionUserId, PostRequest.UpdatePostDTO reqDTO) {
         // 1. 이력서 찾기
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다."));
@@ -151,8 +151,7 @@ public class PostService {
     }
 
     public Post findByPost(int id) {
-        Post post = postJPARepository.findById(id)
+        return postJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("해당하는 공고가 없습니다"));
-        return post;
     }
 }

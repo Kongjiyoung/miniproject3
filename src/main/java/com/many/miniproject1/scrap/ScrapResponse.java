@@ -177,7 +177,7 @@ public class ScrapResponse {
     }
 
     @Data
-    public static class ScrapPostListDTO {
+    public static class ScrapPostsDTO {
         private Integer id;
         private String companyName;
         private String title;
@@ -187,7 +187,7 @@ public class ScrapResponse {
         private String workingArea;
         private List<PostSkillDTO> skills = new ArrayList<>();
 
-        public ScrapPostListDTO(Scrap scrap) {
+        public ScrapPostsDTO(Scrap scrap) {
             this.id = scrap.getId();
             this.companyName = scrap.getPost().getUser().getCompanyName();
             this.title = scrap.getPost().getTitle();

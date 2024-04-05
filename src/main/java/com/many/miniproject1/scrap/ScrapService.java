@@ -36,7 +36,7 @@ public class ScrapService {
     }
 
     @Transactional
-    public ApplyResponse.PostApplyDTO saveApply(int postId, int resumeId){
+    public ApplyResponse.PostApplyDTO saveApply(Integer postId, Integer resumeId){
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
         Resume resume = resumeJPARepository.findById(resumeId)
@@ -52,9 +52,6 @@ public class ScrapService {
         Scrap scrap = scrapJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
 
-//        if(sessionUserId != scrap.getUser().getId()){
-//            throw new Exception403("스크랩한 공고를 삭제할 권한이 없습니다");
-//        }
         scrapJPARepository.deleteById(id);
     }
 
@@ -73,9 +70,9 @@ public class ScrapService {
         return scrap;
     }
 
-    public List<ScrapResponse.ScrapPostListDTO> personScrapList(Integer userId){
+    public List<ScrapResponse.ScrapPostsDTO> personScrapList(Integer userId){
         List<Scrap> scrapList = scrapJPARepository.findByCompanyIdJoinSkills(userId);
-        return scrapList.stream().map(scrap -> new ScrapResponse.ScrapPostListDTO(scrap)).toList();
+        return scrapList.stream().map(scrap -> new ScrapResponse.ScrapPostsDTO(scrap)).toList();
     }
 
     public List<ScrapResponse.ScrapResumeListDTO> companyScrapList(Integer userId){

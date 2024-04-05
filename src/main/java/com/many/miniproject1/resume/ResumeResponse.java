@@ -10,7 +10,7 @@ public class ResumeResponse {
 
     // 04-02 YSH
     @Data
-    public static class ResumeSaveDTO {
+    public static class SaveResumeDTO {
         private Integer resumeId;
         private String title;
         private String profile;
@@ -21,7 +21,7 @@ public class ResumeResponse {
         private String introduce;
         private List<SkillDTO> skills;
 
-        public ResumeSaveDTO(Resume resume, List<Skill> skills) {
+        public SaveResumeDTO(Resume resume, List<Skill> skills) {
             this.resumeId = resume.getId();
             this.title = resume.getTitle();
             this.profile = resume.getProfile();
@@ -106,7 +106,7 @@ public class ResumeResponse {
 
 
     @Data
-    public static class ResumeDetailDTO {
+    public static class PersonResumeDetailDTO {
         private Integer id;
         private Integer userId;
         private String title;
@@ -120,9 +120,9 @@ public class ResumeResponse {
         private String simpleIntroduce;
         private String portfolio;
         private String introduce;
-        private List<ResumeDetailDTO.ResumeSkillDTO> skills;
+        private List<SkillDTO> skills;
 
-        public ResumeDetailDTO(Resume resume) {
+        public PersonResumeDetailDTO(Resume resume) {
             this.id = resume.getId();
             this.userId = resume.getUser().getId();
             this.title = resume.getTitle();
@@ -136,29 +136,23 @@ public class ResumeResponse {
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
             this.introduce = resume.getIntroduce();
-            this.skills = resume.getSkills().stream().map(ResumeSkillDTO::new).toList();
+            this.skills = resume.getSkills().stream().map(SkillDTO::new).toList();
         }
 
         @Data
-        public static class ResumeSkillDTO {
+        public static class SkillDTO {
             private Integer id;
             private String skill;
 
-            public ResumeSkillDTO(Skill skill) {
+            public SkillDTO(Skill skill) {
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }
         }
     }
 
-//    @Data
-//    public static class SkillDTO {
-//        private Integer resumeId;
-//        private String skill;
-//    }
-
     @Data
-    public static class UpdateDTO {
+    public static class PersonResumeUpdateDTO {
         private Integer id;
         private String title;
         private String profile;
@@ -169,7 +163,7 @@ public class ResumeResponse {
         private String simpleIntroduce;
         private List<SkillDTO> skills;
 
-        public UpdateDTO(Resume resume, List<Skill> skills) {
+        public PersonResumeUpdateDTO(Resume resume, List<Skill> skills) {
             this.id = resume.getId();
             this.title = resume.getTitle();
             this.profile = resume.getProfile();
@@ -182,7 +176,7 @@ public class ResumeResponse {
         }
 
         @Data
-        public class SkillDTO {
+        public static class SkillDTO {
             private Integer id;
             private String skill;
 
@@ -194,7 +188,7 @@ public class ResumeResponse {
     }
 
     @Data
-    public static class ResumeListDTO {
+    public static class PersonResumesDTO {
         private Integer id;
         private Integer personId;
         private String profile;
@@ -204,7 +198,7 @@ public class ResumeResponse {
         private String simpleIntroduce;
         private List<ResumeSkillDTO> skills;
 
-        public ResumeListDTO(Resume resume) {
+        public PersonResumesDTO(Resume resume) {
             this.id = resume.getId();
             this.personId = resume.getUser().getId();
             this.name = resume.getUser().getName();

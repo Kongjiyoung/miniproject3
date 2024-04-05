@@ -11,7 +11,7 @@ import java.util.List;
 public class PostResponse {
 
     @Data
-    static class PostListDTO {
+    public static class CompanyPostsDTO {
         private Integer id;
         private Integer userId;
         private String companyName;
@@ -20,7 +20,7 @@ public class PostResponse {
         private String profile;
         private List<PostSkillDTO> skillList;
 
-        public PostListDTO(Post post) {
+        public CompanyPostsDTO(Post post) {
             this.id = post.getId();
             this.userId = post.getUser().getId();
             this.companyName = post.getUser().getCompanyName();
@@ -43,7 +43,7 @@ public class PostResponse {
     }
 
     @Data
-    public static class DetailDTO {
+    public static class CompanyPostDetailDTO {
         private Integer id;
         private Integer companyId;
         private String title;
@@ -59,7 +59,7 @@ public class PostResponse {
         private List<skillDTO> skillList;
 
 
-        public DetailDTO(Post post, SessionUser sessionUser) {
+        public CompanyPostDetailDTO(Post post, SessionUser sessionUser) {
             this.id = post.getId();
             this.companyId = post.getId();
             this.title = post.getTitle();
@@ -148,7 +148,7 @@ public class PostResponse {
 //    }
 
     @Data
-    public static class PostDTO {
+    public static class SavePostDTO {
         private Integer id;
         private String title;
         private String career;
@@ -163,7 +163,7 @@ public class PostResponse {
         private String workingArea;
         private List<SkillDTO> skills;
 
-        public PostDTO(Post post, List<Skill> skills) {
+        public SavePostDTO(Post post, List<Skill> skills) {
             this.id = post.getId();
             this.title = post.getTitle();
             this.career = post.getCareer();

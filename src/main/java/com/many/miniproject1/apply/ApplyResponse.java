@@ -15,13 +15,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ApplyResponse {
-    
-    // 개인이 회사 공고에 지원
     @Data
     public static class PostApplyDTO {
         private Integer id;
         private Integer resumeId;
-        private Integer postId;
+        private Integer postId; // 채용공고 아이디
         private String isPass;
 
         public PostApplyDTO(Apply apply) {
@@ -32,8 +30,27 @@ public class ApplyResponse {
         }
     }
 
+//    @Data
+//    public static class PostIsPassDTO {
+//        private Integer id;
+//        private Integer companyId;
+//        private String title;
+//        private String career;
+//        private String pay;
+//        private String workCondition;
+//        private String workStartTime;
+//        private String workEndTime;
+//        private String deadline;
+//        private String task;
+//        private String profile;
+//        private String workingArea;
+//        private String isPass;
+//        private List<String> skill;
+//        private Timestamp createdAt;
+//    }
+
     @Data
-    public static class ApplyResumeDTO {
+    public static class ApplyResumeDTO { // 내가 쓴 이력서
         private Integer id;
         private Integer personId;
         private String title;

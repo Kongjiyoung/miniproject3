@@ -37,8 +37,7 @@ public class ResumeService {
 
     private final UserJPARepository userJPARepository;
     @Transactional
-    public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, SessionUser sessionUser){
-//        Skill List<skill>
+    public ResumeResponse.SaveResumeDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, SessionUser sessionUser){
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인"));
         Resume resume = resumeJPARepository.save(reqDTO.toEntity(user));
 
@@ -51,11 +50,11 @@ public class ResumeService {
             skills.add(skill.toEntity());
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
-        return new ResumeResponse.ResumeSaveDTO(resume, skillList);
+        return new ResumeResponse.SaveResumeDTO(resume, skillList);
     }
 
     @Transactional
-    public ResumeResponse.UpdateDTO resumeUpdate(int resumeId, ResumeRequest.UpdateDTO reqDTO) {
+    public ResumeResponse.PersonResumeUpdateDTO resumeUpdate(Integer resumeId, ResumeRequest.UpdateDTO reqDTO) {
 
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
@@ -109,7 +108,7 @@ public class ResumeService {
             skills.add(skill.toEntity());
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
-        return new ResumeResponse.UpdateDTO(resume, skillList);
+        return new ResumeResponse.PersonResumeUpdateDTO(resume, skillList);
     }
 
     public Resume findByResume(int id) {
@@ -137,17 +136,17 @@ public class ResumeService {
         return resume;
     }
 
-    public Resume getResumeDetail(int resumeId) {
+    public Resume getResumeDetail(Integer resumeId) {
         return resumeJPARepository.findByIdJoinSkillAndUser(resumeId);
     }
 
-    public ResumeResponse.ResumeDetailDTO getResumeDetail(int resumeId, int sessionUserId) {
+    public ResumeResponse.PersonResumeDetailDTO getResumeDetail(Integer resumeId, Integer sessionUserId) {
         Resume resume = resumeJPARepository.findByIdJoinUser(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
         if (sessionUserId != resume.getId()) {
             throw new Exception403("이력서를 볼 권한이 없습니다");
         }
-        return new ResumeResponse.ResumeDetailDTO(resume);
+        return new ResumeResponse.PersonResumeDetailDTO(resume);
     }
 
 
@@ -156,30 +155,32 @@ public class ResumeService {
         return resumeJPARepository.findByUserIdJoinSkillAndUser(userId);
     }
 
-    public List<ResumeResponse.ResumeListDTO> getResumeList(int userId) {
+    public List<ResumeResponse.PersonResumesDTO> getResumeList(Integer userId) {
         List<Resume> resumeList = resumeJPARepository.findAllResume(userId);
-        return resumeList.stream().map(ResumeResponse.ResumeListDTO::new).toList();
+        return resumeList.stream().map(ResumeResponse.PersonResumesDTO::new).toList();
     }
 
-    @Transactional
-    public void deleteResumeId(Integer resumeId, int sessionUserId) {
-        Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
-        if(sessionUserId != resume.getUser().getId()){
-            throw new Exception403("이력서를 삭제할 권한이 없습니다");
-        }
-        resumeJPARepository.deleteById(resumeId);
-        applyJPARepository.deleteByResumeId(resumeId);
-        resumeJPARepository.deleteById(resumeId);
-        offerJPARepository.deleteByResumeId(resumeId);
-        scrapJPARepository.deleteByResumeId(resumeId);
-        skillJPARepository.deleteSkillsByResumeId(resumeId);
-    }
+//    @Transactional
+//    public void deleteResumeId(Integer resumeId, Integer sessionUserId) {
+//        Resume resume = resumeJPARepository.findById(resumeId)
+//                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+//        if(sessionUserId != resume.getUser().getId()){
+//            throw new Exception403("이력서를 삭제할 권한이 없습니다");
+//        }
+//        resumeJPARepository.deleteById(resumeId);
+//        applyJPARepository.deleteByResumeId(resumeId);
+//        resumeJPARepository.deleteById(resumeId);
+//        offerJPARepository.deleteByResumeId(resumeId);
+//        scrapJPARepository.deleteByResumeId(resumeId);
+//        skillJPARepository.deleteSkillsByResumeId(resumeId);
+//    }
 
+    @Transactional(readOnly = true)
+    public void deleteResume(Integer resumeId) {
+      resumeJPARepository.deleteById(resumeId);
+    }
 
     public List<Resume> getResumeFindBySessionUserId(Integer sessionUserId) {
-        List<Resume> resumeList = resumeJPARepository.findBySessionUserId(sessionUserId);
-        return resumeList;
+        return resumeJPARepository.findBySessionUserId(sessionUserId);
     }
-
 }

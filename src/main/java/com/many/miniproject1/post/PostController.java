@@ -17,13 +17,11 @@ public class PostController {
     private final PostService postService;
 
     // TODO : 이력서 조회 API 필요. update-form < findByPost(id)
-
-
     //회사 공고 관리
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<PostResponse.PostListDTO> respDTO = postService.getResumeList(sessionUser.getId());
+        List<PostResponse.CompanyPostsDTO> respDTO = postService.getResumeList(sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -31,7 +29,7 @@ public class PostController {
     @GetMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyPostDetail(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        PostResponse.DetailDTO respDTO = postService.postDetail(id, sessionUser);
+        PostResponse.CompanyPostDetailDTO respDTO = postService.postDetail(id, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -39,7 +37,7 @@ public class PostController {
     @PostMapping("/api/company/posts")
     public ResponseEntity<?> companySavePost(@Valid @RequestBody PostRequest.PostSaveDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        PostResponse.PostDTO respDTO = postService.save(reqDTO, sessionUser);
+        PostResponse.SavePostDTO respDTO = postService.save(reqDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -54,7 +52,7 @@ public class PostController {
     @DeleteMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyDeletePost(@PathVariable int id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        postService.postDelete(id, sessionUser.getId());
+        postService.deletePost(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }
