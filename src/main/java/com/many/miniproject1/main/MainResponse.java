@@ -50,7 +50,7 @@ public class MainResponse {
 
     //메인 채용공고 디테일
     @Data
-    public static class PostDetailDTO{
+    public static class PostDetailDTO {
         private Integer id;
         private String profile;
         private String career;
@@ -65,6 +65,7 @@ public class MainResponse {
         private Boolean isPerson;
         private List<SkillDTO> skills = new ArrayList<>();
         private List<ResumesDTO> resumes = new ArrayList<>();
+
         public PostDetailDTO(Post post, Boolean isPerson) {
             this.id = post.getId();
             this.profile = post.getProfile();
@@ -81,6 +82,7 @@ public class MainResponse {
             this.skills = post.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
 
         }
+
         public PostDetailDTO(Post post, List<Resume> resumes, Boolean isPerson) {
             this.id = post.getId();
             this.profile = post.getProfile();
@@ -183,20 +185,73 @@ public class MainResponse {
     //메인 매칭 이력서 목록
     @Data
     public static class MainPostMatchDTO {
+        private PostDTO postChoice;
+        private MainPostDTO mainPostDTO;
+
+        public MainPostMatchDTO(Post post, MainPostDTO mainPostDTO) {
+            this.postChoice = new PostDTO(post);
+            this.mainPostDTO = mainPostDTO;
+        }
+
+        @Data
+        public static class MainPostDTO {
+            private Integer id;
+            private String profile;
+            private String userName;
+            private String career;
+            private String simpleIntroduce;
+            private List<SkillDTO> skills = new ArrayList<>();
+
+
+            public MainPostDTO(Resume resume) {
+                this.id = resume.getId();
+                this.profile = resume.getProfile();
+                this.userName = resume.getUser().getName();
+                this.career = resume.getCareer();
+                this.simpleIntroduce = resume.getSimpleIntroduce();
+                this.skills = resume.getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
+            }
+
+            @Data
+            public class SkillDTO {
+                private Integer id;
+                private String skill;
+
+                public SkillDTO(Skill skill) {
+                    this.id = skill.getId();
+                    this.skill = skill.getSkill();
+                }
+            }
+        }
+        @Data
+        public static class PostDTO {
+            private Integer postId;
+            private String postTitle;
+
+            public PostDTO(Post post) {
+                this.postId = post.getId();
+                this.postTitle = post.getTitle();
+            }
+        }
+    }
+
+    @Data
+    public static class MatchingPostsDTO {
         private Integer id;
         private String profile;
         private String userName;
         private String career;
         private String simpleIntroduce;
-        private List<SkillDTO> skills = new ArrayList<>();
+        private List<MainPostMatchDTO.MainPostDTO.SkillDTO> skills = new ArrayList<>();
 
-        public MainPostMatchDTO(Resume resume) {
+
+        public MatchingPostsDTO(Resume resume) {
             this.id = resume.getId();
             this.profile = resume.getProfile();
             this.userName = resume.getUser().getName();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
-            this.skills = resume.getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(skill -> new MainPostMatchDTO.MainPostDTO.SkillDTO(skill)).toList();
         }
 
         @Data
@@ -209,10 +264,7 @@ public class MainResponse {
                 this.skill = skill.getSkill();
             }
         }
-
     }
-
-
     //매칭할 공고 선택
     @Data
     public static class PostMatchingChoiceDTO {
@@ -238,6 +290,7 @@ public class MainResponse {
 
     @Data
     public static class MainResumeMatchDTO {
+        private ResumesDTO resume;
         private Integer id;
         private String profile;
         private String companyName;
@@ -258,8 +311,21 @@ public class MainResponse {
             this.skills = post.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
         }
 
+        public MainResumeMatchDTO(Post post, Resume resume) {
+            this.id = post.getId();
+            this.profile = post.getProfile();
+            this.companyName = post.getUser().getCompanyName();
+            this.title = post.getTitle();
+            this.task = post.getTask();
+            this.career = post.getCareer();
+            this.workingArea = post.getWorkingArea();
+            this.skills = post.getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.resume = new ResumesDTO(resume);
+        }
+
         @Data
         public class SkillDTO {
+
             private Integer id;
             private String skill;
 
@@ -267,8 +333,22 @@ public class MainResponse {
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }
+
         }
+
+        @Data
+        public class ResumesDTO {
+            private Integer id;
+            private String title;
+
+            public ResumesDTO(Resume resume) {
+                this.id = resume.getId();
+                this.title = resume.getTitle();
+            }
+        }
+
     }
+
 
     @Data
     public static class PostTitleListDTO {

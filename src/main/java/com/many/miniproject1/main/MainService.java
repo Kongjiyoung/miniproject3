@@ -141,7 +141,10 @@ public class MainService {
             int resumeId = filteredList.get(i).getResumeId();
             matchingResumeList.add(resumeJPARepository.findByIdJoinSkillAndUser(resumeId));
         }
-        return matchingResumeList.stream().map(resume -> new MainResponse.MainPostMatchDTO(resume)).toList();
+
+        Post post = postJPARepository.findById(postchoice).orElseThrow(() -> new Exception404("권한이 없습니다"));
+        MainResponse.MatchingPostsDTO =matchingResumeList.stream().map(resume -> new MainResponse.MatchingPostsDTO(resume)).toList();
+        return
     }
 
 
@@ -150,14 +153,7 @@ public class MainService {
         return postList.stream().map(post -> new MainResponse.MainPostsDTO(post)).toList();
     }
 
-    public List<Resume> resumeForm() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
-        return resumeJPARepository.findAll(sort);
-    }
 
-    public List<Post> getPostsByCompanyId(Integer companyId) {
-        return postJPARepository.findByUserIdJoinSkillAndUser(companyId);
-    }
 
     public MainResponse.PostDetailDTO getPostIsCompanyDetail(int postId, int userId, Boolean isCompany) {
         Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
@@ -239,7 +235,10 @@ public class MainService {
             int postId = filteredList.get(i).getPostId();
             matchingPostList.add(postJPARepository.findByPostIdJoinUserAndSkill(postId));
         }
-        return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post)).toList();
+
+        //선택한 이력서 확인
+        Resume resume = resumeJPARepository.findById(resumechoice).orElseThrow(() -> new Exception401("권한이 없습니다"));
+        return matchingPostList.stream().map(post -> new MainResponse.MainResumeMatchDTO(post, resume)).toList();
     }
 
 
