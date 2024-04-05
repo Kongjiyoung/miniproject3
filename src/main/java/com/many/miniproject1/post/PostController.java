@@ -19,7 +19,7 @@ public class PostController {
     // TODO : 이력서 조회 API 필요. update-form < findByPost(id)
 
 
-    //회사 공고 관리
+    //회사 공고 목록
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -28,6 +28,7 @@ public class PostController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    //회사 공고 디테일
     @GetMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyPostDetail(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -35,14 +36,15 @@ public class PostController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 이력서 저장
+    // 공고 저장
     @PostMapping("/api/company/posts")
-    public ResponseEntity<?> companySavePost(@Valid @RequestBody PostRequest.PostSaveDTO reqDTO) {
+    public ResponseEntity<?> companySavePost(@Valid @RequestBody PostRequest.SavePostDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         PostResponse.PostDTO respDTO = postService.save(reqDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    //공고 업데이트
     @PutMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyUpdatePost(@PathVariable Integer id, @RequestBody PostRequest.UpdatePostDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -51,6 +53,7 @@ public class PostController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    //공고 삭제
     @DeleteMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyDeletePost(@PathVariable int id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");

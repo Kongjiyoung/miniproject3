@@ -1,6 +1,7 @@
 package com.many.miniproject1.post;
 
 
+import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
@@ -37,6 +38,39 @@ public class PostService {
     private final ScrapJPARepository scrapJPARepository;
     private final UserJPARepository userJPARepository;
 
+    //공고 목록보기
+    public List<PostResponse.PostListDTO> getResumeList(Integer userId) {
+        List<Post> postList = postJPARepository.findByPost(userId);
+        return postList.stream().map(post -> new PostResponse.PostListDTO(post)).toList();
+    }
+
+    // 공고 상세보기
+    public PostResponse.DetailDTO postDetail (int postId, SessionUser sessionUser){
+        Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+        return new PostResponse.DetailDTO(post, sessionUser);
+    }
+
+    //공고 저장
+    @Transactional
+    public PostResponse.PostDTO save(PostRequest.SavePostDTO reqDTO, SessionUser sessionUser) {
+        User user=userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception403("권한없음"));
+        Post post = postJPARepository.save(reqDTO.toEntity(user));
+
+        List<Skill> skills = new ArrayList<>();
+        for (String skillName : reqDTO.getSkills()) {
+            SkillRequest.SavePostDTO skill = new SkillRequest.SavePostDTO();
+            skills.add(skill.toEntity(skillName, post));
+        }
+        List<Skill> skillList = skillJPARepository.saveAll(skills);
+        return new PostResponse.PostDTO(post, skillList);
+    }
+
+
+
+
+    //공고 삭제
     @Transactional
     public void postDelete(int postId, int sessionUserId) {
         Post post = postJPARepository.findById(postId)
@@ -52,35 +86,7 @@ public class PostService {
         skillJPARepository.deleteSkillsByPostId(postId);
     }
 
-    @Transactional
-    public PostResponse.PostDTO save(PostRequest.PostSaveDTO reqDTO, SessionUser sessionUser) {
-        User user=userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception403("권한없음"));
-        Post post = postJPARepository.save(reqDTO.toEntity(user));
-
-        List<Skill> skills = new ArrayList<>();
-        for (String skillName : reqDTO.getSkills()) {
-            SkillResponse.PostSaveDTO skill = new SkillResponse.PostSaveDTO();
-            skill.setSkill(skillName);
-            skill.setPost(post);
-            skills.add(skill.toEntity());
-        }
-        List<Skill> skillList = skillJPARepository.saveAll(skills);
-        return new PostResponse.PostDTO(post, skillList);
-    }
-
-    public List<PostResponse.PostListDTO> getResumeList(Integer userId) {
-        List<Post> postList = postJPARepository.findByPost(userId);
-        return postList.stream().map(post -> new PostResponse.PostListDTO(post)).toList();
-    }
-
-    // 공고 상세보기
-    public PostResponse.DetailDTO postDetail (int postId, SessionUser sessionUser){
-        Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
-                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
-
-        return new PostResponse.DetailDTO(post, sessionUser);
-    }
-
+    //스킬 업데이트
     @Transactional
     public PostResponse.PostUpdateDTO updatePost(int postId, int sessionUserId, PostRequest.UpdatePostDTO reqDTO) {
         // 1. 이력서 찾기
@@ -92,67 +98,29 @@ public class PostService {
             throw new Exception403("공고를 수정할 권한이 없습니다");
         }
 
-        if (reqDTO.getTitle() != null) {
-            post.setTitle(reqDTO.getTitle());
-        }
-        // 3. 이력서 업데이트
-        if (reqDTO.getProfile() != null) {
-            String encodedImageData = reqDTO.getProfile();
-            byte[] decodedBytes = Base64.getDecoder().decode(encodedImageData);
-            String profilename= UUID.nameUUIDFromBytes(decodedBytes).randomUUID()+"_" + reqDTO.getProfileName();
-            try {
-                Path path = Path.of("./images/" + profilename);
-                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            post.setProfile(profilename);
-        }
+        //공고 업데이트
+        post.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(), reqDTO.getProfileName()));
+        post.updatePost(reqDTO);
 
-        if (reqDTO.getProfileName() != null) {
-            post.setProfileName(reqDTO.getProfileName());
-        }
-
-        if (reqDTO.getPay() != null) {
-            post.setPay(reqDTO.getPay());
-        }
-        if (reqDTO.getWorkStartTime() != null) {
-            post.setWorkStartTime(reqDTO.getWorkStartTime());
-        }
-        if (reqDTO.getWorkEndTime() != null) {
-            post.setWorkEndTime(reqDTO.getWorkEndTime());
-        }
-        if (reqDTO.getDeadline() != null) {
-            post.setDeadline(reqDTO.getDeadline());
-        }
-        if (reqDTO.getTask() != null) {
-            post.setTask(reqDTO.getTask());
-        }
-        if (reqDTO.getWorkingArea() != null) {
-            post.setWorkingArea(reqDTO.getWorkingArea());
-        }
-        if (reqDTO.getWorkCondition() != null) {
-            post.setWorkCondition(reqDTO.getWorkCondition());
-        }
-        // 4. 스킬 업데이트
+        // 스킬 모두 삭제
         List<Skill> beforeSkill = skillJPARepository.findSkillsByPostId(post.getId());
         for (Skill skill : beforeSkill) {
             skillJPARepository.deleteSkillsByPostId(post.getId());
         }
+
+        //스킬 등록
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillRequest.UpdatePostSkillsDTO skill = new SkillRequest.UpdatePostSkillsDTO();
-            skill.setPost(post);
-            skill.setSkill(skillName);
-            skills.add(skill.toEntity());
+            SkillRequest.SavePostDTO skill = new SkillRequest.SavePostDTO();
+            skills.add(skill.toEntity(skillName, post));
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
         return new PostResponse.PostUpdateDTO(post, skillList);
     }
 
-    public Post findByPost(int id) {
-        Post post = postJPARepository.findById(id)
-                .orElseThrow(() -> new Exception404("해당하는 공고가 없습니다"));
-        return post;
-    }
+//    public Post findByPost(int id) {
+//        Post post = postJPARepository.findById(id)
+//                .orElseThrow(() -> new Exception404("해당하는 공고가 없습니다"));
+//        return post;
+//    }
 }

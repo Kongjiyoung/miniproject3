@@ -18,7 +18,7 @@ import java.util.UUID;
 public class PostRequest {
 
     @Data
-    public static class PostSaveDTO {
+    public static class SavePostDTO {
         @NotEmpty
         @Size(min = 4, max = 50, message = "4자이상 50자이하로 작성해주세요")
         private String title;

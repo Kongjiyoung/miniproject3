@@ -1,5 +1,6 @@
 package com.many.miniproject1.post;
 
+import com.many.miniproject1.resume.ResumeRequest;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
 import jakarta.persistence.*;
@@ -61,8 +62,18 @@ public class Post { // 공고테이블
         this.createdAt = createdAt;
     }
 
-
-
+    public void updatePost(PostRequest.UpdatePostDTO reqDTO) {
+        this.title = reqDTO.getTitle();
+        this.career = reqDTO.getCareer();
+        this.pay = reqDTO.getPay();
+        this.profileName = reqDTO.getProfileName();
+        this.workStartTime = reqDTO.getWorkStartTime();
+        this.workEndTime = reqDTO.getWorkEndTime();
+        this.deadline = reqDTO.getDeadline();
+        this.task = reqDTO.getTask();
+        this.workingArea = reqDTO.getWorkingArea();
+        this.workCondition = reqDTO.getWorkCondition();
+    }
 
     @Override
     public String toString() {
