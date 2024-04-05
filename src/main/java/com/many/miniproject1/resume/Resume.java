@@ -57,12 +57,6 @@ public class Resume {
         this.simpleIntroduce = simpleIntroduce;
         this.createdAt = createdAt;
     }
-
-
-
-
-
-
     @Override
     public String toString() {
         return "Resume{" +
