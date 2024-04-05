@@ -16,7 +16,7 @@ public class ApplyController {
     private final HttpSession session;
     private final ApplyService applyService;
 
-    // 기업에서 받은 이력서 관리
+    // 기업에서 받은 이력서 목록
     @GetMapping("/api/company/resumes")
     public ResponseEntity<?> companyResumes() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -24,6 +24,7 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
     }  // 체크 완
 
+    // 기업에서 받은 이력서 디테일
     @GetMapping("/api/company/resumes/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -33,10 +34,11 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeDetail));
     }  // 체크 완
 
+    //기업에서 이력서 불/합격주기
     @PutMapping("/api/company/resumes/{id}/is-pass")
     public ResponseEntity<?> companyPass(@PathVariable Integer id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
         Apply apply = applyService.getApplyById(id);
-        ApplyRequest.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
+        ApplyResponse.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
         apply.updateIsPass(reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(updateIsPassDTO));
@@ -51,6 +53,7 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(applyPostSkillDTOList));
     }  // 체크 완
 
+    // 개인이 지원한 이력서 디테일
     @GetMapping("/api/person/applies/{id}") // 내가 지원한 공고 디테일
     public ResponseEntity<?> personApply(@PathVariable int id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -59,6 +62,7 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(applyPostDetail));
     }  // 체크 완
 
+    //개인 지원 취소
     @DeleteMapping("/api/person/applies/{id}")
     public ResponseEntity<?> applyDelete(@PathVariable int id) {
         applyService.deleteApply(id);

@@ -9,6 +9,7 @@ import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
+import com.many.miniproject1.skill.SkillRequest;
 import com.many.miniproject1.skill.SkillResponse;
 import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
@@ -63,7 +64,7 @@ public class ResumeService {
         //스킬 저장
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO(skillName, resume);
+            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
             skills.add(skill.toEntity());
         }
 
@@ -90,7 +91,7 @@ public class ResumeService {
         //스킬 업데이트
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO(skillName, resume);
+            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
             skills.add(skill.toEntity());
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
