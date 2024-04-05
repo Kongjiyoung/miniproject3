@@ -31,6 +31,7 @@ public class UserService {
         User user = userJPARepository.save(reqDTO.toEntity());
         return new UserResponse.CompanyDTO(user);
     }
+
     public User findByUser(int id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
@@ -48,65 +49,22 @@ public class UserService {
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         return new UserResponse.CompanyDTO(user);
     }
+
     @Transactional
     public UserResponse.PersonDTO updatePersonInfo(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(personId)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
-
-        // 비밀번호 업데이트
-        if (StringUtils.isNotEmpty(reqDTO.getNewPassword())) {
-            user.setPassword(reqDTO.getNewPassword());
-        }
-
-        if (reqDTO.getProfile()!=null){
-            user.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(), reqDTO.getProfileName()));
-        }
-        if (reqDTO.getName()!=null){
-            user.setName(reqDTO.getName());
-        }
-        if (reqDTO.getBirth()!=null){
-            user.setBirth(reqDTO.getBirth());
-        }
-        if (reqDTO.getAddress()!=null){
-            user.setAddress(reqDTO.getAddress());
-        }
-        if (reqDTO.getTel()!=null){
-            user.setTel(reqDTO.getTel());
-        }
-        if (reqDTO.getEmail()!=null){
-            user.setEmail(reqDTO.getEmail());
-        }
-
-
+        user.updatePersonInfo(reqDTO);
         return new UserResponse.PersonDTO(user);
     }
+
     @Transactional
     public UserResponse.CompanyDTO companyInfoUpdate(int id, UserRequest.CompanyInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
-
-        // 비밀번호 업데이트
-        if (StringUtils.isNotEmpty(reqDTO.getNewPassword())) {
-            user.setPassword(reqDTO.getNewPassword());
-        }
-
-        if (reqDTO.getProfile()!=null){
-            user.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(), reqDTO.getProfileName()));
-        }
-        if (reqDTO.getAddress()!=null){
-            user.setAddress(reqDTO.getAddress());
-        }
-        if (reqDTO.getTel()!=null){
-            user.setTel(reqDTO.getTel());
-        }
-        if (reqDTO.getEmail()!=null){
-            user.setEmail(reqDTO.getEmail());
-        }
-
+        user.updateCompanyInfo(reqDTO);
         return new UserResponse.CompanyDTO(user);
     }
-
-
 
     public String  login(UserRequest.LoginDTO reqDTO) {
         User user = userJPARepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
