@@ -18,7 +18,6 @@ public class PostController {
 
     // TODO : 이력서 조회 API 필요. update-form < findByPost(id)
 
-
     //회사 공고 목록
     @GetMapping("/api/company/posts")
     public ResponseEntity<?> companyPosts() {
@@ -32,7 +31,7 @@ public class PostController {
     @GetMapping("/api/company/posts/{id}")
     public ResponseEntity<?> companyPostDetail(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        PostResponse.DetailDTO respDTO = postService.postDetail(id, sessionUser);
+        PostResponse.DetailDTO respDTO = postService.postDetail(id);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

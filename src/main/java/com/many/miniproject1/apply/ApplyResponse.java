@@ -7,10 +7,8 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,9 +32,10 @@ public class ApplyResponse {
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
-            this.skllList = skllList.stream().map(skill -> {
-                return new SkillDTO(skill);
-            }).collect(Collectors.toList());
+
+            // TODO: skill collect -> toList 작업
+
+            this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
             this.isPass = apply.getIsPass();
         }
 
@@ -89,9 +88,10 @@ public class ApplyResponse {
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
-            this.skllList = skllList.stream().map(skill -> {
-                return new SkillDTO(skill);
-            }).collect(Collectors.toList());
+
+            // TODO: skill collect -> toList 작업
+
+            this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
             this.introduce = resume.getIntroduce();
         }
 
@@ -135,9 +135,11 @@ public class ApplyResponse {
             this.title = post.getTitle();
             this.career = post.getCareer();
             this.workingArea = post.getWorkingArea();
-            this.skllList = skllList.stream().map(skill -> {
-                return new SkillDTO(skill);
-            }).collect(Collectors.toList());
+
+            // TODO: skill collect -> toList 작업
+
+            this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
+
             this.isPass = apply.getIsPass();
         }
 
@@ -188,9 +190,10 @@ public class ApplyResponse {
             this.task = post.getTask();
             this.profile = user.getProfile();
             this.workingArea = post.getWorkingArea();
-            this.skllList = skllList.stream().map(skill -> {
-                return new SkillDTO(skill);
-            }).collect(Collectors.toList());
+
+            // TODO: skill collect -> toList 작업
+
+            this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
         }
 
         @Data

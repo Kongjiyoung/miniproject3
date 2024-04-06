@@ -19,6 +19,7 @@ public class ResumeRequest {
 
     @Data
     public static class ResumeSaveDTO{
+        //TODO: NotEmpty, null, 공백처리
         @NotEmpty
         @Size(min = 4, max = 50, message = "4자이상 50자이하로 작성해주세요")
         private String title;
@@ -37,19 +38,14 @@ public class ResumeRequest {
         private List<String> skills = new ArrayList<>();
 
         public Resume toEntity(User user){
-            byte[] decodedBytes = Base64.getDecoder().decode(profile);
-            String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
-            try {
-                Path path = Path.of("./images/" + profilename);
-                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            ProfileImageSaveUtil profileImageSaveUtil = new ProfileImageSaveUtil();
+            String profileName = profileImageSaveUtil.convertToBase64(user.getProfile(),user.getProfileName());
 
             return Resume.builder()
                     .user(user)
                     .title(title)
-                    .profile(profilename)
+                    .profile(profile)
                     .profileName(profileName)
                     .career(career)
                     .simpleIntroduce(simpleIntroduce)
@@ -61,20 +57,31 @@ public class ResumeRequest {
 
     @Data
     public static class UpdateDTO {
+
+        //TODO: NotEmpty, null, 공백처리
         @NotEmpty
         @Size(min = 4, max = 50, message = "4자이상 50자이하로 작성해주세요")
         private String title;
+
         @NotEmpty
         private String profile;
+
         @NotEmpty
-        private String profileName;
+        private String profileName; //
+
+        //널 허용
         private String portfolio;
+
         @NotEmpty
         @Size(min = 4, max = 300, message = "4자이상 300자이하로 작성해주세요")
         private String introduce;
+
         @NotEmpty
         private String career;
+
+        //널 허용
         private String simpleIntroduce;
+
         @NotEmpty
         private List<String> skills;
     }

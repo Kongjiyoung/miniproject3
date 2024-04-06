@@ -45,14 +45,10 @@ public class PostRequest {
         private List<String> skills = new ArrayList<>();
 
         public Post toEntity(User user) {
-            byte[] decodedBytes = Base64.getDecoder().decode(profile);
-            String profilename = UUID.nameUUIDFromBytes(decodedBytes).randomUUID() + "_" + profileName;
-            try {
-                Path path = Path.of("./images/" + profilename);
-                Files.write(path, decodedBytes); // 바이트 배열을 파일로 저장
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            ProfileImageSaveUtil profileImageSaveUtil = new ProfileImageSaveUtil();
+            String profileName = profileImageSaveUtil.convertToBase64(user.getProfile(),user.getProfileName());
+
             return Post.builder()
                     .user(user)
                     .title(title)
@@ -64,7 +60,7 @@ public class PostRequest {
                     .deadline(deadline)
                     .task(task)
                     .workingArea(workingArea)
-                    .profile(profilename)
+                    .profile(profile)
                     .profileName(profileName)
                     .build();
         }

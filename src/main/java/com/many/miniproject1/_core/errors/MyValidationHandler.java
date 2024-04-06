@@ -1,4 +1,5 @@
-package com.many.miniproject1._core.errors.exception;
+package com.many.miniproject1._core.errors;
+import com.many.miniproject1._core.errors.exception.Exception400;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -9,6 +10,8 @@ import org.springframework.validation.FieldError;
 @Aspect // AOP 등록
 @Component // IoC 등록
 public class MyValidationHandler {
+
+    // TODO: 파일 패키지 경로 errors/exception -> errors 로 변경
 
     // Advice (부가 로직 hello 메서드)
     // Advice가 수행될 위치 == PointCut

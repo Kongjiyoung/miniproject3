@@ -88,6 +88,7 @@ public class ResumeResponse {
             }
         }
     }
+
     // 이력서 저장 DTO
     @Data
     public static class ResumeSaveDTO {
@@ -162,6 +163,4 @@ public class ResumeResponse {
             }
         }
     }
-
-
 }

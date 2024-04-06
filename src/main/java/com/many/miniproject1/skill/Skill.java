@@ -27,6 +27,7 @@ public class Skill {
     @JoinColumn(name = "post_id", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post; // null 허용 되어야 한다
+
     @CreationTimestamp
     private Timestamp createdAt;
 
@@ -39,6 +40,7 @@ public class Skill {
         this.createdAt = createdAt;
     }
 
+    //TODO: 삭제예정
     @Override
     public String toString() {
         return "Skill{" +

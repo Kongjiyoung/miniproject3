@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class UserRequest {
 
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class PersonJoinDTO {
@@ -32,6 +33,7 @@ public class UserRequest {
         @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
         private String tel;
         @NotEmpty(message = "주소 공백일 수 없습니다")
+        @NotEmpty
         private String address;
         @NotEmpty
         @Size(min = 4, max = 20)
@@ -52,6 +54,8 @@ public class UserRequest {
                     .build();
         }
     }
+
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class CompanyJoinDTO {
@@ -100,6 +104,8 @@ public class UserRequest {
         }
     }
 
+
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class PersonInfoUpdateDTO {
@@ -127,6 +133,8 @@ public class UserRequest {
         private String newPassword;
 
     }
+
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class CompanyInfoUpdateDTO {
@@ -150,6 +158,8 @@ public class UserRequest {
         private String newPassword;
     }
 
+
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class LoginDTO {
