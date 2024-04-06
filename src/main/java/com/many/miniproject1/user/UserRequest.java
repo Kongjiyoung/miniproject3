@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 public class UserRequest {
 
-    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class PersonJoinDTO {
@@ -55,7 +54,6 @@ public class UserRequest {
         }
     }
 
-    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class CompanyJoinDTO {
@@ -105,7 +103,6 @@ public class UserRequest {
     }
 
 
-    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class PersonInfoUpdateDTO {
@@ -134,7 +131,6 @@ public class UserRequest {
 
     }
 
-    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class CompanyInfoUpdateDTO {
@@ -159,7 +155,6 @@ public class UserRequest {
     }
 
 
-    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class LoginDTO {

@@ -31,7 +31,7 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             JOIN FETCH r.skills rs
             WHERE s.id = :scrap_id
             """)
-    Scrap findByResumeIdAndSkillAndUser(@Param("scrap_id") Integer scrapId);
+    Optional<Scrap> findByResumeIdAndSkillAndUser(@Param("scrap_id") Integer scrapId);
 
     @Query("""
             select s
@@ -76,7 +76,7 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             join fetch p.skillList ps
             where s.id = :scrap_id
                         """)
-    Scrap findByScrapIdJoinPostAndSkill(@Param("scrap_id") Integer scrapId);
+    Optional<Scrap> findByScrapIdJoinPostAndSkill(@Param("scrap_id") Integer scrapId);
 
     @Query("""
             select s

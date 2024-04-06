@@ -39,14 +39,4 @@ public class Skill {
         this.post = post;
         this.createdAt = createdAt;
     }
-
-    //TODO: 삭제예정
-    @Override
-    public String toString() {
-        return "Skill{" +
-                "id=" + id +
-                ", skill='" + skill + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
-    }
 }

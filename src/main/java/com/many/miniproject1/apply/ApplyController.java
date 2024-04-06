@@ -27,7 +27,10 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
     }  // 체크 완
 
+
+    // 기업에서 받은 이력서 디테일
     @GetMapping("/api/company/my-page/receive-resumes/{id}") //@GetMapping("/api/company/resumes/{id}")
+
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
         ApplyResponse.AppliedResumeSkillDetailDTO appliedResumeDetail = applyService.getAppliedResume(id);
         applyService.companyResumeDetail(id);
@@ -53,7 +56,9 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(applyPostSkillDTOList));
     }  // 체크 완
 
+    // 개인이 지원한 이력서 디테일
     @GetMapping("/api/person/my-page/apply-posts/{id}") // 내가 지원한 공고 디테일
+
     public ResponseEntity<?> personApply(@PathVariable int id) {
         ApplyResponse.ApplyPostSkillDetailDTO applyPostDetail = applyService.getPostDetail(id);
 

@@ -42,12 +42,12 @@ public class ResumeRequest {
         public Resume toEntity(User user){
 
             ProfileImageSaveUtil profileImageSaveUtil = new ProfileImageSaveUtil();
-            String profileName = profileImageSaveUtil.convertToBase64(user.getProfile(),user.getProfileName());
+            String profilePathName = profileImageSaveUtil.convertToBase64(profile, profileName);
 
             return Resume.builder()
                     .user(user)
                     .title(title)
-                    .profile(profile)
+                    .profile(profilePathName)
                     .profileName(profileName)
                     .career(career)
                     .simpleIntroduce(simpleIntroduce)
