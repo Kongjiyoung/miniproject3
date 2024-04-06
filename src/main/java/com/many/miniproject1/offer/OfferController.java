@@ -17,7 +17,6 @@ public class OfferController {
     private final OfferService offerService;
     private final MainService mainService;
 
-    // 04-01
     // person의 offers 관리
     @GetMapping("/api/person/my-page/offers")
     public ResponseEntity<?> personOffers() {

@@ -29,7 +29,6 @@ public class ApplyController {
 
     @GetMapping("/api/company/my-page/receive-resumes/{id}") //@GetMapping("/api/company/resumes/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.AppliedResumeSkillDetailDTO appliedResumeDetail = applyService.getAppliedResume(id);
         applyService.companyResumeDetail(id);
 
@@ -39,7 +38,7 @@ public class ApplyController {
     @PutMapping("/api/company/my-page/receive/{id}/is-pass")// @PutMapping("/api/company/resumes/{id}/is-pass")
     public ResponseEntity<?> companyPass(@PathVariable Integer id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
         Apply apply = applyService.getApplyById(id);
-        ApplyRequest.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
+        ApplyResponse.UpdateIsPassDTO updateIsPassDTO = applyService.isPassResume(id, reqDTO);
         apply.updateIsPass(reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(updateIsPassDTO));
@@ -56,7 +55,6 @@ public class ApplyController {
 
     @GetMapping("/api/person/my-page/apply-posts/{id}") // 내가 지원한 공고 디테일
     public ResponseEntity<?> personApply(@PathVariable int id) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.ApplyPostSkillDetailDTO applyPostDetail = applyService.getPostDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(applyPostDetail));

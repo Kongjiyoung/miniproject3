@@ -11,6 +11,30 @@ import java.util.Optional;
 
 public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
 
+    //TODO: 안쓰면 삭제
+    @Query("""
+            select r
+            from  Resume r
+            join User u on r.user.id = u.id
+            where u.id=:user_id
+            """)
+    List<Resume> findBySessionUserId(@Param("user_id") Integer userId);
+
+    //TODO: 안쓰면 삭제
+    @Query("select r from Resume r join fetch r.skills s where r.id = :id")
+    Resume findByIdJoinSkill(@Param("id") int id);
+
+    //TODO: 안쓰면 삭제
+    @Query("""
+            SELECT r
+            FROM Resume r
+            JOIN FETCH r.user ru
+            WHERE ru.id = :id
+            """)
+    List<Resume> findByUserId(@Param("id") int userId);
+
+
+
     @Query("""
             select r
             from Resume r
@@ -20,16 +44,9 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             """)
     Resume findByIdJoinSkillAndUser(@Param("id") int id);
 
-    @Query("select r from Resume r join fetch r.skills s where r.id = :id")
-    Resume findByIdJoinSkill(@Param("id") int id);
 
-    @Query("""
-            SELECT r
-            FROM Resume r
-            JOIN FETCH r.user ru
-            WHERE ru.id = :id
-            """)
-    List<Resume> findByUserId(@Param("id") int userId);
+
+
 
     @Query("""
             select r
@@ -40,13 +57,7 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             """)
     List<Resume> findByUserIdJoinSkillAndUser(@Param("id") int id);
 
-    @Query("""
-            select r
-            from  Resume r
-            join User u on r.user.id = u.id
-            where u.id=:user_id
-            """)
-    List<Resume> findBySessionUserId(@Param("user_id") Integer userId);
+
 
     @Query("""
             select r
@@ -66,6 +77,7 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
         """)
     Optional<Resume> findByIdJoinUser(@Param("id") int id);
 
+
     @Query("""
         select r
         from Resume r
@@ -74,6 +86,8 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
         where r.id = :resume_id
         """)
     Resume findResumeById(@Param("resume_id")Integer resumeId);
+
+
     @Query("""
             SELECT r
             FROM Resume r

@@ -4,11 +4,9 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import lombok.Data;
 
-import java.sql.Timestamp;
-
 public class SkillRequest {
 
-
+//TODO: 안쓰면 삭제
 //    @Data static class ResetDTO{
 //        private Integer id;
 //        private String skill;
@@ -16,23 +14,20 @@ public class SkillRequest {
 //        private Integer postId;
 //    }
 
+
     @Data
     public static class SaveResumeDTO {
         private String skill;
         private Resume resume;
 
-        public SaveResumeDTO(String skillName, Resume resume) {
-            this.skill=skillName;
-            this.resume=resume;
-        }
-
-        public Skill toEntity() {
+        public Skill toEntity(String skill, Resume resume) {
             return Skill.builder()
                     .skill(skill)
                     .resume(resume)
                     .build();
         }
     }
+
     @Data
     public static class SavePostDTO{
         private String skill;
