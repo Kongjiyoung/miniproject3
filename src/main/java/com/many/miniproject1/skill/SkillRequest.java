@@ -22,9 +22,9 @@ public class SkillRequest {
         private String skill;
         private Resume resume;
 
-        public Skill toEntity(Skill skill, Resume resume) {
+        public Skill toEntity(String skill, Resume resume) {
             return Skill.builder()
-                    .skill(skill.getSkill())
+                    .skill(skill)
                     .resume(resume)
                     .build();
         }
@@ -36,9 +36,9 @@ public class SkillRequest {
         private String skill;
         private Post post;
 
-        public Skill toEntity(Skill skill, Post post){
+        public Skill toEntity(String skill, Post post){
             return Skill.builder()
-                    .skill(skill.getSkill())
+                    .skill(skill)
                     .post(post)
                     .build();
         }
