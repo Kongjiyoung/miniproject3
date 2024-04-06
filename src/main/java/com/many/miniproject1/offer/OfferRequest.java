@@ -38,16 +38,14 @@ public class OfferRequest {
     }
 
     @Data
-    public static class MainOfferSaveDTO {
-        private Integer id;
+    public static class OfferSaveDTO {
         private Integer resumeId;
         private Integer postId;
 
-        public MainOfferSaveDTO() {
+        public OfferSaveDTO() {
         }
 
-        public MainOfferSaveDTO(Offer offer) {
-            this.id = offer.getId();
+        public OfferSaveDTO(Offer offer) {
             this.resumeId = offer.getResume().getId();
             this.postId = offer.getPost().getId();
         }

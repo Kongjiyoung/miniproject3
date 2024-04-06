@@ -4,8 +4,6 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import lombok.Data;
 
-import java.sql.Timestamp;
-
 public class SkillRequest {
 
 //TODO: 안쓰면 삭제
@@ -29,7 +27,6 @@ public class SkillRequest {
                     .build();
         }
     }
-
 
     @Data
     public static class SavePostDTO{

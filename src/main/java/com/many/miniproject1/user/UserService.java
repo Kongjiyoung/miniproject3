@@ -1,19 +1,11 @@
 package com.many.miniproject1.user;
 
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
-import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1._core.utils.JwtUtil;
-import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Base64;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -61,20 +53,21 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse.CompanyDTO companyInfoUpdate(int id, UserRequest.CompanyInfoUpdateDTO reqDTO) {
+    public UserResponse.CompanyDTO companyInfoUpdate(Integer id, UserRequest.CompanyInfoUpdateDTO reqDTO) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
         user.updateCompanyInfo(reqDTO);
         user.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(),reqDTO.getProfileName()));
         user.setPassword(reqDTO.getNewPassword());
+
         return new UserResponse.CompanyDTO(user);
     }
 
     public String  login(UserRequest.LoginDTO reqDTO) {
         User user = userJPARepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
+                .orElseThrow(() -> new Exception404("아이디와 패스워드를 확인해 주세요"));
+
         String jwt = JwtUtil.create(user);
         return jwt;
     }
-
 }

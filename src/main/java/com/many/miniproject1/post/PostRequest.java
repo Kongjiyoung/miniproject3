@@ -5,15 +5,9 @@ import com.many.miniproject1.user.User;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
 
 public class PostRequest {
 
@@ -48,8 +42,7 @@ public class PostRequest {
 
         public Post toEntity(User user) {
 
-            ProfileImageSaveUtil profileImageSaveUtil = new ProfileImageSaveUtil();
-            String profileName = profileImageSaveUtil.convertToBase64(user.getProfile(),user.getProfileName());
+            String profilename = ProfileImageSaveUtil.convertToBase64(user.getProfile(),user.getProfileName());
 
             return Post.builder()
                     .user(user)
@@ -62,7 +55,7 @@ public class PostRequest {
                     .deadline(deadline)
                     .task(task)
                     .workingArea(workingArea)
-                    .profile(profile)
+                    .profile(profilename)
                     .profileName(profileName)
                     .build();
         }

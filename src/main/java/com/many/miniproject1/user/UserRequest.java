@@ -22,7 +22,7 @@ public class UserRequest {
         @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$", message = "영문/숫자 2~20자 이내로 작성해주세요")
         private String username;
         @NotEmpty(message = "이름은 공백일 수 없습니다")
-        @Size(min = 4, max = 20)
+        @Size(min = 2, max = 10)
         private String name;
         @NotEmpty
         @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$", message = "이메일 형식으로 작성해주세요")
@@ -73,7 +73,7 @@ public class UserRequest {
         @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$", message = "영문/숫자 2~20자 이내로 작성해주세요")
         private String username;    // 로그인ID
         @NotEmpty(message = "이름은 공백일 수 없습니다")
-        @Size(min = 4, max = 20)
+        @Size(min = 2, max = 10)
         private String name;        // 담당자 이름
         @NotEmpty(message = "전화번호는 공백일 수 없습니다")
         @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
