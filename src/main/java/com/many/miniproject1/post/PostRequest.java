@@ -49,7 +49,7 @@ public class PostRequest {
         public Post toEntity(User user) {
 
             ProfileImageSaveUtil profileImageSaveUtil = new ProfileImageSaveUtil();
-            String profileName = profileImageSaveUtil.convertToBase64(user.getProfile(),user.getProfileName());
+            String profilePathName = profileImageSaveUtil.convertToBase64(profile,profileName);
 
             return Post.builder()
                     .user(user)
@@ -62,7 +62,7 @@ public class PostRequest {
                     .deadline(deadline)
                     .task(task)
                     .workingArea(workingArea)
-                    .profile(profile)
+                    .profile(profilePathName)
                     .profileName(profileName)
                     .build();
         }

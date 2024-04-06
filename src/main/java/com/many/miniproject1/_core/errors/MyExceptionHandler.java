@@ -17,9 +17,9 @@ public class MyExceptionHandler {
     public String ex400(Exception400 e, HttpServletRequest request) {
         request.setAttribute("msg", e.getMessage());
         log.warn("400 : " + e.getMessage());
-        return "err/400";
+        return "err/400"; // 배포 완료 후 사용
 //        ApiUtil<?> apiUtil = new ApiUtil<>(400, e.getMessage()); //http body -> 구성한 객체
-//        return new ResponseEntity<>(apiUtil, HttpStatus.BAD_REQUEST); //http body, http header
+//        return new ResponseEntity<>(apiUtil, HttpStatus.BAD_REQUEST); //http body, http header 배포 전 단계에서 사용
     }
 
     @ExceptionHandler(Exception401.class)
