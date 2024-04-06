@@ -25,11 +25,11 @@ public interface SkillJPARepository extends JpaRepository<Skill, Integer> {
     void deleteSkillsByPostId(@Param("postId") Integer postId);
 
 
-    //TODO: 안쓰면 삭제
-    @Query("select s from Skill s WHERE s.resume IS NOT NULL")
-    List<Skill> findSkillsByResume();
-
-    //TODO: 안쓰면 삭제
-    @Query("select s from Skill s WHERE s.post IS NOT NULL")
-    List<Skill> findSkillsByPost();
+//    //TODO: 안쓰면 삭제
+//    @Query("select s from Skill s WHERE s.resume IS NOT NULL")
+//    List<Skill> findSkillsByResume();
+//
+//    //TODO: 안쓰면 삭제
+//    @Query("select s from Skill s WHERE s.post IS NOT NULL")
+//    List<Skill> findSkillsByPost();
 }
