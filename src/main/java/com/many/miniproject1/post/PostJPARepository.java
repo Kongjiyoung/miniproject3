@@ -51,7 +51,7 @@ public interface PostJPARepository extends JpaRepository<Post, Integer> {
             join fetch p.skillList s
             where p.id =:post_id
             """)
-    Post findByPostIdJoinUserAndSkill(@Param("post_id") Integer postId);
+    Optional<Post> findByPostIdJoinUserAndSkill(@Param("post_id") Integer postId);
 
     @Query("""
             select p

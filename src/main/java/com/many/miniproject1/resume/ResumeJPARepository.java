@@ -42,7 +42,7 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
             join fetch r.user u
             where r.id = :id
             """)
-    Resume findByIdJoinSkillAndUser(@Param("id") int id);
+    Optional<Resume> findByIdJoinSkillAndUser(@Param("id") int id);
 
 
 
@@ -85,7 +85,7 @@ public interface ResumeJPARepository extends JpaRepository<Resume, Integer> {
         join fetch r.skills s
         where r.id = :resume_id
         """)
-    Resume findResumeById(@Param("resume_id")Integer resumeId);
+    Optional<Resume> findResumeById(@Param("resume_id")Integer resumeId);
 
 
     @Query("""

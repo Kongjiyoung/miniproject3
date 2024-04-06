@@ -63,7 +63,7 @@ public class ScrapService {
     }
 
     public ScrapResponse.ScrapResumeDetailDTO getResumeDetail(Integer userId){
-        Scrap scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(userId);
+        Scrap scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(userId).orElseThrow(() -> new Exception404("스크랩을 찾을 수 없습니다."));
         return new ScrapResponse.ScrapResumeDetailDTO(scrap);
     }
 
@@ -103,7 +103,7 @@ public class ScrapService {
 //    public
 
     public Scrap getScrapPostDetail(Integer scrapId) {
-        Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId);
+        Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId).orElseThrow(() -> new Exception404("스크랩을 찾을 수 없습니다."));
         return scrap;
     }
 

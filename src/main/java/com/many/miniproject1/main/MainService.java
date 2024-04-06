@@ -67,7 +67,7 @@ public class MainService {
     }
 
     public MainResponse.MainResumeDetailDTO getResumeDetail(Integer resumeId) {
-        Resume resume = resumeJPARepository.findResumeById(resumeId);
+        Resume resume = resumeJPARepository.findResumeById(resumeId).orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다."));
 
         return new MainResponse.MainResumeDetailDTO(resume, resume.getUser(), resume.getSkills());
     }
@@ -100,13 +100,13 @@ public class MainService {
     }
 
     public MainResponse.PostDetailDTO getPostIsCompanyDetail(int postId, int userId, Boolean isCompany) {
-        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
+        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId).orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다."));
         List<Resume> resumes=resumeJPARepository.findAllResume(userId);
         return new MainResponse.PostDetailDTO(post, resumes, isCompany);
     }
 
     public MainResponse.PostDetailDTO getPostDetail(int postId, Boolean isCompany) {
-        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId);
+        Post post = postJPARepository.findByPostIdJoinUserAndSkill(postId).orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다."));
         return new MainResponse.PostDetailDTO(post, isCompany);
     }
 
@@ -181,7 +181,7 @@ public class MainService {
 
         for (int i = 0; i < filteredList.size(); i++) {
             int resumeId = filteredList.get(i).getResumeId();
-            matchingResumeList.add(resumeJPARepository.findByIdJoinSkillAndUser(resumeId));
+            matchingResumeList.add(resumeJPARepository.findByIdJoinSkillAndUser(resumeId).orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다.")));
         }
 
         Post post = postJPARepository.findById(postchoice).orElseThrow(() -> new Exception404("권한이 없습니다"));
@@ -241,7 +241,7 @@ public class MainService {
 
         for (int i = 0; i < filteredList.size(); i++) {
             int postId = filteredList.get(i).getPostId();
-            matchingPostList.add(postJPARepository.findByPostIdJoinUserAndSkill(postId));
+            matchingPostList.add(postJPARepository.findByPostIdJoinUserAndSkill(postId).orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다.")));
         }
 
         //선택한 이력서 확인
