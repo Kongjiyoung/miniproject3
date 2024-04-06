@@ -74,7 +74,6 @@ public class ScrapController {
     @DeleteMapping("/api/company/my-page/scraps/{id}")
     public ResponseEntity<?> companyScrapDelete(@PathVariable Integer id) {
         scrapService.deleteScrap(id);
-
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
@@ -92,7 +91,7 @@ public class ScrapController {
     @PostMapping("/api/company/my-page/scraps") // @PostMapping("/api/resumes/{id}/scrap")
     public ResponseEntity<?> companyResumeScrap(@RequestBody ScrapRequest.ScrapResumeDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        ScrapResponse.MainResumeScrapDTO respDTO = mainService.resumeScrap(reqDTO.getId(), sessionUser.getId());
+        ScrapResponse.MainResumeScrapDTO respDTO = scrapService.resumeScrap(reqDTO.getId(), sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -102,7 +101,7 @@ public class ScrapController {
     @PostMapping("/api/main/posts/{id}/scrap")  // 메인 전용 스크랩이 필요할 것인가!!
     public ResponseEntity<?> personMainScrap(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        ScrapResponse.PostScrapSaveDTO respDTO = mainService.personPostScrap(sessionUser.getId(), id);
+        ScrapResponse.PostScrapSaveDTO respDTO = scrapService.personPostScrap(sessionUser.getId(), id);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

@@ -28,7 +28,6 @@ public class PostController {
 
     @GetMapping("/api/company/my-page/posts/{id}")
     public ResponseEntity<?> companyPostDetail(@PathVariable Integer id) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         PostResponse.DetailDTO respDTO = postService.postDetail(id);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

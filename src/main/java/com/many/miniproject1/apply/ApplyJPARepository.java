@@ -14,7 +14,6 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 //    @Query("delete from Apply a where a.id = :applyId")
 //    void deleteApplyPostById(@Param("applyId") Integer applyId);
 
-    // TODO: JPA 변수타입 null 을 대비하기 위해 Optional 추가
 
 //    @Query("""
 //            select a
