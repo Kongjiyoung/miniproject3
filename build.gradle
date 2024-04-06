@@ -4,7 +4,6 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
-// TODO: 배포를 위한 1.0 버전으로 수정
 
 group = 'com.many'
 version = '1.0' // 첫 배포 1.0 버전
@@ -51,7 +50,6 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-// TODO: enable false 작업
 
 jar { // .jar 파일을 하나만 생성되도록
     enabled = false

@@ -8,15 +8,6 @@ import java.sql.Timestamp;
 
 public class SkillRequest {
 
-//TODO: 안쓰면 삭제
-//    @Data static class ResetDTO{
-//        private Integer id;
-//        private String skill;
-//        private Integer resumeId;
-//        private Integer postId;
-//    }
-
-
     @Data
     public static class SaveResumeDTO {
         private String skill;
