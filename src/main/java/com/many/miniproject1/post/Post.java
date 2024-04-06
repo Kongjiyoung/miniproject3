@@ -75,22 +75,4 @@ public class Post { // 공고테이블
         this.workCondition = reqDTO.getWorkCondition();
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", career='" + career + '\'' +
-                ", pay='" + pay + '\'' +
-                ", workCondition='" + workCondition + '\'' +
-                ", workStartTime='" + workStartTime + '\'' +
-                ", workEndTime='" + workEndTime + '\'' +
-                ", deadline='" + deadline + '\'' +
-                ", task='" + task + '\'' +
-                ", profile='" + profile + '\'' +
-                ", profileName='" + profileName + '\'' +
-                ", workingArea='" + workingArea + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
-    }
 }

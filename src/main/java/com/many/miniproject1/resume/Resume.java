@@ -71,17 +71,5 @@ public class Resume {
         this.simpleIntroduce = reqDTO.getSimpleIntroduce();
     }
     
-    @Override
-    public String toString() {
-        return "Resume{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", profile='" + profile + '\'' +
-                ", portfolio='" + portfolio + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", career='" + career + '\'' +
-                ", simpleIntroduce='" + simpleIntroduce + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
-    }
+
 }

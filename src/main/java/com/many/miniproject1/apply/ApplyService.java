@@ -50,7 +50,7 @@ public class ApplyService {
         Apply apply = applyJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
 
-        apply.setIsPass(reqDTO.getIsPass());
+        apply.updateIsPass(reqDTO);
         return new ApplyResponse.UpdateIsPassDTO(apply.getIsPass());
     }
 
