@@ -228,6 +228,8 @@ public class ApplyResponse {
             this.postId = apply.getPost().getId();
             this.isPass = apply.getIsPass();
         }
+
+
     }
 
 //    @Data

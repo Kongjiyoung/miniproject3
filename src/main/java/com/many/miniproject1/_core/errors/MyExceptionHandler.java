@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice //데이터응답
 public class MyExceptionHandler {
 
-    // TODO: TEST 를 위한 코드를 배포를 위해 log 로 변경 [전체 수정]
 
     @ExceptionHandler(Exception400.class)
     public String ex400(Exception400 e, HttpServletRequest request) {
