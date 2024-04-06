@@ -12,7 +12,6 @@ import java.util.List;
 public class OfferService {
     private final OfferJPARepository offerJPARepository;
 
-    // 04-01 YSH ~
     // 개인 제안 목록
     @Transactional(readOnly = true)
     public List<OfferResponse.PersonOffersDTO> personOffers(int id) {
