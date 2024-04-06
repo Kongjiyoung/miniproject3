@@ -215,6 +215,21 @@ public class ApplyResponse {
         }
     }
 
+    @Data
+    public static class ApplyDTO {
+        private Integer id;
+        private Integer resumeId;
+        private Integer postId;
+        private String isPass;
+
+        public ApplyDTO(Apply apply) {
+            this.id = apply.getId();
+            this.resumeId = apply.getResume().getId();
+            this.postId = apply.getPost().getId();
+            this.isPass = apply.getIsPass();
+        }
+    }
+
 //    @Data
 //    public static class PostIsPassDTO {
 //        private Integer id;

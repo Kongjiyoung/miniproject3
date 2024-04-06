@@ -6,6 +6,7 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -171,6 +172,7 @@ public class MainResponse {
     }
 
     //매칭 공고 점수 DTO
+    @NoArgsConstructor
     @Data
     public static class PostSkillDTO {
         private Integer postId;
@@ -180,6 +182,7 @@ public class MainResponse {
             this.postId = postId;
             this.score = i;
         }
+
     }
 
     //메인 매칭받은 이력서 목록과 공고 선택

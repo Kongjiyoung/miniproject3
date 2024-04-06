@@ -61,7 +61,7 @@ public class OfferController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    // TODO: 일단 메인서비스 연결, 수정해야함
+    // TODO: 일단 메인서비스 연결, 수정해야함 - 지영
     @PostMapping("/api/company/my-page/offers") // @PostMapping("/api/resumes/{id}/offer")
     public ResponseEntity<?> companyResumeOffer(@RequestBody OfferRequest.OfferSaveDTO reqDTO) {
         reqDTO = mainService.sendPostToResume(reqDTO.getResumeId(), reqDTO.getPostId());
