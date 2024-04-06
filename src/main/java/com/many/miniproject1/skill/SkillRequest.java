@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 public class SkillRequest {
 
-
+//TODO: 안쓰면 삭제
 //    @Data static class ResetDTO{
 //        private Integer id;
 //        private String skill;
@@ -16,15 +16,11 @@ public class SkillRequest {
 //        private Integer postId;
 //    }
 
+
     @Data
     public static class SaveResumeDTO {
         private String skill;
         private Resume resume;
-
-        public SaveResumeDTO(String skillName, Resume resume) {
-            this.skill=skillName;
-            this.resume=resume;
-        }
 
         public Skill toEntity() {
             return Skill.builder()
@@ -33,6 +29,8 @@ public class SkillRequest {
                     .build();
         }
     }
+
+
     @Data
     public static class SavePostDTO{
         private String skill;
