@@ -4,7 +4,6 @@ import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,23 +13,25 @@ public class UserRequest {
     @NoArgsConstructor
     @Data
     public static class PersonJoinDTO {
-        @NotEmpty
+        @NotEmpty(message = "사진은 공백일 수 없습니다")
         private String profile;
-        @NotEmpty
+        @NotEmpty(message = "사진이름은 공백일 수 없습니다")
         private String profileName;
-        @NotEmpty
+        @NotEmpty(message = "아이디는 공백일 수 없습니다")
+        @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$", message = "영문/숫자 2~20자 이내로 작성해주세요")
         private String username;
-        @NotEmpty
+        @NotEmpty(message = "이름은 공백일 수 없습니다")
+        @Size(min = 4, max = 20)
         private String name;
         @NotEmpty
         @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$", message = "이메일 형식으로 작성해주세요")
         private String email;
-        @NotEmpty
+        @NotEmpty(message = "생일은 공백일 수 없습니다")
         private String birth;
         @NotEmpty
         @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
         private String tel;
-        @NotEmpty
+        @NotEmpty(message = "주소 공백일 수 없습니다")
         private String address;
         @NotEmpty
         @Size(min = 4, max = 20)
@@ -54,30 +55,31 @@ public class UserRequest {
     @NoArgsConstructor
     @Data
     public static class CompanyJoinDTO {
-        @NotEmpty
+        @NotEmpty(message = "사진은 공백일 수 없습니다")
         private String profile;     // 사진
-        @NotEmpty
+        @NotEmpty(message = "사진이름은 공백일 수 없습니다")
         private String profileName;
-        @NotEmpty
+        @NotEmpty(message = "회사이름은 공백일 수 없습니다")
         @Size(min = 1, max = 20)
         private String companyName; // 회사명
-        @NotEmpty
+        @NotEmpty(message = "사업자번호는 공백일 수 없습니다")
         @Pattern(regexp = "^?([0-9]{3})-?([0-9]{2})-?([0-9]{5})$", message = "000-00-00000식으로 작성해주세요")
         private String companyNum;  // 사업자번호
-        @NotEmpty
+        @NotEmpty(message = "아이디는 공백일 수 없습니다")
         @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$", message = "영문/숫자 2~20자 이내로 작성해주세요")
         private String username;    // 로그인ID
-        @NotEmpty
+        @NotEmpty(message = "이름은 공백일 수 없습니다")
+        @Size(min = 4, max = 20)
         private String name;        // 담당자 이름
-        @NotEmpty
+        @NotEmpty(message = "전화번호는 공백일 수 없습니다")
         @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
         private String tel;         // 전화번호
-        @NotEmpty
+        @NotEmpty(message = "주소 공백일 수 없습니다")
         private String address;     // 회사 주소
-        @NotEmpty
+        @NotEmpty(message = "이메일은 공백일 수 없습니다")
         @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$", message = "이메일 형식으로 작성해주세요")
         private String email;       // 담당자 이메일
-        @NotEmpty
+        @NotEmpty(message = "비밀번호는 공백일 수 없습니다")
         @Size(min = 4, max = 20)
         private String password;    // 비밀번호
 
@@ -101,26 +103,26 @@ public class UserRequest {
     @NoArgsConstructor
     @Data
     public static class PersonInfoUpdateDTO {
-        @NotEmpty
+        @NotEmpty(message = "사진은 공백일 수 없습니다")
         private String profile;
-        @NotEmpty
+        @NotEmpty(message = "사진이름은 공백일 수 없습니다")
         private String profileName;
-        @NotEmpty
+        @NotEmpty(message = "이름은 공백일 수 없습니다")
         private String name;
-        @NotEmpty
+        @NotEmpty(message = "생일은 공백일 수 없습니다")
         private String birth;
-        @NotEmpty
+        @NotEmpty(message = "번호는 공백일 수 없습니다")
         @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
         private String tel;
-        @NotEmpty
+        @NotEmpty(message = "주소는 공백일 수 없습니다")
         private String address;
-        @NotEmpty
+        @NotEmpty(message = "이메일은 공백일 수 없습니다")
         @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$", message = "이메일 형식으로 작성해주세요")
         private String email;
-        @NotEmpty
+        @NotEmpty(message = "비밀번호는 공백일 수 없습니다")
         @Size(min = 4, max = 20)
         private String password;
-        @NotEmpty
+        @NotEmpty(message = "새로운 비밀번호는 공백일 수 없습니다")
         @Size(min = 4, max = 20)
         private String newPassword;
 
@@ -128,22 +130,22 @@ public class UserRequest {
     @NoArgsConstructor
     @Data
     public static class CompanyInfoUpdateDTO {
-        @NotEmpty
+        @NotEmpty(message = "사진은 공백일 수 없습니다")
         private String profile;
-        @NotEmpty
+        @NotEmpty(message = "사진이름은 공백일 수 없습니다")
         private String profileName;
-        @NotEmpty
+        @NotEmpty(message = "주소는 공백일 수 없습니다")
         private String address;
-        @NotEmpty
+        @NotEmpty(message = "전화번호는 공백일 수 없습니다")
         @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
         private String tel;
-        @NotEmpty
+        @NotEmpty(message = "이메일은 공백일 수 없습니다")
         @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$", message = "이메일 형식으로 작성해주세요")
         private String email;
-        @NotEmpty
+        @NotEmpty(message = "비밀번호는 공백일 수 없습니다")
         @Size(min = 4, max = 20)
         private String password;
-        @NotEmpty
+        @NotEmpty(message = "새로운비밀번호는 공백일 수 없습니다")
         @Size(min = 4, max = 20)
         private String newPassword;
     }
@@ -151,7 +153,11 @@ public class UserRequest {
     @NoArgsConstructor
     @Data
     public static class LoginDTO {
+        @NotEmpty(message = "아이디는 공백일 수 없습니다")
+        @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$", message = "영문/숫자 2~20자 이내로 작성해주세요")
         private String username;
+        @NotEmpty(message = "비밀번호는 공백일 수 없습니다")
+        @Size(min = 4, max = 20)
         private String password;
     }
 
