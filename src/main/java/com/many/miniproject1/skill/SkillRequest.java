@@ -4,8 +4,6 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import lombok.Data;
 
-import java.sql.Timestamp;
-
 public class SkillRequest {
 
     @Data
@@ -20,7 +18,6 @@ public class SkillRequest {
                     .build();
         }
     }
-
 
     @Data
     public static class SavePostDTO{

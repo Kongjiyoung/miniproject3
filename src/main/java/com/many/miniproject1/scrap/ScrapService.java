@@ -1,8 +1,6 @@
 package com.many.miniproject1.scrap;
 
 
-import com.many.miniproject1._core.errors.exception.Exception401;
-import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -38,9 +36,9 @@ public class ScrapService {
     @Transactional
     public ApplyResponse.PostApplyDTO saveApply(int postId, int resumeId){
         Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다."));
         Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception401(""));
+                .orElseThrow(() -> new Exception404(""));
        ApplyRequest.SaveDTO saveApply=new ApplyRequest.SaveDTO(resume, post);
        Apply apply=applyJPARepository.save(saveApply.toEntity());
 
