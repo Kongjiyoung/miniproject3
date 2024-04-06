@@ -19,6 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
     private Integer id;
     private String role;
+
     @Column(unique = true)
     private String username; //이제부터 아이디를 이메일로 안받을 예정
     private String email;
@@ -31,6 +32,7 @@ public class User {
     private String profile;
     private String profileName;
     private String birth;
+
     @CreationTimestamp
     private Timestamp createdAt;//
 

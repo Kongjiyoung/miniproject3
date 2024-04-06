@@ -17,10 +17,11 @@ public class LoginInterceptor implements HandlerInterceptor{
 
         // Bearer jwt 토큰이 들어옴
         String jwt = request.getHeader("Authorization");
-        if (jwt == null) {
 
+        if (jwt == null) {
             throw new Exception401("jwt 토큰을 전달해주세요");
         }
+
         jwt = jwt.replace("Bearer ", "");
 
         try {

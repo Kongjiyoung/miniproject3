@@ -11,27 +11,36 @@ import lombok.NoArgsConstructor;
 
 public class UserRequest {
 
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class PersonJoinDTO {
         @NotEmpty
         private String profile;
+
         @NotEmpty
         private String profileName;
+
         @NotEmpty
         private String username;
+
         @NotEmpty
         private String name;
+
         @NotEmpty
         @Pattern(regexp = "^[a-zA-Z0-9]{2,10}@[a-zA-Z0-9]{2,6}\\.[a-zA-Z]{2,3}$", message = "이메일 형식으로 작성해주세요")
         private String email;
+
         @NotEmpty
         private String birth;
+
         @NotEmpty
         @Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "000-0000-0000식으로 작성해주세요")
         private String tel;
+
         @NotEmpty
         private String address;
+
         @NotEmpty
         @Size(min = 4, max = 20)
         private String password;
@@ -51,6 +60,8 @@ public class UserRequest {
                     .build();
         }
     }
+
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class CompanyJoinDTO {
@@ -98,6 +109,8 @@ public class UserRequest {
         }
     }
 
+
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class PersonInfoUpdateDTO {
@@ -125,6 +138,8 @@ public class UserRequest {
         private String newPassword;
 
     }
+
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class CompanyInfoUpdateDTO {
@@ -148,6 +163,8 @@ public class UserRequest {
         private String newPassword;
     }
 
+
+    //TODO: AOP @NotEmpty null, (" 000은  공백일 수 없습니다") 필요
     @NoArgsConstructor
     @Data
     public static class LoginDTO {
