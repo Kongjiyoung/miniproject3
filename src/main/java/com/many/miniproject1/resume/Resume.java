@@ -58,11 +58,15 @@ public class Resume {
         this.createdAt = createdAt;
     }
 
-
-
-
-
-
+    public void updateResume(ResumeRequest.UpdateDTO reqDTO) {
+        this.title = reqDTO.getTitle();
+        this.portfolio = reqDTO.getPortfolio();
+        this.introduce = reqDTO.getIntroduce();
+        this.profileName = reqDTO.getProfileName();
+        this.career = reqDTO.getCareer();
+        this.simpleIntroduce = reqDTO.getSimpleIntroduce();
+    }
+    
     @Override
     public String toString() {
         return "Resume{" +

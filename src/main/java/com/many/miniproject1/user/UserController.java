@@ -67,10 +67,10 @@ public class UserController {
     @PutMapping("/api/company/my-page/info")
     public ResponseEntity<?> companyInfoUpdate(@Valid @RequestBody UserRequest.CompanyInfoUpdateDTO reqDTO, Errors errors) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        User newSessionUser = userService.companyInfoUpdate(sessionUser.getId(), reqDTO);
-        session.setAttribute("sessionUser", newSessionUser);
+        UserResponse.CompanyDTO respDTO = userService.companyInfoUpdate(sessionUser.getId(), reqDTO);
+        session.setAttribute("sessionUser", respDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 //    @PutMapping("/companies/{id}/info")

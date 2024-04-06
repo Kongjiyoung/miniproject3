@@ -1,5 +1,6 @@
 package com.many.miniproject1.user;
 
+import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -51,10 +52,19 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public void update(Integer personId, UserRequest.PersonInfoUpdateDTO reqDTO) {
+    public void updatePersonInfo(UserRequest.PersonInfoUpdateDTO reqDTO) {
         this.tel = reqDTO.getTel();
         this.address = reqDTO.getAddress();
         this.email = reqDTO.getEmail();
-        this.password = reqDTO.getPassword();
+        this.profileName = reqDTO.getProfileName();
+        this.name = reqDTO.getName();
+        this.birth = reqDTO.getBirth();
+    }
+
+    public void updateCompanyInfo(UserRequest.CompanyInfoUpdateDTO reqDTO) {
+        this.tel = reqDTO.getTel();
+        this.address = reqDTO.getAddress();
+        this.email = reqDTO.getEmail();
+        this.profileName = reqDTO.getProfileName();
     }
 }

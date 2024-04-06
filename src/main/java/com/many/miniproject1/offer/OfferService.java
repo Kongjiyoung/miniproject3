@@ -20,19 +20,21 @@ public class OfferService {
 
         return personOffers.stream().map(offer -> new OfferResponse.PersonOffersDTO(offer)).toList();
     }
-    // 기업이 보낸 제안(이력서)들
-    @Transactional(readOnly = true)
-    public List<OfferResponse.CompanyOffersDTO> companyOffers(int id) {
-        List<Offer> companyOffers = offerJPARepository.companyFindAllOffers(id);
 
-        return companyOffers.stream().map(offer -> new OfferResponse.CompanyOffersDTO(offer)).toList();
-    }
     // 개인이 제안(공고)상세보기
     @Transactional(readOnly = true)
     public OfferResponse.PersonOfferDetailDTO personOfferDetail(int id) {
         Offer offer = offerJPARepository.personFindByOfferId(id);
 
         return new OfferResponse.PersonOfferDetailDTO(offer);
+    }
+
+    // 기업이 보낸 제안(이력서)들
+    @Transactional(readOnly = true)
+    public List<OfferResponse.CompanyOffersDTO> companyOffers(int id) {
+        List<Offer> companyOffers = offerJPARepository.companyFindAllOffers(id);
+
+        return companyOffers.stream().map(offer -> new OfferResponse.CompanyOffersDTO(offer)).toList();
     }
 
     // 04-02 YSH
@@ -44,7 +46,7 @@ public class OfferService {
         return new OfferResponse.CompanyOfferDetailDTO(offer);
     }
     // 기업의 제안 취소
-    @Transactional(readOnly = true)
+    @Transactional
     public void offerDelete (int offerId){
         offerJPARepository.deleteById(offerId);
     }

@@ -127,7 +127,6 @@ public class MainResponse {
     }
 
     //메인 이력서 목록
-    //메인 이력서 목록
     @Data
     public static class MainResumesDTO {
         private Integer id;
@@ -135,7 +134,7 @@ public class MainResponse {
         private String title;
         private String career;
         private String simplerIntroduce;
-        private List<SkillDTO> sklls = new ArrayList<>();
+        private List<SkillDTO> skills = new ArrayList<>();
 
         @Data
         public class SkillDTO {
@@ -154,7 +153,7 @@ public class MainResponse {
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simplerIntroduce = resume.getSimpleIntroduce();
-            this.sklls = resume.getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
 

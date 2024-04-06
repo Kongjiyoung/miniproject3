@@ -22,7 +22,9 @@ public class OfferController {
     @GetMapping("/api/person/my-page/offers")
     public ResponseEntity<?> personOffers() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        System.out.println(sessionUser.getId());
         List<OfferResponse.PersonOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
+        System.out.println(respDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

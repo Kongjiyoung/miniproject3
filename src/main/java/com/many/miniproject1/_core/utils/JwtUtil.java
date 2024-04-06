@@ -14,7 +14,7 @@ public class JwtUtil {
 
         String jwt = JWT.create()
                 .withSubject("miniproject")
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L * 48))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L * 24L * 30L))
                 .withClaim("id", user.getId())
                 .withClaim("username", user.getUsername())
                 .withClaim("role", user.getRole())

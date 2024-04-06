@@ -33,39 +33,6 @@ public class OfferResponse {
             this.createdAt = offer.getCreatedAt();
         }
     }
-
-    @Data
-    public static class CompanyOffersDTO {
-        private Integer offerId;
-        private Integer companyId;
-        private String profile;
-        private String username;
-        private String career;
-        private String simpleIntroduce;
-        private List<SkillDTO> skills = new ArrayList<>();
-
-        @Data
-        public class SkillDTO {
-            private Integer id;
-            private String skill;
-
-            public SkillDTO(Skill skill) {
-                this.id = skill.getId();
-                this.skill = skill.getSkill();
-            }
-        }
-
-        public CompanyOffersDTO(Offer offer) {
-            this.offerId = offer.getId();
-            this.companyId = offer.getPost().getUser().getId();
-            this.profile = offer.getResume().getProfile();
-            this.username = offer.getResume().getUser().getName();
-            this.career = offer.getResume().getCareer();
-            this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
-            this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
-        }
-    }
-
     @Data
     public static class PersonOfferDetailDTO {
         private Integer id;
@@ -112,6 +79,37 @@ public class OfferResponse {
             this.workingArea = offer.getPost().getWorkingArea();
             this.workCondition = offer.getPost().getWorkCondition();
             this.skills = offer.getPost().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
+        }
+    }
+    @Data
+    public static class CompanyOffersDTO {
+        private Integer offerId;
+        private Integer companyId;
+        private String profile;
+        private String username;
+        private String career;
+        private String simpleIntroduce;
+        private List<SkillDTO> skills = new ArrayList<>();
+
+        @Data
+        public class SkillDTO {
+            private Integer id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+
+        public CompanyOffersDTO(Offer offer) {
+            this.offerId = offer.getId();
+            this.companyId = offer.getPost().getUser().getId();
+            this.profile = offer.getResume().getProfile();
+            this.username = offer.getResume().getUser().getName();
+            this.career = offer.getResume().getCareer();
+            this.simpleIntroduce = offer.getResume().getSimpleIntroduce();
+            this.skills = offer.getResume().getSkills().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
 
@@ -164,39 +162,11 @@ public class OfferResponse {
         }
     }
 
-    @Data
-    public static class OfferDTO {
-        private Integer id;
-        private Integer resumeId;
-        private Integer postId;
-        private Integer companyId;
-        private Integer personId;
-    }
 
-    @Data
-    public static class OfferedResumeDetailDTO {
-        private Integer id;
-        private Integer userId;
-        private String title;
-        private String profile;
-        private String name;
-        private String birth;
-        private String tel;
-        private String address;
-        private String email;
-        private String career;
-        private String simpleIntroduce;
-        private String portfolio;
-        private List<OfferedResumeSkillDTO> skills = new ArrayList<>();
-        private String introduce;
 
-        public static class OfferedResumeSkillDTO {
-            private Integer id;
-            private String skill;
-            private int resumeId;
-        }
-    }
 
+
+    //ScrapService에서 씀
     @Data
     public static class ChoiceDTO {
         private Integer resumeId;

@@ -76,7 +76,7 @@ public class ScrapRequest {
 
     @Data
     public static class ResumeChoiceDTO {
-        private int id;
+        private Integer id;
         private Integer resumeChoice;
     }
 }

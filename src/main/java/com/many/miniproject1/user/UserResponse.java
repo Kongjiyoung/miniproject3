@@ -8,6 +8,7 @@ public class UserResponse {
         private Integer id;
         private String role;
         private String profile;
+        private String profileName;
         private String username;
         private String name;
         private String email;
@@ -20,6 +21,7 @@ public class UserResponse {
             this.id = user.getId();
             this.role = user.getRole();
             this.profile = user.getProfile();
+            this.profileName = user.getProfileName();
             this.username = user.getUsername();
             this.name = user.getName();
             this.email = user.getEmail();
@@ -35,6 +37,7 @@ public class UserResponse {
         private Integer id;
         private String role;        // 구직자 or 회사
         private String profile;     // 사진
+        private String profileName;
         private String companyName; // 회사명
         private String companyNum;  // 사업자번호
         private String username;    // 로그인ID
@@ -48,6 +51,7 @@ public class UserResponse {
             this.id = user.getId();
             this.role = user.getRole();
             this.profile = user.getProfile();
+            this.profileName = user.getProfileName();
             this.companyName = user.getCompanyName();
             this.companyNum = user.getCompanyNum();
             this.username = user.getUsername();

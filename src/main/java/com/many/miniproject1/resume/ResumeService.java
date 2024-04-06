@@ -8,7 +8,7 @@ import com.many.miniproject1.offer.OfferJPARepository;
 import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
-import com.many.miniproject1.skill.SkillResponse;
+import com.many.miniproject1.skill.SkillRequest;
 import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
@@ -44,7 +44,7 @@ public class ResumeService {
 
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
+            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
             skill.setSkill(skillName);
             skill.setResume(resume);
             skills.add(skill.toEntity());
@@ -102,7 +102,7 @@ public class ResumeService {
 
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
+            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
             skill.setSkill(skillName);
             skill.setResume(resume);
             skills.add(skill.toEntity());
@@ -124,7 +124,7 @@ public class ResumeService {
 
         List<Skill> skills = new ArrayList<>();
         for (String skillName : requestDTO.getSkills()) {
-            SkillResponse.SaveResumeDTO skill = new SkillResponse.SaveResumeDTO();
+            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
             skill.setResume(resume);
             skill.setSkill(skillName);
             skills.add(skill.toEntity());

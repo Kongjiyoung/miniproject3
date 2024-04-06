@@ -45,7 +45,7 @@ public class MainController {
             postTitleListDTOList = mainService.getPostTitleListDTOs(sessionUser.getId(), companyId); // 세션유저의 아이디와 컴퍼니 아이디가 일치해야 정보가 넘어감
         }
         // TODO: 테스트 끝나고 바로 아래 한 줄의 코드 삭제. 세션유저의 아이디와 컴퍼니 아이디가 일치해야 정보가 넘어가서 테스트할 때 주석 해제하고 보라고 빼놓음. 테스트할때 14, 14 넣으면 됨.
-        // postTitleListDTOList = mainService.getPostTitleListDTOs(14, 14);
+       // postTitleListDTOList = mainService.getPostTitleListDTOs(14, 14);
 
         MainResponse.MainResumeDetailDTO mainResumeDetailDTO = mainService.getResumeDetail(id);
         //resume만 아니라 postList도 같이 넘겨야함

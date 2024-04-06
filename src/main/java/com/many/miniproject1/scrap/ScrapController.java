@@ -48,9 +48,9 @@ public class ScrapController {
     }
 
     // TODO: 이거 컴퍼니 아이디 말고 스크랩 아이디로 다시 연결
-    @PostMapping("/api/person/my-page/scraps/{id}")
-    public ResponseEntity<?> personPostApply(@PathVariable Integer id, @RequestBody ScrapRequest.ResumeChoiceDTO resumeChoice) { // 스크랩 아이디와 이력서 아이디를 받아서
-        ApplyResponse.PostApplyDTO respDTO =scrapService.saveApply(id, resumeChoice.getResumeChoice());
+    @PostMapping("/api/person/my-page/scraps")
+    public ResponseEntity<?> personPostApply(@RequestBody ScrapRequest.ResumeChoiceDTO reqDTO) { // 스크랩 아이디와 이력서 아이디를 받아서
+        ApplyResponse.PostApplyDTO respDTO = scrapService.saveApply(reqDTO.getId(), reqDTO.getResumeChoice());
         System.out.println(respDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -70,7 +70,8 @@ public class ScrapController {
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-// TODO: 모든 스크랩들의 아이디 확인
+
+    // TODO: 모든 스크랩들의 아이디 확인
     @DeleteMapping("/api/company/my-page/scraps/{id}")
     public ResponseEntity<?> companyScrapDelete(@PathVariable Integer id) {
         scrapService.deleteScrap(id);
@@ -96,6 +97,7 @@ public class ScrapController {
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
+
     // 회사가 개인의 이력서를 스크랩
     // TODO: 포스트인데 리퀘스트 바디가 없음
     @PostMapping("/api/main/posts/{id}/scrap")  // 메인 전용 스크랩이 필요할 것인가!!
