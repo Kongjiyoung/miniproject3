@@ -18,7 +18,6 @@ public class OfferController {
     private final HttpSession session;
     private final OfferService offerService;
 
-    // 04-01
     // person의 offers 관리
     @GetMapping("/api/person/offers")
     public ResponseEntity<?> personOffers() {

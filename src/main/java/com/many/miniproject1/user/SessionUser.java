@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import java.sql.Timestamp;
 
+
 @Data
 public class SessionUser {
     private Integer id;
@@ -20,4 +21,17 @@ public class SessionUser {
         this.role = role;
         this.createdAt = createdAt;
     }
+
+    //TODO: 유저 생성자 추가
+    public SessionUser(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.createdAt = user.getCreatedAt();
+        this.role = user.getRole();
+    }
+
 }
+
+
+

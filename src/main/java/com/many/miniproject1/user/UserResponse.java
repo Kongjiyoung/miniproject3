@@ -3,6 +3,7 @@ package com.many.miniproject1.user;
 import lombok.Data;
 
 public class UserResponse {
+
     @Data
     public static class PersonDTO {
         private Integer id;
@@ -31,6 +32,7 @@ public class UserResponse {
             this.password = user.getPassword();
         }
     }
+
 
     @Data
     public static class CompanyDTO {
