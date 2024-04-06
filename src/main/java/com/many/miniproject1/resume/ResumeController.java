@@ -37,7 +37,6 @@ public class ResumeController {
     public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
