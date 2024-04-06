@@ -64,8 +64,8 @@ public class ResumeService {
         //스킬 저장
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
-            skills.add(skill.toEntity());
+            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO();
+            skill.toEntity(skillName, resume);
         }
 
         List<Skill> skillList = skillJPARepository.saveAll(skills);
@@ -91,8 +91,8 @@ public class ResumeService {
         //스킬 업데이트
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
-            skills.add(skill.toEntity());
+            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO();
+            skills.add(skill.toEntity(skillName, resume));
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
 
