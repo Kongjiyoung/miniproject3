@@ -31,7 +31,7 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // TODO: 이거 컴퍼니 아이디 말고 스크랩 아이디로 다시 연결
+    // TODO: 이거 컴퍼니 아이디 말고 스크랩 아이디로 다시 연결    "msg": "스크랩한 공고를 찾을 수 없습니다",
     @GetMapping("/api/person/my-page/scraps/{id}")
     public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
         ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id);
@@ -39,7 +39,6 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // TODO: 이거 컴퍼니 아이디 말고 스크랩 아이디로 다시 연결
     @DeleteMapping("/api/person/my-page/scraps/{id}")
     public ResponseEntity<?> personScrapDelete(@PathVariable Integer id) {
         scrapService.deleteScrapPost(id);
@@ -51,7 +50,7 @@ public class ScrapController {
     @PostMapping("/api/person/my-page/scraps")
     public ResponseEntity<?> personPostApply(@RequestBody ScrapRequest.ResumeChoiceDTO reqDTO) { // 스크랩 아이디와 이력서 아이디를 받아서
         ApplyResponse.PostApplyDTO respDTO = scrapService.saveApply(reqDTO.getId(), reqDTO.getResumeChoice());
-        System.out.println(respDTO);
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

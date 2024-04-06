@@ -22,9 +22,8 @@ public class OfferController {
     @GetMapping("/api/person/my-page/offers")
     public ResponseEntity<?> personOffers() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        System.out.println(sessionUser.getId());
         List<OfferResponse.PersonOffersDTO> respDTO = offerService.personOffers(sessionUser.getId());
-        System.out.println(respDTO);
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -63,11 +62,11 @@ public class OfferController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-
     // TODO: 일단 메인서비스 연결, 수정해야함
     @PostMapping("/api/company/my-page/offers") // @PostMapping("/api/resumes/{id}/offer")
     public ResponseEntity<?> companyResumeOffer(@RequestBody OfferRequest.OfferSaveDTO reqDTO) {
         reqDTO = mainService.sendPostToResume(reqDTO.getResumeId(), reqDTO.getPostId());
+        
         return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 

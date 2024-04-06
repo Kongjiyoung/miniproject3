@@ -45,7 +45,6 @@ public class UserController {
         return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil(null));
     }
 
-
     //기업 개인 로그아웃
     @GetMapping("/logout")
     public ResponseEntity<?> logout() {

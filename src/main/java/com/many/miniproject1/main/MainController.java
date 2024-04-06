@@ -30,11 +30,12 @@ public class MainController {
     }
 
     // 메인 이력서 디테일
+    // TODO: 이거 맞음? 밑에 respDTO로 반환하면서 그 안에 두 가지를 담았는데 하나는 로그인을 해야 보여지고 하나는 그냥 보여진다.
     @GetMapping("/main/resumes/{id}") //  @GetMapping("/resumes/{id}")
     public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
         // 현재 로그인한 사용자가 회사인 경우에만 해당 회사가 작성한 채용 공고 목록 가져오기
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<MainResponse.PostTitleListDTO> postTitleListDTOList = new ArrayList<>();
+        List<MainResponse.PostTitleListDTO> postTitleListDTOs = new ArrayList<>();
         boolean isCompany = false;
         if (sessionUser != null) {
             String role = sessionUser.getRole();
@@ -42,29 +43,18 @@ public class MainController {
                 isCompany = true;
             }
             Integer companyId = sessionUser.getId();
-            postTitleListDTOList = mainService.getPostTitleListDTOs(sessionUser.getId(), companyId); // 세션유저의 아이디와 컴퍼니 아이디가 일치해야 정보가 넘어감
+            postTitleListDTOs = mainService.getPostTitleListDTOs(sessionUser.getId(), companyId); // 세션유저의 아이디와 컴퍼니 아이디가 일치해야 정보가 넘어감
         }
         // TODO: 테스트 끝나고 바로 아래 한 줄의 코드 삭제. 세션유저의 아이디와 컴퍼니 아이디가 일치해야 정보가 넘어가서 테스트할 때 주석 해제하고 보라고 빼놓음. 테스트할때 14, 14 넣으면 됨.
-       // postTitleListDTOList = mainService.getPostTitleListDTOs(14, 14);
+        // postTitleListDTOs = mainService.getPostTitleListDTOs(14, 14);
 
         MainResponse.MainResumeDetailDTO mainResumeDetailDTO = mainService.getResumeDetail(id);
         //resume만 아니라 postList도 같이 넘겨야함
         Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("postTitleListDTOList", postTitleListDTOList);
+        responseBody.put("postTitleListDTOs", postTitleListDTOs);
         responseBody.put("mainResumeDetailDTO", mainResumeDetailDTO);
         return ResponseEntity.ok(new ApiUtil<>(responseBody));
     }
-
-    // TODO: 이거 스크랩에 있나 확인하기
-//    @PostMapping("/api/company/scraps") // @PostMapping("/api/resumes/{id}/scrap")
-//    public ResponseEntity<?> companyResumeScrap(@RequestBody ScrapResponse.MainResumeScrapDTO respDTO) {
-//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-//        ScrapResponse.MainResumeScrapDTO respDTO = mainService.resumeScrap(id, sessionUser.getId());
-//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-//    }
-
-    //////////////////////////////////////////////
-
 
     //메인 채용 공고
     @GetMapping({"/main/posts", "/"}) // @GetMapping({"/posts", "/"})
