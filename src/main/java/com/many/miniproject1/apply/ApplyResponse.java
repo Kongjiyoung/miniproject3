@@ -7,10 +7,8 @@ import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
