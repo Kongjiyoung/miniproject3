@@ -64,8 +64,8 @@ public class ResumeService {
         //스킬 저장
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
-            skills.add(skill.toEntity());
+            SkillRequest.SaveResumeDTO saveResumeDTO = new SkillRequest.SaveResumeDTO();
+            saveResumeDTO.toEntity(skillName, resume);
         }
 
         List<Skill> skillList = skillJPARepository.saveAll(skills);
@@ -91,11 +91,10 @@ public class ResumeService {
         //스킬 업데이트
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
-            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO(skillName, resume);
-            skills.add(skill.toEntity());
+            SkillRequest.SaveResumeDTO skill = new SkillRequest.SaveResumeDTO();
+            skill.toEntity(skillName, resume);
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
-
         return new ResumeResponse.UpdateDTO(resume, skillList);
     }
 
@@ -104,9 +103,11 @@ public class ResumeService {
     public void deleteResumeId(Integer resumeId, int sessionUserId) {
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
+
         if(sessionUserId != resume.getUser().getId()){
             throw new Exception403("이력서를 삭제할 권한이 없습니다");
         }
+
         resumeJPARepository.deleteById(resumeId);
         applyJPARepository.deleteByResumeId(resumeId);
         resumeJPARepository.deleteById(resumeId);

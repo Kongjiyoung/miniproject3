@@ -34,9 +34,13 @@ public class Resume {
     private String title;
     private String profile;
     private String profileName;
+
+    //널 허용
     private String portfolio;
     private String introduce;
     private String career;
+
+    //널 허용
     private String simpleIntroduce;
 
     @CreationTimestamp

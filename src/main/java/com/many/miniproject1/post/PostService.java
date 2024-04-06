@@ -45,11 +45,11 @@ public class PostService {
     }
 
     // 공고 상세보기
-    public PostResponse.DetailDTO postDetail (int postId, SessionUser sessionUser){
+    public PostResponse.DetailDTO postDetail (int postId){
         Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 
-        return new PostResponse.DetailDTO(post, sessionUser);
+        return new PostResponse.DetailDTO(post);
     }
 
     //공고 저장
@@ -61,7 +61,7 @@ public class PostService {
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
             SkillRequest.SavePostDTO skill = new SkillRequest.SavePostDTO();
-            skills.add(skill.toEntity(skillName, post));
+            skill.toEntity(skillName, post);
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
         return new PostResponse.PostDTO(post, skillList);
