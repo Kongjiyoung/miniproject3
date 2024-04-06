@@ -24,10 +24,11 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
     }  // 체크 완
 
+    // TODO: 사용하지 않는 SessionUser 삭제
+    // SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
     // 기업에서 받은 이력서 디테일
     @GetMapping("/api/company/resumes/{id}")
     public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.AppliedResumeSkillDetailDTO appliedResumeDetail = applyService.getAppliedResume(id);
         applyService.companyResumeDetail(id);
 
@@ -53,10 +54,11 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(applyPostSkillDTOList));
     }  // 체크 완
 
+    // TODO: 사용하지 않는 SessionUser 삭제
+    // SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
     // 개인이 지원한 이력서 디테일
     @GetMapping("/api/person/applies/{id}") // 내가 지원한 공고 디테일
     public ResponseEntity<?> personApply(@PathVariable int id) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ApplyResponse.ApplyPostSkillDetailDTO applyPostDetail = applyService.getPostDetail(id);
 
         return ResponseEntity.ok(new ApiUtil<>(applyPostDetail));

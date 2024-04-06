@@ -14,6 +14,8 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 //    @Query("delete from Apply a where a.id = :applyId")
 //    void deleteApplyPostById(@Param("applyId") Integer applyId);
 
+    // TODO: JPA 변수타입 null 을 대비하기 위해 Optional 추가
+
     @Query("""
             select a 
             from Apply a 
@@ -23,7 +25,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             join fetch p.user pu 
             where p.user.id = :user_id
             """)
-    List<Apply> findByUserIdJoinPost(@Param("user_id") int userId);
+    Optional<List<Apply>> findByUserIdJoinPost(@Param("user_id") int userId);
 
     @Query("""
             SELECT DISTINCT a
@@ -35,7 +37,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             JOIN p.user pu
             WHERE a.id = :id
             """)
-    Apply findByResumeIdJoinSkillAndCompany(@Param("id") Integer id);
+    Optional<Apply> findByResumeIdJoinSkillAndCompany(@Param("id") Integer id);
 
 
     @Query("""
@@ -45,11 +47,10 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             JOIN FETCH p.skillList s
             WHERE a.resume.user.id = :userId
             """)
-    List<Apply> findAllAppliesWithPostsAndSkills(@Param("userId") Integer userId);
+    Optional<List<Apply>> findAllAppliesWithPostsAndSkills(@Param("userId") Integer userId);
 
 
     @Query("""
-
             select distinct a from Apply a join fetch a.post p join fetch p.user pu join fetch p.skillList join fetch a.resume r join fetch r.user ru where p.id= :postId and ru.id=:resumeUserId
             """)
     Optional<Apply> findByPostIdJoinPostAndSkillAndUser(@Param("postId") Integer postId, @Param("resumeUserId") Integer resumeUserId);
@@ -76,7 +77,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             join fetch r.skills s
             where a.id = :apply_id
                """)
-    Apply findResumeByApplyId(@Param("apply_id") Integer applyId);
+    Optional<Apply> findResumeByApplyId(@Param("apply_id") Integer applyId);
 
     @Query("""
             select a
@@ -88,7 +89,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             join fetch p.user pu
             where pu.id = :company_id
                         """)
-    List<Apply> findByCompanyIdJoinResume(@Param("company_id") Integer companyId);
+    Optional<List<Apply>> findByCompanyIdJoinResume(@Param("company_id") Integer companyId);
 
     @Query("""
             select a
@@ -100,7 +101,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             join fetch r.user ru
             where ru.id = :person_id
                         """)
-    List<Apply> findByPersonIdJoinPost(@Param("person_id") Integer personId);
+    Optional<List<Apply>> findByPersonIdJoinPost(@Param("person_id") Integer personId);
 
 
     @Query("""
@@ -111,7 +112,7 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             join fetch p.skillList s
             where a.id = :apply_id
                """)
-    Apply findPostByApplyId(@Param("apply_id") Integer applyId);
+    Optional<Apply> findPostByApplyId(@Param("apply_id") Integer applyId);
 
     @Query("""
             select a
@@ -120,5 +121,5 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             join fetch a.resume r
             where a.id = :apply_id
                         """)
-    Apply findByApplyId(@Param("apply_id") Integer applyId);
+    Optional<Apply> findByApplyId(@Param("apply_id") Integer applyId);
 }
