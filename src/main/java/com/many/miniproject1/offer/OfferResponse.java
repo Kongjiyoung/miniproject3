@@ -1,39 +1,79 @@
 package com.many.miniproject1.offer;
 
-import com.many.miniproject1.apply.Apply;
+import com.many.miniproject1.post.Post;
 import com.many.miniproject1.skill.Skill;
 import lombok.Builder;
 import lombok.Data;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OfferResponse {
 
-    // 04-01 YSH
     @Data
     public static class PersonOffersDTO {
         private Integer id;
-        private Integer postId;
-        private Integer resumeId;
-        private Integer personId;
-        private String profile;
-        private String companyName;
         private String title;
-        private Timestamp createdAt;
+        private String career;
+        private String pay;
+        private String workCondition;
+        private String workStartTime;
+        private String workEndTime;
+        private String deadline;
+        private String task;
+        private String profile;
+        private String profileName;
+        private String workingArea;
+        private List<SkillDTO> skllList;
 
         @Builder
-        public PersonOffersDTO(Offer offer) {
-            this.id = offer.getPost().getId();
-            this.postId = offer.getPost().getId();
-            this.personId = offer.getResume().getUser().getId();
-            this.profile = offer.getPost().getProfile();
-            this.companyName = offer.getPost().getUser().getCompanyName();
-            this.title = offer.getPost().getTitle();
-            this.createdAt = offer.getCreatedAt();
+        public PersonOffersDTO(Offer offer, Post post, List<Skill> skllList) {
+            this.id = offer.getId();
+            this.title = post.getTitle();
+            this.career = post.getCareer();
+            this.pay = post.getPay();
+            this.workCondition = post.getWorkCondition();
+            this.workStartTime = post.getWorkStartTime();
+            this.workEndTime = post.getWorkEndTime();
+            this.deadline = post.getDeadline();
+            this.task = post.getTask();
+            this.profile = post.getProfile();
+            this.profileName = post.getProfileName();
+            this.workingArea = post.getWorkingArea();
+            this.skllList = skllList.stream().map(SkillDTO::new).toList();
         }
+
+        @Data
+        public class SkillDTO {
+            private Integer id;
+            private String skill;
+
+            public SkillDTO(Skill skill) {
+                this.id = skill.getId();
+                this.skill = skill.getSkill();
+            }
+        }
+//        private Integer id;
+//        private Integer postId;
+//        private Integer resumeId;
+//        private Integer personId;
+//        private String profile;
+//        private String companyName;
+//        private String title;
+//        private List<SkillDTO> skllList;
+//
+//        @Builder
+//        public PersonOffersDTO(Offer offer, Post post, List<Skill> skllList) {
+//            this.id = offer.getId();
+//            this.postId = offer.getPost().getId();
+//            this.personId = offer.getResume().getUser().getId();
+//            this.profile = offer.getPost().getProfile();
+//            this.companyName = offer.getPost().getUser().getCompanyName();
+//            this.title = offer.getPost().getTitle();
+//            this.createdAt = offer.getCreatedAt();
+//        }
     }
+
     @Data
     public static class PersonOfferDetailDTO {
         private Integer id;
@@ -82,6 +122,7 @@ public class OfferResponse {
             this.skills = offer.getPost().getSkillList().stream().map(skill -> new SkillDTO(skill)).toList();
         }
     }
+
     @Data
     public static class CompanyOffersDTO {
         private Integer offerId;

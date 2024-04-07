@@ -27,14 +27,16 @@ public interface OfferJPARepository extends JpaRepository<Offer, Integer> {
     Optional<List<Offer>> companyFindAllOffers(@Param("company_id") Integer companyId);
 
     @Query("""
-        SELECT o
-        FROM Offer o
-        JOIN FETCH o.post p
-        JOIN FETCH p.user u
-        JOIN FETCH o.resume r
-        WHERE r.user.id =:person_id
+        select o
+        from Offer o
+        join fetch o.post p
+        join fetch p.user pu
+        join fetch o.resume r
+        join fetch r.user ru
+        join fetch p.skillList s
+        where ru.id =:person_id
         """)
-    Optional<List<Offer>> personFindAllOffers(@Param("person_id") int person_id);
+    Optional<List<Offer>> personFindAllOffers(@Param("person_id") Integer personId);
 
     @Query("""
         SELECT o

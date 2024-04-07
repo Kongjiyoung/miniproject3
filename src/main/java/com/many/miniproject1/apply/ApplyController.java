@@ -20,23 +20,23 @@ public class ApplyController {
 
     ////////////////////////// 기업
     // 기업이 받은 이력서 목록
-    @GetMapping("/api/company/my-page/receive-resumes") //@GetMapping("/api/company/resumes")
-    public ResponseEntity<?> companyResumes() {
+    @GetMapping("/api/company/my-page/receive-resumes")
+    public ResponseEntity<?> companyReceives() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<ApplyResponse.AppliedResumeSkillDTO> appliedResumeSkillDTOList = applyService.getAppliedResumeSkillDTOs(sessionUser.getId());
+        List<ApplyResponse.AppliedResumeSkillDTO> respDTO = applyService.getAppliedResumeSkillDTOs(sessionUser.getId());
 
-        return ResponseEntity.ok(new ApiUtil<>(appliedResumeSkillDTOList));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 
     // 기업이 받은 이력서 디테일
     @GetMapping("/api/company/my-page/receive-resumes/{id}") //@GetMapping("/api/company/resumes/{id}")
 
-    public ResponseEntity<?> companyResumeDetail(@PathVariable int id) {
-        ApplyResponse.AppliedResumeSkillDetailDTO appliedResumeDetail = applyService.getAppliedResume(id);
+    public ResponseEntity<?> companyReceiveDetail(@PathVariable Integer id) {
+        ApplyResponse.AppliedResumeSkillDetailDTO respDTO = applyService.getAppliedResume(id);
         applyService.companyResumeDetail(id);
 
-        return ResponseEntity.ok(new ApiUtil<>(appliedResumeDetail));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // 지원 받은 이력서 합격 여부

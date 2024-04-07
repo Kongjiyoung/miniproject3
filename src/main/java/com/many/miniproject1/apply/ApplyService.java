@@ -7,7 +7,6 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
-import com.many.miniproject1.skill.SkillJPARepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,7 @@ public class ApplyService {
                     .resume(apply.getResume())
                     .skllList(apply.getResume().getSkills())
                     .build());
-        }).collect(Collectors.toList());
+        }).toList();
 
         return appliedResumeSkillDTOList;
     }

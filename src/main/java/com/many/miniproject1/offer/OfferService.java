@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,16 +24,23 @@ public class OfferService {
     private final ResumeJPARepository resumeJPARepository;
 
     // 개인 제안 목록
-    @Transactional(readOnly = true)
-    public List<OfferResponse.PersonOffersDTO> personOffers(int id) {
-        List<Offer> personOffers = offerJPARepository.personFindAllOffers(id)
+    public List<OfferResponse.PersonOffersDTO> personOffers(Integer offerId) {
+        List<Offer> personOffers = offerJPARepository.personFindAllOffers(offerId)
                 .orElseThrow(() -> new Exception404("제안이 존재 하지 않습니다"));
+        List<OfferResponse.PersonOffersDTO> personOffersDTOs = new ArrayList<>();
 
-        return personOffers.stream().map(offer -> new OfferResponse.PersonOffersDTO(offer)).toList();
+        personOffers.stream().map(offer -> {
+            return personOffersDTOs.add(OfferResponse.PersonOffersDTO.builder()
+                    .offer(offer)
+                    .post(offer.getPost())
+                    .skllList(offer.getPost().getSkillList())
+                    .build());
+        }).toList();
+
+        return personOffersDTOs;
     }
 
     // 개인이 제안(공고)상세보기
-    @Transactional(readOnly = true)
     public OfferResponse.PersonOfferDetailDTO personOfferDetail(int id) {
         Offer offer = offerJPARepository.personFindByOfferId(id)
                 .orElseThrow(() -> new Exception404("제안이 존재 하지 않습니다"));
@@ -41,7 +49,6 @@ public class OfferService {
     }
 
     // 기업이 보낸 제안(이력서)들
-    @Transactional(readOnly = true)
     public List<OfferResponse.CompanyOffersDTO> companyOffers(int id) {
         List<Offer> companyOffers = offerJPARepository.companyFindAllOffers(id)
                 .orElseThrow(() -> new Exception404("제안이 존재 하지 않습니다"));
@@ -49,9 +56,7 @@ public class OfferService {
         return companyOffers.stream().map(offer -> new OfferResponse.CompanyOffersDTO(offer)).toList();
     }
 
-    // 04-02 YSH
     // 기업의 제안(이력서) 상세보기
-    @Transactional(readOnly = true)
     public OfferResponse.CompanyOfferDetailDTO companyOfferDetail(int id) {
         Offer offer = offerJPARepository.companyFindByOfferId(id)
                 .orElseThrow(() -> new Exception404("제안이 존재 하지 않습니다"));
@@ -66,7 +71,6 @@ public class OfferService {
 
 
     //메인에서 제안하기
-    @jakarta.transaction.Transactional
     public OfferResponse.OfferDTO offerInMain(Integer resumeId, Integer postId) {
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("존재하지 않는 이력서입니다."));
@@ -78,7 +82,7 @@ public class OfferService {
     }
 
     //스크랩에서 제아하기
-    @jakarta.transaction.Transactional
+    @Transactional
     public OfferResponse.OfferDTO offerInScrap(Integer resumeId, Integer postChoice){
         Scrap scrap = scrapJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("존재하지 않은 값입니다"));
