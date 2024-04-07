@@ -58,7 +58,7 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(responseBody));
     }
 
-    // 메인 화면에 게시된 채용 공고
+    // 메인 화면에 게시된 채용 공고 목록
     @GetMapping({"/main/posts", "/"}) // @GetMapping({"/posts", "/"})
     public ResponseEntity<?> posts() {
         List<MainResponse.MainPostsDTO> respDTO = mainService.getPostList();
