@@ -38,7 +38,7 @@ public class OfferRequest {
     }
 
     @Data
-    public static class PostChocieDTO {
+    public static class PostChoiceDTO {
         private Integer postChoice;
 
     }

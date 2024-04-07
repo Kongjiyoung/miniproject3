@@ -2,9 +2,7 @@ package com.many.miniproject1.apply;
 
 
 import com.many.miniproject1._core.utils.ApiUtil;
-import com.many.miniproject1.main.MainRequest;
 import com.many.miniproject1.main.MainService;
-import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -73,7 +71,7 @@ public class ApplyController {
 
 
     //메인 이력서 지원하기
-    @PostMapping("/api/people/{id}/apply")
+    @PostMapping("/api/person/main/posts/{id}/apply")
     public ResponseEntity<?> personMainApply(@PathVariable Integer id, @RequestBody ApplyRequest.ResumeChoiceDTO resumeChoice) {
         ApplyResponse.ApplyDTO respDTO = applyService.saveApplyByMain(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

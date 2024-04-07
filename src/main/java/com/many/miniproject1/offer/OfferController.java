@@ -64,8 +64,8 @@ public class OfferController {
     }
 
     // 메인에서 제안하기
-    @PostMapping("/api/resumes/{id}/offer")
-    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id,@RequestBody OfferRequest.PostChocieDTO reqDTO) {
+    @PostMapping("/api/main/company/resumes/{id}/offer")
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id,@RequestBody OfferRequest.PostChoiceDTO reqDTO) {
         OfferResponse.OfferDTO respDTO = offerService.offerInMain(id, reqDTO.getPostChoice());
         
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -73,7 +73,7 @@ public class OfferController {
 
     // 스크랩에서 제아하기
     @PostMapping("/api/company/my-page/scraps/{id}/offer")
-    public ResponseEntity<?> companyScrapResume(@PathVariable Integer id,@RequestBody OfferRequest.PostChocieDTO reqDTO) {
+    public ResponseEntity<?> companyScrapResume(@PathVariable Integer id,@RequestBody OfferRequest.PostChoiceDTO reqDTO) {
         OfferResponse.OfferDTO respDTO = offerService.offerInScrap(id, reqDTO.getPostChoice());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

@@ -1,7 +1,6 @@
 package com.many.miniproject1.scrap;
 
 import com.many.miniproject1._core.utils.ApiUtil;
-import com.many.miniproject1.apply.ApplyResponse;
 import com.many.miniproject1.main.MainService;
 import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.user.SessionUser;
@@ -81,10 +80,10 @@ public class ScrapController {
     // TODO: 일단 메인 서비스 연결, 수정해야함.
     // 개인이 공고 스크랩하기
 
-    @PostMapping({"/api/company/scraps"}) // @PostMapping("/api/resumes/{id}/scrap")
-    public ResponseEntity<?> companyResumeScrap(@RequestBody ScrapRequest.ScrapResumeDTO reqDTO) {
+    @PostMapping({"/api/main/resumes/{id}/scrap"}) // @PostMapping("/api/resumes/{id}/scrap")
+    public ResponseEntity<?> companyResumeScrap(@PathVariable Integer id, @RequestBody ScrapRequest.ScrapResumeDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        ScrapResponse.MainResumeScrapDTO respDTO = scrapService.resumeScrap(reqDTO.getId(), sessionUser.getId());
+        ScrapResponse.MainResumeScrapDTO respDTO = scrapService.resumeScrap(id, sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
