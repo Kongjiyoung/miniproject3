@@ -58,7 +58,7 @@ public class ResumeResponse {
         private String simpleIntroduce;
         private String portfolio;
         private String introduce;
-        private List<ResumeDetailDTO.ResumeSkillDTO> skills;
+        private List<SkillDTO> skills;
 
         public ResumeDetailDTO(Resume resume) {
             this.id = resume.getId();
@@ -74,15 +74,15 @@ public class ResumeResponse {
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
             this.introduce = resume.getIntroduce();
-            this.skills = resume.getSkills().stream().map(skill -> new ResumeDetailDTO.ResumeSkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(SkillDTO::new).toList();
         }
 
         @Data
-        public class ResumeSkillDTO {
+        public class SkillDTO {
             private Integer id;
             private String skill;
 
-            public ResumeSkillDTO(Skill skill) {
+            public SkillDTO(Skill skill) {
                 this.id = skill.getId();
                 this.skill = skill.getSkill();
             }
