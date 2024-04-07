@@ -2,6 +2,12 @@ package com.many.miniproject1.offer;
 
 
 import com.many.miniproject1._core.errors.exception.Exception404;
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostJPARepository;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeJPARepository;
+import com.many.miniproject1.scrap.Scrap;
+import com.many.miniproject1.scrap.ScrapJPARepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +18,9 @@ import java.util.List;
 @Service
 public class OfferService {
     private final OfferJPARepository offerJPARepository;
+    private final ScrapJPARepository scrapJPARepository;
+    private final PostJPARepository postJPARepository;
+    private final ResumeJPARepository resumeJPARepository;
 
     // 개인 제안 목록
     @Transactional(readOnly = true)
@@ -55,4 +64,29 @@ public class OfferService {
         offerJPARepository.deleteById(offerId);
     }
 
+
+    //메인에서 제안하기
+    @jakarta.transaction.Transactional
+    public OfferResponse.OfferDTO offerInMain(Integer resumeId, Integer postId) {
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 이력서입니다."));
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다."));
+        OfferRequest.OfferDTO offerDTO = new OfferRequest.OfferDTO(resume, post);
+        Offer offer = offerJPARepository.save(offerDTO.toEntity());
+        return new OfferResponse.OfferDTO(offer);
+    }
+
+    //스크랩에서 제아하기
+    @jakarta.transaction.Transactional
+    public OfferResponse.OfferDTO offerInScrap(Integer resumeId, Integer postChoice){
+        Scrap scrap = scrapJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception404("존재하지 않은 값입니다"));
+        Post post = postJPARepository.findById(postChoice)
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다!" + postChoice));
+        OfferRequest.OfferDTO offerDTO = new OfferRequest.OfferDTO(scrap.getResume(), post);
+        Offer offer = offerJPARepository.save(offerDTO.toEntity());
+
+        return new OfferResponse.OfferDTO(offer);
+    }
 }

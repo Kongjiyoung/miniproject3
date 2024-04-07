@@ -20,11 +20,11 @@ public class OfferRequest {
     }
 
     @Data
-    public static class ScrapOfferDTO {
+    public static class OfferDTO {
         private Resume resume;
         private Post post;
 
-        public ScrapOfferDTO(Resume resume, Post post) {
+        public OfferDTO(Resume resume, Post post) {
             this.post = post;
             this.resume = resume;
         }
@@ -38,23 +38,8 @@ public class OfferRequest {
     }
 
     @Data
-    public static class OfferSaveDTO {
-        private Integer resumeId;
-        private Integer postId;
+    public static class PostChocieDTO {
+        private Integer postChoice;
 
-        public OfferSaveDTO() {
-        }
-
-        public OfferSaveDTO(Offer offer) {
-            this.resumeId = offer.getResume().getId();
-            this.postId = offer.getPost().getId();
-        }
-
-        public static Offer toEntity(Resume resume, Post post) {
-            return Offer.builder()
-                    .post(post)
-                    .resume(resume)
-                    .build();
-        }
     }
 }

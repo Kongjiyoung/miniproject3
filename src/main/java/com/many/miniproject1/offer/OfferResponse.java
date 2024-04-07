@@ -1,5 +1,6 @@
 package com.many.miniproject1.offer;
 
+import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.skill.Skill;
 import lombok.Builder;
 import lombok.Data;
@@ -163,19 +164,16 @@ public class OfferResponse {
     }
 
 
-
-
-
-    //ScrapService에서 씀
     @Data
-    public static class ChoiceDTO {
+    public static class OfferDTO {
+        private Integer id;
         private Integer resumeId;
-        private Integer postId; // 채용공고 아이디
+        private Integer postId;
 
-        public ChoiceDTO(Offer offer) {
+        public OfferDTO(Offer offer) {
+            this.id = offer.getId();
             this.resumeId = offer.getResume().getId();
             this.postId = offer.getPost().getId();
-
         }
     }
 }

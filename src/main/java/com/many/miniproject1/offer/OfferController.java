@@ -2,6 +2,7 @@ package com.many.miniproject1.offer;
 
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.main.MainService;
+import com.many.miniproject1.scrap.ScrapService;
 import com.many.miniproject1.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 public class OfferController {
     private final HttpSession session;
     private final OfferService offerService;
+    private final ScrapService scrapService;
     private final MainService mainService;
 
     // person의 offers 관리
@@ -61,20 +63,19 @@ public class OfferController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    // TODO: 일단 메인서비스 연결, 수정해야함 완료 - 지영
-    @PostMapping("/api/company/offers") // @PostMapping("/api/resumes/{id}/offer")
-    public ResponseEntity<?> companyResumeOffer(@RequestBody OfferRequest.OfferSaveDTO reqDTO) {
-        reqDTO = mainService.sendPostToResume(reqDTO.getResumeId(), reqDTO.getPostId());
+    // 메인에서 제안하기
+    @PostMapping("/api/resumes/{id}/offer")
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id,@RequestBody OfferRequest.PostChocieDTO reqDTO) {
+        OfferResponse.OfferDTO respDTO = offerService.offerInMain(id, reqDTO.getPostChoice());
         
-        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // TODO: 이거뭔데? 이거 이상함. 나중에 보기
-//    @PostMapping("/api/company/offers") // @PostMapping("/api/company/scraps/{id}")
-//    public ResponseEntity<?> companyScrapResume(@RequestBody ScrapRequest.ScrapResumeeDTO reqDTO) {
-//        scrapService.sendPostToResume(reqDTO.getResumeId(), reqDTO.getCompanyId());
-//        System.out.println(reqDTO);
-//        OfferResponse.ChoiceDTO respDTO = scrapService.sendPostToResume(reqDTO.getResumeId(), reqDTO.getCompanyId());
-//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-//    }
+    // 스크랩에서 제아하기
+    @PostMapping("")
+    public ResponseEntity<?> companyScrapResume(@PathVariable Integer id,@RequestBody OfferRequest.PostChocieDTO reqDTO) {
+        OfferResponse.OfferDTO respDTO = offerService.offerInScrap(id, reqDTO.getPostChoice());
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
 }

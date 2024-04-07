@@ -86,16 +86,7 @@ public class MainService {
         return new MainResponse.PostDetailDTO(post, isCompany);
     }
 
-    @Transactional
-    public OfferRequest.OfferSaveDTO sendPostToResume(Integer resumeId, Integer postId) {
-        Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception404("존재하지 않는 이력서입니다."));
-        Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다."));
-        //OfferRequest.ScrapOfferDTO scrapOfferDTO = new OfferRequest.ScrapOfferDTO(resume, post);
-        Offer offer = offerJPARepository.save(OfferRequest.OfferSaveDTO.toEntity(resume, post));
-        return new OfferRequest.OfferSaveDTO(offer);
-    }
+
 
     @Transactional
     public Scrap companyScrap(int id, Integer userId) {
