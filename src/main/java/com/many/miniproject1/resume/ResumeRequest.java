@@ -36,7 +36,7 @@ public class ResumeRequest {
         @NotEmpty(message = "간단자기소개는 공백일 수 없습니다")
         @Size(min = 4, max = 300, message = "4자이상 300자이하로 작성해주세요")
         private String introduce;
-        @NotEmpty(message = "스킬은 공백일 수 없습니다")
+//        @NotEmpty(message = "스킬은 공백일 수 없습니다")
         private List<String> skills = new ArrayList<>();
 
         public Resume toEntity(User user){
@@ -54,6 +54,17 @@ public class ResumeRequest {
                     .portfolio(portfolio)
                     .introduce(introduce)
                     .build();
+        }
+
+        public ResumeSaveDTO(String title, String profile, String profileName, String career, String simpleIntroduce, String portfolio, String introduce, List<String> skills) {
+            this.title = title;
+            this.profile = profile;
+            this.profileName = profileName;
+            this.career = career;
+            this.simpleIntroduce = simpleIntroduce;
+            this.portfolio = portfolio;
+            this.introduce = introduce;
+            this.skills = skills;
         }
     }
 
