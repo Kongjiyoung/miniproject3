@@ -33,9 +33,6 @@ public class ScrapService {
     private final OfferJPARepository offerJPARepository;
     private final UserService userService;
 
-    public List<Scrap> personScrapForm (Integer userId){
-        return scrapJPARepository.findByPostIdJoinSkills(userId);
-    }
 
     @Transactional
     public ApplyResponse.PostApplyDTO saveApply(int postId, int resumeId){
@@ -54,9 +51,7 @@ public class ScrapService {
         Scrap scrap = scrapJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
 
-//        if(sessionUserId != scrap.getUser().getId()){
-//            throw new Exception403("스크랩한 공고를 삭제할 권한이 없습니다");
-//        }
+
         scrapJPARepository.deleteById(id);
     }
 
@@ -101,8 +96,6 @@ public class ScrapService {
         return new OfferResponse.ChoiceDTO(offer);
     }
 
-//    @Transactional
-//    public
 
     public Scrap getScrapPostDetail(Integer scrapId) {
         Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId).orElseThrow(() -> new Exception404("스크랩을 찾을 수 없습니다."));
@@ -127,13 +120,5 @@ public class ScrapService {
         return new ScrapResponse.MainResumeScrapDTO(scrap);
     }
 
-    @Transactional
-    public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
-        User user = userService.findByUser(userId);
-        Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
-        ScrapRequest.SavePostDTO saveScrap = new ScrapRequest.SavePostDTO(user, post);
-        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
-        return new ScrapResponse.PostScrapSaveDTO(scrap);
-    }
+
 }
