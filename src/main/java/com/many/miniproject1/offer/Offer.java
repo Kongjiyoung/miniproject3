@@ -15,26 +15,21 @@ import java.sql.Timestamp;
 @Data
 @Entity // 테이블 생성하기 위해 필요한 어노테이션
 public class Offer {
-    @Id // PK 설정
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
-    private Integer id;         // 제안 ID
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id; // 제안 ID
     @ManyToOne(fetch = FetchType.LAZY)
-    private Resume resume;   // &#xC774;&#xB825;&#xC11C; ID
+    private Resume resume;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Post post;     // 공고 ID
-
-    //    private String content;
+    private Post post; // 공고 ID
     @CreationTimestamp
     private Timestamp createdAt;
 
     @Builder
     public Offer(Integer id, Resume resume, Post post, Timestamp createdAt) {
-
         this.id = id;
         this.post = post;
         this.resume = resume;
         this.createdAt = createdAt;
     }
-
 }

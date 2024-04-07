@@ -1,8 +1,6 @@
 package com.many.miniproject1.apply;
 
-
 import com.many.miniproject1._core.utils.ApiUtil;
-import com.many.miniproject1.main.MainService;
 import com.many.miniproject1.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +14,6 @@ import java.util.List;
 public class ApplyController {
     private final HttpSession session;
     private final ApplyService applyService;
-    private final MainService mainService;
 
     ////////////////////////// 기업
     // 기업이 받은 이력서 목록
@@ -28,9 +25,8 @@ public class ApplyController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-
     // 기업이 받은 이력서 디테일
-    @GetMapping("/api/company/my-page/receive-resumes/{id}") //@GetMapping("/api/company/resumes/{id}")
+    @GetMapping("/api/company/my-page/receive-resumes/{id}")
 
     public ResponseEntity<?> companyReceiveDetail(@PathVariable Integer id) {
         ApplyResponse.AppliedResumeSkillDetailDTO respDTO = applyService.getAppliedResume(id);
@@ -40,7 +36,7 @@ public class ApplyController {
     }
 
     // 지원 받은 이력서 합격 여부
-    @PutMapping("/api/company/my-page/receive/{id}/is-pass")// @PutMapping("/api/company/resumes/{id}/is-pass")
+    @PutMapping("/api/company/my-page/receive/{id}/is-pass")
     public ResponseEntity<?> companyPass(@PathVariable Integer id, @RequestBody ApplyRequest.UpdateIsPassDTO reqDTO) {
         ApplyResponse.UpdateIsPassDTO respDTO = applyService.isPassResume(id, reqDTO);
 
@@ -59,7 +55,7 @@ public class ApplyController {
     }
 
     // 개인이 지원한 공고 디테일
-    @GetMapping("/api/person/my-page/apply-posts/{id}") // 내가 지원한 공고 디테일
+    @GetMapping("/api/person/my-page/apply-posts/{id}")
 
     public ResponseEntity<?> personApply(@PathVariable int id) {
         ApplyResponse.ApplyPostSkillDetailDTO applyPostDetail = applyService.getPostDetail(id);

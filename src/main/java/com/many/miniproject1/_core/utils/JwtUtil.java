@@ -11,7 +11,6 @@ import java.util.Date;
 public class JwtUtil {
 
     public static String create(User user) {
-
         String jwt = JWT.create()
                 .withSubject("miniproject")
                 .withExpiresAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L * 24L * 30L))

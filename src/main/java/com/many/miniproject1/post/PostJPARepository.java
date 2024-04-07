@@ -10,13 +10,13 @@ import java.util.Optional;
 public interface PostJPARepository extends JpaRepository<Post, Integer> {
 
     @Query("""
-            select distinct p 
-            from Post p 
-            join fetch p.skillList s 
+            select distinct p
+            from Post p
+            join fetch p.skillList s
             join fetch p.user u 
             where u.id= :id
             """)
-    List<Post> findByUserIdJoinSkillAndUser(@Param("id") int id);
+    List<Post> findByUserIdJoinSkillAndUser(@Param("id") Integer id);
 
     @Query("""
             SELECT p
@@ -24,7 +24,7 @@ public interface PostJPARepository extends JpaRepository<Post, Integer> {
             JOIN FETCH p.user pu
             WHERE pu.id = :id
             """)
-    List<Post> findByPostId(@Param("id") int id);
+    List<Post> findByPostId(@Param("id") Integer id);
 
     // 공고에 스킬 유저(기업) 쪼인 YSH
     @Query("""

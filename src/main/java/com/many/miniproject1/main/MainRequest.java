@@ -8,7 +8,4 @@ public class MainRequest {
     public static class PostChoiceDTO {
         private Integer postChoice;
     }
-
-
-
 }

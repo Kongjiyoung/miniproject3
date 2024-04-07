@@ -1,8 +1,6 @@
 package com.many.miniproject1.post;
 
-
 import com.many.miniproject1._core.common.ProfileImageSaveUtil;
-import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception403;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -11,7 +9,6 @@ import com.many.miniproject1.scrap.ScrapJPARepository;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.skill.SkillJPARepository;
 import com.many.miniproject1.skill.SkillRequest;
-import com.many.miniproject1.skill.SkillResponse;
 import com.many.miniproject1.user.SessionUser;
 import com.many.miniproject1.user.User;
 import com.many.miniproject1.user.UserJPARepository;
@@ -19,14 +16,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
-
 
 @RequiredArgsConstructor
 @Service
@@ -41,11 +32,12 @@ public class PostService {
     //공고 목록보기
     public List<PostResponse.PostListDTO> getResumeList(Integer userId) {
         List<Post> postList = postJPARepository.findByPost(userId);
-        return postList.stream().map(post -> new PostResponse.PostListDTO(post)).toList();
+
+        return postList.stream().map(PostResponse.PostListDTO::new).toList();
     }
 
     // 공고 상세보기
-    public PostResponse.DetailDTO postDetail (int postId){
+    public PostResponse.DetailDTO postDetail(Integer postId) {
         Post post = postJPARepository.findByIdJoinSkillAndCompany(postId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 
@@ -55,7 +47,7 @@ public class PostService {
     //공고 저장
     @Transactional
     public PostResponse.PostDTO save(PostRequest.SavePostDTO reqDTO, SessionUser sessionUser) {
-        User user=userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception403("권한없음"));
+        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception404("일치하는 사용자가 없습니다."));
         Post post = postJPARepository.save(reqDTO.toEntity(user));
 
         List<Skill> skills = new ArrayList<>();
@@ -64,15 +56,13 @@ public class PostService {
             skills.add(skill.toEntity(skillName, post));
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
+
         return new PostResponse.PostDTO(post, skillList);
     }
 
-
-
-
     //공고 삭제
     @Transactional
-    public void postDelete(int postId, int sessionUserId) {
+    public void postDelete(Integer postId, Integer sessionUserId) {
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception404("공고글을 찾을 수 없습니다"));
 
@@ -88,7 +78,7 @@ public class PostService {
 
     //스킬 업데이트
     @Transactional
-    public PostResponse.PostUpdateDTO updatePost(int postId, int sessionUserId, PostRequest.UpdatePostDTO reqDTO) {
+    public PostResponse.PostUpdateDTO updatePost(Integer postId, Integer sessionUserId, PostRequest.UpdatePostDTO reqDTO) {
         // 1. 이력서 찾기
         Post post = postJPARepository.findById(postId)
                 .orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다."));
@@ -115,12 +105,7 @@ public class PostService {
             skills.add(skill.toEntity(skillName, post));
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
+
         return new PostResponse.PostUpdateDTO(post, skillList);
     }
-
-//    public Post findByPost(int id) {
-//        Post post = postJPARepository.findById(id)
-//                .orElseThrow(() -> new Exception404("해당하는 공고가 없습니다"));
-//        return post;
-//    }
 }

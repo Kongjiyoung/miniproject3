@@ -10,10 +10,6 @@ import java.util.Optional;
 
 public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
 
-//    @Modifying
-//    @Query("delete from Scrap s where s.post.id = :post_id and s.resume.user.id= :resume_user_id")
-//    void deleteScrapByPostId(@Param("post_id") Integer postId, @Param("resume_user_id") Integer resumeUserId);
-
     @Query("""
             select s
             from Scrap s
@@ -43,17 +39,6 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             where u.id = :user_id
             """)
     List<Scrap> findByUserIdJoinSkillAndResume (@Param("user_id") Integer userId);
-
-//    @Query("""
-//            select s
-//            from Scrap s
-//            JOIN FETCH s.post p
-//            JOIN FETCH p.skillList ps
-//            join FETCH p.user pu
-//            JOIN FETCH s.user u
-//            where u.id = :user_id
-//            """)
-//    List<Scrap> findByPostId (@Param("user_id") Integer userId);
 
     @Modifying
     @Query("""

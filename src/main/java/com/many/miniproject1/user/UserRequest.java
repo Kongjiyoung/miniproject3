@@ -102,7 +102,6 @@ public class UserRequest {
         }
     }
 
-
     @NoArgsConstructor
     @Data
     public static class PersonInfoUpdateDTO {
@@ -128,7 +127,6 @@ public class UserRequest {
         @NotEmpty(message = "새로운 비밀번호는 공백일 수 없습니다")
         @Size(min = 4, max = 20)
         private String newPassword;
-
     }
 
     @NoArgsConstructor
@@ -165,6 +163,4 @@ public class UserRequest {
         @Size(min = 4, max = 20)
         private String password;
     }
-
-
 }

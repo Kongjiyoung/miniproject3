@@ -107,7 +107,7 @@ public class ScrapResponse {
             this.task = scrap.getPost().getTask();
             this.profile = scrap.getPost().getProfile();
             this.workingArea = scrap.getPost().getWorkingArea();
-            this.skills = scrap.getPost().getSkillList().stream().map(skill -> new ScrapPostDetailDTO.PostSkillDTO(skill)).toList();
+            this.skills = scrap.getPost().getSkillList().stream().map(PostSkillDTO::new).toList();
         }
 
         @Data
@@ -126,7 +126,6 @@ public class ScrapResponse {
     public static class ScrapResumeDetailDTO {
         private Integer id;
         private Integer resumeId;
-        // private Resume resume;
         private Integer personId;
         private String title;
         private String profile;
@@ -146,7 +145,6 @@ public class ScrapResponse {
         public ScrapResumeDetailDTO(Scrap scrap) {
             this.id = scrap.getId();
             this.resumeId = scrap.getResume().getId();
-            //  this.resume = getResume();
             this.personId = scrap.getResume().getUser().getId();
             this.title = scrap.getResume().getTitle();
             this.profile = scrap.getResume().getUser().getProfile();
@@ -160,7 +158,7 @@ public class ScrapResponse {
             this.address = scrap.getResume().getUser().getAddress();
             this.birth = scrap.getResume().getUser().getBirth();
             this.isPass = getIsPass();
-            this.skills = scrap.getResume().getSkills().stream().map(skill -> new ScrapResumeDetailDTO.ResumeSkillDTO(skill)).toList();
+            this.skills = scrap.getResume().getSkills().stream().map(ResumeSkillDTO::new).toList();
             this.createdAt = scrap.getCreatedAt();
         }
 
@@ -185,7 +183,7 @@ public class ScrapResponse {
         private String task;
         private String profile;
         private String workingArea;
-        private List<PostSkillDTO> skills = new ArrayList<>();
+        private List<PostSkillDTO> skills;
 
         public ScrapPostListDTO(Scrap scrap) {
             this.id = scrap.getId();
@@ -195,7 +193,7 @@ public class ScrapResponse {
             this.task = scrap.getPost().getTask();
             this.profile = scrap.getPost().getProfile();
             this.workingArea = scrap.getPost().getWorkingArea();
-            this.skills = scrap.getPost().getSkillList().stream().map(skill -> new PostSkillDTO(skill)).toList();
+            this.skills = scrap.getPost().getSkillList().stream().map(PostSkillDTO::new).toList();
         }
 
         @Data
@@ -214,7 +212,6 @@ public class ScrapResponse {
     public static class ScrapResumeListDTO {
         private Integer id;
         private Integer resumeId;
-        //   private Resume resume;
         private Integer personId;
         private String title;
         private String profile;
@@ -224,14 +221,13 @@ public class ScrapResponse {
 
         public ScrapResumeListDTO(Scrap scrap) {
             this.id = scrap.getId();
-            //   this.resume = getResume();
             this.resumeId = scrap.getResume().getId();
             this.personId = scrap.getResume().getUser().getId();
             this.title = scrap.getResume().getTitle();
             this.profile = scrap.getResume().getUser().getProfile();
             this.career = scrap.getResume().getCareer();
             this.simpleIntroduce = scrap.getResume().getSimpleIntroduce();
-            this.skills = scrap.getResume().getSkills().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
+            this.skills = scrap.getResume().getSkills().stream().map(ResumeSkillDTO::new).toList();
         }
 
         @Data
@@ -245,7 +241,6 @@ public class ScrapResponse {
             }
         }
     }
-
 
     @Data
     public static class MainResumeScrapDTO {

@@ -1,7 +1,6 @@
 package com.many.miniproject1.apply;
 
 
-import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
@@ -42,7 +41,7 @@ public class ApplyService {
     }
 
     //공고에서 받은 이력서 디테일
-    public ApplyResponse.AppliedResumeSkillDetailDTO getAppliedResume(int applyId) {
+    public ApplyResponse.AppliedResumeSkillDetailDTO getAppliedResume(Integer applyId) {
         Apply apply = applyJPARepository.findResumeByApplyId(applyId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
 
@@ -55,8 +54,8 @@ public class ApplyService {
         // 1. 이력서 찾기
         Apply apply = applyJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
-
         apply.updateIsPass(reqDTO);
+
         return new ApplyResponse.UpdateIsPassDTO(apply.getIsPass());
     }
 
@@ -78,18 +77,17 @@ public class ApplyService {
     }
 
     //개인이 공고 디테일보기
-    public ApplyResponse.ApplyPostSkillDetailDTO getPostDetail(int applyId) {
+    public ApplyResponse.ApplyPostSkillDetailDTO getPostDetail(Integer applyId) {
         Apply apply = applyJPARepository.findPostByApplyId(applyId)
                 .orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다"));
-        ;
 
         return new ApplyResponse.ApplyPostSkillDetailDTO(apply, apply.getPost().getUser(), apply.getPost(), apply.getPost().getSkillList());
     }
 
-    public Apply companyResumeDetail(int id) {
-        Apply apply = applyJPARepository.findByResumeIdJoinSkillAndCompany(id)
+    public Apply companyResumeDetail(Integer id) {
+
+        return applyJPARepository.findByResumeIdJoinSkillAndCompany(id)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
-        return apply;
     }
 
     @Transactional
@@ -101,6 +99,7 @@ public class ApplyService {
     public List<ApplyResponse.ApplyDTO> getApplyList(Integer userId) {
         List<Apply> applyList = applyJPARepository.findAllAppliesWithPostsAndSkills(userId)
                 .orElseThrow(() -> new Exception404("해당 자원을 찾을 수 없습니다"));
+
         return applyList.stream().map(ApplyResponse.ApplyDTO::new).toList();
     }
 
@@ -110,11 +109,11 @@ public class ApplyService {
         return new ApplyResponse.ApplyDTO(apply);
     }
 
-    public ApplyResponse.ApplyDTO saveApplyByMain(int postId, int resumeId) {
+    public ApplyResponse.ApplyDTO saveApplyByMain(Integer postId, Integer resumeId) {
         Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다."));
         Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception401(""));
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다."));
         ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume, post);
         Apply apply = applyJPARepository.save(saveApply.toEntity());
 
@@ -122,11 +121,11 @@ public class ApplyService {
     }
 
     @Transactional
-    public ApplyResponse.ApplyDTO saveApplyByScrap(int applyId, int resumeId){
+    public ApplyResponse.ApplyDTO saveApplyByScrap(Integer applyId, Integer resumeId){
         Apply findApply = applyJPARepository.findById(applyId)
-                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Exception404("공고를 찾을 수 없습니다."));
         Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception401(""));
+                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다."));
         ApplyRequest.SaveDTO saveApply=new ApplyRequest.SaveDTO(resume, findApply.getPost());
         Apply apply=applyJPARepository.save(saveApply.toEntity());
 

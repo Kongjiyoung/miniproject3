@@ -14,22 +14,19 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Table(name = "scrap_tb")
 @Data
-@Entity // 테이블 생성하기 위해 필요한 어노테이션
+@Entity
 public class Scrap {
-    @Id // PK 설정
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @JoinColumn(nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
     @JoinColumn(nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
     @CreationTimestamp
     private Timestamp createdAt;
 

@@ -15,34 +15,25 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "resume_tb")
 @Data
-@Entity // 테이블 생성하기 위해 필요한 어노테이션
+@Entity
 public class Resume {
     @Id // PK 설정
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @JoinColumn(name = "person_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Skill> skills = new ArrayList<>();
-
     @Transient
     private boolean isResumeOwner;
-
     private String title;
     private String profile;
     private String profileName;
-
-    //널 허용
     private String portfolio;
     private String introduce;
     private String career;
-
-    //널 허용
     private String simpleIntroduce;
-
     @CreationTimestamp
     private Timestamp createdAt;
 
@@ -70,6 +61,4 @@ public class Resume {
         this.career = reqDTO.getCareer();
         this.simpleIntroduce = reqDTO.getSimpleIntroduce();
     }
-    
-
 }

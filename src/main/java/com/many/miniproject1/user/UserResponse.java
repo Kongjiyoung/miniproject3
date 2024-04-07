@@ -33,21 +33,20 @@ public class UserResponse {
         }
     }
 
-
     @Data
     public static class CompanyDTO {
         private Integer id;
-        private String role;        // 구직자 or 회사
-        private String profile;     // 사진
+        private String role;
+        private String profile;
         private String profileName;
-        private String companyName; // 회사명
-        private String companyNum;  // 사업자번호
-        private String username;    // 로그인ID
-        private String name;        // 담당자 이름
-        private String tel;         // 전화번호
-        private String address;     // 회사 주소
-        private String email;       // 담당자 이메일
-        private String password;    // 비밀번호
+        private String companyName;
+        private String companyNum;
+        private String username;
+        private String name;
+        private String tel;
+        private String address;
+        private String email;
+        private String password;
 
         public CompanyDTO(User user) {
             this.id = user.getId();

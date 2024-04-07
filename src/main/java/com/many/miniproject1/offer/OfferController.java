@@ -16,8 +16,6 @@ import java.util.List;
 public class OfferController {
     private final HttpSession session;
     private final OfferService offerService;
-    private final ScrapService scrapService;
-    private final MainService mainService;
 
     /////////////// 기업(오퍼를 보내는 입장)
     // 개인의 이력서로 보낸 제안 목록(공고 목록이 보임)
@@ -29,7 +27,6 @@ public class OfferController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 04-02
     // 개인의 이력서로 보낸 제안 디테일(공고 디테일이 보임)
     @GetMapping("/api/company/my-page/offers/{id}")
     public ResponseEntity<?> companyOfferDetail(@PathVariable Integer id) {
@@ -41,7 +38,6 @@ public class OfferController {
     // 제안 철회하기
     @DeleteMapping("/api/company/my-page/offers/{id}")
     public ResponseEntity<?> companyOfferDetailDelete(@PathVariable Integer id) {
-//        User sessionUser = (User) session.getAttribute("sessionUser");
         offerService.offerDelete(id);
 
         return ResponseEntity.ok(new ApiUtil<>(null));
