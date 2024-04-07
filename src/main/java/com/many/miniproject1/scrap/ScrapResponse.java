@@ -246,6 +246,7 @@ public class ScrapResponse {
         }
     }
 
+
     @Data
     public static class MainResumeScrapDTO {
         private Integer id;
@@ -256,6 +257,19 @@ public class ScrapResponse {
             this.id = scrap.getId();
             this.resumeId = scrap.getResume().getId();
             this.companyId = scrap.getUser().getId();
+        }
+    }
+
+    @Data
+    public static class MainPostScrapDTO {
+        private Integer id;
+        private Integer postId;
+        private Integer personId;
+
+        public MainPostScrapDTO(Scrap scrap) {
+            this.id = scrap.getId();
+            this.postId = scrap.getPost().getId();
+            this.personId = scrap.getUser().getId();
         }
     }
 }
