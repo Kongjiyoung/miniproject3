@@ -1,6 +1,7 @@
 package com.many.miniproject1.scrap;
 
 
+import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception404;
 import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
@@ -14,6 +15,8 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.resume.ResumeJPARepository;
+import com.many.miniproject1.user.User;
+import com.many.miniproject1.user.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,7 @@ public class ScrapService {
     private final ResumeJPARepository resumeJPARepository;
     private final PostJPARepository postJPARepository;
     private final OfferJPARepository offerJPARepository;
+    private final UserService userService;
 
     public List<Scrap> personScrapForm (Integer userId){
         return scrapJPARepository.findByPostIdJoinSkills(userId);
@@ -61,7 +65,7 @@ public class ScrapService {
     }
 
     public ScrapResponse.ScrapResumeDetailDTO getResumeDetail(Integer userId){
-        Scrap scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(userId);
+        Scrap scrap = scrapJPARepository.findByResumeIdAndSkillAndUser(userId).orElseThrow(() -> new Exception404("스크랩을 찾을 수 없습니다."));
         return new ScrapResponse.ScrapResumeDetailDTO(scrap);
     }
 
@@ -101,7 +105,7 @@ public class ScrapService {
 //    public
 
     public Scrap getScrapPostDetail(Integer scrapId) {
-        Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId);
+        Scrap scrap = scrapJPARepository.findByScrapIdJoinPostAndSkill(scrapId).orElseThrow(() -> new Exception404("스크랩을 찾을 수 없습니다."));
         return scrap;
     }
 
@@ -110,5 +114,26 @@ public class ScrapService {
         Scrap scrap = scrapJPARepository.findByScrapIdJoinPost(scrapId)
                 .orElseThrow(() -> new Exception404("스크랩한 공고를 찾을 수 없습니다"));
         return new ScrapResponse.ScrapPostDetailDTO(scrap);
+    }
+
+    @Transactional
+    public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId) {
+        User user = userService.findByUser(userId);
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+        ScrapRequest.ScrapResumeDTO saveScrap = new ScrapRequest.ScrapResumeDTO(resume, user);
+        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
+
+        return new ScrapResponse.MainResumeScrapDTO(scrap);
+    }
+
+    @Transactional
+    public ScrapResponse.PostScrapSaveDTO personPostScrap(Integer userId, Integer postId) {
+        User user = userService.findByUser(userId);
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+        ScrapRequest.SavePostDTO saveScrap = new ScrapRequest.SavePostDTO(user, post);
+        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
+        return new ScrapResponse.PostScrapSaveDTO(scrap);
     }
 }

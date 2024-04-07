@@ -32,9 +32,6 @@ public class ApplyResponse {
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
-
-            // TODO: skill collect -> toList 작업
-
             this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
             this.isPass = apply.getIsPass();
         }
@@ -88,9 +85,6 @@ public class ApplyResponse {
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
             this.portfolio = resume.getPortfolio();
-
-            // TODO: skill collect -> toList 작업
-
             this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
             this.introduce = resume.getIntroduce();
         }
@@ -135,8 +129,6 @@ public class ApplyResponse {
             this.title = post.getTitle();
             this.career = post.getCareer();
             this.workingArea = post.getWorkingArea();
-
-            // TODO: skill collect -> toList 작업
 
             this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
 
@@ -190,9 +182,6 @@ public class ApplyResponse {
             this.task = post.getTask();
             this.profile = user.getProfile();
             this.workingArea = post.getWorkingArea();
-
-            // TODO: skill collect -> toList 작업
-
             this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
         }
 
@@ -224,6 +213,23 @@ public class ApplyResponse {
             this.postId = apply.getPost().getId();
             this.isPass = apply.getIsPass();
         }
+    }
+
+    @Data
+    public static class ApplyDTO {
+        private Integer id;
+        private Integer resumeId;
+        private Integer postId;
+        private String isPass;
+
+        public ApplyDTO(Apply apply) {
+            this.id = apply.getId();
+            this.resumeId = apply.getResume().getId();
+            this.postId = apply.getPost().getId();
+            this.isPass = apply.getIsPass();
+        }
+
+
     }
 
 //    @Data

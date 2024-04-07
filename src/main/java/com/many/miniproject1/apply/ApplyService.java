@@ -17,10 +17,6 @@ import java.util.stream.Collectors;
 public class ApplyService {
     private final ApplyJPARepository applyJPARepository;
 
-    /**
-     * TODO: 통합 -> Optional 변경으로 인한 orElseThroew 추가 / 기능 별 추석 추가
-     * 이력서 : 이력서를 찾을 수 없습니다 / 공고 : 고를 찾을 수 없습니다 || convention 통일
-     */
 
     //공고에서 받은 이력서 목록
     public List<ApplyResponse.AppliedResumeSkillDTO> getAppliedResumeSkillDTOs(Integer companyId) {
@@ -54,7 +50,7 @@ public class ApplyService {
         Apply apply = applyJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
 
-        apply.setIsPass(reqDTO.getIsPass());
+        apply.updateIsPass(reqDTO);
         return new ApplyResponse.UpdateIsPassDTO(apply.getIsPass());
     }
 
@@ -95,18 +91,16 @@ public class ApplyService {
         applyJPARepository.deleteById(applyId);
     }
 
-    // TODO: Optional 변경으로 return 받는 값 수정
     // 개인이 지원한 이력서 목록 YSH
-    public List<Apply> getApplyList(Integer userId) {
+    public List<ApplyResponse.ApplyDTO> getApplyList(Integer userId) {
         List<Apply> applyList = applyJPARepository.findAllAppliesWithPostsAndSkills(userId)
-                .orElseThrow(() -> new Exception404("이력서를 찾을 수 없습니다"));
-        return applyList;
+                .orElseThrow(() -> new Exception404("해당 자원을 찾을 수 없습니다"));
+        return applyList.stream().map(ApplyResponse.ApplyDTO::new).toList();
     }
 
-    // TODO: Optional 변경으로 return 받는 값 수정
-    public Apply getApplyById(Integer applyId) {
+    public ApplyResponse.ApplyDTO getApplyById(Integer applyId) {
         Apply apply = applyJPARepository.findById(applyId)
                 .orElseThrow(() -> new Exception404("해당 지원을 찾을 수 없습니다"));
-        return apply;
+        return new ApplyResponse.ApplyDTO(apply);
     }
 }

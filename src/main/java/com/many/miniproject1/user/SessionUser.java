@@ -21,8 +21,6 @@ public class SessionUser {
         this.role = role;
         this.createdAt = createdAt;
     }
-
-    //TODO: 유저 생성자 추가
     public SessionUser(User user) {
         this.id = user.getId();
         this.username = user.getUsername();

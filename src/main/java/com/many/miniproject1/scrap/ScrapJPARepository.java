@@ -31,7 +31,7 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             JOIN FETCH r.skills rs
             WHERE s.id = :scrap_id
             """)
-    Scrap findByResumeIdAndSkillAndUser(@Param("scrap_id") Integer scrapId);
+    Optional<Scrap> findByResumeIdAndSkillAndUser(@Param("scrap_id") Integer scrapId);
 
     @Query("""
             select s
@@ -44,16 +44,16 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             """)
     List<Scrap> findByUserIdJoinSkillAndResume (@Param("user_id") Integer userId);
 
-    @Query("""
-            select s
-            from Scrap s
-            JOIN FETCH s.post p
-            JOIN FETCH p.skillList ps
-            join FETCH p.user pu
-            JOIN FETCH s.user u
-            where u.id = :user_id
-            """)
-    List<Scrap> findByPostId (@Param("user_id") Integer userId);
+//    @Query("""
+//            select s
+//            from Scrap s
+//            JOIN FETCH s.post p
+//            JOIN FETCH p.skillList ps
+//            join FETCH p.user pu
+//            JOIN FETCH s.user u
+//            where u.id = :user_id
+//            """)
+//    List<Scrap> findByPostId (@Param("user_id") Integer userId);
 
     @Modifying
     @Query("""
@@ -76,7 +76,7 @@ public interface ScrapJPARepository extends JpaRepository<Scrap, Integer> {
             join fetch p.skillList ps
             where s.id = :scrap_id
                         """)
-    Scrap findByScrapIdJoinPostAndSkill(@Param("scrap_id") Integer scrapId);
+    Optional<Scrap> findByScrapIdJoinPostAndSkill(@Param("scrap_id") Integer scrapId);
 
     @Query("""
             select s

@@ -61,7 +61,7 @@ public class PostService {
         List<Skill> skills = new ArrayList<>();
         for (String skillName : reqDTO.getSkills()) {
             SkillRequest.SavePostDTO skill = new SkillRequest.SavePostDTO();
-            skill.toEntity(skillName, post);
+            skills.add(skill.toEntity(skillName, post));
         }
         List<Skill> skillList = skillJPARepository.saveAll(skills);
         return new PostResponse.PostDTO(post, skillList);
