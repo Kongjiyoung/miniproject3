@@ -22,6 +22,7 @@ public class ResumeController {
     public ResponseEntity<?> personResumes(HttpSession session) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ResumeResponse.ResumeListDTO> respDTO = resumeService.getResumeList(sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
     
@@ -30,6 +31,7 @@ public class ResumeController {
     public ResponseEntity<?> personResume(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.ResumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser.getId());
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
     
@@ -38,6 +40,7 @@ public class ResumeController {
     public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.ResumeSaveDTO respDTO = resumeService.resumeSave(reqDTO, sessionUser);
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
