@@ -15,30 +15,33 @@ public class UserService {
     @Transactional
     public UserResponse.PersonDTO personJoin(UserRequest.PersonJoinDTO reqDTO) {
         User user = userJPARepository.save(reqDTO.toEntity());
+
         return new UserResponse.PersonDTO(user);
     }
 
     @Transactional
     public UserResponse.CompanyDTO companyJoin(UserRequest.CompanyJoinDTO reqDTO) {
         User user = userJPARepository.save(reqDTO.toEntity());
+
         return new UserResponse.CompanyDTO(user);
     }
 
     public User findByUser(int id) {
-        User user = userJPARepository.findById(id)
+        return userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
-        return user;
     }
 
-    public UserResponse.PersonDTO findByPerson(int id) {
+    public UserResponse.PersonDTO findByPerson(Integer id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+
         return new UserResponse.PersonDTO(user);
     }
 
-    public UserResponse.CompanyDTO findByCompany(int id) {
+    public UserResponse.CompanyDTO findByCompany(Integer id) {
         User user = userJPARepository.findById(id)
                 .orElseThrow(() -> new Exception404("회원정보를 찾을 수 없습니다"));
+
         return new UserResponse.CompanyDTO(user);
     }
 
@@ -49,6 +52,7 @@ public class UserService {
         user.updatePersonInfo(reqDTO);
         user.setProfile(ProfileImageSaveUtil.convertToBase64(reqDTO.getProfile(),reqDTO.getProfileName()));
         user.setPassword(reqDTO.getNewPassword());
+
         return new UserResponse.PersonDTO(user);
     }
 
@@ -67,7 +71,6 @@ public class UserService {
         User user = userJPARepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception404("아이디와 패스워드를 확인해 주세요"));
 
-        String jwt = JwtUtil.create(user);
-        return jwt;
+        return JwtUtil.create(user);
     }
 }

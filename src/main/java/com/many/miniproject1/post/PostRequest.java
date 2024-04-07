@@ -24,7 +24,7 @@ public class PostRequest {
         private String workCondition;
         @NotEmpty(message = "근무시작시간은 공백일 수 없습니다")
         private String workStartTime;
-        @NotEmpty(message = "근무끝시간은 공백일 수 없습니다")
+        @NotEmpty(message = "근무종료시간은 공백일 수 없습니다")
         private String workEndTime;
         @NotEmpty(message = "마감일은 공백일 수 없습니다")
         private String deadline;
@@ -41,10 +41,8 @@ public class PostRequest {
         private List<String> skills = new ArrayList<>();
 
         public Post toEntity(User user) {
-
             ProfileImageSaveUtil profileImageSaveUtil = new ProfileImageSaveUtil();
             String profilePathName = profileImageSaveUtil.convertToBase64(profile,profileName);
-
 
             return Post.builder()
                     .user(user)
@@ -78,7 +76,7 @@ public class PostRequest {
         private String pay;
         @NotEmpty(message = "근무시작시간은 공백일 수 없습니다")
         private String workStartTime;
-        @NotEmpty(message = "근무시끝시간은 공백일 수 없습니다")
+        @NotEmpty(message = "근무종료시간은 공백일 수 없습니다")
         private String workEndTime;
         @NotEmpty(message = "마감시간은 공백일 수 없습니다")
         private String deadline;

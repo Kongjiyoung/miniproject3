@@ -1,6 +1,5 @@
 package com.many.miniproject1.user;
 
-import com.many.miniproject1._core.common.ProfileImageSaveUtil;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -12,16 +11,15 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Table(name = "user_tb")
 @Data
-@Entity // 테이블 생성하기 위해 필요한 어노테이션
+@Entity
 public class User {
 
     @Id // PK 설정
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String role;
-
     @Column(unique = true)
-    private String username; //이제부터 아이디를 이메일로 안받을 예정
+    private String username;
     private String email;
     private String password;
     private String name;
@@ -32,9 +30,8 @@ public class User {
     private String profile;
     private String profileName;
     private String birth;
-
     @CreationTimestamp
-    private Timestamp createdAt;//
+    private Timestamp createdAt;
 
     @Builder
     public User(Integer id, String role, String username, String email, String password, String name, String tel, String companyName, String address, String companyNum, String profile, String profileName, String birth, Timestamp createdAt) {

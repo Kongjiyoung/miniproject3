@@ -1,8 +1,6 @@
 package com.many.miniproject1.scrap;
 
 import com.many.miniproject1._core.utils.ApiUtil;
-import com.many.miniproject1.main.MainService;
-import com.many.miniproject1.resume.ResumeService;
 import com.many.miniproject1.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +15,6 @@ import java.util.List;
 public class ScrapController {
     private final HttpSession session;
     private final ScrapService scrapService;
-    private final ResumeService resumeService;
-    private final MainService mainService;
 
     ///////////////////// 기업
     // 스크랩한 이력서 목록
@@ -39,7 +35,7 @@ public class ScrapController {
     }
 
     // 이력서 스크랩하기
-    @PostMapping({"/api/main/resumes/{id}/scrap"}) // @PostMapping("/api/resumes/{id}/scrap")
+    @PostMapping({"/api/main/resumes/{id}/scrap"})
     public ResponseEntity<?> companyResumeScrap(@PathVariable Integer id, @RequestBody ScrapRequest.ScrapResumeDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.MainResumeScrapDTO respDTO = scrapService.resumeScrap(id, sessionUser.getId());
@@ -51,6 +47,7 @@ public class ScrapController {
     @DeleteMapping("/api/company/my-page/scraps/{id}")
     public ResponseEntity<?> companyScrapDelete(@PathVariable Integer id) {
         scrapService.deleteScrap(id);
+
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 

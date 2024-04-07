@@ -3,7 +3,6 @@ package com.many.miniproject1.resume;
 import com.many.miniproject1.skill.Skill;
 import lombok.Data;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public class ResumeResponse {
@@ -11,14 +10,14 @@ public class ResumeResponse {
     //이력서 목록
     @Data
     public static class ResumeListDTO {
-        int id;
-        Integer personId;
-        String profile;
-        String name;
-        String title;
-        String career;
-        String simpleIntroduce;
-        List<ResumeSkillDTO> skills;
+        private Integer id;
+        private Integer personId;
+        private String profile;
+        private String name;
+        private String title;
+        private String career;
+        private String simpleIntroduce;
+        private List<ResumeSkillDTO> skills;
 
         public ResumeListDTO(Resume resume) {
             this.id = resume.getId();
@@ -28,12 +27,12 @@ public class ResumeResponse {
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
-            this.skills = resume.getSkills().stream().map(skill -> new ResumeSkillDTO(skill)).toList();
+            this.skills = resume.getSkills().stream().map(ResumeSkillDTO::new).toList();
         }
 
         @Data
         public class ResumeSkillDTO {
-            private int id;
+            private Integer id;
             private String skill;
 
             public ResumeSkillDTO(Skill skill) {
@@ -42,6 +41,7 @@ public class ResumeResponse {
             }
         }
     }
+
     //이력서 디테일 DTO
     @Data
     public static class ResumeDetailDTO {
@@ -88,6 +88,7 @@ public class ResumeResponse {
             }
         }
     }
+
     // 이력서 저장 DTO
     @Data
     public static class ResumeSaveDTO {
@@ -124,7 +125,6 @@ public class ResumeResponse {
             }
         }
     }
-
 
 
     @Data

@@ -1,6 +1,5 @@
 package com.many.miniproject1.post;
 
-import com.many.miniproject1.resume.ResumeRequest;
 import com.many.miniproject1.skill.Skill;
 import com.many.miniproject1.user.User;
 import jakarta.persistence.*;
@@ -15,10 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "post_tb")
 @Data
-@Entity // 테이블 생성하기 위해 필요한 어노테이션
+@Entity
 public class Post { // 공고테이블
-    @Id // PK 설정
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @JoinColumn(name = "company_id")
@@ -27,7 +26,6 @@ public class Post { // 공고테이블
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Skill> skillList;
-
     private String title;
     private String career;
     private String pay;

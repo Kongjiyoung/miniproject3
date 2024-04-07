@@ -41,7 +41,7 @@ public class OfferService {
     }
 
     // 개인이 제안(공고)상세보기
-    public OfferResponse.PersonOfferDetailDTO personOfferDetail(int id) {
+    public OfferResponse.PersonOfferDetailDTO personOfferDetail(Integer id) {
         Offer offer = offerJPARepository.personFindByOfferId(id)
                 .orElseThrow(() -> new Exception404("제안이 존재 하지 않습니다"));
 
@@ -49,15 +49,15 @@ public class OfferService {
     }
 
     // 기업이 보낸 제안(이력서)들
-    public List<OfferResponse.CompanyOffersDTO> companyOffers(int id) {
+    public List<OfferResponse.CompanyOffersDTO> companyOffers(Integer id) {
         List<Offer> companyOffers = offerJPARepository.companyFindAllOffers(id)
                 .orElseThrow(() -> new Exception404("제안이 존재 하지 않습니다"));
 
-        return companyOffers.stream().map(offer -> new OfferResponse.CompanyOffersDTO(offer)).toList();
+        return companyOffers.stream().map(OfferResponse.CompanyOffersDTO::new).toList();
     }
 
     // 기업의 제안(이력서) 상세보기
-    public OfferResponse.CompanyOfferDetailDTO companyOfferDetail(int id) {
+    public OfferResponse.CompanyOfferDetailDTO companyOfferDetail(Integer id) {
         Offer offer = offerJPARepository.companyFindByOfferId(id)
                 .orElseThrow(() -> new Exception404("제안이 존재 하지 않습니다"));
 
@@ -69,7 +69,6 @@ public class OfferService {
         offerJPARepository.deleteById(offerId);
     }
 
-
     //메인에서 제안하기
     public OfferResponse.OfferDTO offerInMain(Integer resumeId, Integer postId) {
         Resume resume = resumeJPARepository.findById(resumeId)
@@ -78,6 +77,7 @@ public class OfferService {
                 .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다."));
         OfferRequest.OfferDTO offerDTO = new OfferRequest.OfferDTO(resume, post);
         Offer offer = offerJPARepository.save(offerDTO.toEntity());
+
         return new OfferResponse.OfferDTO(offer);
     }
 
@@ -87,7 +87,7 @@ public class OfferService {
         Scrap scrap = scrapJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception404("존재하지 않은 값입니다"));
         Post post = postJPARepository.findById(postChoice)
-                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다!" + postChoice));
+                .orElseThrow(() -> new Exception404("존재하지 않는 공고입니다"));
         OfferRequest.OfferDTO offerDTO = new OfferRequest.OfferDTO(scrap.getResume(), post);
         Offer offer = offerJPARepository.save(offerDTO.toEntity());
 

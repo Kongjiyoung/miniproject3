@@ -11,7 +11,6 @@ public class OfferRequest {
         private Integer postId;
         private Integer companyId;
         private Integer personId;
-        // DTO에서 날짜를 받을 필요가 없다.
     }
 
     @Data
@@ -40,6 +39,5 @@ public class OfferRequest {
     @Data
     public static class PostChoiceDTO {
         private Integer postChoice;
-
     }
 }

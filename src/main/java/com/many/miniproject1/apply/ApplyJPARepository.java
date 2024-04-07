@@ -10,22 +10,6 @@ import java.util.Optional;
 
 public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
 
-//    @Modifying
-//    @Query("delete from Apply a where a.id = :applyId")
-//    void deleteApplyPostById(@Param("applyId") Integer applyId);
-
-
-//    @Query("""
-//            select a
-//            from Apply a
-//            join fetch a.resume r
-//            join fetch a.post p
-//            join fetch r.user ru
-//            join fetch p.user pu
-//            where p.user.id = :user_id
-//            """)
-//    Optional<List<Apply>> findByUserIdJoinPost(@Param("user_id") int userId);
-
     @Query("""
             SELECT DISTINCT a
             FROM Apply a
@@ -38,7 +22,6 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             """)
     Optional<Apply> findByResumeIdJoinSkillAndCompany(@Param("id") Integer id);
 
-
     @Query("""
             SELECT a
             FROM Apply a
@@ -47,12 +30,6 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             WHERE a.resume.user.id = :userId
             """)
     Optional<List<Apply>> findAllAppliesWithPostsAndSkills(@Param("userId") Integer userId);
-
-
-//    @Query("""
-//            select distinct a from Apply a join fetch a.post p join fetch p.user pu join fetch p.skillList join fetch a.resume r join fetch r.user ru where p.id= :postId and ru.id=:resumeUserId
-//            """)
-//    Optional<Apply> findByPostIdJoinPostAndSkillAndUser(@Param("postId") Integer postId, @Param("resumeUserId") Integer resumeUserId);
 
     @Modifying
     @Query("""
@@ -102,7 +79,6 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
                         """)
     Optional<List<Apply>> findByPersonIdJoinPost(@Param("person_id") Integer personId);
 
-
     @Query("""
             select a
             from Apply a
@@ -112,13 +88,4 @@ public interface ApplyJPARepository extends JpaRepository<Apply, Integer> {
             where a.id = :apply_id
                """)
     Optional<Apply> findPostByApplyId(@Param("apply_id") Integer applyId);
-
-//    @Query("""
-//            select a
-//            from Apply a
-//             join fetch a.post p
-//            join fetch a.resume r
-//            where a.id = :apply_id
-//                        """)
-//    Optional<Apply> findByApplyId(@Param("apply_id") Integer applyId);
 }

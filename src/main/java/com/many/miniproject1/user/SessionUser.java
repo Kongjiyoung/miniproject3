@@ -28,7 +28,6 @@ public class SessionUser {
         this.createdAt = user.getCreatedAt();
         this.role = user.getRole();
     }
-
 }
 
 

@@ -13,10 +13,10 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Table(name = "skill_tb")
 @Data
-@Entity // 테이블 생성하기 위해 필요한 어노테이션
+@Entity
 public class Skill {
     @Id // PK 설정
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 전략
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String skill;
 
@@ -26,7 +26,7 @@ public class Skill {
 
     @JoinColumn(name = "post_id", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
-    private Post post; // null 허용 되어야 한다
+    private Post post;
 
     @CreationTimestamp
     private Timestamp createdAt;

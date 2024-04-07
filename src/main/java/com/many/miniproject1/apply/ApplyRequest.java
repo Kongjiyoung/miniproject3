@@ -4,7 +4,6 @@ import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import lombok.Data;
 
-
 public class ApplyRequest {
     @Data
     public static class SaveDTO {
@@ -34,5 +33,4 @@ public class ApplyRequest {
     public static class ResumeChoiceDTO {
         private Integer resumeChoice;
     }
-
 }

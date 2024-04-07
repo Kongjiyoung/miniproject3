@@ -8,11 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-
     private final HttpSession session;
     private final UserService userService;
 
@@ -38,7 +36,7 @@ public class UserController {
     public ResponseEntity<?> companyLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
         String jwt = userService.login(reqDTO);
 
-        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil(null));
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(null));
     }
 
 
@@ -67,6 +65,7 @@ public class UserController {
     @PostMapping("/person/join")
     public ResponseEntity<?> personJoin(@Valid @RequestBody UserRequest.PersonJoinDTO reqDTO, Errors errors) {
         UserResponse.PersonDTO respDTO = userService.personJoin(reqDTO);
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -75,7 +74,7 @@ public class UserController {
     public ResponseEntity<?> personLogin(@RequestBody UserRequest.LoginDTO reqDTO) {
         String jwt = userService.login(reqDTO);
 
-        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil(null));
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(null));
     }
 
     // 개인 정보

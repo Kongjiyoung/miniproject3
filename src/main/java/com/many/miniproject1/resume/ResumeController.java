@@ -46,7 +46,7 @@ public class ResumeController {
 
     // 개인 이력서 수정
     @PutMapping("/api/person/my-page/resumes/{id}")
-    public ResponseEntity<?> personUpdateResume(@PathVariable int id,@Valid  @RequestBody ResumeRequest.UpdateDTO reqDTO, Error error) {
+    public ResponseEntity<?> personUpdateResume(@PathVariable Integer id,@Valid  @RequestBody ResumeRequest.UpdateDTO reqDTO, Error error) {
         ResumeResponse.UpdateDTO respDTO = resumeService.resumeUpdate(id, reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
