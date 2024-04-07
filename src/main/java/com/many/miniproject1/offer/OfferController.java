@@ -72,7 +72,7 @@ public class OfferController {
     }
 
     // 스크랩에서 제아하기
-    @PostMapping("")
+    @PostMapping("/api/company/my-page/scraps/{id}/offer")
     public ResponseEntity<?> companyScrapResume(@PathVariable Integer id,@RequestBody OfferRequest.PostChocieDTO reqDTO) {
         OfferResponse.OfferDTO respDTO = offerService.offerInScrap(id, reqDTO.getPostChoice());
 
