@@ -47,7 +47,7 @@ public class ScrapController {
     }
 
     // TODO: 이거 컴퍼니 아이디 말고 스크랩 아이디로 다시 연결
-    @PostMapping("/api/person/my-page/scraps")
+    @PostMapping("/api/person/scraps")
     public ResponseEntity<?> personPostApply(@RequestBody ScrapRequest.ResumeChoiceDTO reqDTO) { // 스크랩 아이디와 이력서 아이디를 받아서
         ApplyResponse.PostApplyDTO respDTO = scrapService.saveApply(reqDTO.getId(), reqDTO.getResumeChoice());
 
@@ -88,7 +88,7 @@ public class ScrapController {
     // TODO: 일단 메인 서비스 연결, 수정해야함.
     // 개인이 공고 스크랩하기
 
-    @PostMapping("/api/company/my-page/scraps") // @PostMapping("/api/resumes/{id}/scrap")
+    @PostMapping("/api/company/scraps") // @PostMapping("/api/resumes/{id}/scrap")
     public ResponseEntity<?> companyResumeScrap(@RequestBody ScrapRequest.ScrapResumeDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.MainResumeScrapDTO respDTO = scrapService.resumeScrap(reqDTO.getId(), sessionUser.getId());
@@ -96,13 +96,13 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 회사가 개인의 이력서를 스크랩
-    // TODO: 포스트인데 리퀘스트 바디가 없음
-    @PostMapping("/api/main/posts/{id}/scrap")  // 메인 전용 스크랩이 필요할 것인가!!
-    public ResponseEntity<?> personMainScrap(@PathVariable Integer id) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        ScrapResponse.PostScrapSaveDTO respDTO = scrapService.personPostScrap(sessionUser.getId(), id);
-
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
+//    // 회사가 개인의 이력서를 스크랩
+//    // TODO: 포스트인데 리퀘스트 바디가 없음
+//    @PostMapping("/api/main/posts/{id}/scrap")  // 메인 전용 스크랩이 필요할 것인가!!
+//    public ResponseEntity<?> personMainScrap(@PathVariable Integer id) {
+//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+//        ScrapResponse.PostScrapSaveDTO respDTO = scrapService.personPostScrap(sessionUser.getId(), id);
+//
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 }

@@ -73,7 +73,7 @@ public class ApplyController {
 
     ////////////////////////// 추가됨
     //이력서 지원하기
-    @PostMapping("/api/main/posts/{id}/apply") //  @PostMapping("/api/posts/{id}/apply")
+    @PostMapping("/api/people/apply") //  @PostMapping("/api/posts/{id}/apply")
     public ResponseEntity<?> personMainApply(@PathVariable Integer id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
         ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
 
