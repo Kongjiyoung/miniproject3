@@ -1,7 +1,12 @@
 package com.many.miniproject1.apply;
 
 
+import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception404;
+import com.many.miniproject1.post.Post;
+import com.many.miniproject1.post.PostJPARepository;
+import com.many.miniproject1.resume.Resume;
+import com.many.miniproject1.resume.ResumeJPARepository;
 import com.many.miniproject1.skill.SkillJPARepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +21,8 @@ import java.util.stream.Collectors;
 @Service
 public class ApplyService {
     private final ApplyJPARepository applyJPARepository;
+    private final ResumeJPARepository resumeJPARepository;
+    private final PostJPARepository postJPARepository;
 
 
     //공고에서 받은 이력서 목록
@@ -101,6 +108,29 @@ public class ApplyService {
     public ApplyResponse.ApplyDTO getApplyById(Integer applyId) {
         Apply apply = applyJPARepository.findById(applyId)
                 .orElseThrow(() -> new Exception404("해당 지원을 찾을 수 없습니다"));
+        return new ApplyResponse.ApplyDTO(apply);
+    }
+
+    public ApplyResponse.ApplyDTO saveApplyByMain(int postId, int resumeId) {
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+        ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume, post);
+        Apply apply = applyJPARepository.save(saveApply.toEntity());
+
+        return new ApplyResponse.ApplyDTO(apply);
+    }
+
+    @Transactional
+    public ApplyResponse.ApplyDTO saveApplyByScrap(int applyId, int resumeId){
+        Apply findApply = applyJPARepository.findById(applyId)
+                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
+        Resume resume = resumeJPARepository.findById(resumeId)
+                .orElseThrow(() -> new Exception401(""));
+        ApplyRequest.SaveDTO saveApply=new ApplyRequest.SaveDTO(resume, findApply.getPost());
+        Apply apply=applyJPARepository.save(saveApply.toEntity());
+
         return new ApplyResponse.ApplyDTO(apply);
     }
 }

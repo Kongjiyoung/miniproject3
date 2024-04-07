@@ -74,9 +74,5 @@ public class ScrapRequest {
         private Integer companyId;
     }
 
-    @Data
-    public static class ResumeChoiceDTO {
-        private Integer id;
-        private Integer resumeChoice;
-    }
+
 }

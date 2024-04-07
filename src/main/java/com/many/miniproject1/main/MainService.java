@@ -55,16 +55,7 @@ public class MainService {
 
 
 
-    public ApplyResponse.PostApplyDTO personPostApply(int postId, int resumeId) {
-        Post post = postJPARepository.findById(postId)
-                .orElseThrow(() -> new Exception401("공고를 찾을 수 없습니다."));
-        Resume resume = resumeJPARepository.findById(resumeId)
-                .orElseThrow(() -> new Exception401(""));
-        ApplyRequest.SaveDTO saveApply = new ApplyRequest.SaveDTO(resume, post);
-        Apply apply = applyJPARepository.save(saveApply.toEntity());
 
-        return new ApplyResponse.PostApplyDTO(apply);
-    }
 
     public List<MainResponse.PostMatchingChoiceDTO> findByUserIdPost(int userId) {
         List<Post> postList = postJPARepository.findByUserIdJoinSkillAndUser(userId);

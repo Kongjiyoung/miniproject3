@@ -30,4 +30,9 @@ public class ApplyRequest {
     public static class UpdateIsPassDTO {
         private String isPass;
     }
+    @Data
+    public static class ResumeChoiceDTO {
+        private Integer resumeChoice;
+    }
+
 }

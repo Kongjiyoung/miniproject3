@@ -46,13 +46,6 @@ public class ScrapController {
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    // TODO: 이거 컴퍼니 아이디 말고 스크랩 아이디로 다시 연결
-    @PostMapping("/api/person/scraps")
-    public ResponseEntity<?> personPostApply(@RequestBody ScrapRequest.ResumeChoiceDTO reqDTO) { // 스크랩 아이디와 이력서 아이디를 받아서
-        ApplyResponse.PostApplyDTO respDTO = scrapService.saveApply(reqDTO.getId(), reqDTO.getResumeChoice());
-
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
 
     //기업 이력서 스크랩
     @GetMapping("/api/company/my-page/scraps")
@@ -88,7 +81,7 @@ public class ScrapController {
     // TODO: 일단 메인 서비스 연결, 수정해야함.
     // 개인이 공고 스크랩하기
 
-    @PostMapping("/api/company/scraps") // @PostMapping("/api/resumes/{id}/scrap")
+    @PostMapping({"/api/company/scraps"}) // @PostMapping("/api/resumes/{id}/scrap")
     public ResponseEntity<?> companyResumeScrap(@RequestBody ScrapRequest.ScrapResumeDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.MainResumeScrapDTO respDTO = scrapService.resumeScrap(reqDTO.getId(), sessionUser.getId());

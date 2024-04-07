@@ -1,6 +1,7 @@
 package com.many.miniproject1.apply;
 
 
+import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.Skill;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ApplyResponse {
+
 
     //공고에서 받은 이력서 목록
     @Data
@@ -199,21 +201,6 @@ public class ApplyResponse {
 
     }
 
-    //메인 공고 지원하기
-    @Data
-    public static class PostApplyDTO {
-        private Integer id;
-        private Integer resumeId;
-        private Integer postId; // 채용공고 아이디
-        private String isPass;
-
-        public PostApplyDTO(Apply apply) {
-            this.id = apply.getId();
-            this.resumeId = apply.getResume().getId();
-            this.postId = apply.getPost().getId();
-            this.isPass = apply.getIsPass();
-        }
-    }
 
     @Data
     public static class ApplyDTO {
@@ -228,8 +215,6 @@ public class ApplyResponse {
             this.postId = apply.getPost().getId();
             this.isPass = apply.getIsPass();
         }
-
-
     }
 
 //    @Data

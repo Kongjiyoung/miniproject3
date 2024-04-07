@@ -4,6 +4,7 @@ package com.many.miniproject1.apply;
 import com.many.miniproject1._core.utils.ApiUtil;
 import com.many.miniproject1.main.MainRequest;
 import com.many.miniproject1.main.MainService;
+import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -71,12 +72,17 @@ public class ApplyController {
     }  // 체크 완
 
 
-    ////////////////////////// 추가됨
-    //이력서 지원하기
-    @PostMapping("/api/people/apply") //  @PostMapping("/api/posts/{id}/apply")
-    public ResponseEntity<?> personMainApply(@PathVariable Integer id, @RequestBody MainRequest.ResumeChoiceDTO resumeChoice) {
-        ApplyResponse.PostApplyDTO respDTO = mainService.personPostApply(id, resumeChoice.getResumeChoice());
+    //메인 이력서 지원하기
+    @PostMapping("/api/people/{id}/apply")
+    public ResponseEntity<?> personMainApply(@PathVariable Integer id, @RequestBody ApplyRequest.ResumeChoiceDTO resumeChoice) {
+        ApplyResponse.ApplyDTO respDTO = applyService.saveApplyByMain(id, resumeChoice.getResumeChoice());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
 
+    //스크랩페이지에서 지원하기
+    @PostMapping("/api/person/my-page/scraps/{id}/apply")
+    public ResponseEntity<?> companyResumeOffer(@PathVariable Integer id, @RequestBody ApplyRequest.ResumeChoiceDTO resumeChoice) {
+        ApplyResponse.ApplyDTO respDTO = applyService.saveApplyByScrap(id, resumeChoice.getResumeChoice());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }
