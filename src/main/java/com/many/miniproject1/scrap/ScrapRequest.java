@@ -67,6 +67,25 @@ public class ScrapRequest {
         }
     }
 
+    @Data
+    public static class ScrapPostDTO {
+        private Integer id;
+        private Post post;
+        private User user;
+
+        public ScrapPostDTO(Post post, User user) {
+            this.post = post;
+            this.user = user;
+        }
+
+        public Scrap toEntity() {
+            return Scrap.builder()
+                    .post(post)
+                    .user(user)
+                    .build();
+        }
+    }
+
     // TODO: 디티오 이름 나중에 바꾸기. 위에 동일한 이름이 있음.
     @Data
     public static class ScrapResumeeDTO {

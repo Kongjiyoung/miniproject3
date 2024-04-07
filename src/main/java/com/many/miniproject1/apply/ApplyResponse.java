@@ -1,7 +1,6 @@
 package com.many.miniproject1.apply;
 
 
-import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.resume.Resume;
 import com.many.miniproject1.skill.Skill;
@@ -9,9 +8,7 @@ import com.many.miniproject1.user.User;
 import lombok.Builder;
 import lombok.Data;
 
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ApplyResponse {
 
@@ -34,7 +31,7 @@ public class ApplyResponse {
             this.title = resume.getTitle();
             this.career = resume.getCareer();
             this.simpleIntroduce = resume.getSimpleIntroduce();
-            this.skllList = skllList.stream().map(skill -> new SkillDTO(skill)).toList();
+            this.skllList = skllList.stream().map(SkillDTO::new).toList();
             this.isPass = apply.getIsPass();
         }
 

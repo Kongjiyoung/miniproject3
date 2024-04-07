@@ -3,14 +3,8 @@ package com.many.miniproject1.scrap;
 
 import com.many.miniproject1._core.errors.exception.Exception401;
 import com.many.miniproject1._core.errors.exception.Exception404;
-import com.many.miniproject1.apply.Apply;
 import com.many.miniproject1.apply.ApplyJPARepository;
-import com.many.miniproject1.apply.ApplyRequest;
-import com.many.miniproject1.apply.ApplyResponse;
-import com.many.miniproject1.offer.Offer;
 import com.many.miniproject1.offer.OfferJPARepository;
-import com.many.miniproject1.offer.OfferRequest;
-import com.many.miniproject1.offer.OfferResponse;
 import com.many.miniproject1.post.Post;
 import com.many.miniproject1.post.PostJPARepository;
 import com.many.miniproject1.resume.Resume;
@@ -88,7 +82,7 @@ public class ScrapService {
     }
 
     @Transactional
-    public ScrapResponse.MainResumeScrapDTO resumeScrap(int resumeId, int userId) {
+    public ScrapResponse.MainResumeScrapDTO resumeScrap(Integer resumeId, Integer userId) {
         User user = userService.findByUser(userId);
         Resume resume = resumeJPARepository.findById(resumeId)
                 .orElseThrow(() -> new Exception401(""));
@@ -98,5 +92,15 @@ public class ScrapService {
         return new ScrapResponse.MainResumeScrapDTO(scrap);
     }
 
+    @Transactional
+    public ScrapResponse.MainPostScrapDTO postScrap(Integer postId, Integer userId) {
+        User user = userService.findByUser(userId);
+        Post post = postJPARepository.findById(postId)
+                .orElseThrow(() -> new Exception404("해당하는 공고가 없습니다."));
+        ScrapRequest.ScrapPostDTO saveScrap = new ScrapRequest.ScrapPostDTO(post, user);
+        Scrap scrap = scrapJPARepository.save(saveScrap.toEntity());
+
+        return new ScrapResponse.MainPostScrapDTO(scrap);
+    }
 
 }

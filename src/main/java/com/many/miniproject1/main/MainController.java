@@ -21,7 +21,8 @@ public class MainController {
     private final HttpSession session;
     private final MainService mainService;
 
-    //메인 이력서 목록
+    ////////////////////// 기업.개인 공통
+    // 메인 화면에 게시된 이력서 목록
     @GetMapping("/main/resumes") // @GetMapping("/resumes")
     public ResponseEntity<?> resumes() {
         List<MainResponse.MainResumesDTO> respDTO = mainService.mainResumes();
@@ -29,7 +30,7 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 메인 이력서 디테일
+    // 메인 화면에 게시된 이력서 디테일
     // TODO: 이거 맞음? 밑에 respDTO로 반환하면서 그 안에 두 가지를 담았는데 하나는 로그인을 해야 보여지고 하나는 그냥 보여진다.
     @GetMapping("/main/resumes/{id}") //  @GetMapping("/resumes/{id}")
     public ResponseEntity<?> mainResumeDetail(@PathVariable Integer id) {
@@ -53,17 +54,19 @@ public class MainController {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("postTitleListDTOs", postTitleListDTOs);
         responseBody.put("mainResumeDetailDTO", mainResumeDetailDTO);
+
         return ResponseEntity.ok(new ApiUtil<>(responseBody));
     }
 
-    //메인 채용 공고
+    // 메인 화면에 게시된 채용 공고 목록
     @GetMapping({"/main/posts", "/"}) // @GetMapping({"/posts", "/"})
     public ResponseEntity<?> posts() {
         List<MainResponse.MainPostsDTO> respDTO = mainService.getPostList();
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    //메인 채용 공고 디테일
+    // 메인 화면에 게시된 채용 공고 디테일
     @GetMapping("/api/main/posts/{id}") //  @GetMapping("/api/posts/{id}")
     public ResponseEntity<?> postDetail(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -82,8 +85,8 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    //메인 매칭 이력서 목록
-//    @GetMapping("/api/main/company/matching") // @GetMapping("/api/main/company/matching")
+    //////////////////// 기업
+    // 회사가 선택한 공고와 매칭되는 이력서 목록
     @GetMapping("/api/main/company/matching") // @GetMapping("/api/main/company/matching")
     public ResponseEntity<?> matchingPosts(@RequestParam(value = "postChoice", defaultValue = "") Integer postChoice) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -98,7 +101,8 @@ public class MainController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 개인 로그인 시 메인 매칭 공고 목록
+    //////////////////// 개인
+    // 개인이 선택한 이력서와 메칭되는 공고 목록
     @GetMapping("/api/main/person/matching")
     public ResponseEntity<?> matchingResumes(@RequestParam(value = "resumeChoice", defaultValue = "") Integer resumeChoice) {
         //공고 가져오기
