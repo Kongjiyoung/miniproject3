@@ -50,6 +50,10 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+jar{
+    enabled = true;
+}
+
 
 jar { // .jar 파일을 하나만 생성되도록
     enabled = false
