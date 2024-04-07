@@ -16,6 +16,7 @@ public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
+    //////////////// 개인
     // 개인 이력서 목록
     @GetMapping("/api/person/my-page/resumes")
     public ResponseEntity<?> personResumes(HttpSession session) {
@@ -23,18 +24,16 @@ public class ResumeController {
         List<ResumeResponse.ResumeListDTO> respDTO = resumeService.getResumeList(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
-    // TODO: 권한이 없다고 나와 왜지?
-    // 개인 이력서 상세
+    
+    // 개인 이력서 디테일
     @GetMapping("/api/person/my-page/resumes/{id}")
     public ResponseEntity<?> personResume(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ResumeResponse.ResumeDetailDTO respDTO = resumeService.getResumeDetail(id, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
-    // TODO: 이력서를 볼 권한이 없습니다.
-    // 개인 이력서 작성
+    
+    // 개인 이력서 저장
     @PostMapping("/api/person/my-page/resumes")
     public ResponseEntity<?> personSaveResume(@Valid @RequestBody ResumeRequest.ResumeSaveDTO reqDTO, Error error) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -42,7 +41,6 @@ public class ResumeController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // TODO: 이력서를 삭제할 권한이 없습니다.
     // 개인 이력서 수정
     @PutMapping("/api/person/my-page/resumes/{id}")
     public ResponseEntity<?> personUpdateResume(@PathVariable int id,@Valid  @RequestBody ResumeRequest.UpdateDTO reqDTO, Error error) {
@@ -51,6 +49,7 @@ public class ResumeController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 개인 이력서 삭제
     @DeleteMapping("/api/person/my-page/resumes/{id}")
     public ResponseEntity<?> personDeleteResume(@PathVariable Integer id) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
