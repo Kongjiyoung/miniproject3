@@ -62,7 +62,7 @@ public class ScrapController {
     }
 
     // 스크랩한 공고 디테일
-    @GetMapping("/api/person/my-page/scraps/{id}")
+    @GetMapping("api/person/my-page/scraps/{id}")
     public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
         ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id);
 
@@ -70,7 +70,7 @@ public class ScrapController {
     }
 
     // 공고 스크랩하기
-    @PostMapping({"/api/main/posts/{id}/scrap"})
+    @PostMapping("/api/main/posts/{id}/scrap")
     public ResponseEntity<?> personPostScrap(@PathVariable Integer id, @RequestBody ScrapRequest.ScrapPostDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.MainPostScrapDTO respDTO = scrapService.postScrap(id, sessionUser.getId());
