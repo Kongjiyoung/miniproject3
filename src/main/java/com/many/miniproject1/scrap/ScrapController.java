@@ -62,7 +62,7 @@ public class ScrapController {
     }
 
     // 스크랩한 공고 디테일
-    @GetMapping("api/person/my-page/scraps/{id}")
+    @GetMapping("/api/person/my-page/scraps/{id}")
     public ResponseEntity<?> personScrapDetailForm(@PathVariable Integer id) {
         ScrapResponse.ScrapPostDetailDTO respDTO = scrapService.ScrapPostDetail(id);
 
