@@ -49,7 +49,7 @@ public class ResumeService {
     //이력서 저장
     @Transactional
     public ResumeResponse.ResumeSaveDTO resumeSave (ResumeRequest.ResumeSaveDTO reqDTO, SessionUser sessionUser){
-        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception404("일치하는 유저 정보가 없습니다."));
+        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인해주세요요."));
 
         //이력서 저장
         Resume resume = resumeJPARepository.save(reqDTO.toEntity(user));
