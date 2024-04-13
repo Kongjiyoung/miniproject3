@@ -47,7 +47,7 @@ public class PostService {
     //공고 저장
     @Transactional
     public PostResponse.PostDTO save(PostRequest.SavePostDTO reqDTO, SessionUser sessionUser) {
-        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception404("일치하는 사용자가 없습니다."));
+        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new Exception401("로그인해주세요."));
         Post post = postJPARepository.save(reqDTO.toEntity(user));
 
         List<Skill> skills = new ArrayList<>();
