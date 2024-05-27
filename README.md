@@ -3,6 +3,7 @@
 
 
 ## 1. 시연영상
+https://youtu.be/n3okvtsAnIU
 
 
 ## 2. 발표자료
