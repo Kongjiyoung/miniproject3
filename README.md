@@ -34,7 +34,7 @@ https://youtu.be/n3okvtsAnIU
 |![scrap-person](https://github.com/Kongjiyoung/miniproject3/assets/52162820/9fadf68e-097a-4475-8ea5-3de672ccc0cc)|![scrap-company](https://github.com/Kongjiyoung/miniproject3/assets/52162820/573a3014-7aff-471b-8cd8-ed40746eab8a)|
 |공고 스크랩하기, 스크랩한 공고 확인하기,공고 지원하기|이력서 스크랩하기, 스크랩한 이력서 확인하기,이력서에 공고 제안하기|
 
-### 5. 메인
+### 6. 메인
 |공통|
 |------|
 |![main](https://github.com/Kongjiyoung/miniproject3/assets/52162820/a4d18598-c735-430d-a2b9-41b37b18ab32)|
