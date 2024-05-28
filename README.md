@@ -1,10 +1,44 @@
-![image](https://github.com/Kongjiyoung/miniproject3/assets/153582359/89fcb9d1-5e43-48fd-9bca-81c09a038895)# 미니프로젝트2 - 이력서 관리 사이트 (RestAPI 전환)
+![image](https://github.com/Kongjiyoung/miniproject3/assets/153582359/89fcb9d1-5e43-48fd-9bca-81c09a038895)# 미니프로젝트2 - 취업, 채용 플랫폼 (RestAPI 전환)
 ![logo](https://github.com/Kongjiyoung/miniproject3/assets/153695703/f4d85a34-4c87-40c2-93a9-eaa35503b574)
 
 
 ## 1. 시연영상
 https://youtu.be/n3okvtsAnIU
 
+### 1. 회원가입, 로그인, 회원정보
+|개인|기업|
+|------|---|
+|![user-person](https://github.com/Kongjiyoung/miniproject3/assets/52162820/6ab0ec50-6919-4bfe-b889-c816bfff81eb)|![user-company](https://github.com/Kongjiyoung/miniproject3/assets/52162820/43c7ab28-c8c8-4d39-af4f-8741bb351e57)|
+
+### 2. 이력서, 공고 관리
+|개인|기업|
+|------|---|
+|![resume-person](https://github.com/Kongjiyoung/miniproject3/assets/52162820/099313ea-eb37-4cec-91c9-6d69cf528656)|![post-company](https://github.com/Kongjiyoung/miniproject3/assets/52162820/3e609c8a-3e68-4d39-a5bc-27bd0b5d2eae)|
+|이력서 작성하기, 확인하기, 수정하기|공고 작성하기, 확인하기, 수정하기|
+
+### 3. 지원
+|개인|기업|
+|------|---|
+|![apply-person](https://github.com/Kongjiyoung/miniproject3/assets/52162820/e0077aa4-7cda-45da-aa7b-1a2d35ecfae9)|![apply-company](https://github.com/Kongjiyoung/miniproject3/assets/52162820/4db98875-001f-4848-9532-f22179cff5b4)|
+|지원하기, 지원현황|받은 이력서 확인, 이력서 심사하기|
+
+### 4. 제안
+|개인|기업|
+|------|---|
+|![offer-person](https://github.com/Kongjiyoung/miniproject3/assets/52162820/70061bde-a266-46a9-8dcc-8fa6896b9edb)|![offer-company](https://github.com/Kongjiyoung/miniproject3/assets/52162820/941fc55b-c6c8-479c-954d-4a636d166503)|
+|받은 제안확인하기, 제안의 공고 확인하기|제안하기, 제안한 이력서 확인하기|
+
+### 5. 스크랩
+|개인|기업|
+|------|---|
+|![scrap-person](https://github.com/Kongjiyoung/miniproject3/assets/52162820/9fadf68e-097a-4475-8ea5-3de672ccc0cc)|![scrap-company](https://github.com/Kongjiyoung/miniproject3/assets/52162820/573a3014-7aff-471b-8cd8-ed40746eab8a)|
+|공고 스크랩하기, 스크랩한 공고 확인하기,공고 지원하기|이력서 스크랩하기, 스크랩한 이력서 확인하기,이력서에 공고 제안하기|
+
+### 5. 메인
+|공통|
+|------|
+|![main](https://github.com/Kongjiyoung/miniproject3/assets/52162820/a4d18598-c735-430d-a2b9-41b37b18ab32)|
+|메인 홈페이지 공고, 이력서를 검색, 확인하기, 이력서를 넣어 매칭한 공고 확인하기, 공고를 넣어 매칭한 이력서 확인하기|
 
 ## 2. 발표자료
 [미니프로젝트1조_2차.pptx](https://github.com/Kongjiyoung/miniproject3/files/15450357/1._2.pptx)
